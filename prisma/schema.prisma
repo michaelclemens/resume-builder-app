@@ -1,8 +1,28 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("POSTGRES_PRISMA_URL")
+}
+
+enum SectionType {
+  Personal
+  Experience
+  Education
+}
+
+model Resume {
+  id              String      @default(cuid())    @id
+  name            String
+  sections        Section[]
+  createdAt       DateTime    @default(now())     @map(name: "created_at")
+  updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
+}
+
+model Section {
+  id              String      @default(cuid())    @id
+  resume          Resume      @relation(fields: [resumeId], references: [id])
+  resumeId        String
+  type            SectionType
+  data            Json
+  createdAt       DateTime    @default(now())     @map(name: "created_at")
+  updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
 }
