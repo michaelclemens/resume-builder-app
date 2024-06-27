@@ -1,5 +1,5 @@
 import Loading from "@/app/loading";
-import Resume from "@/components/Resume";
+import Resume from "@/containers/Resume";
 import Link from "next/link";
 import { Suspense } from "react";
 

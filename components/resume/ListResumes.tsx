@@ -1,7 +1,7 @@
 import { getAllResumes } from "@/lib/actions";
 import Link from "next/link";
 
-export default async function ResumeList() {
+export default async function ListResumes() {
     const resumes = await getAllResumes();
 
     if (!resumes) { return }
