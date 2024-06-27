@@ -1,4 +1,5 @@
 import { getEducations } from "@/lib/actions";
+import ListItemEducation from "./ListItemEducation";
 
 export default async function ListEducations({ resumeId }: { resumeId: string }) {
     const educations = await getEducations(resumeId);
@@ -7,11 +8,9 @@ export default async function ListEducations({ resumeId }: { resumeId: string })
 
     return (
         <div>
-            {educations.map((education) => (
-                <div key={education.id}>
-                    {JSON.stringify(education)}
-                </div>
-            ))}
+            {educations
+                .sort((a, b) => (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()))
+                .map((education) => <ListItemEducation key={education.id} {...education} />)}
         </div>
     )
 }

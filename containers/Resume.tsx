@@ -1,5 +1,5 @@
 import Loading from "@/app/loading";
-import AddEducation from "@/components/education/AddEducation";
+import FormEducation from "@/components/education/FormEducation";
 import ListEducations from "@/components/education/ListEducations";
 import { getResume } from "@/lib/actions";
 import { Suspense } from "react";
@@ -13,7 +13,9 @@ export default async function Resume({ id }: { id: string }) {
             <Suspense fallback={<Loading/>}>
                 <ListEducations resumeId={resume.id}/>
             </Suspense>
-            <AddEducation resumeId={resume.id}/>
+            <Suspense fallback={<Loading/>}>
+                <FormEducation resumeId={resume.id}/>
+            </Suspense>
         </div> 
     )
 }
