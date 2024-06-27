@@ -1,13 +1,17 @@
-"use client"
-
-import { Counter } from "@/components/Counter";
+import { Suspense } from "react";
+import { createResumeAction } from "../lib/actions";
+import Loading from "@/app/loading";
+import ResumeList from "@/components/ResumeList";
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <Counter/>
-      </div>
+      <Suspense fallback={<Loading/>}>
+        <ResumeList/>
+      </Suspense>
+      <form action={createResumeAction}>
+        <button type="submit">Create</button>
+      </form>
     </main>
-  );
+  )
 }

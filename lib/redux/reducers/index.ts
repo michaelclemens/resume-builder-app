@@ -1,6 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import counterReducer from './counter';
+import resume from './resume';
 
 export default combineReducers({
-    counter: counterReducer
+    resume
 })
