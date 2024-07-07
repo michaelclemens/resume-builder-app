@@ -12,6 +12,8 @@ model Resume {
   personal        Personal?
   employments     Employment[]
   educations      Education[]
+  skills          Skill[]
+  strengths       Strength[]
   createdAt       DateTime    @default(now())     @map(name: "created_at")
   updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
 }
@@ -64,6 +66,24 @@ model Education {
   endDate         DateTime?   @db.Date            @map(name: "end_date")
   city            String?
   description     String? 
+  createdAt       DateTime    @default(now())     @map(name: "created_at")
+  updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
+}
+
+model Skill {
+  id              String      @default(cuid())    @id
+  resume          Resume      @relation(fields: [resumeId], references: [id])
+  resumeId        String
+  name            String
+  createdAt       DateTime    @default(now())     @map(name: "created_at")
+  updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
+}
+
+model Strength {
+  id              String      @default(cuid())    @id
+  resume          Resume      @relation(fields: [resumeId], references: [id])
+  resumeId        String
+  name            String
   createdAt       DateTime    @default(now())     @map(name: "created_at")
   updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
 }

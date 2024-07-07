@@ -23,7 +23,7 @@ export async function getEducations(resumeId: string) {
     }
 }
 
-export async function addEducationAction(resumeId: string, formData: FormData) {
+export async function addEducation(resumeId: string, formData: FormData) {
     try {
         await prisma.education.create({ data: createEducationDataPayload(resumeId, formData) });
         revalidateTag('educations');
@@ -32,7 +32,7 @@ export async function addEducationAction(resumeId: string, formData: FormData) {
     }
 }
 
-export async function updateEducationAction(id: string, resumeId: string, formData: FormData) {
+export async function updateEducation(id: string, resumeId: string, formData: FormData) {
     try {
         await prisma.education.update({ where: { id }, data: createEducationDataPayload(resumeId, formData) });
         revalidateTag('educations');

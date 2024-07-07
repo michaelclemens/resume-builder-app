@@ -1,6 +1,7 @@
 import EducationSection from "@/components/education/EducationSection";
 import EmploymentSection from "@/components/employment/EmploymentSection";
 import FormPersonal from "@/components/personal/FormPersonal";
+import SkillSection from "@/components/skill/SkillSection";
 import { getResume } from "@/lib/client/resume";
 
 export default async function Resume({ id }: { id: string }) {
@@ -12,6 +13,7 @@ export default async function Resume({ id }: { id: string }) {
             <FormPersonal resumeId={resume.id} personal={resume?.personal || undefined} />
             <EmploymentSection resumeId={resume.id} />
             <EducationSection resumeId={resume.id} />
+            <SkillSection resumeId={resume.id} />
         </div> 
     )
 }

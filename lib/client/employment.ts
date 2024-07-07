@@ -24,7 +24,7 @@ export async function getEmployments(resumeId: string) {
     }
 }
 
-export async function addEmploymentAction(resumeId: string, formData: FormData) {
+export async function addEmployment(resumeId: string, formData: FormData) {
     try {
         await prisma.employment.create({ data: createEmploymentDataPayload(resumeId, formData) });
         revalidateTag('employments');
@@ -33,7 +33,7 @@ export async function addEmploymentAction(resumeId: string, formData: FormData) 
     }
 }
 
-export async function updateEmploymentAction(id: string, resumeId: string, formData: FormData) {
+export async function updateEmployment(id: string, resumeId: string, formData: FormData) {
     try {
         await prisma.employment.update({ where: { id }, data: createEmploymentDataPayload(resumeId, formData) });
         revalidateTag('employments');
@@ -61,7 +61,7 @@ const createEmploymentHistoryDataPayload = (employmentId: string, formData: Form
     }
 }
 
-export async function addEmploymentHistoryAction(employmentId: string, formData: FormData) {
+export async function addEmploymentHistory(employmentId: string, formData: FormData) {
     try {
         await prisma.employmentHistory.create({ data: createEmploymentHistoryDataPayload(employmentId, formData) });
         revalidateTag('employmentHistory');
@@ -70,7 +70,7 @@ export async function addEmploymentHistoryAction(employmentId: string, formData:
     }
 }
 
-export async function updateEmploymentHistoryAction(id: string, employmentId: string, formData: FormData) {
+export async function updateEmploymentHistory(id: string, employmentId: string, formData: FormData) {
     try {
         await prisma.employmentHistory.update({ where: { id }, data: createEmploymentHistoryDataPayload(employmentId, formData) });
         revalidateTag('employmentHistory');
