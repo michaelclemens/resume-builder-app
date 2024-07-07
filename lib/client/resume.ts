@@ -1,7 +1,12 @@
 "use server"
 
 import prisma from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";
+
+export type ResumeWithPersonal = Prisma.ResumeGetPayload<{
+    include: { personal: true }
+}>
 
 export async function createResumeAction() {
     let resume = null;
@@ -18,7 +23,7 @@ export async function createResumeAction() {
 
 export async function getResume(id: string) {
     try {
-        return await prisma.resume.findUniqueOrThrow({ where: { id }})
+        return await prisma.resume.findUniqueOrThrow({ where: { id }, include: { personal: true }})
     } catch (error) {
         console.error(error);
         redirect('/');
