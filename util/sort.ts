@@ -1,0 +1,1 @@
+export const sortByLatestCreated = (a: { createdAt: string | number | Date; }, b: { createdAt: string | number | Date; }) => (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())

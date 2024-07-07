@@ -1,30 +1,26 @@
 "use client"
 
-import { Education } from "@prisma/client";
+import { Employment } from "@prisma/client";
 import { useState } from "react";
-import FormEducation from "./FormEmployment";
-import { deleteEducation } from "@/lib/actions";
+import FormEmployment from "./FormEmployment";
+import { deleteEmployment } from "@/lib/client/employment";
 
-export default function ListItemEducation(education: Education) {
+export default function ListItemEmployment(employment: Employment) {
     const [isEditing, setEditing] = useState(false);
 
     const onDelete = async () => {
-        await deleteEducation(education.id);
+        await deleteEmployment(employment.id);
     }
 
     const renderItem = () => {
         if (isEditing) {
-            return <FormEducation resumeId={education.resumeId} education={education} isEditing onSave={() => setEditing(false)} />
+            return <FormEmployment resumeId={employment.resumeId} employment={employment} isEditing onSave={() => setEditing(false)} />
         }
 
         return (
             <>
-                <div>School: {education.school}</div>
-                <div>Degree: {education.degree}</div>
-                <div>Start Date: {new Date(education.startDate).toDateString()}</div>
-                {education.endDate && <div>End Date: {new Date(education.endDate).toDateString()}</div>}
-                {education.city && <div>City: {education.city}</div>}
-                {education.description && <div>Description: {education.description}</div>}
+                <div>Employer: {employment.employer}</div>
+                {employment.city && <div>City: {employment.city}</div>}
                 <button type="button" onClick={() => setEditing(true)}>Edit</button>
             </>
         )

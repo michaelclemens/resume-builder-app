@@ -1,16 +1,17 @@
-import { getEmployments } from "@/lib/actions";
+import { getEmployments } from "@/lib/client/employment";
 import ListItemEmployment from "./ListItemEmployment";
+import { sortByLatestCreated } from "@/util/sort";
 
 export default async function ListEmployments({ resumeId }: { resumeId: string }) {
-    const educations = await getEducations(resumeId);
+    const employments = await getEmployments(resumeId);
 
-    if (!educations || !educations.length) { return <p>No Educations</p> }
+    if (!employments || !employments.length) { return <p>No Employments</p> }
 
     return (
         <div>
-            {educations
-                .sort((a, b) => (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()))
-                .map((education) => <ListItemEmployment key={education.id} {...education} />)}
+            {employments
+                .sort(sortByLatestCreated)
+                .map((employment) => <ListItemEmployment key={employment.id} {...employment} />)}
         </div>
     )
 }

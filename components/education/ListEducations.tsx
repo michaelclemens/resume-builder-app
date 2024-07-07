@@ -1,5 +1,6 @@
 import { getEducations } from "@/lib/client/education";
 import ListItemEducation from "./ListItemEducation";
+import { sortByLatestCreated } from "@/util/sort";
 
 export default async function ListEducations({ resumeId }: { resumeId: string }) {
     const educations = await getEducations(resumeId);
@@ -9,7 +10,7 @@ export default async function ListEducations({ resumeId }: { resumeId: string })
     return (
         <div>
             {educations
-                .sort((a, b) => (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()))
+                .sort(sortByLatestCreated)
                 .map((education) => <ListItemEducation key={education.id} {...education} />)}
         </div>
     )

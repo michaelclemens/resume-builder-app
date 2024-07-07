@@ -8,7 +8,7 @@ export default async function Resume({ id }: { id: string }) {
     return (
         <div>
             {JSON.stringify(resume)}
-            {/* <EmploymentSection resumeId={resume.id} /> */}
+            <EmploymentSection resumeId={resume.id} />
             <EducationSection resumeId={resume.id} />
         </div> 
     )

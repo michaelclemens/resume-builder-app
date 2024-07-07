@@ -6,12 +6,8 @@ import { revalidateTag } from "next/cache";
 const createEmploymentDataPayload = (resumeId: string, formData: FormData) => {
     return {
         resumeId, 
-        // school: formData.get('school') as string,
-        // degree: formData.get('degree') as string,
-        // startDate: new Date(formData.get('start_date') as string),
-        // endDate: formData.get('end_date') ? new Date(formData.get('end_date') as string) : null,
-        // city: formData.get('city') as string || null,
-        // description: formData.get('description') as string || null
+        employer: formData.get('employer') as string,
+        city: formData.get('city') as string || null
     }
 }
 

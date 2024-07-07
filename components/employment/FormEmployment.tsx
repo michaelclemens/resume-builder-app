@@ -1,38 +1,28 @@
 "use client"
 
-import { addEducationAction, updateEducationAction } from "@/lib/actions";
-import { Education } from "@prisma/client";
+import { addEmploymentAction, updateEmploymentAction } from "@/lib/client/employment";
+import { Employment } from "@prisma/client";
 
-export default function FormEmployment({ resumeId, education, isEditing = false, onSave = () => {} }: { resumeId: string, education?: Education, isEditing?: boolean, onSave?: () => void }) {
-    async function submitFormEducationAction(formData: FormData) {
-        if (isEditing && education?.id) {
-            await updateEducationAction(education?.id, resumeId, formData);
+export default function FormEmployment({ resumeId, employment, isEditing = false, onSave = () => {} }: { resumeId: string, employment?: Employment, isEditing?: boolean, onSave?: () => void }) {
+    async function submitFormEmploymentAction(formData: FormData) {
+        if (isEditing && employment?.id) {
+            await updateEmploymentAction(employment?.id, resumeId, formData);
             onSave();
         } else {
-            await addEducationAction(resumeId, formData);
+            await addEmploymentAction(resumeId, formData);
         }
     }
 
     return (
         <div>
-            <form action={submitFormEducationAction}>
-                <label htmlFor="school">School:</label>
-                <input type="text" name="school" defaultValue={education?.school ?? ''} required />
-
-                <label htmlFor="degree">Degree:</label>
-                <input type="text" name="degree" defaultValue={education?.degree ?? ''} required />
-
-                <label htmlFor="start_date">Start & End Date:</label>
-                <input type="date" name="start_date" defaultValue={education?.startDate ? new Date(education.startDate).toISOString().substring(0, 10) : ''} required />
-                <input type="date" name="end_date" defaultValue={education?.endDate ? new Date(education.endDate).toISOString().substring(0, 10) : ''} />
+            <form action={submitFormEmploymentAction}>
+                <label htmlFor="employer">Employer:</label>
+                <input type="text" name="employer" defaultValue={employment?.employer ?? ''} required />
 
                 <label htmlFor="city">City:</label>
-                <input type="text" name="city" defaultValue={education?.city ?? ''} />
+                <input type="text" name="city" defaultValue={employment?.city ?? ''} />
 
-                <label htmlFor="description">Descripition:</label>
-                <textarea name="description" rows={3} defaultValue={education?.description ?? ''} />
-
-                <button type="submit">{isEditing ? 'Save' : 'Add Education'}</button>
+                <button type="submit">{isEditing ? 'Save' : 'Add Employment'}</button>
             </form>
         </div>
     );
