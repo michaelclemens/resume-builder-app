@@ -14,11 +14,7 @@ export default function ListItemEducation(education: Education) {
 
     const renderItem = () => {
         if (isEditing) {
-            return (
-                <>
-                    <FormEducation resumeId={education.resumeId} education={education} isEditing onSave={() => setEditing(false)} />
-                </>
-            )
+            return <FormEducation resumeId={education.resumeId} education={education} isEditing onSave={() => setEditing(false)} />
         }
 
         return (
