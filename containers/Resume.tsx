@@ -1,8 +1,6 @@
-import Loading from "@/app/loading";
-import FormEducation from "@/components/education/FormEducation";
-import ListEducations from "@/components/education/ListEducations";
-import { getResume } from "@/lib/actions";
-import { Suspense } from "react";
+import EducationSection from "@/components/education/EducationSection";
+import EmploymentSection from "@/components/employment/EmploymentSection";
+import { getResume } from "@/lib/client/resume";
 
 export default async function Resume({ id }: { id: string }) {
     const resume = await getResume(id);
@@ -10,12 +8,8 @@ export default async function Resume({ id }: { id: string }) {
     return (
         <div>
             {JSON.stringify(resume)}
-            <Suspense fallback={<Loading/>}>
-                <ListEducations resumeId={resume.id}/>
-            </Suspense>
-            <Suspense fallback={<Loading/>}>
-                <FormEducation resumeId={resume.id}/>
-            </Suspense>
+            {/* <EmploymentSection resumeId={resume.id} /> */}
+            <EducationSection resumeId={resume.id} />
         </div> 
     )
 }

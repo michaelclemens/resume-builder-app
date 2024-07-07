@@ -1,9 +1,9 @@
 "use client"
 
-import { addEducationAction, updateEducationAction } from "@/lib/client/education";
+import { addEducationAction, updateEducationAction } from "@/lib/actions";
 import { Education } from "@prisma/client";
 
-export default function FormEducation({ resumeId, education, isEditing = false, onSave = () => {} }: { resumeId: string, education?: Education, isEditing?: boolean, onSave?: () => void }) {
+export default function FormEmployment({ resumeId, education, isEditing = false, onSave = () => {} }: { resumeId: string, education?: Education, isEditing?: boolean, onSave?: () => void }) {
     async function submitFormEducationAction(formData: FormData) {
         if (isEditing && education?.id) {
             await updateEducationAction(education?.id, resumeId, formData);

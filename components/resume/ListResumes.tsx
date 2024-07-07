@@ -1,4 +1,4 @@
-import { getAllResumes } from "@/lib/actions";
+import { getAllResumes } from "@/lib/client/resume";
 import Link from "next/link";
 
 export default async function ListResumes() {

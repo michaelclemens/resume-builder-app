@@ -2,8 +2,8 @@
 
 import { Education } from "@prisma/client";
 import { useState } from "react";
-import FormEducation from "./FormEducation";
-import { deleteEducation } from "@/lib/client/education";
+import FormEducation from "./FormEmployment";
+import { deleteEducation } from "@/lib/actions";
 
 export default function ListItemEducation(education: Education) {
     const [isEditing, setEditing] = useState(false);
