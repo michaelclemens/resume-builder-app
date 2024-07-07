@@ -1,10 +1,10 @@
 import Loading from "@/app/loading";
-import ResumePreview from "@/containers/ResumePreview";
+import ResumePreview from "@/components/resume/ResumePreview";
 import { Suspense } from "react";
 
-export default ({ params: {id}}: { params: { id: string }}) => {
+export default ({ params: { id }}: { params: { id: string }}) => {
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main>
             <Suspense fallback={<Loading/>}>
                 <ResumePreview id={id} />
             </Suspense>
