@@ -4,7 +4,7 @@ import { addEducationAction, updateEducationAction } from "@/lib/client/educatio
 import { Education } from "@prisma/client";
 
 export default function FormEducation({ resumeId, education, isEditing = false, onSave = () => {} }: { resumeId: string, education?: Education, isEditing?: boolean, onSave?: () => void }) {
-    async function submitFormEducationAction(formData: FormData) {
+    async function submitFormAction(formData: FormData) {
         if (isEditing && education?.id) {
             await updateEducationAction(education?.id, resumeId, formData);
             onSave();
@@ -15,7 +15,7 @@ export default function FormEducation({ resumeId, education, isEditing = false, 
 
     return (
         <div>
-            <form action={submitFormEducationAction}>
+            <form action={submitFormAction}>
                 <label htmlFor="school">School:</label>
                 <input type="text" name="school" defaultValue={education?.school ?? ''} required />
 

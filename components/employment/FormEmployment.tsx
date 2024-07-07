@@ -4,7 +4,7 @@ import { addEmploymentAction, updateEmploymentAction } from "@/lib/client/employ
 import { Employment } from "@prisma/client";
 
 export default function FormEmployment({ resumeId, employment, isEditing = false, onSave = () => {} }: { resumeId: string, employment?: Employment, isEditing?: boolean, onSave?: () => void }) {
-    async function submitFormEmploymentAction(formData: FormData) {
+    async function submitFormAction(formData: FormData) {
         if (isEditing && employment?.id) {
             await updateEmploymentAction(employment?.id, resumeId, formData);
             onSave();
@@ -15,7 +15,7 @@ export default function FormEmployment({ resumeId, employment, isEditing = false
 
     return (
         <div>
-            <form action={submitFormEmploymentAction}>
+            <form action={submitFormAction}>
                 <label htmlFor="employer">Employer:</label>
                 <input type="text" name="employer" defaultValue={employment?.employer ?? ''} required />
 

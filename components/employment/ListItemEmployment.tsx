@@ -1,11 +1,11 @@
 "use client"
 
-import { Employment } from "@prisma/client";
 import { useState } from "react";
 import FormEmployment from "./FormEmployment";
-import { deleteEmployment } from "@/lib/client/employment";
+import { deleteEmployment, EmploymentWithHistory } from "@/lib/client/employment";
+import HistorySection from "./history/HistorySection";
 
-export default function ListItemEmployment(employment: Employment) {
+export default function ListItemEmployment(employment: EmploymentWithHistory) {
     const [isEditing, setEditing] = useState(false);
 
     const onDelete = async () => {
@@ -21,12 +21,11 @@ export default function ListItemEmployment(employment: Employment) {
             <>
                 <div>Employer: {employment.employer}</div>
                 {employment.city && <div>City: {employment.city}</div>}
+                <div>Employment History: <HistorySection employmentId={employment.id} history={employment.history}/></div>
                 <button type="button" onClick={() => setEditing(true)}>Edit</button>
             </>
         )
     }
-
-    
 
     return (
         <div>

@@ -30,8 +30,6 @@ export default function ListItemEducation(education: Education) {
         )
     }
 
-    
-
     return (
         <div>
             {renderItem()}
