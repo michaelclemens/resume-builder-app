@@ -22,13 +22,14 @@ model Personal {
   id              String      @default(cuid())    @id
   resume          Resume      @relation(fields: [resumeId], references: [id])
   resumeId        String      @unique
-  position        String
   firstName       String
   lastName        String
-  email           String
-  phone           String
-  city            String
-  country         String
+  position        String?
+  summary         String?
+  email           String?
+  phone           String?
+  city            String?
+  country         String?
   createdAt       DateTime    @default(now())     @map(name: "created_at")
   updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
 }
