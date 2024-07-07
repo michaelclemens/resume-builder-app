@@ -9,7 +9,31 @@ datasource db {
 
 model Resume {
   id              String      @default(cuid())    @id
+  employments     Employment[]
   educations      Education[]
+  createdAt       DateTime    @default(now())     @map(name: "created_at")
+  updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
+}
+
+model Employment {
+  id              String      @default(cuid())    @id
+  resume          Resume      @relation(fields: [resumeId], references: [id])
+  resumeId        String
+  employer        String
+  city            String?
+  history         EmploymentHistory[]
+  createdAt       DateTime    @default(now())     @map(name: "created_at")
+  updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
+}
+
+model EmploymentHistory {
+  id              String      @default(cuid())    @id
+  employment      Employment  @relation(fields: [employmentId], references: [id])
+  employmentId    String
+  title           String
+  startDate       DateTime    @db.Date            @map(name: "start_date")
+  endDate         DateTime?   @db.Date            @map(name: "end_date")
+  description     String?
   createdAt       DateTime    @default(now())     @map(name: "created_at")
   updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
 }
