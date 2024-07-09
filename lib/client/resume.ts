@@ -8,6 +8,16 @@ export type ResumeWithPersonal = Prisma.ResumeGetPayload<{
     include: { personal: true }
 }>
 
+export type ResumeFull = Prisma.ResumeGetPayload<{
+    include: { 
+        personal: true,
+        employments: { include: { history: true } },
+        educations: true,
+        skills: true,
+        strengths: true, 
+    }
+}>
+
 export async function createResumeAction() {
     let resume = null;
     try {

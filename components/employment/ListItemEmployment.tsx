@@ -21,7 +21,7 @@ export default function ListItemEmployment(employment: EmploymentWithHistory) {
             <>
                 <div>Employer: {employment.employer}</div>
                 {employment.city && <div>City: {employment.city}</div>}
-                <div>Employment History: <HistorySection employmentId={employment.id} history={employment.history}/></div>
+                <div>Employment History: <HistorySection employmentId={employment.id} history={[...employment.history]}/></div>
                 <button type="button" onClick={() => setEditing(true)}>Edit</button>
             </>
         )

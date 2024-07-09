@@ -18,7 +18,7 @@ const createPersonalDataPayload = (resumeId: string, formData: FormData) => {
 
 export async function addPersonal(resumeId: string, formData: FormData) {
     try {
-        await prisma.personal.create({ data: createPersonalDataPayload(resumeId, formData) });
+        return await prisma.personal.create({ data: createPersonalDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
     }
@@ -26,7 +26,7 @@ export async function addPersonal(resumeId: string, formData: FormData) {
 
 export async function updatePersonal(id: string, resumeId: string, formData: FormData) {
     try {
-        await prisma.personal.update({ where: { id }, data: createPersonalDataPayload(resumeId, formData) });
+        return await prisma.personal.update({ where: { id }, data: createPersonalDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
     }

@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export const store = configureStore({
     reducer: reducers,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck: false
+    }),
     devTools: process.env.NODE_ENV !== "production",
 });
 

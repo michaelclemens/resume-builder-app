@@ -1,17 +1,12 @@
-import Loading from "@/app/loading";
-import { Suspense } from "react";
 import ListEmployments from "./ListEmployments";
 import FormEmployment from "./FormEmployment";
+import { EmploymentWithHistory } from "@/lib/client/employment";
 
-export default function EmploymentSection({ resumeId }: { resumeId: string }) {
+export default function EmploymentSection({ resumeId, employments }: { resumeId: string, employments?: EmploymentWithHistory[] }) {
     return (
         <>
-            <Suspense fallback={<Loading/>}>
-                <ListEmployments resumeId={resumeId}/>
-            </Suspense>
-            <Suspense fallback={<Loading/>}>
-                <FormEmployment resumeId={resumeId}/>
-            </Suspense>
+            <ListEmployments employments={employments ?? []} />
+            <FormEmployment resumeId={resumeId}/>
         </>
     )
 }
