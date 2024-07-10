@@ -23,7 +23,78 @@ export const resumeSlice = createSlice({
     setPersonal: (state, action) => {
       if (!state.resume) return;
       state.resume.personal = action.payload;
-    }
+    },
+    setEmployment: (state, action) => {
+      if (!state.resume) return;
+      const index = state.resume.employments.findIndex(e => e.id === action.payload.id);
+      if (index >= 0) {
+        action.payload.history = [...state.resume.employments[index].history];
+        state.resume.employments[index] = action.payload;
+      } else {
+        action.payload.history = [];
+        state.resume.employments.push(action.payload);
+      }
+    },
+    setEmploymentHistory: (state, action) => {
+      if (!state.resume) return;
+      const employmentId = action.payload.employmentId;
+      const index = state.resume.employments[employmentId].history.findIndex(e => e.id === action.payload.id);
+      if (index >= 0) {
+        state.resume.employments[employmentId].history[index] = action.payload;
+      } else {
+        state.resume.employments[employmentId].history.push(action.payload);
+      }
+    },
+    setEducation: (state, action) => {
+      if (!state.resume) return;
+      const index = state.resume.educations.findIndex(e => e.id === action.payload.id);
+      if (index >= 0) {
+        state.resume.educations[index] = action.payload;
+      } else {
+        state.resume.educations.push(action.payload);
+      }
+    },
+    setSkill: (state, action) => {
+      if (!state.resume) return;
+      const index = state.resume.skills.findIndex(e => e.id === action.payload.id);
+      if (index >= 0) {
+        state.resume.skills[index] = action.payload;
+      } else {
+        state.resume.skills.push(action.payload);
+      }
+    },
+    setStrength: (state, action) => {
+      if (!state.resume) return;
+      const index = state.resume.strengths.findIndex(e => e.id === action.payload.id);
+      if (index >= 0) {
+        state.resume.strengths[index] = action.payload;
+      } else {
+        state.resume.strengths.push(action.payload);
+      }
+    },
+    removeEmployment: (state, action) => {
+      if (!state.resume) return;
+      state.resume.employments = state.resume.employments.filter(e => e.id !== action.payload);
+    },
+    removeEmploymentHistory: (state, action) => {
+      if (!state.resume) return;
+      const index = state.resume.employments.findIndex(e => e.id === action.payload.employmentId);
+      if (index >= 0) {
+        state.resume.employments[index].history = state.resume.employments[index].history.filter(e => e.id !== action.payload.id)
+      }
+    },
+    removeEducation: (state, action) => {
+      if (!state.resume) return;
+      state.resume.educations = state.resume.educations.filter(e => e.id !== action.payload);
+    },
+    removeSkill: (state, action) => {
+      if (!state.resume) return;
+      state.resume.skills = state.resume.skills.filter(e => e.id !== action.payload);
+    },
+    removeStrength: (state, action) => {
+      if (!state.resume) return;
+      state.resume.strengths = state.resume.strengths.filter(e => e.id !== action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -45,6 +116,8 @@ export const resumeSlice = createSlice({
   }
 })
 
-export const { setPersonal } = resumeSlice.actions
+export const { 
+  setPersonal, setEmployment, setEmploymentHistory, setEducation, setSkill, setStrength, removeEmployment, removeEmploymentHistory, removeEducation, removeSkill, removeStrength,
+} = resumeSlice.actions
 
 export default resumeSlice.reducer

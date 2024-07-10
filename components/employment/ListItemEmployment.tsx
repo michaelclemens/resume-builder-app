@@ -2,14 +2,16 @@
 
 import { useState } from "react";
 import FormEmployment from "./FormEmployment";
-import { deleteEmployment, EmploymentWithHistory } from "@/lib/client/employment";
+import { EmploymentWithHistory } from "@/lib/client/employment";
 import HistorySection from "./history/HistorySection";
+import useEmployment from "@/hooks/useEmployment";
 
 export default function ListItemEmployment(employment: EmploymentWithHistory) {
+    const { remove } = useEmployment();
     const [isEditing, setEditing] = useState(false);
 
     const onDelete = async () => {
-        await deleteEmployment(employment.id);
+        await remove(employment);
     }
 
     const renderItem = () => {

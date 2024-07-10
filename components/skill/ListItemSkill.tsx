@@ -3,13 +3,14 @@
 import { Skill } from "@prisma/client";
 import { useState } from "react";
 import FormSkill from "./FormSkill";
-import { deleteSkill } from "@/lib/client/skill";
+import useSkill from "@/hooks/useSkill";
 
 export default function ListItemSkill(skill: Skill) {
+    const { remove } = useSkill();
     const [isEditing, setEditing] = useState(false);
 
     const onDelete = async () => {
-        await deleteSkill(skill.id);
+        await remove(skill);
     }
 
     const renderItem = () => {

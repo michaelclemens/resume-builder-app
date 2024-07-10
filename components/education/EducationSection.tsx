@@ -1,17 +1,12 @@
-import Loading from "@/app/loading";
-import { Suspense } from "react";
 import ListEducations from "./ListEducations";
 import FormEducation from "./FormEducation";
+import { Education } from "@prisma/client";
 
-export default function EducationSection({ resumeId }: { resumeId: string }) {
+export default function EducationSection({ resumeId, educations }: { resumeId: string, educations: Education[] }) {
     return (
         <>
-            <Suspense fallback={<Loading/>}>
-                <ListEducations resumeId={resumeId}/>
-            </Suspense>
-            <Suspense fallback={<Loading/>}>
-                <FormEducation resumeId={resumeId}/>
-            </Suspense>
+            <ListEducations educations={educations} />
+            <FormEducation resumeId={resumeId} />
         </>
     )
 }

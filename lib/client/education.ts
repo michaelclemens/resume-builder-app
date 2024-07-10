@@ -1,7 +1,6 @@
 "use server"
 
 import prisma from "@/lib/prisma";
-import { revalidateTag } from "next/cache";
 
 const createEducationDataPayload = (resumeId: string, formData: FormData) => {
     return {
@@ -25,8 +24,7 @@ export async function getEducations(resumeId: string) {
 
 export async function addEducation(resumeId: string, formData: FormData) {
     try {
-        await prisma.education.create({ data: createEducationDataPayload(resumeId, formData) });
-        revalidateTag('educations');
+        return await prisma.education.create({ data: createEducationDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
     }
@@ -34,8 +32,7 @@ export async function addEducation(resumeId: string, formData: FormData) {
 
 export async function updateEducation(id: string, resumeId: string, formData: FormData) {
     try {
-        await prisma.education.update({ where: { id }, data: createEducationDataPayload(resumeId, formData) });
-        revalidateTag('educations');
+        return await prisma.education.update({ where: { id }, data: createEducationDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
     }
@@ -44,7 +41,6 @@ export async function updateEducation(id: string, resumeId: string, formData: Fo
 export async function deleteEducation(id: string) {
     try {
         await prisma.education.delete({ where: { id } });
-        revalidateTag('educations');
     } catch (error) {
         console.error(error);
     }

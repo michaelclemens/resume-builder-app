@@ -1,17 +1,12 @@
-import Loading from "@/app/loading";
-import { Suspense } from "react";
 import ListSkills from "./ListSkills";
 import FormSkill from "./FormSkill";
+import { Skill } from "@prisma/client";
 
-export default function SkillSection({ resumeId }: { resumeId: string }) {
+export default function SkillSection({ resumeId, skills }: { resumeId: string, skills: Skill[] }) {
     return (
         <>
-            <Suspense fallback={<Loading/>}>
-                <ListSkills resumeId={resumeId}/>
-            </Suspense>
-            <Suspense fallback={<Loading/>}>
-                <FormSkill resumeId={resumeId}/>
-            </Suspense>
+            <ListSkills skills={skills} />
+            <FormSkill resumeId={resumeId} />
         </>
     )
 }

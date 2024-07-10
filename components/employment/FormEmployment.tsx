@@ -1,15 +1,15 @@
 "use client"
 
-import { addEmployment, updateEmployment } from "@/lib/client/employment";
+import useEmployment from "@/hooks/useEmployment";
 import { Employment } from "@prisma/client";
 
 export default function FormEmployment({ resumeId, employment, isEditing = false, onSave = () => {} }: { resumeId: string, employment?: Employment, isEditing?: boolean, onSave?: () => void }) {
+    const { save } = useEmployment();
+
     async function submitFormAction(formData: FormData) {
-        if (isEditing && employment?.id) {
-            await updateEmployment(employment?.id, resumeId, formData);
+        await save(resumeId, formData, employment?.id);
+        if (isEditing) {
             onSave();
-        } else {
-            await addEmployment(resumeId, formData);
         }
     }
 

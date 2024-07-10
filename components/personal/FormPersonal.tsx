@@ -1,23 +1,13 @@
 "use client"
 
-import { addPersonal, updatePersonal } from "@/lib/client/personal";
-import { setPersonal } from "@/lib/redux/reducers/resume";
-import { useAppDispatch } from "@/lib/redux/store";
+import usePersonal from "@/hooks/usePersonal";
 import { Personal } from "@prisma/client";
 
 export default function FormPersonal({ resumeId, personal }: { resumeId: string, personal?: Personal }) {
-    const dispatch = useAppDispatch();
+    const { save } = usePersonal();
 
     async function submitFormAction(formData: FormData) {
-        let newPersonal = null;
-        if (personal?.id) {
-            newPersonal = await updatePersonal(personal.id, personal.resumeId, formData);
-            
-        } else {
-            newPersonal = await addPersonal(resumeId, formData);
-        }
-
-        dispatch(setPersonal(newPersonal))
+        await save(resumeId, formData, personal?.id);
     }
 
     return (

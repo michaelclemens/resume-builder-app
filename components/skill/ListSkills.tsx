@@ -1,11 +1,9 @@
 import ListItemSkill from "./ListItemSkill";
 import { sortByLatestCreated } from "@/util/sort";
-import { getSkills } from "@/lib/client/skill";
+import { Skill } from "@prisma/client";
 
-export default async function ListSkills({ resumeId }: { resumeId: string }) {
-    const skills = await getSkills(resumeId);
-
-    if (!skills || !skills.length) { return <p>No Skills</p> }
+export default function ListSkills({ skills }: { skills: Skill[] }) {
+    if (!skills || !skills.length) return <p>No Skills</p>
 
     return (
         <div>

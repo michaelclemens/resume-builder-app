@@ -1,11 +1,9 @@
 import ListItemStrength from "./ListItemStrength";
 import { sortByLatestCreated } from "@/util/sort";
-import { getStrengths } from "@/lib/client/strength";
+import { Strength } from "@prisma/client";
 
-export default async function ListStrengths({ resumeId }: { resumeId: string }) {
-    const strengths = await getStrengths(resumeId);
-
-    if (!strengths || !strengths.length) { return <p>No Strengths</p> }
+export default function ListStrengths({ strengths }: { strengths: Strength[] }) {
+    if (!strengths || !strengths.length) return <p>No Strengths</p>
 
     return (
         <div>

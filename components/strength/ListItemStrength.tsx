@@ -3,13 +3,14 @@
 import { Strength } from "@prisma/client";
 import { useState } from "react";
 import FormStrength from "./FormStrength";
-import { deleteStrength } from "@/lib/client/strength";
+import useStrength from "@/hooks/useStrength";
 
 export default function ListItemStrength(strength: Strength) {
+    const { remove } = useStrength();
     const [isEditing, setEditing] = useState(false);
 
     const onDelete = async () => {
-        await deleteStrength(strength.id);
+        await remove(strength);
     }
 
     const renderItem = () => {

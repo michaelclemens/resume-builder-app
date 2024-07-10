@@ -1,15 +1,15 @@
 "use client"
 
-import { addSkill, updateSkill } from "@/lib/client/skill";
+import useSkill from "@/hooks/useSkill";
 import { Skill } from "@prisma/client";
 
 export default function FormSkill({ resumeId, skill, isEditing = false, onSave = () => {} }: { resumeId: string, skill?: Skill, isEditing?: boolean, onSave?: () => void }) {
+    const { save } = useSkill();
+
     async function submitFormAction(formData: FormData) {
-        if (isEditing && skill?.id) {
-            await updateSkill(skill?.id, resumeId, formData);
+        await save(resumeId, formData, skill?.id);
+        if (isEditing) {
             onSave();
-        } else {
-            await addSkill(resumeId, formData);
         }
     }
 

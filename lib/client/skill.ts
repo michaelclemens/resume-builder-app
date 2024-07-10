@@ -1,7 +1,6 @@
 "use server"
 
 import prisma from "@/lib/prisma";
-import { revalidateTag } from "next/cache";
 
 const createSkillDataPayload = (resumeId: string, formData: FormData) => {
     return {
@@ -20,8 +19,7 @@ export async function getSkills(resumeId: string) {
 
 export async function addSkill(resumeId: string, formData: FormData) {
     try {
-        await prisma.skill.create({ data: createSkillDataPayload(resumeId, formData) });
-        revalidateTag('skills');
+        return await prisma.skill.create({ data: createSkillDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
     }
@@ -29,8 +27,7 @@ export async function addSkill(resumeId: string, formData: FormData) {
 
 export async function updateSkill(id: string, resumeId: string, formData: FormData) {
     try {
-        await prisma.skill.update({ where: { id }, data: createSkillDataPayload(resumeId, formData) });
-        revalidateTag('skills');
+        return await prisma.skill.update({ where: { id }, data: createSkillDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
     }
@@ -39,7 +36,6 @@ export async function updateSkill(id: string, resumeId: string, formData: FormDa
 export async function deleteSkill(id: string) {
     try {
         await prisma.skill.delete({ where: { id } });
-        revalidateTag('skills');
     } catch (error) {
         console.error(error);
     }

@@ -1,15 +1,15 @@
 "use client"
 
-import { addStrength, updateStrength } from "@/lib/client/strength";
+import useStrength from "@/hooks/useStrength";
 import { Strength } from "@prisma/client";
 
 export default function FormStrength({ resumeId, strength, isEditing = false, onSave = () => {} }: { resumeId: string, strength?: Strength, isEditing?: boolean, onSave?: () => void }) {
+    const { save } = useStrength();
+    
     async function submitFormAction(formData: FormData) {
-        if (isEditing && strength?.id) {
-            await updateStrength(strength?.id, resumeId, formData);
+        await save(resumeId, formData, strength?.id);
+        if (isEditing) {
             onSave();
-        } else {
-            await addStrength(resumeId, formData);
         }
     }
 

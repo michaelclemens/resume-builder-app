@@ -1,17 +1,12 @@
-import Loading from "@/app/loading";
-import { Suspense } from "react";
 import ListStrengths from "./ListStrengths";
 import FormStrength from "./FormStrength";
+import { Strength } from "@prisma/client";
 
-export default function StrengthSection({ resumeId }: { resumeId: string }) {
+export default function StrengthSection({ resumeId, strengths }: { resumeId: string, strengths: Strength[] }) {
     return (
         <>
-            <Suspense fallback={<Loading/>}>
-                <ListStrengths resumeId={resumeId}/>
-            </Suspense>
-            <Suspense fallback={<Loading/>}>
-                <FormStrength resumeId={resumeId}/>
-            </Suspense>
+            <ListStrengths strengths={strengths} />
+            <FormStrength resumeId={resumeId} />
         </>
     )
 }

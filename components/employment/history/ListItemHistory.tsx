@@ -3,13 +3,14 @@
 import { EmploymentHistory } from "@prisma/client";
 import { useState } from "react";
 import FormHistory from "./FormHistory";
-import { deleteEmploymentHistory } from "@/lib/client/employment";
+import useEmploymentHistory from "@/hooks/useEmploymentHistory";
 
 export default function ListItemHistory(history: EmploymentHistory) {
+    const { remove } = useEmploymentHistory();
     const [isEditing, setEditing] = useState(false);
 
     const onDelete = async () => {
-        await deleteEmploymentHistory(history.id);
+        await remove(history);
     }
 
     const renderItem = () => {

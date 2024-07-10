@@ -1,15 +1,15 @@
 "use client"
 
-import { addEducation, updateEducation } from "@/lib/client/education";
+import useEducation from "@/hooks/useEducation";
 import { Education } from "@prisma/client";
 
 export default function FormEducation({ resumeId, education, isEditing = false, onSave = () => {} }: { resumeId: string, education?: Education, isEditing?: boolean, onSave?: () => void }) {
+    const { save } = useEducation();
+
     async function submitFormAction(formData: FormData) {
-        if (isEditing && education?.id) {
-            await updateEducation(education?.id, resumeId, formData);
+        await save(resumeId, formData, education?.id);
+        if (isEditing) {
             onSave();
-        } else {
-            await addEducation(resumeId, formData);
         }
     }
 

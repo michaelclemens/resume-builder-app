@@ -3,13 +3,14 @@
 import { Education } from "@prisma/client";
 import { useState } from "react";
 import FormEducation from "./FormEducation";
-import { deleteEducation } from "@/lib/client/education";
+import useEducation from "@/hooks/useEducation";
 
 export default function ListItemEducation(education: Education) {
+    const { remove } = useEducation();
     const [isEditing, setEditing] = useState(false);
 
     const onDelete = async () => {
-        await deleteEducation(education.id);
+        await remove(education);
     }
 
     const renderItem = () => {

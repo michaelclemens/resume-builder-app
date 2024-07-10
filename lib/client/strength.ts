@@ -1,7 +1,6 @@
 "use server"
 
 import prisma from "@/lib/prisma";
-import { revalidateTag } from "next/cache";
 
 const createStrengthDataPayload = (resumeId: string, formData: FormData) => {
     return {
@@ -20,8 +19,7 @@ export async function getStrengths(resumeId: string) {
 
 export async function addStrength(resumeId: string, formData: FormData) {
     try {
-        await prisma.strength.create({ data: createStrengthDataPayload(resumeId, formData) });
-        revalidateTag('strengths');
+        return await prisma.strength.create({ data: createStrengthDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
     }
@@ -29,8 +27,7 @@ export async function addStrength(resumeId: string, formData: FormData) {
 
 export async function updateStrength(id: string, resumeId: string, formData: FormData) {
     try {
-        await prisma.strength.update({ where: { id }, data: createStrengthDataPayload(resumeId, formData) });
-        revalidateTag('strengths');
+        return await prisma.strength.update({ where: { id }, data: createStrengthDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
     }
@@ -39,7 +36,6 @@ export async function updateStrength(id: string, resumeId: string, formData: For
 export async function deleteStrength(id: string) {
     try {
         await prisma.strength.delete({ where: { id } });
-        revalidateTag('strengths');
     } catch (error) {
         console.error(error);
     }
