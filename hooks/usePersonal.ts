@@ -1,22 +1,32 @@
 import { addPersonal, updatePersonal } from "@/lib/client/personal";
-import { setPersonal } from "@/lib/redux/reducers/resume";
-import { useAppDispatch } from "@/lib/redux/store";
+import { fetchPersonal, clear, selectPersonal, setPersonal } from "@/lib/redux/reducers/personal";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
+import { Resume } from "@prisma/client";
 
 const usePersonal = () => {
+    const { personal, loading, error } = useAppSelector(selectPersonal);
     const dispatch = useAppDispatch();
+
+    const fetch = async(resume: Resume) => {
+        await dispatch(fetchPersonal(resume));
+    }
     
-    const save = async(resumeId: string, formData: FormData, personalId?: string) => {
+    const save = async(resume: Resume, formData: FormData, personalId?: string) => {
         let personal = null;
         if (personalId) {
-            personal = await updatePersonal(personalId, resumeId, formData);
+            personal = await updatePersonal(personalId, resume.id, formData);
         } else {
-            personal = await addPersonal(resumeId, formData);
+            personal = await addPersonal(resume.id, formData);
         }
 
         dispatch(setPersonal(personal))
     }
 
-    return { save }
+    const reset = () => {
+        dispatch(clear());
+    }
+
+    return { personal, loading, error, fetch, save, reset }
 }
 
 export default usePersonal;

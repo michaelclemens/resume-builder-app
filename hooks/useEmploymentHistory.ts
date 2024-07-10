@@ -1,5 +1,5 @@
 import { addEmploymentHistory, deleteEmploymentHistory, updateEmploymentHistory } from "@/lib/client/employmentHistory";
-import { removeEmploymentHistory, setEmploymentHistory } from "@/lib/redux/reducers/resume";
+import { removeEmploymentHistory, setEmploymentHistory } from "@/lib/redux/reducers/employment";
 import { useAppDispatch } from "@/lib/redux/store";
 import { EmploymentHistory } from "@prisma/client";
 

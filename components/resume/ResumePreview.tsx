@@ -1,9 +1,14 @@
-"use server"
+import Loading from "@/app/loading";
+import { selectAllResumeDetails, selectIsLoadingResume } from "@/lib/redux/reducers";
+import { useAppSelector } from "@/lib/redux/store";
 
-import { getFullResume } from "@/lib/client/resume";
+export default function ResumePreview() {
+    const isLoading = useAppSelector(selectIsLoadingResume);
+    const { personal, employments, educations, skills, strengths } = useAppSelector(selectAllResumeDetails);
 
-export default async function ResumePreview({ id }: { id: string }) {
-    const { personal, employments, educations, skills, strengths } = await getFullResume(id);
+    if (isLoading) {
+        return <Loading/>
+    }
 
     return (
         <div className="p-5">
@@ -31,8 +36,8 @@ export default async function ResumePreview({ id }: { id: string }) {
                             </li>
                         )}
                     </ul>
-     
-                    {(skills && skills.length) && (
+                    
+                    {skills.length > 0 && (
                         <>
                             <h3 className="text-xl pb-1 border-b font-semibold">Experience</h3>
                             <ul className="mt-2 mb-10">
@@ -41,7 +46,7 @@ export default async function ResumePreview({ id }: { id: string }) {
                         </>
                     )}
 
-                    {(strengths && strengths.length) && (
+                    {strengths.length > 0 && (
                         <>
                             <h3 className="text-xl pb-1 border-b font-semibold">Strengths</h3>
                             <ul className="mt-2 mb-10">
@@ -54,7 +59,7 @@ export default async function ResumePreview({ id }: { id: string }) {
                     <h2 className="text-2xl pb-1 border-b font-semibold">Profile</h2>
                     <p className="mt-4">{personal?.summary}</p>
                     
-                    {(employments && employments.length) && (
+                    {employments.length > 0 && (
                         <>
                             <h2 className="text-2xl mt-6 pb-1 border-b font-semibold">Employment History</h2>
                             <ul className="mt-2">
@@ -84,7 +89,8 @@ export default async function ResumePreview({ id }: { id: string }) {
                             </ul>
                         </>
                     )}
-                    {(educations && educations.length) && (
+
+                    {educations.length > 0 && (
                         <>
                             <h2 className="text-2xl mt-6 pb-1 border-b font-semibold">Education</h2>
                             <ul className="mt-2">

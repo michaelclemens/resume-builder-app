@@ -1,10 +1,13 @@
 import { addStrength, deleteStrength, updateStrength } from "@/lib/client/strength";
-import { removeStrength, setStrength } from "@/lib/redux/reducers/resume";
-import { useAppDispatch } from "@/lib/redux/store";
-import { Strength } from "@prisma/client";
+import { fetchStrengths, removeStrength, selectStrength, setStrength, clear } from "@/lib/redux/reducers/strength";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
+import { Resume, Strength } from "@prisma/client";
 
 const useStrength = () => {
+    const { strengths, loading, error } = useAppSelector(selectStrength);
     const dispatch = useAppDispatch();
+
+    const fetch = (resume: Resume) => { dispatch(fetchStrengths(resume)) }
     
     const save = async(resumeId: string, formData: FormData, strengthId?: string) => {
         let strength = null;
@@ -22,7 +25,9 @@ const useStrength = () => {
         dispatch(removeStrength(strength.id))
     }
 
-    return { save, remove }
+    const reset = () => { dispatch(clear()) }
+
+    return { strengths, loading, error, fetch, save, remove, reset }
 }
 
 export default useStrength;

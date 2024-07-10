@@ -3,3 +3,4 @@ export { default as EmploymentSection } from "./employment/EmploymentSection";
 export { default as FormPersonal } from "./personal/FormPersonal";
 export { default as SkillSection } from "./skill/SkillSection";
 export { default as StrengthSection } from "./strength/StrengthSection";
+export { default as ResumePreview } from "./resume/ResumePreview";

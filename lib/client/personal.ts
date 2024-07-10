@@ -16,6 +16,15 @@ const createPersonalDataPayload = (resumeId: string, formData: FormData) => {
     }
 }
 
+export async function getPersonal(resumeId: string) {
+    try {
+        return await prisma.personal.findUnique({ where: { resumeId }});
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
 export async function addPersonal(resumeId: string, formData: FormData) {
     try {
         return await prisma.personal.create({ data: createPersonalDataPayload(resumeId, formData) });

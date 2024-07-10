@@ -1,10 +1,13 @@
 import { addEducation, deleteEducation, updateEducation } from "@/lib/client/education";
-import { removeEducation, setEducation } from "@/lib/redux/reducers/resume";
-import { useAppDispatch } from "@/lib/redux/store";
-import { Education } from "@prisma/client";
+import { fetchEducations, removeEducation, selectEducation, setEducation, clear } from "@/lib/redux/reducers/education";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
+import { Education, Resume } from "@prisma/client";
 
 const useEducation = () => {
+    const { educations, loading, error } = useAppSelector(selectEducation);
     const dispatch = useAppDispatch();
+
+    const fetch = (resume: Resume) => { dispatch(fetchEducations(resume)) }
     
     const save = async(resumeId: string, formData: FormData, educationId?: string) => {
         let education = null;
@@ -22,7 +25,9 @@ const useEducation = () => {
         dispatch(removeEducation(education.id))
     }
 
-    return { save, remove }
+    const reset = () => { dispatch(clear()) }
+
+    return { educations, loading, error, fetch, save, remove, reset }
 }
 
 export default useEducation;
