@@ -1,10 +1,21 @@
 import Loading from "@/app/loading";
-import { selectAllResumeDetails, selectIsLoadingResume } from "@/lib/redux/reducers";
+import { selectIsLoadingResume } from "@/lib/redux/reducers";
+import { selectEducationList } from "@/lib/redux/reducers/education";
+import { selectEmploymentList } from "@/lib/redux/reducers/employment";
+import { selectPersonalDetails } from "@/lib/redux/reducers/personal";
+import { selectSkillList } from "@/lib/redux/reducers/skill";
+import { selectStrengthList } from "@/lib/redux/reducers/strength";
 import { useAppSelector } from "@/lib/redux/store";
+import { sortByOrder } from "@/util/sort";
 
 export default function ResumePreview() {
+    const personal = useAppSelector(selectPersonalDetails);
+    const [...employments] = useAppSelector(selectEmploymentList);
+    const [...educations] = useAppSelector(selectEducationList);
+    const [...skills] = useAppSelector(selectSkillList);
+    const [...strengths] = useAppSelector(selectStrengthList);
+
     const isLoading = useAppSelector(selectIsLoadingResume);
-    const { personal, employments, educations, skills, strengths } = useAppSelector(selectAllResumeDetails);
 
     if (isLoading) {
         return <Loading/>
@@ -50,7 +61,7 @@ export default function ResumePreview() {
                         <>
                             <h3 className="text-xl pb-1 border-b font-semibold">Strengths</h3>
                             <ul className="mt-2 mb-10">
-                                {strengths.map(strength => <li key={strength.id} className="px-2 mt-1">{strength.name}</li>)}
+                                {strengths.sort(sortByOrder).map(strength => <li key={strength.id} className="px-2 mt-1">{strength.name}</li>)}
                             </ul>
                         </>
                     )}

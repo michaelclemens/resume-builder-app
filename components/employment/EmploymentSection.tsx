@@ -18,7 +18,7 @@ export default function EmploymentSection({ resume }: { resume: Resume }) {
 
     return (
         <>
-            <ListEmployments employments={[...employments]} />
+            <ListEmployments employments={employments} />
             <FormEmployment resumeId={resume.id} />
         </>
     )

@@ -18,7 +18,7 @@ export default function SkillSection({ resume }: { resume: Resume }) {
     
     return (
         <>
-            <ListSkills skills={[...skills]} />
+            <ListSkills skills={skills} />
             <FormSkill resumeId={resume.id} />
         </>
     )

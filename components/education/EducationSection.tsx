@@ -18,7 +18,7 @@ export default function EducationSection({ resume }: { resume: Resume }) {
     
     return (
         <>
-            <ListEducations educations={[...educations]} />
+            <ListEducations educations={educations} />
             <FormEducation resumeId={resume.id} />
         </>
     )

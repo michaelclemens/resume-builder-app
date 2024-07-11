@@ -1,10 +1,10 @@
-import { addStrength, deleteStrength, updateStrength } from "@/lib/client/strength";
-import { fetchStrengths, removeStrength, selectStrength, setStrength, clear } from "@/lib/redux/reducers/strength";
+import { addStrength, deleteStrength, setSortOrders, updateStrength } from "@/lib/client/strength";
+import { fetchStrengths, removeStrength, selectStrength, setStrength, clear, setStrengths } from "@/lib/redux/reducers/strength";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Resume, Strength } from "@prisma/client";
 
 const useStrength = () => {
-    const { strengths, loading, error } = useAppSelector(selectStrength);
+    const { strengths: [...strengths], loading, error } = useAppSelector(selectStrength);
     const dispatch = useAppDispatch();
 
     const fetch = (resume: Resume) => { dispatch(fetchStrengths(resume)) }
@@ -25,9 +25,15 @@ const useStrength = () => {
         dispatch(removeStrength(strength.id))
     }
 
+    const saveSortOrder = (items: Strength[]) => {
+        const newItems = items.map((strength, index) => ({ ...strength, order: index + 1 }));
+        setSortOrders(newItems);
+        dispatch(setStrengths(newItems))
+    }
+
     const reset = () => { dispatch(clear()) }
 
-    return { strengths, loading, error, fetch, save, remove, reset }
+    return { strengths, loading, error, fetch, save, remove, saveSortOrder, reset }
 }
 
 export default useStrength;

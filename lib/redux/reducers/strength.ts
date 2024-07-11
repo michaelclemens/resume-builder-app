@@ -32,6 +32,9 @@ export const slice = createSlice({
     removeStrength: (state, action) => {
       state.strengths = state.strengths.filter(strength => strength.id !== action.payload);
     },
+    setStrengths: (state, action) => {
+      state.strengths = action.payload;
+    },
     clear: () => initialState
   },
   extraReducers: (builder) => {
@@ -55,7 +58,7 @@ export const slice = createSlice({
 })
 
 export const { 
-  setStrength, removeStrength, clear
+  setStrength, removeStrength, clear, setStrengths
 } = slice.actions;
 
 export const selectStrength = (state: RootState) => state.strength;

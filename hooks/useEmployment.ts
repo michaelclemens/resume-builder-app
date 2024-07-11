@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Employment, Resume } from "@prisma/client";
 
 const useEmployment = () => {
-    const { employments, loading, error } = useAppSelector(selectEmployment);
+    const { employments: [...employments], loading, error } = useAppSelector(selectEmployment);
     const dispatch = useAppDispatch();
 
     const fetch = (resume: Resume) => { dispatch(fetchEmployments(resume)) }

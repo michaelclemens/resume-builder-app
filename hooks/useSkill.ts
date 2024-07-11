@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Resume, Skill } from "@prisma/client";
 
 const useSkill = () => {
-    const { skills, loading, error } = useAppSelector(selectSkill);
+    const { skills: [...skills], loading, error } = useAppSelector(selectSkill);
     const dispatch = useAppDispatch();
 
     const fetch = (resume: Resume) => { dispatch(fetchSkills(resume)) }

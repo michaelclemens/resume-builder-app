@@ -18,7 +18,7 @@ export default function StrengthSection({ resume }: { resume: Resume }) {
     
     return (
         <>
-            <ListStrengths strengths={[...strengths]} />
+            <ListStrengths strengths={strengths} />
             <FormStrength resumeId={resume.id} />
         </>
     )
