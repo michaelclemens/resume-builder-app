@@ -17,9 +17,10 @@ export default function EducationSection({ resume }: { resume: Resume }) {
     if (error) return <p>Error: {error}</p>
     
     return (
-        <>
+        <div className="mb-5">
+            <h1 className="text-xl pb-1 border-b font-semibold mb-1">Education</h1>
             <ListEducations educations={educations} />
             <FormEducation resumeId={resume.id} />
-        </>
+        </div>
     )
 }

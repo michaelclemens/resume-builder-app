@@ -41,6 +41,7 @@ model Employment {
   employer        String
   city            String?
   history         EmploymentHistory[]
+  order           Int?
   createdAt       DateTime    @default(now())     @map(name: "created_at")
   updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
 }
@@ -53,6 +54,7 @@ model EmploymentHistory {
   startDate       DateTime    @db.Date            @map(name: "start_date")
   endDate         DateTime?   @db.Date            @map(name: "end_date")
   description     String?
+  order           Int?
   createdAt       DateTime    @default(now())     @map(name: "created_at")
   updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
 }
@@ -67,6 +69,7 @@ model Education {
   endDate         DateTime?   @db.Date            @map(name: "end_date")
   city            String?
   description     String? 
+  order           Int?
   createdAt       DateTime    @default(now())     @map(name: "created_at")
   updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
 }
@@ -76,6 +79,7 @@ model Skill {
   resume          Resume      @relation(fields: [resumeId], references: [id])
   resumeId        String
   name            String
+  order           Int?
   createdAt       DateTime    @default(now())     @map(name: "created_at")
   updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
 }

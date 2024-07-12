@@ -36,8 +36,8 @@ export async function updateStrength(id: string, resumeId: string, formData: For
 
 export async function setSortOrders(strengths: Strength[]) {
     try {
-        strengths.forEach((strength) => {
-            prisma.strength.update({ where: { id: strength.id }, data: { order: strength.order }})
+        strengths.forEach(async(strength) => {
+            await prisma.strength.update({ where: { id: strength.id }, data: { order: strength.order }})
         })
     } catch (error) {
         console.error(error);

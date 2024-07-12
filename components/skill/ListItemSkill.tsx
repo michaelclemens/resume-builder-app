@@ -20,7 +20,7 @@ export default function ListItemSkill(skill: Skill) {
 
         return (
             <>
-                <div>{skill.name}</div>
+                {skill.name}
                 <button type="button" onClick={() => setEditing(true)}>Edit</button>
             </>
         )

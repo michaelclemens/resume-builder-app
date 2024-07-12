@@ -17,9 +17,10 @@ export default function StrengthSection({ resume }: { resume: Resume }) {
     if (error) return <p>Error: {error}</p>
     
     return (
-        <>
+        <div className="mb-5">
+            <h1 className="text-xl pb-1 border-b font-semibold mb-1">Skills</h1>
             <ListStrengths strengths={strengths} />
             <FormStrength resumeId={resume.id} />
-        </>
+        </div>
     )
 }

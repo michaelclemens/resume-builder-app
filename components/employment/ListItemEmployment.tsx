@@ -21,16 +21,17 @@ export default function ListItemEmployment(employment: EmploymentWithHistory) {
 
         return (
             <>
-                <div>Employer: {employment.employer}</div>
-                {employment.city && <div>City: {employment.city}</div>}
-                <div>Employment History: <HistorySection employmentId={employment.id} history={[...employment.history]}/></div>
+                <span>Employer: {employment.employer}</span>
+                {employment.city && <span>City: {employment.city}</span>}
+                <h2 className="text-l font-semibold my-1">Employment History:</h2>
+                <HistorySection employmentId={employment.id} histories={[...employment.history]}/>
                 <button type="button" onClick={() => setEditing(true)}>Edit</button>
             </>
         )
     }
 
     return (
-        <div>
+        <div className="mb-5">
             {renderItem()}
             <button type="button" onClick={onDelete}>Delete</button>
         </div>

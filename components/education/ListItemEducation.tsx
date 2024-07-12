@@ -20,12 +20,12 @@ export default function ListItemEducation(education: Education) {
 
         return (
             <>
-                <div>School: {education.school}</div>
-                <div>Degree: {education.degree}</div>
-                <div>Start Date: {new Date(education.startDate).toDateString()}</div>
-                {education.endDate && <div>End Date: {new Date(education.endDate).toDateString()}</div>}
-                {education.city && <div>City: {education.city}</div>}
-                {education.description && <div>Description: {education.description}</div>}
+                <span>School: {education.school}</span>
+                <span>Degree: {education.degree}</span>
+                <span>Start Date: {new Date(education.startDate).toDateString()}</span>
+                {education.endDate && <span>End Date: {new Date(education.endDate).toDateString()}</span>}
+                {education.city && <span>City: {education.city}</span>}
+                {education.description && <span>Description: {education.description}</span>}
                 <button type="button" onClick={() => setEditing(true)}>Edit</button>
             </>
         )

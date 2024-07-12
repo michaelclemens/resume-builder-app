@@ -1,6 +1,7 @@
 "use server"
 
 import prisma from "@/lib/prisma";
+import { EmploymentHistory } from "@prisma/client";
 
 const createEmploymentHistoryDataPayload = (employmentId: string, formData: FormData) => {
     return {
@@ -23,6 +24,16 @@ export async function addEmploymentHistory(employmentId: string, formData: FormD
 export async function updateEmploymentHistory(id: string, employmentId: string, formData: FormData) {
     try {
         return await prisma.employmentHistory.update({ where: { id }, data: createEmploymentHistoryDataPayload(employmentId, formData) });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export async function setSortOrders(histories: EmploymentHistory[]) {
+    try {
+        histories.forEach(async(history) => {
+            await prisma.employmentHistory.update({ where: { id: history.id }, data: { order: history.order }})
+        })
     } catch (error) {
         console.error(error);
     }

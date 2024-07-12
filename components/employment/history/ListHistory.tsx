@@ -1,15 +1,22 @@
-import { sortByLatestCreated } from "@/util/sort";
+import { sortByOrder } from "@/util/sort";
 import { EmploymentHistory } from "@prisma/client";
 import ListItemHistory from "./ListItemHistory";
+import SortableVerticalList from "@/components/SortableVerticalList";
+import SortableItem from "@/components/SortableItem";
+import useEmploymentHistory from "@/hooks/useEmploymentHistory";
 
-export default function ListHistory({ history }: { history: EmploymentHistory[] }) {
-    if (!history || !history.length) return <p>No Employment History</p>
+export default function ListHistory({ employmentId, histories }: { employmentId: string, histories: EmploymentHistory[] }) {
+    const { saveSortOrder } = useEmploymentHistory();
+
+    if (!histories || !histories.length) return <p>No Employment History</p>
 
     return (
-        <div>
-            {history
-                .sort(sortByLatestCreated)
-                .map((item) => <ListItemHistory key={item.id} {...item} />)}
-        </div>
+        <SortableVerticalList items={histories} onNewSortOrder={(items) => saveSortOrder(employmentId, items)}>
+            {histories.sort(sortByOrder).map((history) => (
+                <SortableItem key={history.id} id={history.id}>
+                    <ListItemHistory {...history} />
+                </SortableItem>
+            ))}
+        </SortableVerticalList>
     )
 }

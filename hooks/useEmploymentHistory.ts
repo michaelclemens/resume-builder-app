@@ -1,7 +1,7 @@
-import { addEmploymentHistory, deleteEmploymentHistory, updateEmploymentHistory } from "@/lib/client/employmentHistory";
-import { removeEmploymentHistory, setEmploymentHistory } from "@/lib/redux/reducers/employment";
+import { addEmploymentHistory, deleteEmploymentHistory, setSortOrders, updateEmploymentHistory } from "@/lib/client/employmentHistory";
+import { removeEmploymentHistory, setEmploymentHistories, setEmploymentHistory } from "@/lib/redux/reducers/employment";
 import { useAppDispatch } from "@/lib/redux/store";
-import { EmploymentHistory } from "@prisma/client";
+import { Employment, EmploymentHistory } from "@prisma/client";
 
 const useEmploymentHistory = () => {
     const dispatch = useAppDispatch();
@@ -22,7 +22,12 @@ const useEmploymentHistory = () => {
         dispatch(removeEmploymentHistory({ id: history.id, employmentId: history.employmentId}))
     }
 
-    return { save, remove }
+    const saveSortOrder = async(employmentId: string, items: EmploymentHistory[]) => {
+        dispatch(setEmploymentHistories({ employmentId, items }));
+        await setSortOrders(items);
+    }
+
+    return { save, remove, saveSortOrder }
 }
 
 export default useEmploymentHistory;

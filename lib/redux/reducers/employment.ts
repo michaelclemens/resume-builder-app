@@ -32,7 +32,7 @@ export const slice = createSlice({
       }
     },
     setEmploymentHistory: (state, action) => {
-      const employmentId = action.payload.employmentId;
+      const { employmentId } = action.payload;
       const index = state.employments[employmentId].history.findIndex(history => history.id === action.payload.id);
       if (index >= 0) {
         state.employments[employmentId].history[index] = action.payload;
@@ -48,6 +48,14 @@ export const slice = createSlice({
       if (index >= 0) {
         state.employments[index].history = state.employments[index].history.filter(history => history.id !== action.payload.id)
       }
+    },
+    setEmployments: (state, action) => {
+      state.employments = action.payload;
+    },
+    setEmploymentHistories: (state, action) => {
+      const { employmentId, items } = action.payload;
+      const index = state.employments.findIndex(employment => employment.id === employmentId);
+      state.employments[index].history = items;
     },
     clear: () => initialState
   },
@@ -72,7 +80,7 @@ export const slice = createSlice({
 })
 
 export const { 
-  setEmployment, setEmploymentHistory, removeEmployment, removeEmploymentHistory, clear
+  setEmployment, setEmploymentHistory, removeEmployment, removeEmploymentHistory, setEmployments, setEmploymentHistories, clear
 } = slice.actions;
 
 export const selectEmployment = (state: RootState) => state.employment;

@@ -1,6 +1,7 @@
 "use server"
 
 import prisma from "@/lib/prisma";
+import { Skill } from "@prisma/client";
 
 const createSkillDataPayload = (resumeId: string, formData: FormData) => {
     return {
@@ -28,6 +29,16 @@ export async function addSkill(resumeId: string, formData: FormData) {
 export async function updateSkill(id: string, resumeId: string, formData: FormData) {
     try {
         return await prisma.skill.update({ where: { id }, data: createSkillDataPayload(resumeId, formData) });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export async function setSortOrders(skills: Skill[]) {
+    try {
+        skills.forEach(async(skill) => {
+            await prisma.skill.update({ where: { id: skill.id }, data: { order: skill.order }})
+        })
     } catch (error) {
         console.error(error);
     }

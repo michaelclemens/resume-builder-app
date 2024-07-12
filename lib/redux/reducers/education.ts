@@ -32,6 +32,9 @@ export const slice = createSlice({
     removeEducation: (state, action) => {
       state.educations = state.educations.filter(education => education.id !== action.payload);
     },
+    setEducations: (state, action) => {
+      state.educations = action.payload;
+    },
     clear: () => initialState
   },
   extraReducers: (builder) => {
@@ -55,7 +58,7 @@ export const slice = createSlice({
 })
 
 export const { 
-  setEducation, removeEducation, clear
+  setEducation, removeEducation, setEducations, clear
 } = slice.actions;
 
 export const selectEducation = (state: RootState) => state.education;

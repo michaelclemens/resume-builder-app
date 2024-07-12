@@ -32,6 +32,9 @@ export const slice = createSlice({
     removeSkill: (state, action) => {
       state.skills = state.skills.filter(skill => skill.id !== action.payload);
     },
+    setSkills: (state, action) => {
+      state.skills = action.payload;
+    },
     clear: () => initialState
   },
   extraReducers: (builder) => {
@@ -55,7 +58,7 @@ export const slice = createSlice({
 })
 
 export const { 
-  setSkill, removeSkill, clear
+  setSkill, removeSkill, clear, setSkills
 } = slice.actions;
 
 export const selectSkill = (state: RootState) => state.skill;

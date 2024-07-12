@@ -25,10 +25,9 @@ const useStrength = () => {
         dispatch(removeStrength(strength.id))
     }
 
-    const saveSortOrder = (items: Strength[]) => {
-        const newItems = items.map((strength, index) => ({ ...strength, order: index + 1 }));
-        setSortOrders(newItems);
-        dispatch(setStrengths(newItems))
+    const saveSortOrder = async(items: Strength[]) => {
+        dispatch(setStrengths(items))
+        await setSortOrders(items);
     }
 
     const reset = () => { dispatch(clear()) }

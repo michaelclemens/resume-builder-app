@@ -1,5 +1,5 @@
-import { addEducation, deleteEducation, updateEducation } from "@/lib/client/education";
-import { fetchEducations, removeEducation, selectEducation, setEducation, clear } from "@/lib/redux/reducers/education";
+import { addEducation, deleteEducation, setSortOrders, updateEducation } from "@/lib/client/education";
+import { fetchEducations, removeEducation, selectEducation, setEducation, clear, setEducations } from "@/lib/redux/reducers/education";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Education, Resume } from "@prisma/client";
 
@@ -25,9 +25,14 @@ const useEducation = () => {
         dispatch(removeEducation(education.id))
     }
 
+    const saveSortOrder = async(items: Education[]) => {
+        dispatch(setEducations(items))
+        await setSortOrders(items);
+    }
+
     const reset = () => { dispatch(clear()) }
 
-    return { educations, loading, error, fetch, save, remove, reset }
+    return { educations, loading, error, fetch, save, remove, saveSortOrder, reset }
 }
 
 export default useEducation;

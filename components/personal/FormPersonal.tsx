@@ -21,7 +21,8 @@ export default function FormPersonal({ resume }: { resume: Resume }) {
     if (error) return <p>Error: {error}</p>
 
     return (
-        <div>
+        <div className="mb-5">
+            <h1 className="text-xl pb-1 border-b font-semibold mb-1">Personal</h1>
             <form action={submitFormAction}>
                 <label htmlFor="first_name">First Name:</label>
                 <input type="text" name="first_name" defaultValue={personal?.firstName ?? ''} required />

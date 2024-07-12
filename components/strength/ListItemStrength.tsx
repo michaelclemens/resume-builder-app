@@ -4,20 +4,10 @@ import { Strength } from "@prisma/client";
 import { useState } from "react";
 import FormStrength from "./FormStrength";
 import useStrength from "@/hooks/useStrength";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from '@dnd-kit/utilities';
 
 export default function ListItemStrength({ strength }: { strength: Strength }) {
-    const {
-        attributes, listeners, setNodeRef, transform, transition,
-    } = useSortable({ id: strength.id });
     const { remove } = useStrength();
     const [isEditing, setEditing] = useState(false);
-
-    const style = {
-        transform: CSS.Transform.toString(transform),
-        transition,
-    };
 
     const onDelete = async () => {
         await remove(strength);
@@ -37,7 +27,7 @@ export default function ListItemStrength({ strength }: { strength: Strength }) {
     }
 
     return (
-        <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+        <div>
             {renderItem()}
             <button type="button" onClick={onDelete}>Delete</button>
         </div>
