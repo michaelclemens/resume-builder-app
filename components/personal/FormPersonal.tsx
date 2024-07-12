@@ -4,6 +4,7 @@ import Loading from "@/app/loading";
 import usePersonal from "@/hooks/usePersonal";
 import { Resume } from "@prisma/client";
 import { useEffect } from "react";
+import TextEditor from "../TextEditor";
 
 export default function FormPersonal({ resume }: { resume: Resume }) {
     const { personal, loading, error, fetch, save, reset } = usePersonal();
@@ -34,7 +35,7 @@ export default function FormPersonal({ resume }: { resume: Resume }) {
                 <input type="text" name="position" defaultValue={personal?.position ?? ''} />
 
                 <label htmlFor="summary">Summary:</label>
-                <textarea name="summary" rows={3} defaultValue={personal?.summary ?? ''} />
+                <TextEditor name="summary" defaultValue={personal?.summary ?? ''} />
 
                 <label htmlFor="email">Email:</label>
                 <input type="email" name="email" defaultValue={personal?.email ?? ''} />

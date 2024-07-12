@@ -7,6 +7,9 @@ import { selectSkillList } from "@/lib/redux/reducers/skill";
 import { selectStrengthList } from "@/lib/redux/reducers/strength";
 import { useAppSelector } from "@/lib/redux/store";
 import { sortByOrder } from "@/util/sort";
+import { sanitize } from 'isomorphic-dompurify';
+
+const createMarkup = (dirty: string) => ({ __html: sanitize(dirty) })
 
 export default function ResumePreview() {
     const personal = useAppSelector(selectPersonalDetails);
@@ -68,7 +71,7 @@ export default function ResumePreview() {
                 </div>
                 <div className="w-4/6">
                     <h2 className="text-2xl pb-1 border-b font-semibold">Profile</h2>
-                    <p className="mt-4">{personal?.summary}</p>
+                    <div className="no-tailwindcss mt-4" dangerouslySetInnerHTML={createMarkup(personal?.summary ?? '')}/>
                     
                     {employments.length > 0 && (
                         <>

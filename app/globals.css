@@ -34,4 +34,8 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  .no-tailwindcss,
+  .no-tailwindcss * {
+    all: revert;
+  }
 }
