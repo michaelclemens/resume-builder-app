@@ -7,9 +7,7 @@ import { selectSkillList } from "@/lib/redux/reducers/skill";
 import { selectStrengthList } from "@/lib/redux/reducers/strength";
 import { useAppSelector } from "@/lib/redux/store";
 import { sortByOrder } from "@/util/sort";
-import { sanitize } from 'isomorphic-dompurify';
-
-const createMarkup = (dirty: string) => ({ __html: sanitize(dirty) })
+import RenderHtml from "@/components/RenderHtml";
 
 export default function ResumePreview() {
     const personal = useAppSelector(selectPersonalDetails);
@@ -71,7 +69,9 @@ export default function ResumePreview() {
                 </div>
                 <div className="w-4/6">
                     <h2 className="text-2xl pb-1 border-b font-semibold">Profile</h2>
-                    <div className="no-tailwindcss mt-4" dangerouslySetInnerHTML={createMarkup(personal?.summary ?? '')}/>
+                    <div className="mt-4">
+                        <RenderHtml html={personal?.summary ?? ''} />
+                    </div>
                     
                     {employments.length > 0 && (
                         <>
@@ -93,7 +93,7 @@ export default function ResumePreview() {
                                                             {new Date(history.startDate).toDateString()}
                                                             {history.endDate && ` - ${new Date(history.endDate).toDateString()}`}
                                                         </p>
-                                                        <p className="text-justify">{history.description}</p>
+                                                        {history.description && <div className="text-justify"><RenderHtml html={history.description ?? ''} /></div>}
                                                     </li>
                                                 ))}
                                             </ul>
@@ -118,7 +118,7 @@ export default function ResumePreview() {
                                             {new Date(education.startDate).toDateString()}
                                             {education.endDate && ` - ${new Date(education.endDate).toDateString()}`}
                                         </p>
-                                        {education.description && <p className="text-justify">{education.description}</p>}
+                                        {education.description && <div className="text-justify"><RenderHtml html={education.description ?? ''} /></div>}
                                     </li>
                                 ))}
                             </ul>

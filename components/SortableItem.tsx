@@ -12,7 +12,8 @@ export default function SortableItem({ id, children }: { id: string, children: R
     };
 
     return (
-        <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+        <div ref={setNodeRef} style={style}>
+            <span {...listeners} {...attributes}>::</span>
             {children}
         </div>
     )

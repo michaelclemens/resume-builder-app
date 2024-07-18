@@ -23,7 +23,6 @@ export default function ListItemHistory(history: EmploymentHistory) {
                 <span>Title: {history.title}</span>
                 <span>Start Date: {new Date(history.startDate).toDateString()}</span>
                 {history.endDate && <span>End Date: {new Date(history.endDate).toDateString()}</span>}
-                {history.description && <span>Description: {history.description}</span>}
                 <button type="button" onClick={() => setEditing(true)}>Edit</button>
             </>
         )

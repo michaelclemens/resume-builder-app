@@ -27,9 +27,9 @@ export default function ListItemSkill(skill: Skill) {
     }
 
     return (
-        <div>
+        <span>
             {renderItem()}
             <button type="button" onClick={onDelete}>Delete</button>
-        </div>
+        </span>
     )
 }

@@ -25,7 +25,6 @@ export default function ListItemEducation(education: Education) {
                 <span>Start Date: {new Date(education.startDate).toDateString()}</span>
                 {education.endDate && <span>End Date: {new Date(education.endDate).toDateString()}</span>}
                 {education.city && <span>City: {education.city}</span>}
-                {education.description && <span>Description: {education.description}</span>}
                 <button type="button" onClick={() => setEditing(true)}>Edit</button>
             </>
         )

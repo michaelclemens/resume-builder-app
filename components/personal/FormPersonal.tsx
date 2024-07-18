@@ -3,8 +3,8 @@
 import Loading from "@/app/loading";
 import usePersonal from "@/hooks/usePersonal";
 import { Resume } from "@prisma/client";
-import { useEffect } from "react";
-import TextEditor from "../TextEditor";
+import { FormEvent, useEffect } from "react";
+import RichTextEditor from "../RichTextEditor";
 
 export default function FormPersonal({ resume }: { resume: Resume }) {
     const { personal, loading, error, fetch, save, reset } = usePersonal();
@@ -14,7 +14,9 @@ export default function FormPersonal({ resume }: { resume: Resume }) {
         return () => reset()
     }, [resume.id])
 
-    async function submitFormAction(formData: FormData) {
+    const onSubmit = async(event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
         await save(resume, formData, personal?.id);
     }
 
@@ -24,7 +26,7 @@ export default function FormPersonal({ resume }: { resume: Resume }) {
     return (
         <div className="mb-5">
             <h1 className="text-xl pb-1 border-b font-semibold mb-1">Personal</h1>
-            <form action={submitFormAction}>
+            <form onSubmit={onSubmit}>
                 <label htmlFor="first_name">First Name:</label>
                 <input type="text" name="first_name" defaultValue={personal?.firstName ?? ''} required />
 
@@ -35,7 +37,7 @@ export default function FormPersonal({ resume }: { resume: Resume }) {
                 <input type="text" name="position" defaultValue={personal?.position ?? ''} />
 
                 <label htmlFor="summary">Summary:</label>
-                <TextEditor name="summary" defaultValue={personal?.summary ?? ''} />
+                <RichTextEditor name="summary" defaultValue={personal?.summary ?? ''} />
 
                 <label htmlFor="email">Email:</label>
                 <input type="email" name="email" defaultValue={personal?.email ?? ''} />

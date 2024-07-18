@@ -33,11 +33,12 @@ export const slice = createSlice({
     },
     setEmploymentHistory: (state, action) => {
       const { employmentId } = action.payload;
-      const index = state.employments[employmentId].history.findIndex(history => history.id === action.payload.id);
-      if (index >= 0) {
-        state.employments[employmentId].history[index] = action.payload;
+      const index = state.employments.findIndex(employment => employment.id === employmentId);
+      const historyIndex = state.employments[index].history.findIndex(history => history.id === action.payload.id);
+      if (historyIndex >= 0) {
+        state.employments[index].history[historyIndex] = action.payload;
       } else {
-        state.employments[employmentId].history.push(action.payload);
+        state.employments[index].history.push(action.payload);
       }
     },
     removeEmployment: (state, action) => {

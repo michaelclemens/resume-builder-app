@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { EmploymentHistory } from "@prisma/client";
+import { sanitize } from "isomorphic-dompurify";
 
 const createEmploymentHistoryDataPayload = (employmentId: string, formData: FormData) => {
     return {
@@ -9,7 +10,7 @@ const createEmploymentHistoryDataPayload = (employmentId: string, formData: Form
         title: formData.get('title') as string,
         startDate: new Date(formData.get('start_date') as string),
         endDate: formData.get('end_date') ? new Date(formData.get('end_date') as string) : null,
-        description: formData.get('description') as string || null
+        description: sanitize(formData.get('description') as string) || null
     }
 }
 

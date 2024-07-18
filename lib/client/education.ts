@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { Education } from "@prisma/client";
+import { sanitize } from "isomorphic-dompurify";
 
 const createEducationDataPayload = (resumeId: string, formData: FormData) => {
     return {
@@ -11,7 +12,7 @@ const createEducationDataPayload = (resumeId: string, formData: FormData) => {
         startDate: new Date(formData.get('start_date') as string),
         endDate: formData.get('end_date') ? new Date(formData.get('end_date') as string) : null,
         city: formData.get('city') as string || null,
-        description: formData.get('description') as string || null
+        description: sanitize(formData.get('description') as string) || null
     }
 }
 
