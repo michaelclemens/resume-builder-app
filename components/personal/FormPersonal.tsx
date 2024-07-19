@@ -4,7 +4,8 @@ import Loading from "@/app/loading";
 import usePersonal from "@/hooks/usePersonal";
 import { Resume } from "@prisma/client";
 import { FormEvent, useEffect } from "react";
-import RichTextEditor from "../RichTextEditor";
+import InputText from '../InputText';
+import SubmitButton from '../SubmitButton';
 
 export default function FormPersonal({ resume }: { resume: Resume }) {
     const { personal, loading, error, fetch, save, reset } = usePersonal();
@@ -25,33 +26,24 @@ export default function FormPersonal({ resume }: { resume: Resume }) {
 
     return (
         <div className="mb-5">
-            <h1 className="text-xl pb-1 border-b font-semibold mb-1">Personal</h1>
+            <h1 className="text-xl pb-1 border-b font-semibold mb-3">Personal</h1>
             <form onSubmit={onSubmit}>
-                <label htmlFor="first_name">First Name:</label>
-                <input type="text" name="first_name" defaultValue={personal?.firstName ?? ''} required />
+                <div className="grid grid-cols-2 gap-5">
+                    <InputText name="first_name" label="First Name" defaultValue={personal.firstName} required />
+                    <InputText name="last_name" label="Last Name" defaultValue={personal.lastName} required />
+                </div>
+                <InputText name="position" label="Position" defaultValue={personal.position ?? undefined} />
+                <InputText type="rte" name="summary" label="Summary" defaultValue={personal.summary ?? undefined} />
+                <div className="grid grid-cols-2 gap-5">
+                    <InputText type="email" name="email" label="Email" defaultValue={personal.email ?? undefined} />
+                    <InputText type="phone" name="phone" label="Phone" defaultValue={personal.phone ?? undefined} />
+                </div>
+                <div className="grid grid-cols-2 gap-5">
+                    <InputText name="city" label="City" defaultValue={personal.city ?? undefined} />
+                    <InputText name="country" label="Country" defaultValue={personal.country ?? undefined} />
+                </div>
 
-                <label htmlFor="last_name">Last Name:</label>
-                <input type="text" name="last_name" defaultValue={personal?.lastName ?? ''} required />
-
-                <label htmlFor="position">Position:</label>
-                <input type="text" name="position" defaultValue={personal?.position ?? ''} />
-
-                <label htmlFor="summary">Summary:</label>
-                <RichTextEditor name="summary" defaultValue={personal?.summary ?? ''} />
-
-                <label htmlFor="email">Email:</label>
-                <input type="email" name="email" defaultValue={personal?.email ?? ''} />
-
-                <label htmlFor="phone">Phone:</label>
-                <input type="phone" name="phone" defaultValue={personal?.phone ?? ''} />
-
-                <label htmlFor="city">City:</label>
-                <input type="text" name="city" defaultValue={personal?.city ?? ''} />
-
-                <label htmlFor="country">Country:</label>
-                <input type="text" name="country" defaultValue={personal?.country ?? ''} />
-
-                <button type="submit">Save</button>
+                <SubmitButton label="Save" />
             </form>
         </div>
     );
