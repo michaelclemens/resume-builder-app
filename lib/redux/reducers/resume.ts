@@ -3,9 +3,9 @@ import { Resume } from '@prisma/client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 
-const initialState: { resume: null|Resume, loading: boolean, error: null|string } = {
+const initialState: { resume: null|Resume, loading: boolean, error: null|Error } = {
   resume: null,
-  loading: false,
+  loading: true,
   error: null,
 }
 
@@ -31,13 +31,13 @@ export const slice = createSlice({
         state.error = null;
       })
       .addCase(fetchResume.fulfilled, (state, action) => {
-        state.resume = action.payload;
+        state.resume = action.payload ?? null;
         state.error = null;
         state.loading = false;
       })
       .addCase(fetchResume.rejected, (state, action) => {
         state.resume = null;
-        state.error = action.payload as string;
+        state.error = action.payload as Error;
         state.loading = false;
       })
   }

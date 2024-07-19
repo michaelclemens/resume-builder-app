@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 export type ResumeWithPersonal = Prisma.ResumeGetPayload<{
     include: { personal: true }
@@ -33,25 +33,9 @@ export async function createResumeAction() {
 
 export async function getResume(id: string) {
     try {
-        return await prisma.resume.findUniqueOrThrow({ where: { id }, include: { personal: true }})
+        return await prisma.resume.findUniqueOrThrow({ where: { id }})
     } catch (error) {
         console.error(error);
-        redirect('/');
-    }
-}
-
-export async function getFullResume(id: string) {
-    try {
-        return await prisma.resume.findUniqueOrThrow({ where: { id }, include: { 
-            personal: true,
-            employments: { include: { history: true } },
-            educations: true,
-            skills: true,
-            strengths: true,
-        }})
-    } catch (error) {
-        console.error(error);
-        redirect('/');
     }
 }
 

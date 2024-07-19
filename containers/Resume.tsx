@@ -3,6 +3,7 @@
 import Loading from "@/app/loading";
 import { EducationSection, EmploymentSection, FormPersonal, ResumePreview, SkillSection, StrengthSection } from "@/components";
 import useResume from "@/hooks/useResume";
+import { notFound } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Resume({ id }: { id: string }) {
@@ -13,8 +14,9 @@ export default function Resume({ id }: { id: string }) {
         return () => reset()
     }, [id])
 
-    if (loading || !resume) return <Loading />
-    if (error) return <p>Error: {error}</p>
+    if (loading) return <Loading />
+    if (error) return <p>Error:{JSON.stringify(error)}</p>
+    if (!resume) notFound()
 
     return (
         <div className="flex gap-x-10">
