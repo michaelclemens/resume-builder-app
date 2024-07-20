@@ -1,3 +1,5 @@
+"use client"
+
 import { getStrengths } from '@/lib/client/strength';
 import { Resume, Strength } from '@prisma/client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
@@ -5,7 +7,7 @@ import { RootState } from '../store';
 
 const initialState: { strengths: Strength[], loading: boolean, error: null|string } = {
   strengths: [],
-  loading: false,
+  loading: true,
   error: null,
 }
 

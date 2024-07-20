@@ -1,3 +1,5 @@
+"use client"
+
 import { combineReducers, createSelector } from "@reduxjs/toolkit";
 import resume from './resume';
 import personal, { selectPersonalLoading } from "./personal";

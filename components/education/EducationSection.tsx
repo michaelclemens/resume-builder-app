@@ -1,3 +1,5 @@
+"use client"
+
 import ListEducations from "./ListEducations";
 import FormEducation from "./FormEducation";
 import { Resume } from "@prisma/client";

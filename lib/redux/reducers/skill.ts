@@ -1,3 +1,5 @@
+"use client"
+
 import { getSkills } from '@/lib/client/skill';
 import { Resume, Skill } from '@prisma/client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
@@ -5,7 +7,7 @@ import { RootState } from '../store';
 
 const initialState: { skills: Skill[], loading: boolean, error: null|string } = {
   skills: [],
-  loading: false,
+  loading: true,
   error: null,
 }
 

@@ -3,7 +3,7 @@
 import useEducation from "@/hooks/useEducation";
 import { Education } from "@prisma/client";
 import { FormEvent } from "react";
-import RichTextEditor from "../RichTextEditor";
+import { RichTextEditor } from "@/components/form";
 
 export default function FormEducation({ resumeId, education, isEditing = false, onSave = () => {} }: { resumeId: string, education?: Education, isEditing?: boolean, onSave?: () => void }) {
     const { save } = useEducation();

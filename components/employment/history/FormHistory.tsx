@@ -1,9 +1,9 @@
 "use client"
 
-import RichTextEditor from "@/components/RichTextEditor";
 import useEmploymentHistory from "@/hooks/useEmploymentHistory";
 import { EmploymentHistory } from "@prisma/client";
 import { FormEvent } from "react";
+import { RichTextEditor } from "@/components/form";
 
 export default function FormHistory({ employmentId, history, isEditing = false, onSave = () => {} }: { employmentId: string, history?: EmploymentHistory, isEditing?: boolean, onSave?: () => void }) {
     const { save } = useEmploymentHistory();

@@ -1,3 +1,5 @@
+"use client"
+
 import { configureStore } from '@reduxjs/toolkit';
 import reducers from '@/lib/redux/reducers';
 import { useDispatch, useSelector } from 'react-redux';

@@ -1,3 +1,5 @@
+"use client"
+
 import { addPersonal, updatePersonal } from "@/lib/client/personal";
 import { fetchPersonal, clear, selectPersonal, setPersonal } from "@/lib/redux/reducers/personal";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";

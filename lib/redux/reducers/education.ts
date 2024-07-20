@@ -1,3 +1,5 @@
+"use client"
+
 import { getEducations } from '@/lib/client/education';
 import { Education, Resume } from '@prisma/client';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'

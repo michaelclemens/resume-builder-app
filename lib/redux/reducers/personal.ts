@@ -1,3 +1,5 @@
+"use client"
+
 import { getPersonal } from '@/lib/client/personal';
 import { Personal, Resume } from '@prisma/client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
@@ -5,7 +7,7 @@ import { RootState } from '../store';
 
 const initialState: { personal: null|Personal, loading: boolean, error: null|string  } = {
   personal: null,
-  loading: false,
+  loading: true,
   error: null,
 }
 
@@ -34,7 +36,7 @@ export const slice = createSlice({
         state.error = null;
       })
       .addCase(fetchPersonal.fulfilled, (state, action) => {
-        state.personal = action.payload;
+        state.personal = action.payload ?? null;
         state.error = null;
         state.loading = false;
       })

@@ -1,3 +1,5 @@
+"use client"
+
 import { getResume } from '@/lib/client/resume';
 import { Resume } from '@prisma/client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'

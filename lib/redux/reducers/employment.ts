@@ -1,3 +1,5 @@
+"use client"
+
 import { EmploymentWithHistory, getEmployments } from '@/lib/client/employment';
 import { Resume } from '@prisma/client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'

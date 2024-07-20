@@ -1,14 +1,14 @@
 "use client"
 
-import Loading from "@/app/loading";
 import usePersonal from "@/hooks/usePersonal";
 import { Resume } from "@prisma/client";
-import { FormEvent, useEffect } from "react";
-import InputText from '../InputText';
-import SubmitButton from '../SubmitButton';
+import { FormEvent, useEffect, useState } from "react";
+import { InputText, SubmitButton } from '@/components/form';
+import Loading from "@/app/loading";
 
 export default function FormPersonal({ resume }: { resume: Resume }) {
-    const { personal, loading, error, fetch, save, reset } = usePersonal();
+    const { personal, loading, fetch, save, reset } = usePersonal();
+    const [saving, setSaving] = useState(false);
     
     useEffect(() => {
         fetch(resume)
@@ -17,34 +17,42 @@ export default function FormPersonal({ resume }: { resume: Resume }) {
 
     const onSubmit = async(event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        await save(resume, formData, personal?.id);
+        setSaving(true);
+        try {
+            const formData = new FormData(event.currentTarget);
+            await save(resume, formData, personal?.id);
+        } catch(error) {
+            console.error(error)
+        } finally {
+            setSaving(false);
+        } 
     }
-
-    if (loading || !personal) return <Loading />
-    if (error) return <p>Error: {error}</p>
 
     return (
         <div className="mb-5">
             <h1 className="text-xl pb-1 border-b font-semibold mb-3">Personal</h1>
-            <form onSubmit={onSubmit}>
-                <div className="grid grid-cols-2 gap-5">
-                    <InputText name="first_name" label="First Name" defaultValue={personal.firstName} required />
-                    <InputText name="last_name" label="Last Name" defaultValue={personal.lastName} required />
-                </div>
-                <InputText name="position" label="Position" defaultValue={personal.position ?? undefined} />
-                <InputText type="rte" name="summary" label="Summary" defaultValue={personal.summary ?? undefined} />
-                <div className="grid grid-cols-2 gap-5">
-                    <InputText type="email" name="email" label="Email" defaultValue={personal.email ?? undefined} />
-                    <InputText type="phone" name="phone" label="Phone" defaultValue={personal.phone ?? undefined} />
-                </div>
-                <div className="grid grid-cols-2 gap-5">
-                    <InputText name="city" label="City" defaultValue={personal.city ?? undefined} />
-                    <InputText name="country" label="Country" defaultValue={personal.country ?? undefined} />
-                </div>
+            <div className={`transition-max-height duration-1000 overflow-hidden ${loading ? 'max-h-24' : 'max-h-svh'}`}>
+                {loading ? <Loading /> : (
+                    <form onSubmit={onSubmit}>
+                        <div className="grid grid-cols-2 gap-5">
+                            <InputText name="first_name" label="First Name" defaultValue={personal?.firstName} required disabled={saving} />
+                            <InputText name="last_name" label="Last Name" defaultValue={personal?.lastName} required disabled={saving} />
+                        </div>
+                        <InputText name="position" label="Position" defaultValue={personal?.position ?? undefined} disabled={saving} />
+                        <InputText type="rte" name="summary" label="Summary" defaultValue={personal?.summary ?? undefined} disabled={saving} />
+                        <div className="grid grid-cols-2 gap-5">
+                            <InputText type="email" name="email" label="Email" defaultValue={personal?.email ?? undefined} disabled={saving} />
+                            <InputText type="phone" name="phone" label="Phone" defaultValue={personal?.phone ?? undefined} disabled={saving} />
+                        </div>
+                        <div className="grid grid-cols-2 gap-5">
+                            <InputText name="city" label="City" defaultValue={personal?.city ?? undefined} disabled={saving} />
+                            <InputText name="country" label="Country" defaultValue={personal?.country ?? undefined} disabled={saving} />
+                        </div>
 
-                <SubmitButton label="Save" />
-            </form>
+                        <SubmitButton label="Save" disabled={saving} />
+                    </form>
+                )}
+            </div>
         </div>
     );
 }

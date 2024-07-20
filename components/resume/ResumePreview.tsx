@@ -1,4 +1,5 @@
-import Loading from "@/app/loading";
+"use client"
+
 import { selectIsLoadingResume } from "@/lib/redux/reducers";
 import { selectEducationList } from "@/lib/redux/reducers/education";
 import { selectEmploymentList } from "@/lib/redux/reducers/employment";
@@ -16,14 +17,10 @@ export default function ResumePreview() {
     const [...skills] = useAppSelector(selectSkillList);
     const [...strengths] = useAppSelector(selectStrengthList);
 
-    const isLoading = useAppSelector(selectIsLoadingResume);
-
-    if (isLoading) {
-        return <Loading/>
-    }
+    const loading = useAppSelector(selectIsLoadingResume);
 
     return (
-        <div className="p-5">
+        <div className={`${loading ? 'animate-pulse' : ''}`}>
             <div className="flex gap-x-10">
                 <div className="w-2/6">
                     <h3 className="text-xl pb-1 border-b font-semibold">Details</h3>
