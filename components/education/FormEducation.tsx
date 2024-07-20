@@ -25,7 +25,7 @@ export default function FormEducation({ resumeId, education, isEditing = false, 
     }
 
     return (
-        <div className="mt-3 bg-gray-50 p-3 rounded-lg">
+        <div className="my-3 mx-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
             <form onSubmit={onSubmit}>
                 <div className="grid grid-cols-2 gap-5">
                     <InputText name="school" label="School" defaultValue={education?.school} required disabled={saving} />

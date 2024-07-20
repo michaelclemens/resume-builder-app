@@ -25,7 +25,7 @@ export default function FormHistory({ employmentId, history, isEditing = false, 
     }
 
     return (
-        <div className="mt-3 bg-gray-100 p-3 rounded-lg">
+        <div className="my-3 mx-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
             <form onSubmit={onSubmit}>
                 <InputText name="title" label="Title" defaultValue={history?.title} required disabled={saving} />
 

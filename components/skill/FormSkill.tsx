@@ -24,7 +24,7 @@ export default function FormSkill({ resumeId, skill, isEditing = false, onSave =
     }
 
     return (
-        <div className="mt-3 bg-gray-50 p-3 rounded-lg">
+        <div className="my-3 mx-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
             <form onSubmit={onSubmit}>
                 <InputText name="name" label="Name" defaultValue={skill?.name} required disabled={saving} />
                 <SubmitButton label={isEditing ? 'Save' : 'Add Skill'} disabled={saving} />

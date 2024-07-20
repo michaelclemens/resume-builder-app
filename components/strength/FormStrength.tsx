@@ -24,7 +24,7 @@ export default function FormStrength({ resumeId, strength, isEditing = false, on
     }
 
     return (
-        <div className="mt-3 bg-gray-50 p-3 rounded-lg">
+        <div className="my-3 mx-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
             <form onSubmit={onSubmit}>
                 <InputText name="name" label="Name" defaultValue={strength?.name} required disabled={saving} />
                 <SubmitButton label={isEditing ? 'Save' : 'Add Strength'} disabled={saving} />

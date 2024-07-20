@@ -18,7 +18,7 @@ export default function StrengthSection({ resume }: { resume: Resume }) {
     return (
         <div>
             <h1 className="text-xl pb-1 border-b font-semibold mb-1">Strengths</h1>
-            <div className={`mb-3 transition-max-height ease-in duration-500 overflow-hidden ${loading ? 'max-h-24' : 'max-h-full'}`}>
+            <div className={`transition-max-height ease-in duration-500 overflow-hidden ${loading ? 'max-h-24' : 'max-h-full'}`}>
                 {loading ? <Loading /> : (
                     <>
                         <ListStrengths strengths={strengths} />

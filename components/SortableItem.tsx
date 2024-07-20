@@ -12,8 +12,8 @@ export default function SortableItem({ id, children }: { id: string, children: R
     };
 
     return (
-        <div ref={setNodeRef} style={style}>
-            <span {...listeners} {...attributes}>::</span>
+        <div ref={setNodeRef} style={style} className="flex flex-wrap items-center px-5 py-3 text-gray-700">
+            <div {...listeners} {...attributes} className="-ml-2 mr-2">::</div>
             {children}
         </div>
     )

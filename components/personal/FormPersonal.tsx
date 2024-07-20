@@ -30,10 +30,10 @@ export default function FormPersonal({ resume }: { resume: Resume }) {
 
     return (
         <div>
-            <h1 className="text-xl pb-1 border-b font-semibold mb-3">Personal</h1>
-            <div className={`mb-3 transition-max-height ease-in duration-500 overflow-hidden ${loading ? 'max-h-24' : 'max-h-full'}`}>
+            <h1 className="text-xl pb-1 border-b font-semibold mb-1">Personal</h1>
+            <div className={`transition-max-height ease-in duration-500 overflow-hidden ${loading ? 'max-h-24' : 'max-h-full'}`}>
                 {loading ? <Loading /> : (
-                    <div className="bg-gray-50 p-3 rounded-lg">
+                    <div className="mb-3 mt-2 mx-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
                         <form onSubmit={onSubmit}>
                             <div className="grid grid-cols-2 gap-5">
                                 <InputText name="first_name" label="First Name" defaultValue={personal?.firstName} required disabled={saving} />

@@ -4,6 +4,7 @@ import { Skill } from "@prisma/client";
 import { useState } from "react";
 import FormSkill from "./FormSkill";
 import useSkill from "@/hooks/useSkill";
+import { ListButton } from "@/components/list";
 
 export default function ListItemSkill(skill: Skill) {
     const { remove } = useSkill();
@@ -13,23 +14,15 @@ export default function ListItemSkill(skill: Skill) {
         await remove(skill);
     }
 
-    const renderItem = () => {
-        if (isEditing) {
-            return <FormSkill resumeId={skill.resumeId} skill={skill} isEditing onSave={() => setEditing(false)} />
-        }
-
-        return (
-            <>
-                {skill.name}
-                <button type="button" onClick={() => setEditing(true)}>Edit</button>
-            </>
-        )
-    }
-
     return (
-        <span>
-            {renderItem()}
-            <button type="button" onClick={onDelete}>Delete</button>
-        </span>
+        <>
+            <span className="w-3/4 flex-none">{skill.name}</span>
+            <span className="ml-auto flex items-cente font-medium">
+                <ListButton label="Edit" onClick={() => setEditing(true)} />
+                <span className="mx-3 h-8 w-px bg-slate-400/20"></span>
+                <ListButton label="Delete" onClick={onDelete} />
+            </span>
+            {isEditing && <FormSkill resumeId={skill.resumeId} skill={skill} isEditing onSave={() => setEditing(false)} />}
+        </>
     )
 }

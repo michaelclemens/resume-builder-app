@@ -4,6 +4,8 @@ import { Education } from "@prisma/client";
 import { useState } from "react";
 import FormEducation from "./FormEducation";
 import useEducation from "@/hooks/useEducation";
+import { ListButton } from "@/components/list";
+import { getDisplayDateFromDate } from "@/util/date";
 
 export default function ListItemEducation(education: Education) {
     const { remove } = useEducation();
@@ -13,27 +15,21 @@ export default function ListItemEducation(education: Education) {
         await remove(education);
     }
 
-    const renderItem = () => {
-        if (isEditing) {
-            return <FormEducation resumeId={education.resumeId} education={education} isEditing onSave={() => setEditing(false)} />
-        }
-
-        return (
-            <>
-                <span>School: {education.school}</span>
-                <span>Degree: {education.degree}</span>
-                <span>Start Date: {new Date(education.startDate).toDateString()}</span>
-                {education.endDate && <span>End Date: {new Date(education.endDate).toDateString()}</span>}
-                {education.city && <span>City: {education.city}</span>}
-                <button type="button" onClick={() => setEditing(true)}>Edit</button>
-            </>
-        )
-    }
-
     return (
-        <div>
-            {renderItem()}
-            <button type="button" onClick={onDelete}>Delete</button>
-        </div>
+        <>
+            <div className="flex-auto">
+                <div>{education.degree} - {education.school}</div>
+                <div className="text-xs mt-1">
+                    {getDisplayDateFromDate(education.startDate)}
+                    {education.endDate && ` to ${getDisplayDateFromDate(education.endDate)}`}
+                </div>
+            </div>
+            <span className="ml-auto flex items-cente font-medium">
+                <ListButton label="Edit" onClick={() => setEditing(true)} />
+                <span className="mx-3 h-8 w-px bg-slate-400/20"></span>
+                <ListButton label="Delete" onClick={onDelete} />
+            </span>
+            {isEditing && <FormEducation resumeId={education.resumeId} education={education} isEditing onSave={() => setEditing(false)} />}
+        </>
     )
 }
