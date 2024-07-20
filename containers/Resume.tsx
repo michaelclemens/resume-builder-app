@@ -9,9 +9,9 @@ export default async function Resume({ id }: { id: string }) {
 
     return (
         <div className="w-full flex flex-row flex-grow overflow-hidden">
-            <div className="w-2/4 flex-shrink flex-grow-0">
-                <div className="sticky top-0 p-4 w-full h-full">
-                    <div className="flex flex-col overflow-y-auto h-full">
+            <div className="w-3/4 flex-shrink flex-grow-0">
+                <div className="sticky top-0 w-full h-full">
+                    <div className="flex flex-col overflow-y-auto h-full p-3">
                         <Suspense><FormPersonal resume={resume} /></Suspense>
                         <Suspense><EmploymentSection resume={resume} /></Suspense>
                         <Suspense><EducationSection resume={resume} /></Suspense>
@@ -20,7 +20,7 @@ export default async function Resume({ id }: { id: string }) {
                     </div>
                 </div>
             </div>
-            <main role="main" className="w-full h-full flex-grow p-4 overflow-auto">
+            <main role="main" className="w-full h-full flex-grow overflow-hidden bg-gray-600">
                 <Suspense><ResumePreview /></Suspense>
             </main>
         </div> 

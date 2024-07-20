@@ -21,7 +21,8 @@ export default function ResumePreview() {
     const loading = useAppSelector(selectIsLoadingResume);
 
     return (
-        <div className={`mb-3 transition-max-height ease-in duration-500 overflow-hidden ${loading ? 'max-h-24' : 'max-h-full'}`}>
+        <div className={`transition-max-height ease-in duration-500 overflow-auto ${loading ? 'max-h-24' : 'max-h-full'}`}>
+            <div className="bg-white mx-20 my-8 p-8">
             {loading ? <Loading /> : (
                 <div className="flex gap-x-10">
                     <div className="w-2/6">
@@ -126,6 +127,7 @@ export default function ResumePreview() {
                     </div>
                 </div>
             )}
+            </div>
         </div> 
     )
 }

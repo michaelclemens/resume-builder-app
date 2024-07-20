@@ -25,9 +25,7 @@ export default function RichTextEditor({ name, placeholder = '', defaultValue = 
                 modules={{ toolbar: toolbarOptions }} 
                 readOnly={disabled}
                 className="bg-white"
-            >
-                <div className="min-h-20 max-h-40 overflow-y-auto"></div>
-            </ReactQuill>
+            />
             <textarea hidden name={name} value={value} readOnly />
         </div>
     )
