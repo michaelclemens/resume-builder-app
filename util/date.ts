@@ -1,0 +1,1 @@
+export const getDisplayDateFromDate = (date: Date|undefined) => date?.toISOString().substring(0, 10) ?? ''

@@ -2,36 +2,40 @@
 
 import useEmploymentHistory from "@/hooks/useEmploymentHistory";
 import { EmploymentHistory } from "@prisma/client";
-import { FormEvent } from "react";
-import { RichTextEditor } from "@/components/form";
+import { FormEvent, useState } from "react";
+import { InputText, SubmitButton } from "@/components/form";
+import { getDisplayDateFromDate } from "@/util/date";
 
 export default function FormHistory({ employmentId, history, isEditing = false, onSave = () => {} }: { employmentId: string, history?: EmploymentHistory, isEditing?: boolean, onSave?: () => void }) {
     const { save } = useEmploymentHistory();
+    const [saving, setSaving] = useState(false);
     
     const onSubmit = async(event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-
-        await save(employmentId, formData, history?.id);
-        if (isEditing) {
-            onSave();
-        }
+        setSaving(true);
+        try {
+            const formData = new FormData(event.currentTarget);
+            await save(employmentId, formData, history?.id);
+            if (isEditing) { onSave() }
+        } catch(error) {
+            console.error(error)
+        } finally {
+            setSaving(false);
+        } 
     }
 
     return (
-        <div>
+        <div className="mt-3 bg-gray-100 p-3 rounded-lg">
             <form onSubmit={onSubmit}>
-                <label htmlFor="title">Title:</label>
-                <input type="text" name="title" defaultValue={history?.title ?? ''} required />
+                <InputText name="title" label="Title" defaultValue={history?.title} required disabled={saving} />
 
-                <label htmlFor="start_date">Start & End Date:</label>
-                <input type="date" name="start_date" defaultValue={history?.startDate ? new Date(history.startDate).toISOString().substring(0, 10) : ''} required />
-                <input type="date" name="end_date" defaultValue={history?.endDate ? new Date(history.endDate).toISOString().substring(0, 10) : ''} />
+                <div className="grid grid-cols-2 gap-5">
+                    <InputText type="date" name="start_date" label="Start Date" defaultValue={getDisplayDateFromDate(history?.startDate)} required disabled={saving} />
+                    <InputText type="date" name="end_date" label="End Date" defaultValue={getDisplayDateFromDate(history?.endDate ?? undefined)} disabled={saving} />
+                </div>
+                <InputText type="rte" name="description" label="Descripition" defaultValue={history?.description ?? undefined} disabled={saving} />
 
-                <label htmlFor="description">Descripition:</label>
-                <RichTextEditor name="description" defaultValue={history?.description ?? ''} />
-
-                <button type="submit">{isEditing ? 'Save' : 'Add Employment History'}</button>
+                <SubmitButton label={isEditing ? 'Save' : 'Add Employment History'} disabled={saving} />
             </form>
         </div>
     );

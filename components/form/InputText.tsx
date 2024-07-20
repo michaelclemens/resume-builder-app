@@ -1,4 +1,4 @@
-import RichTextEditor from "../RichTextEditor";
+import RichTextEditor from "./RichTextEditor";
 
 type InputTypes = 'text'|'email'|'phone'|'date'|'rte';
 
@@ -9,8 +9,7 @@ export default function InputText(
     if (type === 'rte') {
         return (
             <div className="mb-3">
-                <label htmlFor={name} className="pl-3 text-xs text-gray-700">{label}</label>
-                <RichTextEditor name={name} defaultValue={defaultValue} disabled={disabled} />
+                <RichTextEditor name={name} placeholder={label} defaultValue={defaultValue} disabled={disabled} />
             </div>
         )
     }
@@ -18,7 +17,8 @@ export default function InputText(
     return (
         <label
             htmlFor={name}
-            className="relative block overflow-hidden mb-3 rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+            className="relative block overflow-hidden mb-3 rounded-md border bg-white border-gray-200 px-3 pt-3 shadow-sm focus-within:border-gray-400 focus-within:ring-1 focus-within:ring-gray-400 aria-disabled:opacity-50"
+            aria-disabled={disabled}
         >
             <input
                 type={type}

@@ -3,9 +3,11 @@ import Link from "next/link";
 
 export default ({ params: {id}}: { params: { id: string }}) => {
     return (
-        <main className="p-10">
+        <div className="flex flex-col h-screen overflow-hidden">
             <Resume id={id} />
-            <Link href={"/"}>Back</Link>
-        </main>
+            <footer className="mt-auto m-5">
+                <Link href={"/"}>Back</Link>
+            </footer>
+        </div>
     )
 }

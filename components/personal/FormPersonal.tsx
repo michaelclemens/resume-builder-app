@@ -29,28 +29,30 @@ export default function FormPersonal({ resume }: { resume: Resume }) {
     }
 
     return (
-        <div className="mb-5">
+        <div>
             <h1 className="text-xl pb-1 border-b font-semibold mb-3">Personal</h1>
-            <div className={`transition-max-height duration-1000 overflow-hidden ${loading ? 'max-h-24' : 'max-h-svh'}`}>
+            <div className={`mb-3 transition-max-height ease-in duration-500 overflow-hidden ${loading ? 'max-h-24' : 'max-h-full'}`}>
                 {loading ? <Loading /> : (
-                    <form onSubmit={onSubmit}>
-                        <div className="grid grid-cols-2 gap-5">
-                            <InputText name="first_name" label="First Name" defaultValue={personal?.firstName} required disabled={saving} />
-                            <InputText name="last_name" label="Last Name" defaultValue={personal?.lastName} required disabled={saving} />
-                        </div>
-                        <InputText name="position" label="Position" defaultValue={personal?.position ?? undefined} disabled={saving} />
-                        <InputText type="rte" name="summary" label="Summary" defaultValue={personal?.summary ?? undefined} disabled={saving} />
-                        <div className="grid grid-cols-2 gap-5">
-                            <InputText type="email" name="email" label="Email" defaultValue={personal?.email ?? undefined} disabled={saving} />
-                            <InputText type="phone" name="phone" label="Phone" defaultValue={personal?.phone ?? undefined} disabled={saving} />
-                        </div>
-                        <div className="grid grid-cols-2 gap-5">
-                            <InputText name="city" label="City" defaultValue={personal?.city ?? undefined} disabled={saving} />
-                            <InputText name="country" label="Country" defaultValue={personal?.country ?? undefined} disabled={saving} />
-                        </div>
+                    <div className="bg-gray-50 p-3 rounded-lg">
+                        <form onSubmit={onSubmit}>
+                            <div className="grid grid-cols-2 gap-5">
+                                <InputText name="first_name" label="First Name" defaultValue={personal?.firstName} required disabled={saving} />
+                                <InputText name="last_name" label="Last Name" defaultValue={personal?.lastName} required disabled={saving} />
+                            </div>
+                            <InputText name="position" label="Position" defaultValue={personal?.position ?? undefined} disabled={saving} />
+                            <InputText type="rte" name="summary" label="Summary" defaultValue={personal?.summary ?? undefined} disabled={saving} />
+                            <div className="grid grid-cols-2 gap-5">
+                                <InputText type="email" name="email" label="Email" defaultValue={personal?.email ?? undefined} disabled={saving} />
+                                <InputText type="phone" name="phone" label="Phone" defaultValue={personal?.phone ?? undefined} disabled={saving} />
+                            </div>
+                            <div className="grid grid-cols-2 gap-5">
+                                <InputText name="city" label="City" defaultValue={personal?.city ?? undefined} disabled={saving} />
+                                <InputText name="country" label="Country" defaultValue={personal?.country ?? undefined} disabled={saving} />
+                            </div>
 
-                        <SubmitButton label="Save" disabled={saving} />
-                    </form>
+                            <SubmitButton label="Save" disabled={saving} />
+                        </form>
+                    </div>
                 )}
             </div>
         </div>

@@ -13,12 +13,21 @@ const toolbarOptions = [
     [{ 'align': [] }, { 'color': [] }, { 'background': [] }],
 ]
 
-export default function RichTextEditor({ name, defaultValue = '', disabled = false }: { name: string, defaultValue?: string, disabled?: boolean }) {
+export default function RichTextEditor({ name, placeholder = '', defaultValue = '', disabled = false }: { name: string, placeholder?: string, defaultValue?: string, disabled?: boolean }) {
     const [value, setValue] = useState(defaultValue);
     
     return (
         <div className={`${disabled ? 'opacity-50 pointer-events-none' : ''}`}>
-            <ReactQuill defaultValue={defaultValue} onChange={setValue} modules={{ toolbar: toolbarOptions }} readOnly={disabled} />
+            <ReactQuill 
+                placeholder={placeholder.length > 0 ? `${placeholder}...` : ''}
+                defaultValue={defaultValue} 
+                onChange={setValue} 
+                modules={{ toolbar: toolbarOptions }} 
+                readOnly={disabled}
+                className="bg-white"
+            >
+                <div className="min-h-20 max-h-40 overflow-y-auto"></div>
+            </ReactQuill>
             <textarea hidden name={name} value={value} readOnly />
         </div>
     )

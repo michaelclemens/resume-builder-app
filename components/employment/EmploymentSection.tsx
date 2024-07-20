@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import Loading from "@/app/loading";
 
 export default function EmploymentSection({ resume }: { resume: Resume }) {
-    const { employments, loading, error, fetch, reset } = useEmployment();
+    const { employments, loading, fetch, reset } = useEmployment();
     
     useEffect(() => {
         fetch(resume)
@@ -16,14 +16,16 @@ export default function EmploymentSection({ resume }: { resume: Resume }) {
     }, [resume.id]);
 
     return (
-        <div className="mb-5">
+        <div>
             <h1 className="text-xl pb-1 border-b font-semibold mb-1">Employments</h1>
-            {loading ? <Loading /> : (
-                <>
-                    <ListEmployments employments={employments} />
-                    <FormEmployment resumeId={resume.id} />
-                </>
-            )}
+            <div className={`mb-3 transition-max-height ease-in duration-500 overflow-hidden ${loading ? 'max-h-24' : 'max-h-full'}`}>
+                {loading ? <Loading /> : (
+                    <>
+                        <ListEmployments employments={employments} />
+                        <FormEmployment resumeId={resume.id} />
+                    </>
+                )}
+            </div>
         </div>
     )
 }
