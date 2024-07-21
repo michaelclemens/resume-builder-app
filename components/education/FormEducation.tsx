@@ -6,7 +6,7 @@ import { FormEvent, useState } from "react";
 import { InputText, SubmitButton } from "@/components/form";
 import { getDisplayDateFromDate } from '@/util/date';
 
-export default function FormEducation({ resumeId, education, isEditing = false, onSave = () => {} }: { resumeId: string, education?: Education, isEditing?: boolean, onSave?: () => void }) {
+export default function FormEducation({ resumeId, education, editing = false, onSave = () => {} }: { resumeId: string, education?: Education, editing?: boolean, onSave?: () => void }) {
     const { save } = useEducation();
     const [saving, setSaving] = useState(false);
 
@@ -16,7 +16,7 @@ export default function FormEducation({ resumeId, education, isEditing = false, 
         try {
             const formData = new FormData(event.currentTarget);
             await save(resumeId, formData, education?.id);
-            if (isEditing) { onSave() }
+            onSave()
         } catch(error) {
             console.error(error)
         } finally {
@@ -38,7 +38,7 @@ export default function FormEducation({ resumeId, education, isEditing = false, 
                 </div>
                 <InputText type="rte" name="description" label="Descripition" defaultValue={education?.description ?? undefined} disabled={saving} />
 
-                <SubmitButton label={isEditing ? 'Save' : 'Add Education'} disabled={saving} />
+                <SubmitButton label={editing ? 'Save' : 'Add Education'} disabled={saving} />
             </form>
         </div>
     )

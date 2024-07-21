@@ -5,14 +5,23 @@ import FormEmployment from "./FormEmployment";
 import { EmploymentWithHistory } from "@/lib/client/employment";
 import HistorySection from "./history/HistorySection";
 import useEmployment from "@/hooks/useEmployment";
-import { ListButton } from "@/components/list";
+import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
+import ExpandableWrapper from "../ExpandableWrapper";
 
 export default function ListItemEmployment(employment: EmploymentWithHistory) {
     const { remove } = useEmployment();
-    const [isEditing, setEditing] = useState(false);
+    const [editing, setEditing] = useState(false);
+    const [deleting, setDeleting] = useState(false);
 
     const onDelete = async () => {
-        await remove(employment);
+        setDeleting(true);
+        try {
+            await remove(employment);
+        } catch(error) {
+            console.error(error);
+        } finally {
+            setDeleting(false);
+        }  
     }
 
     return (
@@ -20,11 +29,14 @@ export default function ListItemEmployment(employment: EmploymentWithHistory) {
             <span className="w-2/4 flex-none">{employment.employer}</span>
             {employment.city && <span>{employment.city}</span>}
             <span className="ml-auto flex items-cente font-medium">
-                <ListButton label="Edit" onClick={() => setEditing(true)} />
-                <span className="mx-3 h-8 w-px bg-slate-400/20"></span>
-                <ListButton label="Delete" onClick={onDelete} />
+                <ListButton type="edit" onClick={() => setEditing(!editing)} />
+                <ListDivider />
+                <ListButton type="delete" onClick={onDelete} />
             </span>
-            {isEditing && <FormEmployment resumeId={employment.resumeId} employment={employment} isEditing onSave={() => setEditing(false)} />}
+            <ExpandableWrapper open={editing && !deleting}>
+                <FormEmployment resumeId={employment.resumeId} employment={employment} editing onSave={() => setEditing(false)} />
+            </ExpandableWrapper>
+            {deleting && <LoadingOverlay />}
 
             <HistorySection employmentId={employment.id} histories={[...employment.history]}/>
         </>

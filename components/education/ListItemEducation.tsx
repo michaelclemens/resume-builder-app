@@ -4,15 +4,24 @@ import { Education } from "@prisma/client";
 import { useState } from "react";
 import FormEducation from "./FormEducation";
 import useEducation from "@/hooks/useEducation";
-import { ListButton } from "@/components/list";
+import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { getDisplayDateFromDate } from "@/util/date";
+import ExpandableWrapper from "../ExpandableWrapper";
 
 export default function ListItemEducation(education: Education) {
     const { remove } = useEducation();
-    const [isEditing, setEditing] = useState(false);
+    const [editing, setEditing] = useState(false);
+    const [deleting, setDeleting] = useState(false);
 
     const onDelete = async () => {
-        await remove(education);
+        setDeleting(true);
+        try {
+            await remove(education);
+        } catch(error) {
+            console.error(error);
+        } finally {
+            setDeleting(false);
+        }  
     }
 
     return (
@@ -25,11 +34,14 @@ export default function ListItemEducation(education: Education) {
                 </div>
             </div>
             <span className="ml-auto flex items-cente font-medium">
-                <ListButton label="Edit" onClick={() => setEditing(true)} />
-                <span className="mx-3 h-8 w-px bg-slate-400/20"></span>
-                <ListButton label="Delete" onClick={onDelete} />
+                <ListButton type="edit" onClick={() => setEditing(!editing)} />
+                <ListDivider />
+                <ListButton type="delete" onClick={onDelete} />
             </span>
-            {isEditing && <FormEducation resumeId={education.resumeId} education={education} isEditing onSave={() => setEditing(false)} />}
+            <ExpandableWrapper open={editing && !deleting}>
+                <FormEducation resumeId={education.resumeId} education={education} editing onSave={() => setEditing(false)} />
+            </ExpandableWrapper>
+            {deleting && <LoadingOverlay />}
         </>
     )
 }

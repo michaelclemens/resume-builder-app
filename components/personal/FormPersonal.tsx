@@ -5,6 +5,7 @@ import { Resume } from "@prisma/client";
 import { FormEvent, useEffect, useState } from "react";
 import { InputText, SubmitButton } from '@/components/form';
 import Loading from "@/app/loading";
+import ExpandableWrapper from "../ExpandableWrapper";
 
 export default function FormPersonal({ resume }: { resume: Resume }) {
     const { personal, loading, fetch, save, reset } = usePersonal();
@@ -31,7 +32,7 @@ export default function FormPersonal({ resume }: { resume: Resume }) {
     return (
         <div>
             <h1 className="text-xl pb-1 border-b font-semibold mb-1">Personal</h1>
-            <div className={`transition-max-height ease-in duration-500 overflow-hidden ${loading ? 'max-h-24' : 'max-h-full'}`}>
+            <ExpandableWrapper open={!loading} initialMaxHeight="max-h-24">
                 {loading ? <Loading /> : (
                     <div className="mb-3 mt-2 mx-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
                         <form onSubmit={onSubmit}>
@@ -54,7 +55,7 @@ export default function FormPersonal({ resume }: { resume: Resume }) {
                         </form>
                     </div>
                 )}
-            </div>
+            </ExpandableWrapper>
         </div>
     );
 }

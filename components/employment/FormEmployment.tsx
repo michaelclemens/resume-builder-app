@@ -5,7 +5,7 @@ import { Employment } from "@prisma/client";
 import { FormEvent, useState } from "react";
 import { InputText, SubmitButton } from "../form";
 
-export default function FormEmployment({ resumeId, employment, isEditing = false, onSave = () => {} }: { resumeId: string, employment?: Employment, isEditing?: boolean, onSave?: () => void }) {
+export default function FormEmployment({ resumeId, employment, editing = false, onSave = () => {} }: { resumeId: string, employment?: Employment, editing?: boolean, onSave?: () => void }) {
     const { save } = useEmployment();
     const [saving, setSaving] = useState(false);
 
@@ -15,7 +15,7 @@ export default function FormEmployment({ resumeId, employment, isEditing = false
         try {
             const formData = new FormData(event.currentTarget);
             await save(resumeId, formData, employment?.id);
-            if (isEditing) { onSave() }
+            onSave()
         } catch(error) {
             console.error(error)
         } finally {
@@ -31,7 +31,7 @@ export default function FormEmployment({ resumeId, employment, isEditing = false
                     <InputText name="city" label="City" defaultValue={employment?.city ?? undefined} disabled={saving} />
                 </div>
 
-                <SubmitButton label={isEditing ? 'Save' : 'Add Employment'} disabled={saving} />
+                <SubmitButton label={editing ? 'Save' : 'Add Employment'} disabled={saving} />
             </form>
         </div>
     );

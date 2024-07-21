@@ -6,6 +6,7 @@ import { Resume } from "@prisma/client";
 import Loading from "@/app/loading";
 import { useEffect } from "react";
 import useEducation from "@/hooks/useEducation";
+import ExpandableWrapper from "../ExpandableWrapper";
 
 export default function EducationSection({ resume }: { resume: Resume }) {
     const { educations, loading, fetch, reset } = useEducation();
@@ -18,14 +19,14 @@ export default function EducationSection({ resume }: { resume: Resume }) {
     return (
         <div>
             <h1 className="text-xl pb-1 border-b font-semibold mb-1">Education</h1>
-            <div className={`transition-max-height ease-in duration-500 overflow-hidden ${loading ? 'max-h-24' : 'max-h-full'}`}>
+            <ExpandableWrapper open={!loading} initialMaxHeight="max-h-24">
                 {loading ? <Loading /> : (
                     <>
                         <ListEducations educations={educations} />
                         <FormEducation resumeId={resume.id} />
                     </>
                 )}
-            </div>
+            </ExpandableWrapper>
         </div>
     )
 }

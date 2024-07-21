@@ -6,7 +6,7 @@ import { FormEvent, useState } from "react";
 import { InputText, SubmitButton } from "@/components/form";
 import { getDisplayDateFromDate } from "@/util/date";
 
-export default function FormHistory({ employmentId, history, isEditing = false, onSave = () => {} }: { employmentId: string, history?: EmploymentHistory, isEditing?: boolean, onSave?: () => void }) {
+export default function FormHistory({ employmentId, history, editing = false, onSave = () => {} }: { employmentId: string, history?: EmploymentHistory, editing?: boolean, onSave?: () => void }) {
     const { save } = useEmploymentHistory();
     const [saving, setSaving] = useState(false);
     
@@ -16,7 +16,7 @@ export default function FormHistory({ employmentId, history, isEditing = false, 
         try {
             const formData = new FormData(event.currentTarget);
             await save(employmentId, formData, history?.id);
-            if (isEditing) { onSave() }
+            onSave();
         } catch(error) {
             console.error(error)
         } finally {
@@ -25,7 +25,7 @@ export default function FormHistory({ employmentId, history, isEditing = false, 
     }
 
     return (
-        <div className="mt-3 mx-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
+        <div className="mt-3 mx-1 mb-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
             <form onSubmit={onSubmit}>
                 <InputText name="title" label="Title" defaultValue={history?.title} required disabled={saving} />
 
@@ -35,7 +35,7 @@ export default function FormHistory({ employmentId, history, isEditing = false, 
                 </div>
                 <InputText type="rte" name="description" label="Descripition" defaultValue={history?.description ?? undefined} disabled={saving} />
 
-                <SubmitButton label={isEditing ? 'Save' : 'Add Employment History'} disabled={saving} />
+                <SubmitButton label={editing ? 'Save' : 'Add Employment History'} disabled={saving} />
             </form>
         </div>
     );
