@@ -1,7 +1,7 @@
 import ListHistory from "./ListHistory";
 import FormHistory from "./FormHistory";
 import { EmploymentHistory } from "@prisma/client";
-import ExpandableWrapper from "@/components/ExpandableWrapper";
+import { ExpandableWrapper } from "@/components/util";
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 

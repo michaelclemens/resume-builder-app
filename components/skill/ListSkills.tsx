@@ -1,9 +1,8 @@
 import ListItemSkill from "./ListItemSkill";
 import { sortByOrder } from "@/util/sort";
 import { Skill } from "@prisma/client";
-import SortableVerticalList from "../SortableVerticalList";
-import SortableItem from "../SortableItem";
-import useSkill from "@/hooks/useSkill";
+import { SortableVerticalList, SortableItem } from "@/components/list";
+import { useSkill } from "@/hooks";
 
 export default function ListSkills({ skills }: { skills: Skill[] }) {
     const { saveSortOrder } = useSkill();

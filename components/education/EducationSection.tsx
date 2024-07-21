@@ -5,8 +5,8 @@ import FormEducation from "./FormEducation";
 import { Resume } from "@prisma/client";
 import Loading from "@/app/loading";
 import { useEffect } from "react";
-import useEducation from "@/hooks/useEducation";
-import ExpandableWrapper from "../ExpandableWrapper";
+import { useEducation } from "@/hooks";
+import { ExpandableWrapper } from "@/components/util";
 
 export default function EducationSection({ resume }: { resume: Resume }) {
     const { educations, loading, fetch, reset } = useEducation();

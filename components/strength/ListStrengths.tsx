@@ -1,9 +1,8 @@
 import ListItemStrength from "./ListItemStrength";
 import { sortByOrder } from "@/util/sort";
 import { Strength } from "@prisma/client";
-import useStrength from "@/hooks/useStrength";
-import SortableVerticalList from "../SortableVerticalList";
-import SortableItem from "../SortableItem";
+import { useStrength } from "@/hooks";
+import { SortableVerticalList, SortableItem } from "@/components/list";
 
 export default function ListStrengths({ strengths }: { strengths: Strength[] }) {
     const { saveSortOrder } = useStrength();

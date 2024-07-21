@@ -1,9 +1,8 @@
 import { sortByOrder } from "@/util/sort";
 import { EmploymentHistory } from "@prisma/client";
 import ListItemHistory from "./ListItemHistory";
-import SortableVerticalList from "@/components/SortableVerticalList";
-import SortableItem from "@/components/SortableItem";
-import useEmploymentHistory from "@/hooks/useEmploymentHistory";
+import { SortableVerticalList, SortableItem } from "@/components/list";
+import { useEmploymentHistory } from "@/hooks";
 
 export default function ListHistory({ employmentId, histories }: { employmentId: string, histories: EmploymentHistory[] }) {
     const { saveSortOrder } = useEmploymentHistory();

@@ -1,6 +1,6 @@
 "use client"
 
-import useEmploymentHistory from "@/hooks/useEmploymentHistory";
+import { useEmploymentHistory } from "@/hooks";
 import { EmploymentHistory } from "@prisma/client";
 import { FormEvent, useState } from "react";
 import { InputText, SubmitButton } from "@/components/form";

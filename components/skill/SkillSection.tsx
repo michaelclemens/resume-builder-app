@@ -3,10 +3,10 @@
 import ListSkills from "./ListSkills";
 import FormSkill from "./FormSkill";
 import Loading from "@/app/loading";
-import useSkill from "@/hooks/useSkill";
+import { useSkill } from "@/hooks/";
 import { Resume } from "@prisma/client";
 import { useEffect } from "react";
-import ExpandableWrapper from "../ExpandableWrapper";
+import { ExpandableWrapper } from "@/components/util";
 
 export default function SkillSection({ resume }: { resume: Resume }) {
     const { skills, loading, fetch, reset } = useSkill();

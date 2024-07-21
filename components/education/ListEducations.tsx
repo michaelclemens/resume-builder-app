@@ -1,9 +1,8 @@
 import ListItemEducation from "./ListItemEducation";
 import { sortByOrder } from "@/util/sort";
 import { Education } from "@prisma/client";
-import SortableVerticalList from "../SortableVerticalList";
-import SortableItem from "../SortableItem";
-import useEducation from "@/hooks/useEducation";
+import { SortableVerticalList, SortableItem }  from "@/components/list";
+import { useEducation } from "@/hooks";
 
 export default function ListEducations({ educations }: { educations: Education[] }) {
     const { saveSortOrder } = useEducation();

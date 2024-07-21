@@ -1,11 +1,11 @@
 "use client"
 
-import usePersonal from "@/hooks/usePersonal";
+import { usePersonal } from "@/hooks";
 import { Resume } from "@prisma/client";
 import { FormEvent, useEffect, useState } from "react";
 import { InputText, SubmitButton } from '@/components/form';
 import Loading from "@/app/loading";
-import ExpandableWrapper from "../ExpandableWrapper";
+import { ExpandableWrapper } from "@/components/util";
 
 export default function FormPersonal({ resume }: { resume: Resume }) {
     const { personal, loading, fetch, save, reset } = usePersonal();

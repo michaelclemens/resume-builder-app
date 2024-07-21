@@ -2,7 +2,7 @@
 
 import { getEducations } from '@/lib/client/education';
 import { Education, Resume } from '@prisma/client';
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 
 const initialState: { educations: Education[], loading: boolean, error: null|string } = {

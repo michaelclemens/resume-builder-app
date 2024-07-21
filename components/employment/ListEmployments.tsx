@@ -1,9 +1,8 @@
 import { EmploymentWithHistory } from "@/lib/client/employment";
 import ListItemEmployment from "./ListItemEmployment";
 import { sortByOrder } from "@/util/sort";
-import SortableVerticalList from "../SortableVerticalList";
-import SortableItem from "../SortableItem";
-import useEmployment from "@/hooks/useEmployment";
+import { SortableVerticalList, SortableItem } from "@/components/list";
+import { useEmployment } from "@/hooks";
 
 export default function ListEmployments({ employments }: { employments: EmploymentWithHistory[] }) {
     const { saveSortOrder } = useEmployment();

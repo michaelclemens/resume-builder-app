@@ -1,3 +1,5 @@
+'use client'
+
 import RichTextEditor from "./RichTextEditor";
 
 type InputTypes = 'text'|'email'|'phone'|'date'|'rte';

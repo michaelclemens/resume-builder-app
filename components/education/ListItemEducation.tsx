@@ -3,10 +3,10 @@
 import { Education } from "@prisma/client";
 import { useState } from "react";
 import FormEducation from "./FormEducation";
-import useEducation from "@/hooks/useEducation";
+import { useEducation } from "@/hooks";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { getDisplayDateFromDate } from "@/util/date";
-import ExpandableWrapper from "../ExpandableWrapper";
+import { ExpandableWrapper } from "@/components/util";
 
 export default function ListItemEducation(education: Education) {
     const { remove } = useEducation();

@@ -4,9 +4,9 @@ import ListStrengths from "./ListStrengths";
 import FormStrength from "./FormStrength";
 import { Resume } from "@prisma/client";
 import { useEffect } from "react";
-import useStrength from "@/hooks/useStrength";
+import { useStrength } from "@/hooks";
 import Loading from "@/app/loading";
-import ExpandableWrapper from "../ExpandableWrapper";
+import { ExpandableWrapper } from "@/components/util";
 
 export default function StrengthSection({ resume }: { resume: Resume }) {
     const { strengths, loading, fetch, reset } = useStrength();

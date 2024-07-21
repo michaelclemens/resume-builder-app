@@ -3,9 +3,9 @@
 import { Strength } from "@prisma/client";
 import { useState } from "react";
 import FormStrength from "./FormStrength";
-import useStrength from "@/hooks/useStrength";
+import { useStrength } from "@/hooks";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
-import ExpandableWrapper from "../ExpandableWrapper";
+import { ExpandableWrapper } from "@/components/util";
 
 export default function ListItemStrength({ strength }: { strength: Strength }) {
     const { remove } = useStrength();

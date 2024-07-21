@@ -1,4 +1,5 @@
-import { EducationSection, EmploymentSection, FormPersonal, ResumePreview, SkillSection, StrengthSection } from "@/components";
+import { EducationSection, EmploymentSection, FormPersonal, SkillSection, StrengthSection } from "@/components";
+import ResumePreview from "@/containers/ResumePreview";
 import { getResume } from "@/lib/client/resume";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -21,6 +22,6 @@ export default async function Resume({ id }: { id: string }) {
             <main role="main" className="w-full h-full flex-grow overflow-y-auto bg-gray-600">
                 <Suspense><ResumePreview /></Suspense>
             </main>
-        </div> 
+        </div>
     )
 }

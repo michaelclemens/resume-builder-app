@@ -3,10 +3,10 @@
 import ListEmployments from "./ListEmployments";
 import FormEmployment from "./FormEmployment";
 import { Resume } from "@prisma/client";
-import useEmployment from "@/hooks/useEmployment";
+import { useEmployment } from "@/hooks";
 import { useEffect } from "react";
 import Loading from "@/app/loading";
-import ExpandableWrapper from "../ExpandableWrapper";
+import { ExpandableWrapper } from "@/components/util";
 
 export default function EmploymentSection({ resume }: { resume: Resume }) {
     const { employments, loading, fetch, reset } = useEmployment();

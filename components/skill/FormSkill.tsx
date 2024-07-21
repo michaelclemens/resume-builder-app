@@ -1,6 +1,6 @@
 "use client"
 
-import useSkill from "@/hooks/useSkill";
+import { useSkill } from "@/hooks";
 import { Skill } from "@prisma/client";
 import { FormEvent, useState } from "react";
 import { InputText, SubmitButton } from '@/components/form';

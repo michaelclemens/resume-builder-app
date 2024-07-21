@@ -3,9 +3,9 @@
 import { Skill } from "@prisma/client";
 import { useState } from "react";
 import FormSkill from "./FormSkill";
-import useSkill from "@/hooks/useSkill";
+import { useSkill } from "@/hooks";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
-import ExpandableWrapper from '@/components/ExpandableWrapper';
+import { ExpandableWrapper } from '@/components/util';
 
 export default function ListItemSkill(skill: Skill) {
     const { remove } = useSkill();

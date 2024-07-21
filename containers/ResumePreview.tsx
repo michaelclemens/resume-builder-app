@@ -8,9 +8,9 @@ import { selectSkillList } from "@/lib/redux/reducers/skill";
 import { selectStrengthList } from "@/lib/redux/reducers/strength";
 import { useAppSelector } from "@/lib/redux/store";
 import { sortByOrder } from "@/util/sort";
-import RenderHtml from "@/components/RenderHtml";
+import { RenderHtml } from "@/components/util";
 import Loading from "@/app/loading";
-import ExpandableWrapper from "../ExpandableWrapper";
+import { ExpandableWrapper } from "@/components/util";
 
 export default function ResumePreview() {
     const personal = useAppSelector(selectPersonalDetails);

@@ -1,6 +1,6 @@
 "use client"
 
-import useStrength from "@/hooks/useStrength";
+import { useStrength } from "@/hooks";
 import { Strength } from "@prisma/client";
 import { FormEvent, useState } from "react";
 import { InputText, SubmitButton } from '@/components/form';

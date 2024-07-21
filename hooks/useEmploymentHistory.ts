@@ -1,7 +1,7 @@
 import { addEmploymentHistory, deleteEmploymentHistory, setSortOrders, updateEmploymentHistory } from "@/lib/client/employmentHistory";
 import { removeEmploymentHistory, setEmploymentHistories, setEmploymentHistory } from "@/lib/redux/reducers/employment";
 import { useAppDispatch } from "@/lib/redux/store";
-import { Employment, EmploymentHistory } from "@prisma/client";
+import { EmploymentHistory } from "@prisma/client";
 
 const useEmploymentHistory = () => {
     const dispatch = useAppDispatch();

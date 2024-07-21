@@ -2,8 +2,9 @@
 
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import 'react-quill/dist/quill.snow.css';
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 const toolbarOptions = [
     [{ 'header': [1, 2, 3, false] }],

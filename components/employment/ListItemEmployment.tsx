@@ -4,9 +4,9 @@ import { useState } from "react";
 import FormEmployment from "./FormEmployment";
 import { EmploymentWithHistory } from "@/lib/client/employment";
 import HistorySection from "./history/HistorySection";
-import useEmployment from "@/hooks/useEmployment";
+import { useEmployment } from "@/hooks";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
-import ExpandableWrapper from "../ExpandableWrapper";
+import { ExpandableWrapper } from "@/components/util";
 
 export default function ListItemEmployment(employment: EmploymentWithHistory) {
     const { remove } = useEmployment();
