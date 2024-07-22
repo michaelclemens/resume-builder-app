@@ -15,6 +15,7 @@ export async function getSkills(resumeId: string) {
         return await prisma.skill.findMany({ where: { resumeId }})
     } catch (error) {
         console.error(error);
+        return [];
     }
 }
 
@@ -23,6 +24,7 @@ export async function addSkill(resumeId: string, formData: FormData) {
         return await prisma.skill.create({ data: createSkillDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
+        return null;
     }
 }
 
@@ -31,6 +33,7 @@ export async function updateSkill(id: string, resumeId: string, formData: FormDa
         return await prisma.skill.update({ where: { id }, data: createSkillDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
+        return null;
     }
 }
 

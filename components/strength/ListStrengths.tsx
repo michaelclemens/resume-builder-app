@@ -7,13 +7,13 @@ import { SortableVerticalList, SortableItem } from "@/components/list";
 export default function ListStrengths({ strengths }: { strengths: Strength[] }) {
     const { saveSortOrder } = useStrength();
 
-    if (!strengths || !strengths.length) return <p>No Strengths</p>
+    if (!strengths.length) return <p>No Strengths</p>
 
     return (
         <SortableVerticalList items={strengths} onNewSortOrder={saveSortOrder}>
             {strengths.sort(sortByOrder).map((strength) => (
                 <SortableItem key={strength.id} id={strength.id}>
-                    <ListItemStrength strength={strength} />
+                    <ListItemStrength {...strength} />
                 </SortableItem>
             ))}
         </SortableVerticalList>

@@ -29,6 +29,7 @@ export async function addPersonal(resumeId: string, formData: FormData) {
         return await prisma.personal.create({ data: createPersonalDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
+        return null;
     }
 }
 
@@ -37,5 +38,6 @@ export async function updatePersonal(id: string, resumeId: string, formData: For
         return await prisma.personal.update({ where: { id }, data: createPersonalDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
+        return null;
     }
 }

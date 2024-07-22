@@ -5,7 +5,7 @@ import { Personal } from "@prisma/client";
 import { FormEvent, useState } from "react";
 import { InputText, SubmitButton } from '@/components/form';
 
-export default function FormPersonal({ resumeId, personal }: { resumeId: string, personal?: Personal }) {
+export default function FormPersonal({ resumeId, personal }: { resumeId: string, personal: Personal|null }) {
     const { save } = usePersonal();
     const [saving, setSaving] = useState(false);
 
@@ -13,7 +13,8 @@ export default function FormPersonal({ resumeId, personal }: { resumeId: string,
         event.preventDefault();
         setSaving(true);
         try {
-            const formData = new FormData(event.currentTarget);
+            const form = event.currentTarget;
+            const formData = new FormData(form);
             await save(resumeId, formData, personal?.id);
         } catch(error) {
             console.error(error)

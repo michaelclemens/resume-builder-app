@@ -5,9 +5,9 @@ import { Strength } from '@prisma/client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 
-const initialState: { strengths: Strength[], loading: boolean, error: null|string } = {
-  strengths: [],
-  loading: true,
+const initialState: { strengths: Strength[]|null, loading: boolean, error: null|string } = {
+  strengths: null,
+  loading: false,
   error: null,
 }
 
@@ -24,6 +24,7 @@ export const slice = createSlice({
   initialState,
   reducers: {
     setStrength: (state, action) => {
+      if (!state.strengths) state.strengths = [];
       const index = state.strengths.findIndex(strength => strength.id === action.payload.id);
       if (index >= 0) {
         state.strengths[index] = action.payload;
@@ -32,6 +33,7 @@ export const slice = createSlice({
       }
     },
     removeStrength: (state, action) => {
+      if (!state.strengths) return;
       state.strengths = state.strengths.filter(strength => strength.id !== action.payload);
     },
     setStrengths: (state, action) => {
@@ -43,7 +45,7 @@ export const slice = createSlice({
     builder
       .addCase(fetchStrengths.pending, (state) => {
         state.loading = true;
-        state.strengths = [];
+        state.strengths = null;
         state.error = null;
       })
       .addCase(fetchStrengths.fulfilled, (state, action) => {

@@ -1,11 +1,11 @@
 "use client"
 
 import { useEmployment } from "@/hooks";
-import { Employment } from "@prisma/client";
 import { FormEvent, useState } from "react";
 import { InputText, SubmitButton } from "@/components/form";
+import { EmploymentWithHistory } from "@/lib/client/employment";
 
-export default function FormEmployment({ resumeId, employment, editing = false, onSave = () => {} }: { resumeId: string, employment?: Employment, editing?: boolean, onSave?: () => void }) {
+export default function FormEmployment({ resumeId, employment, editing = false, onSave = () => {} }: { resumeId: string, employment?: EmploymentWithHistory, editing?: boolean, onSave?: () => void }) {
     const { save } = useEmployment();
     const [saving, setSaving] = useState(false);
 

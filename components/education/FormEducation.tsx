@@ -14,8 +14,10 @@ export default function FormEducation({ resumeId, education, editing = false, on
         event.preventDefault();
         setSaving(true);
         try {
-            const formData = new FormData(event.currentTarget);
+            const form = event.currentTarget;
+            const formData = new FormData(form);
             await save(resumeId, formData, education?.id);
+            form.reset();
             onSave()
         } catch(error) {
             console.error(error)

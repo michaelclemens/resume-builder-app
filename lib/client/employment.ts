@@ -1,7 +1,7 @@
 "use server"
 
 import prisma from "@/lib/prisma";
-import { Employment, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 
 export type EmploymentWithHistory = Prisma.EmploymentGetPayload<{
     include: { history: true }
@@ -20,6 +20,7 @@ export async function getEmployments(resumeId: string) {
         return await prisma.employment.findMany({ where: { resumeId }, include: { history: true }})
     } catch (error) {
         console.error(error);
+        return [];
     }
 }
 
@@ -28,6 +29,7 @@ export async function addEmployment(resumeId: string, formData: FormData) {
         return await prisma.employment.create({ data: createEmploymentDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
+        return null;
     }
 }
 
@@ -36,10 +38,11 @@ export async function updateEmployment(id: string, resumeId: string, formData: F
         return await prisma.employment.update({ where: { id }, data: createEmploymentDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
+        return null;
     }
 }
 
-export async function setSortOrders(employments: Employment[]) {
+export async function setSortOrders(employments: EmploymentWithHistory[]) {
     try {
         employments.forEach(async(employment) => {
             await prisma.employment.update({ where: { id: employment.id }, data: { order: employment.order }})

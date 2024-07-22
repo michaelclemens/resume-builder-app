@@ -1,13 +1,14 @@
-import { addEmployment, deleteEmployment, setSortOrders, updateEmployment } from "@/lib/client/employment";
+import { addEmployment, deleteEmployment, EmploymentWithHistory, setSortOrders, updateEmployment } from "@/lib/client/employment";
 import { fetchEmployments, removeEmployment, selectEmployment, setEmployment, clear, setEmployments } from "@/lib/redux/reducers/employment";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
-import { Employment } from "@prisma/client";
 
 const useEmployment = () => {
-    const { employments: [...employments], loading, error } = useAppSelector(selectEmployment);
+    const { employments: employments, loading, error } = useAppSelector(selectEmployment);
     const dispatch = useAppDispatch();
 
-    const fetch = (resumeId: string) => { dispatch(fetchEmployments(resumeId)) }
+    const fetch = (resumeId: string) => dispatch(fetchEmployments(resumeId))
+
+    const set = (employments: EmploymentWithHistory[]) => dispatch(setEmployments(employments))
     
     const save = async(resumeId: string, formData: FormData, employmentId?: string) => {
         let employment = null;
@@ -20,19 +21,19 @@ const useEmployment = () => {
         dispatch(setEmployment(employment))
     }
 
-    const remove = async(employment: Employment) => {
+    const remove = async(employment: EmploymentWithHistory) => {
         await deleteEmployment(employment.id);
         dispatch(removeEmployment(employment.id))
     }
 
-    const saveSortOrder = async(items: Employment[]) => {
-        dispatch(setEmployments(items))
-        await setSortOrders(items);
+    const saveSortOrder = async(employments: EmploymentWithHistory[]) => {
+        set(employments);
+        await setSortOrders(employments);
     }
 
     const reset = () => { dispatch(clear()) }
 
-    return { employments, loading, error, fetch, save, remove, saveSortOrder, reset }
+    return { employments, loading, error, fetch, set, save, remove, saveSortOrder, reset }
 }
 
 export default useEmployment;

@@ -7,7 +7,7 @@ import { useSkill } from "@/hooks";
 export default function ListSkills({ skills }: { skills: Skill[] }) {
     const { saveSortOrder } = useSkill();
 
-    if (!skills || !skills.length) return <p>No Skills</p>
+    if (!skills.length) return <p>No Skills</p>
 
     return (
         <SortableVerticalList items={skills} onNewSortOrder={saveSortOrder}>

@@ -5,9 +5,9 @@ import { Personal } from '@prisma/client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 
-const initialState: { personal: null|Personal, loading: boolean, error: null|string  } = {
+const initialState: { personal: Personal|null, loading: boolean, error: null|string  } = {
   personal: null,
-  loading: true,
+  loading: false,
   error: null,
 }
 

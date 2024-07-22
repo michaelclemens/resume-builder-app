@@ -4,9 +4,9 @@ import { EmploymentWithHistory, getEmployments } from '@/lib/client/employment';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 
-const initialState: { employments: EmploymentWithHistory[], loading: boolean, error: null|string } = {
-  employments: [],
-  loading: true,
+const initialState: { employments: EmploymentWithHistory[]|null, loading: boolean, error: null|string } = {
+  employments: null,
+  loading: false,
   error: null,
 }
 
@@ -23,6 +23,7 @@ export const slice = createSlice({
   initialState,
   reducers: {
     setEmployment: (state, action) => {
+      if (!state.employments) state.employments = [];
       const index = state.employments.findIndex(employment => employment.id === action.payload.id);
       if (index >= 0) {
         action.payload.history = [...state.employments[index].history];
@@ -33,6 +34,7 @@ export const slice = createSlice({
       }
     },
     setEmploymentHistory: (state, action) => {
+      if (!state.employments) state.employments = [];
       const { employmentId } = action.payload;
       const index = state.employments.findIndex(employment => employment.id === employmentId);
       const historyIndex = state.employments[index].history.findIndex(history => history.id === action.payload.id);
@@ -43,9 +45,11 @@ export const slice = createSlice({
       }
     },
     removeEmployment: (state, action) => {
+      if (!state.employments) return;
       state.employments = state.employments.filter(employment => employment.id !== action.payload);
     },
     removeEmploymentHistory: (state, action) => {
+      if (!state.employments) return;
       const index = state.employments.findIndex(employment => employment.id === action.payload.employmentId);
       if (index >= 0) {
         state.employments[index].history = state.employments[index].history.filter(history => history.id !== action.payload.id)
@@ -55,6 +59,7 @@ export const slice = createSlice({
       state.employments = action.payload;
     },
     setEmploymentHistories: (state, action) => {
+      if (!state.employments) return;
       const { employmentId, items } = action.payload;
       const index = state.employments.findIndex(employment => employment.id === employmentId);
       state.employments[index].history = items;
@@ -65,7 +70,7 @@ export const slice = createSlice({
     builder
       .addCase(fetchEmployments.pending, (state) => {
         state.loading = true;
-        state.employments = [];
+        state.employments = null;
         state.error = null;
       })
       .addCase(fetchEmployments.fulfilled, (state, action) => {

@@ -1,3 +1,7 @@
 import { EducationSection } from "@/components";
+import { getEducations } from "@/lib/client/education";
 
-export default ({ params: { id } }: { params: { id: string }}) => <EducationSection resumeId={id} />
+export default async({ params: { id } }: { params: { id: string }}) => {
+    const educations = await getEducations(id);
+    return <EducationSection resumeId={id} educations={educations} />
+}

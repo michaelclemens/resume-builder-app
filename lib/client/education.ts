@@ -18,9 +18,10 @@ const createEducationDataPayload = (resumeId: string, formData: FormData) => {
 
 export async function getEducations(resumeId: string) {
     try {
-        return await prisma.education.findMany({ where: { resumeId }})
+        return await prisma.education.findMany({ where: { resumeId }});
     } catch (error) {
         console.error(error);
+        return [];
     }
 }
 
@@ -29,6 +30,7 @@ export async function addEducation(resumeId: string, formData: FormData) {
         return await prisma.education.create({ data: createEducationDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
+        return null;
     }
 }
 
@@ -37,6 +39,7 @@ export async function updateEducation(id: string, resumeId: string, formData: Fo
         return await prisma.education.update({ where: { id }, data: createEducationDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
+        return null;
     }
 }
 

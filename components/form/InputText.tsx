@@ -1,5 +1,3 @@
-'use client'
-
 import RichTextEditor from "./RichTextEditor";
 
 type InputTypes = 'text'|'email'|'phone'|'date'|'rte';
@@ -18,7 +16,6 @@ export default function InputText(
     
     return (
         <label
-            htmlFor={name}
             className="relative block overflow-hidden mb-3 rounded-md border bg-white border-gray-200 px-3 pt-3 shadow-sm focus-within:border-gray-400 focus-within:ring-1 focus-within:ring-gray-400 aria-disabled:opacity-50"
             aria-disabled={disabled}
         >

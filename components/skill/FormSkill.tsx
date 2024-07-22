@@ -2,19 +2,21 @@
 
 import { useSkill } from "@/hooks";
 import { Skill } from "@prisma/client";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { InputText, SubmitButton } from '@/components/form';
 
 export default function FormSkill({ resumeId, skill, editing = false, onSave = () => {} }: { resumeId: string, skill?: Skill, editing?: boolean, onSave?: () => void }) {
     const { save } = useSkill();
     const [saving, setSaving] = useState(false);
 
-    const onSubmit = async(event: FormEvent<HTMLFormElement>) => {
+    const onSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setSaving(true);
         try {
-            const formData = new FormData(event.currentTarget);
+            const form = event.currentTarget;
+            const formData = new FormData(form);
             await save(resumeId, formData, skill?.id);
+            form.reset();
             onSave();
         } catch(error) {
             console.error(error)

@@ -15,6 +15,7 @@ export async function getStrengths(resumeId: string) {
         return await prisma.strength.findMany({ where: { resumeId }})
     } catch (error) {
         console.error(error);
+        return [];
     }
 }
 
@@ -23,6 +24,7 @@ export async function addStrength(resumeId: string, formData: FormData) {
         return await prisma.strength.create({ data: createStrengthDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
+        return null;
     }
 }
 
@@ -31,6 +33,7 @@ export async function updateStrength(id: string, resumeId: string, formData: For
         return await prisma.strength.update({ where: { id }, data: createStrengthDataPayload(resumeId, formData) });
     } catch (error) {
         console.error(error);
+        return null;
     }
 }
 

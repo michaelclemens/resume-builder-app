@@ -14,12 +14,12 @@ import { ExpandableWrapper } from "@/components/util";
 
 export default function ResumePreview() {
     const personal = useAppSelector(selectPersonalDetails);
-    const [...employments] = useAppSelector(selectEmploymentList);
-    const [...educations] = useAppSelector(selectEducationList);
-    const [...skills] = useAppSelector(selectSkillList);
-    const [...strengths] = useAppSelector(selectStrengthList);
+    const employments = useAppSelector(selectEmploymentList);
+    const educations = useAppSelector(selectEducationList);
+    const skills = useAppSelector(selectSkillList);
+    const strengths = useAppSelector(selectStrengthList);
 
-    const loading = useAppSelector(selectIsLoadingResume);
+    const loading = [employments, educations, skills, strengths].some(value => !value);
 
     return (
         <div className="bg-white mx-20 my-8 p-8">
@@ -50,20 +50,20 @@ export default function ResumePreview() {
                                 )}
                             </ul>
                             
-                            {skills.length > 0 && (
+                            {skills && skills.length > 0 && (
                                 <>
                                     <h3 className="text-xl pb-1 border-b font-semibold">Experience</h3>
                                     <ul className="mt-2 mb-10">
-                                        {skills.sort(sortByOrder).map(skill => <li key={skill.id} className="px-2 mt-1">{skill.name}</li>)}
+                                        {[...skills].sort(sortByOrder).map(skill => <li key={skill.id} className="px-2 mt-1">{skill.name}</li>)}
                                     </ul>
                                 </>
                             )}
 
-                            {strengths.length > 0 && (
+                            {strengths && strengths.length > 0 && (
                                 <>
                                     <h3 className="text-xl pb-1 border-b font-semibold">Strengths</h3>
                                     <ul className="mt-2 mb-10">
-                                        {strengths.sort(sortByOrder).map(strength => <li key={strength.id} className="px-2 mt-1">{strength.name}</li>)}
+                                        {[...strengths].sort(sortByOrder).map(strength => <li key={strength.id} className="px-2 mt-1">{strength.name}</li>)}
                                     </ul>
                                 </>
                             )}
@@ -74,11 +74,11 @@ export default function ResumePreview() {
                                 <RenderHtml html={personal?.summary ?? ''} />
                             </div>
                             
-                            {employments.length > 0 && (
+                            {employments && employments.length > 0 && (
                                 <>
                                     <h2 className="text-2xl mt-6 pb-1 border-b font-semibold">Employment History</h2>
                                     <ul className="mt-2">
-                                        {employments.sort(sortByOrder).map(employment => (
+                                        {[...employments].sort(sortByOrder).map(employment => (
                                             <li key={employment.id} className="pt-2">
                                                 <p className="flex justify-between text-sm">
                                                     <strong className="text-base">{employment.employer}</strong>
@@ -105,11 +105,11 @@ export default function ResumePreview() {
                                 </>
                             )}
 
-                            {educations.length > 0 && (
+                            {educations && educations.length > 0 && (
                                 <>
                                     <h2 className="text-2xl mt-6 pb-1 border-b font-semibold">Education</h2>
                                     <ul className="mt-2">
-                                        {educations.sort(sortByOrder).map(education => (
+                                        {[...educations].sort(sortByOrder).map(education => (
                                             <li key={education.id} className="pt-2">
                                                 <p className="flex justify-between text-sm">
                                                     <strong className="text-base">{education.degree}, {education.school}</strong>

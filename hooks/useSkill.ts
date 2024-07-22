@@ -4,10 +4,12 @@ import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Skill } from "@prisma/client";
 
 const useSkill = () => {
-    const { skills: [...skills], loading, error } = useAppSelector(selectSkill);
+    const { skills, loading, error } = useAppSelector(selectSkill);
     const dispatch = useAppDispatch();
 
-    const fetch = (resumeId: string) => { dispatch(fetchSkills(resumeId)) }
+    const fetch = (resumeId: string) => dispatch(fetchSkills(resumeId))
+
+    const set = (skills: Skill[]) => dispatch(setSkills(skills))
     
     const save = async(resumeId: string, formData: FormData, skillId?: string) => {
         let skill = null;
@@ -25,14 +27,14 @@ const useSkill = () => {
         dispatch(removeSkill(skill.id))
     }
 
-    const saveSortOrder = async(items: Skill[]) => {
-        dispatch(setSkills(items))
-        await setSortOrders(items);
+    const saveSortOrder = async(skills: Skill[]) => {
+        set(skills);
+        await setSortOrders(skills);
     }
     
     const reset = () => { dispatch(clear()) }
 
-    return { skills, loading, error, fetch, save, remove, saveSortOrder, reset }
+    return { skills, loading, error, fetch, set, save, remove, saveSortOrder, reset }
 }
 
 export default useSkill;

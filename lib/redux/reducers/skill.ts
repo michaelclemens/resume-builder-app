@@ -5,9 +5,9 @@ import { Skill } from '@prisma/client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 
-const initialState: { skills: Skill[], loading: boolean, error: null|string } = {
-  skills: [],
-  loading: true,
+const initialState: { skills: Skill[]|null, loading: boolean, error: null|string } = {
+  skills: null,
+  loading: false,
   error: null,
 }
 
@@ -24,6 +24,7 @@ export const slice = createSlice({
   initialState,
   reducers: {
     setSkill: (state, action) => {
+      if (!state.skills) state.skills = [];
       const index = state.skills.findIndex(skill => skill.id === action.payload.id);
       if (index >= 0) {
         state.skills[index] = action.payload;
@@ -32,10 +33,11 @@ export const slice = createSlice({
       }
     },
     removeSkill: (state, action) => {
+      if (!state.skills) return;
       state.skills = state.skills.filter(skill => skill.id !== action.payload);
     },
     setSkills: (state, action) => {
-      state.skills = action.payload;
+      state.skills = action.payload ?? [];
     },
     clear: () => initialState
   },
@@ -43,7 +45,7 @@ export const slice = createSlice({
     builder
       .addCase(fetchSkills.pending, (state) => {
         state.loading = true;
-        state.skills = [];
+        state.skills = null;
         state.error = null;
       })
       .addCase(fetchSkills.fulfilled, (state, action) => {
@@ -60,7 +62,7 @@ export const slice = createSlice({
 })
 
 export const { 
-  setSkill, removeSkill, clear, setSkills
+  setSkill, removeSkill, clear, setSkills,
 } = slice.actions;
 
 export const selectSkill = (state: RootState) => state.skill;

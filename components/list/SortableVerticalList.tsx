@@ -1,6 +1,9 @@
+"use client"
+
 import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { restrictToParentElement, restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { useId } from "react";
 
 interface SortableItem {
     id: string,
@@ -8,6 +11,7 @@ interface SortableItem {
 }
 
 export default function SortableVerticalList<T extends SortableItem>({ items, children, onNewSortOrder }: { items: T[], children: React.ReactNode, onNewSortOrder: (sortedItems: T[]) => Promise<void> }) {
+    const id = useId();
     const sensors = useSensors(useSensor(PointerSensor));
 
     const onDragEnd = (event: DragEndEvent) => {
@@ -27,7 +31,8 @@ export default function SortableVerticalList<T extends SortableItem>({ items, ch
 
     return (
         <div className="rounded-lg bg-white mx-1 mt-2 divide-y divide-slate-400/20 ring-1 ring-slate-700/10">
-            <DndContext 
+            <DndContext
+                id={`dnd-${id}`}
                 sensors={sensors} 
                 modifiers={[restrictToVerticalAxis, restrictToParentElement]}
                 collisionDetection={closestCenter} 

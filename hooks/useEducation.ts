@@ -4,10 +4,12 @@ import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Education } from "@prisma/client";
 
 const useEducation = () => {
-    const { educations: [...educations], loading, error } = useAppSelector(selectEducation);
+    const { educations, loading, error } = useAppSelector(selectEducation);
     const dispatch = useAppDispatch();
 
-    const fetch = (resumeId: string) => { dispatch(fetchEducations(resumeId)) }
+    const fetch = (resumeId: string) => dispatch(fetchEducations(resumeId))
+
+    const set = (educations: Education[]) => dispatch(setEducations(educations))
     
     const save = async(resumeId: string, formData: FormData, educationId?: string) => {
         let education = null;
@@ -25,14 +27,14 @@ const useEducation = () => {
         dispatch(removeEducation(education.id))
     }
 
-    const saveSortOrder = async(items: Education[]) => {
-        dispatch(setEducations(items))
-        await setSortOrders(items);
+    const saveSortOrder = async(educations: Education[]) => {
+        set(educations)
+        await setSortOrders(educations);
     }
 
     const reset = () => { dispatch(clear()) }
 
-    return { educations, loading, error, fetch, save, remove, saveSortOrder, reset }
+    return { educations, loading, error, fetch, set, save, remove, saveSortOrder, reset }
 }
 
 export default useEducation;

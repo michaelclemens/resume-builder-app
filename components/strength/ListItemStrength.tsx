@@ -7,7 +7,7 @@ import { useStrength } from "@/hooks";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { ExpandableWrapper } from "@/components/util";
 
-export default function ListItemStrength({ strength }: { strength: Strength }) {
+export default function ListItemStrength(strength: Strength) {
     const { remove } = useStrength();
     const [editing, setEditing] = useState(false);
     const [deleting, setDeleting] = useState(false);

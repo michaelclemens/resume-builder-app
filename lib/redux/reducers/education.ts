@@ -5,9 +5,9 @@ import { Education } from '@prisma/client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 
-const initialState: { educations: Education[], loading: boolean, error: null|string } = {
-  educations: [],
-  loading: true,
+const initialState: { educations: Education[]|null, loading: boolean, error: null|string } = {
+  educations: null,
+  loading: false,
   error: null,
 }
 
@@ -24,6 +24,7 @@ export const slice = createSlice({
   initialState,
   reducers: {
     setEducation: (state, action) => {
+      if (!state.educations) state.educations = [];
       const index = state.educations.findIndex(education => education.id === action.payload.id);
       if (index >= 0) {
         state.educations[index] = action.payload;
@@ -32,6 +33,7 @@ export const slice = createSlice({
       }
     },
     removeEducation: (state, action) => {
+      if (!state.educations) return;
       state.educations = state.educations.filter(education => education.id !== action.payload);
     },
     setEducations: (state, action) => {
@@ -43,7 +45,7 @@ export const slice = createSlice({
     builder
       .addCase(fetchEducations.pending, (state) => {
         state.loading = true;
-        state.educations = [];
+        state.educations = null;
         state.error = null;
       })
       .addCase(fetchEducations.fulfilled, (state, action) => {

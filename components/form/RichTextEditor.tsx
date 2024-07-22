@@ -1,10 +1,11 @@
 'use client'
 
+import Loading from "@/app/loading";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import 'react-quill/dist/quill.snow.css';
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+const ReactQuill = dynamic(() => import('react-quill'), { loading: () => <Loading/>, ssr: false });
 
 const toolbarOptions = [
     [{ 'header': [1, 2, 3, false] }],
@@ -18,7 +19,7 @@ export default function RichTextEditor({ name, placeholder = '', defaultValue = 
     const [value, setValue] = useState(defaultValue);
     
     return (
-        <div className={`${disabled ? 'opacity-50 pointer-events-none' : ''}`}>
+        <div className={`min-h-24 ${disabled ? 'opacity-50 pointer-events-none' : ''}`}>
             <ReactQuill 
                 placeholder={placeholder.length > 0 ? `${placeholder}...` : ''}
                 defaultValue={defaultValue} 
