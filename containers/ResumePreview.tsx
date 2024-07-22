@@ -20,7 +20,7 @@ export default function ResumePreview() {
     const skills = useAppSelector(selectSkillList);
     const strengths = useAppSelector(selectStrengthList);
 
-    const loading = [employments, educations, skills, strengths].some(value => !value);
+    const loading = false && [employments, educations, skills, strengths].some(value => !value);
 
     return (
         <div className="bg-white mx-20 my-8 p-8 min-h-screen">
