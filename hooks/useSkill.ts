@@ -1,13 +1,13 @@
 import { addSkill, deleteSkill, setSortOrders, updateSkill } from "@/lib/client/skill";
 import { fetchSkills, removeSkill, selectSkill, setSkill, clear, setSkills } from "@/lib/redux/reducers/skill";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
-import { Resume, Skill } from "@prisma/client";
+import { Skill } from "@prisma/client";
 
 const useSkill = () => {
     const { skills: [...skills], loading, error } = useAppSelector(selectSkill);
     const dispatch = useAppDispatch();
 
-    const fetch = (resume: Resume) => { dispatch(fetchSkills(resume)) }
+    const fetch = (resumeId: string) => { dispatch(fetchSkills(resumeId)) }
     
     const save = async(resumeId: string, formData: FormData, skillId?: string) => {
         let skill = null;

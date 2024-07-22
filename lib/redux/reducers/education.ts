@@ -1,7 +1,7 @@
 "use client"
 
 import { getEducations } from '@/lib/client/education';
-import { Education, Resume } from '@prisma/client';
+import { Education } from '@prisma/client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 
@@ -11,9 +11,9 @@ const initialState: { educations: Education[], loading: boolean, error: null|str
   error: null,
 }
 
-export const fetchEducations = createAsyncThunk('resume/educations/fetch', async(resume: Resume, { rejectWithValue }) => {
+export const fetchEducations = createAsyncThunk('resume/educations/fetch', async(resumeId: string, { rejectWithValue }) => {
   try {
-    return await getEducations(resume.id);
+    return await getEducations(resumeId);
   } catch (error) {
     return rejectWithValue(error);
   }

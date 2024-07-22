@@ -1,7 +1,6 @@
 "use client"
 
 import { EmploymentWithHistory, getEmployments } from '@/lib/client/employment';
-import { Resume } from '@prisma/client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 
@@ -11,9 +10,9 @@ const initialState: { employments: EmploymentWithHistory[], loading: boolean, er
   error: null,
 }
 
-export const fetchEmployments = createAsyncThunk('resume/employments/fetch', async(resume: Resume, { rejectWithValue }) => {
+export const fetchEmployments = createAsyncThunk('resume/employments/fetch', async(resumeId: string, { rejectWithValue }) => {
   try {
-    return await getEmployments(resume.id);
+    return await getEmployments(resumeId);
   } catch (error) {
     return rejectWithValue(error);
   }

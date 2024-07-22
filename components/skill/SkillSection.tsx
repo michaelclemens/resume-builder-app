@@ -4,17 +4,16 @@ import ListSkills from "./ListSkills";
 import FormSkill from "./FormSkill";
 import Loading from "@/app/loading";
 import { useSkill } from "@/hooks/";
-import { Resume } from "@prisma/client";
 import { useEffect } from "react";
 import { ExpandableWrapper } from "@/components/util";
 
-export default function SkillSection({ resume }: { resume: Resume }) {
+export default function SkillSection({ resumeId }: { resumeId: string }) {
     const { skills, loading, fetch, reset } = useSkill();
     
     useEffect(() => {
-        fetch(resume)
+        fetch(resumeId)
         return () => reset()
-    }, [resume.id]);
+    }, [resumeId]);
     
     return (
         <div>
@@ -23,7 +22,7 @@ export default function SkillSection({ resume }: { resume: Resume }) {
                 {loading ? <Loading /> : (
                     <>
                         <ListSkills skills={skills} />
-                        <FormSkill resumeId={resume.id} />
+                        <FormSkill resumeId={resumeId} />
                     </>
                 )}
             </ExpandableWrapper>

@@ -1,6 +1,6 @@
 "use server"
 
-import prisma, { mimicLoading } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { Skill } from "@prisma/client";
 
 const createSkillDataPayload = (resumeId: string, formData: FormData) => {

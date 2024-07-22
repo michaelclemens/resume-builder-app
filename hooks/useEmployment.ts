@@ -1,13 +1,13 @@
 import { addEmployment, deleteEmployment, setSortOrders, updateEmployment } from "@/lib/client/employment";
 import { fetchEmployments, removeEmployment, selectEmployment, setEmployment, clear, setEmployments } from "@/lib/redux/reducers/employment";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
-import { Employment, Resume } from "@prisma/client";
+import { Employment } from "@prisma/client";
 
 const useEmployment = () => {
     const { employments: [...employments], loading, error } = useAppSelector(selectEmployment);
     const dispatch = useAppDispatch();
 
-    const fetch = (resume: Resume) => { dispatch(fetchEmployments(resume)) }
+    const fetch = (resumeId: string) => { dispatch(fetchEmployments(resumeId)) }
     
     const save = async(resumeId: string, formData: FormData, employmentId?: string) => {
         let employment = null;

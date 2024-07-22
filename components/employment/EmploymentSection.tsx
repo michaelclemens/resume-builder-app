@@ -2,19 +2,18 @@
 
 import ListEmployments from "./ListEmployments";
 import FormEmployment from "./FormEmployment";
-import { Resume } from "@prisma/client";
 import { useEmployment } from "@/hooks";
 import { useEffect } from "react";
 import Loading from "@/app/loading";
 import { ExpandableWrapper } from "@/components/util";
 
-export default function EmploymentSection({ resume }: { resume: Resume }) {
+export default function EmploymentSection({ resumeId }: { resumeId: string }) {
     const { employments, loading, fetch, reset } = useEmployment();
     
     useEffect(() => {
-        fetch(resume)
+        fetch(resumeId)
         return () => reset()
-    }, [resume.id]);
+    }, [resumeId]);
 
     return (
         <div>
@@ -23,7 +22,7 @@ export default function EmploymentSection({ resume }: { resume: Resume }) {
                 {loading ? <Loading /> : (
                     <>
                         <ListEmployments employments={employments} />
-                        <FormEmployment resumeId={resume.id} />
+                        <FormEmployment resumeId={resumeId} />
                     </>
                 )}
             </ExpandableWrapper>

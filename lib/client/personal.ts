@@ -1,6 +1,6 @@
 "use server"
 
-import prisma, { mimicLoading } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { sanitize } from "isomorphic-dompurify";
 
 const createPersonalDataPayload = (resumeId: string, formData: FormData) => ({

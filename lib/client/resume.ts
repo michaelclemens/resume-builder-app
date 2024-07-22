@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export type ResumeWithPersonal = Prisma.ResumeGetPayload<{
     include: { personal: true }

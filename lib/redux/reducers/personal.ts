@@ -1,7 +1,7 @@
 "use client"
 
 import { getPersonal } from '@/lib/client/personal';
-import { Personal, Resume } from '@prisma/client';
+import { Personal } from '@prisma/client';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 
@@ -11,9 +11,9 @@ const initialState: { personal: null|Personal, loading: boolean, error: null|str
   error: null,
 }
 
-export const fetchPersonal = createAsyncThunk('resume/personal/fetch', async(resume: Resume, { rejectWithValue }) => {
+export const fetchPersonal = createAsyncThunk('resume/personal/fetch', async(resumeId: string, { rejectWithValue }) => {
     try {
-      return await getPersonal(resume.id);
+      return await getPersonal(resumeId);
     } catch (error) {
       return rejectWithValue(error);
     }

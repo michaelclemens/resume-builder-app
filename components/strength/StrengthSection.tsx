@@ -2,19 +2,18 @@
 
 import ListStrengths from "./ListStrengths";
 import FormStrength from "./FormStrength";
-import { Resume } from "@prisma/client";
 import { useEffect } from "react";
 import { useStrength } from "@/hooks";
 import Loading from "@/app/loading";
 import { ExpandableWrapper } from "@/components/util";
 
-export default function StrengthSection({ resume }: { resume: Resume }) {
+export default function StrengthSection({ resumeId }: { resumeId: string }) {
     const { strengths, loading, fetch, reset } = useStrength();
     
     useEffect(() => {
-        fetch(resume)
+        fetch(resumeId)
         return () => reset()
-    }, [resume.id]);
+    }, [resumeId]);
     
     return (
         <div>
@@ -23,7 +22,7 @@ export default function StrengthSection({ resume }: { resume: Resume }) {
                 {loading ? <Loading /> : (
                     <>
                         <ListStrengths strengths={strengths} />
-                        <FormStrength resumeId={resume.id} />
+                        <FormStrength resumeId={resumeId} />
                     </>
                 )}
             </ExpandableWrapper>

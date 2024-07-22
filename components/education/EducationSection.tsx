@@ -2,19 +2,18 @@
 
 import ListEducations from "./ListEducations";
 import FormEducation from "./FormEducation";
-import { Resume } from "@prisma/client";
 import Loading from "@/app/loading";
 import { useEffect } from "react";
 import { useEducation } from "@/hooks";
 import { ExpandableWrapper } from "@/components/util";
 
-export default function EducationSection({ resume }: { resume: Resume }) {
+export default function EducationSection({ resumeId }: { resumeId: string }) {
     const { educations, loading, fetch, reset } = useEducation();
     
     useEffect(() => {
-        fetch(resume)
+        fetch(resumeId)
         return () => reset()
-    }, [resume.id]);
+    }, [resumeId]);
     
     return (
         <div>
@@ -23,7 +22,7 @@ export default function EducationSection({ resume }: { resume: Resume }) {
                 {loading ? <Loading /> : (
                     <>
                         <ListEducations educations={educations} />
-                        <FormEducation resumeId={resume.id} />
+                        <FormEducation resumeId={resumeId} />
                     </>
                 )}
             </ExpandableWrapper>
