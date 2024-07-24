@@ -36,7 +36,7 @@ const usePersonal = (initialPersonal?: Personal) => {
         dispatch(clear());
     }
 
-    return { personal: personal ?? initialPersonal, save }
+    return { personal: personal ?? initialPersonal ?? null, save }
 }
 
 export default usePersonal;

@@ -34,22 +34,18 @@ body {
   }
 }
 
-@media all {
-  .page-break {
-    display: none;
-  }
-}
-
 @media print {
+  html, body {
+    height: initial !important;
+    overflow: initial !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
   @page {
     size: A4 portrait;
     margin: 1cm;
   }
-  .page-break {
-    margin-top: 1rem;
-    display: block;
-    page-break-before: auto;
+  h1, section {
+    break-before: auto;
   }
 }
-
-

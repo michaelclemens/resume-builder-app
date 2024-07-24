@@ -24,7 +24,7 @@ export default async function Layout({ params: { id }, children, tabs }: { param
               <div>{tabs}</div>
             </div>
         </div>
-        <main role="main" className="w-full h-full relative flex-grow overflow-y-auto bg-gray-600">
+        <main role="main" className="w-full h-full flex-grow overflow-y-auto bg-gray-600">
           {children}
         </main>
       </div>
