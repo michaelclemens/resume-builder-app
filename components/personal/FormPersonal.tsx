@@ -5,8 +5,8 @@ import { Personal } from "@prisma/client";
 import { FormEvent, useState } from "react";
 import { InputText, SubmitButton } from '@/components/form';
 
-export default function FormPersonal({ resumeId, personal }: { resumeId: string, personal: Personal|null }) {
-    const { save } = usePersonal();
+export default function FormPersonal({ resumeId, initialPersonal }: { resumeId: string, initialPersonal?: Personal }) {
+    const { personal, save } = usePersonal(initialPersonal);
     const [saving, setSaving] = useState(false);
 
     const onSubmit = async(event: FormEvent<HTMLFormElement>) => {

@@ -1,11 +1,5 @@
 "use client"
 
-import { selectEducationList } from "@/lib/redux/reducers/education";
-import { selectEmploymentList } from "@/lib/redux/reducers/employment";
-import { selectPersonalDetails } from "@/lib/redux/reducers/personal";
-import { selectSkillList } from "@/lib/redux/reducers/skill";
-import { selectStrengthList } from "@/lib/redux/reducers/strength";
-import { useAppSelector } from "@/lib/redux/store";
 import { sortByOrder } from "@/util/sort";
 import { RenderHtml } from "@/components/util";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -13,24 +7,19 @@ import { ResumeFull } from "@/lib/client/resume";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import { FaPrint } from "react-icons/fa";
+import { useEducation, useEmployment, usePersonal, useSkill, useStrength } from "@/hooks";
 
-export default function ResumePreview({ resume: serverResume }: { resume: ResumeFull }) {
-    const statePersonal = useAppSelector(selectPersonalDetails);
-    const stateEmployments = useAppSelector(selectEmploymentList);
-    const stateEducations = useAppSelector(selectEducationList);
-    const stateSkills = useAppSelector(selectSkillList);
-    const stateStrengths = useAppSelector(selectStrengthList);
-
-    const personal = statePersonal ? statePersonal : serverResume.personal;
-    const employments = stateEmployments ? [...stateEmployments] : serverResume.employments;
-    const educations = stateEducations ? [...stateEducations] : serverResume.educations;
-    const skills = stateSkills ? [...stateSkills] : serverResume.skills;
-    const strengths = stateStrengths ? [...stateStrengths] : serverResume.strengths;
+export default function ResumePreview({ resume: resume }: { resume: ResumeFull }) {
+    const { personal } = usePersonal(resume.personal ?? undefined);
+    const { employments } = useEmployment(resume.employments);
+    const { educations } = useEducation(resume.educations);
+    const { skills } = useSkill(resume.skills);
+    const { strengths } = useStrength(resume.strengths);
 
     const [animationParent] = useAutoAnimate();
     const componentRef = useRef(null);
 
-    const documentTitle = `${personal ? `${personal.firstName} ${personal.lastName} ` : ''}CV.pdf`;
+    const documentTitle = `${personal ? `${personal.firstName}-${personal.lastName}` : 'My'}-CV.pdf`;
 
     const handlePrint = useReactToPrint({
         documentTitle,
@@ -44,8 +33,8 @@ export default function ResumePreview({ resume: serverResume }: { resume: Resume
                     <FaPrint size="1.75em"/>
                 </button>
             </div>
-            <div className="mx-auto my-10 w-[210mm] min-h-screen">
-                <div className="flex gap-x-10 bg-white p-[1cm] print:p-0 text-[7.5pt]" ref={componentRef}>
+            <div className="mx-auto my-10 w-[210mm]">
+                <div className="flex gap-x-10 bg-white p-[1cm] print:p-0 text-[7.5pt] min-h-screen" ref={componentRef}>
                     <div className="w-2/6">
                         {personal && (
                             <>
@@ -76,7 +65,7 @@ export default function ResumePreview({ resume: serverResume }: { resume: Resume
                                     <>
                                         <h3 className="text-xl pb-1 border-b font-semibold">Experience</h3>
                                         <ul ref={animationParent} className="mt-2 mb-10">
-                                            {[...skills].sort(sortByOrder).map(skill => <li key={skill.id} className="px-2 mt-1">{skill.name}</li>)}
+                                            {skills.sort(sortByOrder).map(skill => <li key={skill.id} className="px-2 mt-1">{skill.name}</li>)}
                                         </ul>
                                     </>
                                 )}
@@ -85,7 +74,7 @@ export default function ResumePreview({ resume: serverResume }: { resume: Resume
                                     <>
                                         <h3 className="text-xl pb-1 border-b font-semibold">Strengths</h3>
                                         <ul ref={animationParent} className="mt-2 mb-10">
-                                            {[...strengths].sort(sortByOrder).map(strength => <li key={strength.id} className="px-2 mt-1">{strength.name}</li>)}
+                                            {strengths.sort(sortByOrder).map(strength => <li key={strength.id} className="px-2 mt-1">{strength.name}</li>)}
                                         </ul>
                                     </>
                                 )}
@@ -107,7 +96,7 @@ export default function ResumePreview({ resume: serverResume }: { resume: Resume
                             <>
                                 <h2 className="text-2xl mt-6 pb-1 border-b font-semibold">Employment History</h2>
                                 <ul ref={animationParent} className="mt-2">
-                                    {[...employments].sort(sortByOrder).map(employment => (
+                                    {employments.sort(sortByOrder).map(employment => (
                                         <li key={employment.id} className="pt-2">
                                             <p className="flex justify-between text-sm">
                                                 <strong className="text-base">{employment.employer}</strong>
@@ -138,7 +127,7 @@ export default function ResumePreview({ resume: serverResume }: { resume: Resume
                             <>
                                 <h2 className="text-2xl mt-6 pb-1 border-b font-semibold">Education</h2>
                                 <ul ref={animationParent} className="mt-2">
-                                    {[...educations].sort(sortByOrder).map(education => (
+                                    {educations.sort(sortByOrder).map(education => (
                                         <li key={education.id} className="pt-2">
                                             <p className="flex justify-between text-sm">
                                                 <strong className="text-base">{education.degree}, {education.school}</strong>

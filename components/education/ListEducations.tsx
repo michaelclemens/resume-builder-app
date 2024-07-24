@@ -1,11 +1,13 @@
+"use client"
+
 import ListItemEducation from "./ListItemEducation";
 import { sortByOrder } from "@/util/sort";
 import { Education } from "@prisma/client";
 import { SortableVerticalList, SortableItem }  from "@/components/list";
 import { useEducation } from "@/hooks";
 
-export default function ListEducations({ educations }: { educations: Education[] }) {
-    const { saveSortOrder } = useEducation();
+export default function ListEducations({ initialEducations }: { initialEducations?: Education[] }) {
+    const { educations, saveSortOrder } = useEducation(initialEducations);
     
     if (!educations || !educations.length) return <p>No Educations</p>
 

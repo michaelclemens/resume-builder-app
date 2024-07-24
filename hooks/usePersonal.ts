@@ -1,13 +1,19 @@
-"use client"
-
 import { addPersonal, updatePersonal } from "@/lib/client/personal";
 import { fetchPersonal, clear, selectPersonal, setPersonal } from "@/lib/redux/reducers/personal";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Personal } from "@prisma/client";
+import { useEffect } from "react";
 
-const usePersonal = () => {
+const usePersonal = (initialPersonal?: Personal) => {
     const { personal, loading, error } = useAppSelector(selectPersonal);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (!personal && initialPersonal) {
+            set(initialPersonal)
+        }
+        return () => reset()
+    }, []);
 
     const fetch = async(resumeId: string) => {
         await dispatch(fetchPersonal(resumeId));
@@ -30,7 +36,7 @@ const usePersonal = () => {
         dispatch(clear());
     }
 
-    return { personal, loading, error, fetch, set, save, reset }
+    return { personal: personal ?? initialPersonal, save }
 }
 
 export default usePersonal;

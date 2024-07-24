@@ -2,10 +2,18 @@ import { addSkill, deleteSkill, setSortOrders, updateSkill } from "@/lib/client/
 import { fetchSkills, removeSkill, selectSkill, setSkill, clear, setSkills } from "@/lib/redux/reducers/skill";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Skill } from "@prisma/client";
+import { useEffect } from "react";
 
-const useSkill = () => {
+const useSkill = (initialSkills?: Skill[]) => {
     const { skills, loading, error } = useAppSelector(selectSkill);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (!skills && initialSkills) {
+            set(initialSkills)
+        }
+        return () => reset()
+    }, []);
 
     const fetch = (resumeId: string) => dispatch(fetchSkills(resumeId))
 
@@ -34,7 +42,7 @@ const useSkill = () => {
     
     const reset = () => { dispatch(clear()) }
 
-    return { skills, loading, error, fetch, set, save, remove, saveSortOrder, reset }
+    return { skills: skills ? [...skills] : [...initialSkills ?? []], save, remove, saveSortOrder }
 }
 
 export default useSkill;

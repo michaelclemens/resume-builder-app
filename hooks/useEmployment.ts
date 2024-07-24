@@ -1,10 +1,18 @@
 import { addEmployment, deleteEmployment, EmploymentWithHistory, setSortOrders, updateEmployment } from "@/lib/client/employment";
 import { fetchEmployments, removeEmployment, selectEmployment, setEmployment, clear, setEmployments } from "@/lib/redux/reducers/employment";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
+import { useEffect } from "react";
 
-const useEmployment = () => {
-    const { employments: employments, loading, error } = useAppSelector(selectEmployment);
+const useEmployment = (initialEmployments?: EmploymentWithHistory[]) => {
+    const { employments, loading, error } = useAppSelector(selectEmployment);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (!employments && initialEmployments) {
+            set(initialEmployments)
+        }
+        return () => reset()
+    }, []);
 
     const fetch = (resumeId: string) => dispatch(fetchEmployments(resumeId))
 
@@ -33,7 +41,7 @@ const useEmployment = () => {
 
     const reset = () => { dispatch(clear()) }
 
-    return { employments, loading, error, fetch, set, save, remove, saveSortOrder, reset }
+    return { employments: employments ? [...employments] : [...initialEmployments ?? []], save, remove, saveSortOrder }
 }
 
 export default useEmployment;

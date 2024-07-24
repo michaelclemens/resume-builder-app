@@ -2,10 +2,18 @@ import { addStrength, deleteStrength, setSortOrders, updateStrength } from "@/li
 import { fetchStrengths, removeStrength, selectStrength, setStrength, clear, setStrengths } from "@/lib/redux/reducers/strength";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Strength } from "@prisma/client";
+import { useEffect } from "react";
 
-const useStrength = () => {
+const useStrength = (initialStrengths?: Strength[]) => {
     const { strengths, loading, error } = useAppSelector(selectStrength);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (!strengths && initialStrengths) {
+            set(initialStrengths)
+        }
+        return () => reset()
+    }, []);
 
     const fetch = (resumeId: string) => dispatch(fetchStrengths(resumeId))
 
@@ -34,7 +42,7 @@ const useStrength = () => {
 
     const reset = () => { dispatch(clear()) }
 
-    return { strengths, loading, error, fetch, set, save, remove, saveSortOrder, reset }
+    return { strengths: strengths ? [...strengths] : [...initialStrengths ?? []], save, remove, saveSortOrder }
 }
 
 export default useStrength;

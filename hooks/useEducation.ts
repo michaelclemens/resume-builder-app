@@ -2,10 +2,18 @@ import { addEducation, deleteEducation, setSortOrders, updateEducation } from "@
 import { fetchEducations, removeEducation, selectEducation, setEducation, clear, setEducations } from "@/lib/redux/reducers/education";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Education } from "@prisma/client";
+import { useEffect } from "react";
 
-const useEducation = () => {
+const useEducation = (initialEducations?: Education[]) => {
     const { educations, loading, error } = useAppSelector(selectEducation);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (!educations && initialEducations) {
+            set(initialEducations)
+        }
+        return () => reset()
+    }, []);
 
     const fetch = (resumeId: string) => dispatch(fetchEducations(resumeId))
 
@@ -34,7 +42,7 @@ const useEducation = () => {
 
     const reset = () => { dispatch(clear()) }
 
-    return { educations, loading, error, fetch, set, save, remove, saveSortOrder, reset }
+    return { educations: educations ? [...educations] : [...initialEducations ?? []], save, remove, saveSortOrder }
 }
 
 export default useEducation;
