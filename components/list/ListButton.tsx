@@ -21,8 +21,8 @@ export default function ListButton({ label = '', type, onClick = () => {} }: { l
 
     const paddingY = typeof button === "string" ? 'py-1' : 'py-2';
     return (
-        <span onClick={onClick} className={`cursor-pointer rounded-md px-2 ${paddingY} font-medium shadow-sm ring-1 ring-slate-700/10 hover:bg-slate-50 text-gray-700 transition-colors duration-500 ${className}`}>
+        <button onClick={onClick} className={`rounded-md px-2 ${paddingY} font-medium shadow-sm ring-1 ring-slate-700/10 hover:bg-slate-50 text-gray-700 transition-colors duration-500 ${className}`}>
             {button}
-        </span>
+        </button>
     )
 }

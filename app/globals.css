@@ -33,3 +33,23 @@ body {
     all: revert;
   }
 }
+
+@media all {
+  .page-break {
+    display: none;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 1cm;
+  }
+  .page-break {
+    margin-top: 1rem;
+    display: block;
+    page-break-before: auto;
+  }
+}
+
+

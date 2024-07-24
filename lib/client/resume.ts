@@ -39,6 +39,16 @@ export async function getResume(id: string) {
     }
 }
 
+export async function getResumeFull(id: string) {
+    return await prisma.resume.findUniqueOrThrow({ where: { id }, include: {
+        personal: true,
+        employments: { include: { history: true }},
+        educations: true,
+        skills: true,
+        strengths: true
+    }})
+}
+
 export async function getAllResumes() {
     try {
         return await prisma.resume.findMany({ take: 10, orderBy: { createdAt: 'asc' }})
