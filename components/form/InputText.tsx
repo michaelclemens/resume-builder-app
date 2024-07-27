@@ -1,20 +1,21 @@
-import RichTextEditor from "./RichTextEditor";
+import { forwardRef, Ref } from "react";
+import { ChangeHandler } from "react-hook-form";
 
-type InputTypes = 'text'|'email'|'phone'|'date'|'rte';
+export enum InputTypeEnum {
+    text = "text",
+    email = "email",
+    phone = "phone",
+    date = "date",
+}
 
-export default function InputText(
-    { name, label, type = 'text', defaultValue = '', required = false, disabled = false }: 
-    { name: string, label: string, type?: InputTypes, defaultValue?: string, required?: boolean, disabled?: boolean }
-) {
-    if (type === 'rte') {
-        return (
-            <div className="mb-3">
-                <RichTextEditor name={name} placeholder={label} defaultValue={defaultValue} disabled={disabled} />
-            </div>
-        )
-    }
-    
-    return (
+type InputTypes = keyof typeof InputTypeEnum;
+
+export default forwardRef((
+    { name, label, type = InputTypeEnum.text, required = false, disabled = false, error, onChange, onBlur }: 
+    { name: string, label: string, type?: InputTypes, required?: boolean, disabled?: boolean, error?: string, onChange?: ChangeHandler, onBlur?: ChangeHandler },
+    ref: Ref<HTMLInputElement>
+) => (
+    <div>
         <label
             className="relative block overflow-hidden mb-3 rounded-md border bg-white border-gray-200 px-3 pt-3 shadow-sm focus-within:border-gray-400 focus-within:ring-1 focus-within:ring-gray-400 aria-disabled:opacity-50"
             aria-disabled={disabled}
@@ -22,11 +23,12 @@ export default function InputText(
             <input
                 type={type}
                 name={name}
+                ref={ref}
                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm disabled:opacity-50 disabled:pointer-events-none"
                 placeholder={label}
-                defaultValue={defaultValue}
-                required={required}
                 disabled={disabled}
+                onChange={onChange}
+                onBlur={onBlur}
             />            
 
             <span
@@ -35,5 +37,6 @@ export default function InputText(
                 {label}{required && <span title="Required" className="text-red-600 ml-1">*</span>}
             </span>
         </label>
-    )
-}
+        {error && <p role="alert" className="text-xs text-red-500 font-semibold ml-1 -mt-1 mb-1 italic">{error}</p>}
+    </div>
+))

@@ -1,47 +1,45 @@
 "use client"
 
-import { usePersonal } from "@/hooks";
-import { Personal } from "@prisma/client";
-import { FormEvent, useState } from "react";
-import { InputText, SubmitButton } from '@/components/form';
+import { usePersonalForm } from "@/hooks";
+import { InputText, InputTypeEnum, RichTextEditor, SubmitButton } from '@/components/form';
+import Loading from "@/app/loading";
+import { SubmitHandler } from "react-hook-form";
+import { handleErrorResponse, ResponseStatus } from "@/lib/response";
+import { PersonalSchemaType } from "@/types/personal";
 
-export default function FormPersonal({ resumeId, initialPersonal }: { resumeId: string, initialPersonal?: Personal }) {
-    const { personal, save } = usePersonal(initialPersonal);
-    const [saving, setSaving] = useState(false);
+export default function FormPersonal({ resumeId }: { resumeId: string }) {
+    const { loading, save, register, handleSubmit, setError, control, formState: { isSubmitting, errors }} = usePersonalForm(resumeId);
 
-    const onSubmit = async(event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setSaving(true);
-        try {
-            const form = event.currentTarget;
-            const formData = new FormData(form);
-            await save(resumeId, formData, personal?.id);
-        } catch(error) {
-            console.error(error)
-        } finally {
-            setSaving(false);
-        } 
+    if (loading) return <Loading/>
+
+    const onSubmit: SubmitHandler<PersonalSchemaType> = async(data) => {
+        const response = await save(resumeId, data);
+
+        if (response.status === ResponseStatus.error) {
+            return handleErrorResponse(response, setError);
+        }
     }
 
     return (
         <div className="mb-3 mt-2 mx-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
-            <form onSubmit={onSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid grid-cols-2 gap-5">
-                    <InputText name="first_name" label="First Name" defaultValue={personal?.firstName} required disabled={saving} />
-                    <InputText name="last_name" label="Last Name" defaultValue={personal?.lastName} required disabled={saving} />
+                    <InputText label="First Name" disabled={isSubmitting} error={errors.firstName?.message} {...register('firstName')} required />
+                    <InputText label="Last Name" disabled={isSubmitting} error={errors.lastName?.message} {...register('lastName')} required />
                 </div>
-                <InputText name="position" label="Position" defaultValue={personal?.position ?? undefined} disabled={saving} />
-                <InputText type="rte" name="summary" label="Summary" defaultValue={personal?.summary ?? undefined} disabled={saving} />
+                <InputText label="Position" disabled={isSubmitting} error={errors.position?.message} {...register('position')} />
+
+                <RichTextEditor<PersonalSchemaType> name="summary" control={control} />
                 <div className="grid grid-cols-2 gap-5">
-                    <InputText type="email" name="email" label="Email" defaultValue={personal?.email ?? undefined} disabled={saving} />
-                    <InputText type="phone" name="phone" label="Phone" defaultValue={personal?.phone ?? undefined} disabled={saving} />
+                    <InputText type={InputTypeEnum.email} label="Email" disabled={isSubmitting} error={errors.email?.message} {...register('email')} />
+                    <InputText type={InputTypeEnum.phone} label="Phone" disabled={isSubmitting} error={errors.phone?.message} {...register('phone')} />
                 </div>
                 <div className="grid grid-cols-2 gap-5">
-                    <InputText name="city" label="City" defaultValue={personal?.city ?? undefined} disabled={saving} />
-                    <InputText name="country" label="Country" defaultValue={personal?.country ?? undefined} disabled={saving} />
+                    <InputText label="City" disabled={isSubmitting} error={errors.city?.message} {...register('city')} />
+                    <InputText label="Country" disabled={isSubmitting} error={errors.country?.message} {...register('country')} />
                 </div>
 
-                <SubmitButton label="Save" disabled={saving} />
+                <SubmitButton label="Save" disabled={isSubmitting} />
             </form>
         </div>
     )

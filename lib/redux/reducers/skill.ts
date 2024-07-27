@@ -7,7 +7,7 @@ import { RootState } from '../store';
 
 const initialState: { skills: Skill[]|null, loading: boolean, error: null|string } = {
   skills: null,
-  loading: false,
+  loading: true,
   error: null,
 }
 
@@ -68,5 +68,6 @@ export const {
 export const selectSkill = (state: RootState) => state.skill;
 export const selectSkillList = (state: RootState) => state.skill.skills;
 export const selectSkillLoading = (state: RootState) => state.skill.loading;
+export const selectSkillById = (state: RootState, id: string) => state.skill.skills?.find(skill => skill.id === id) ?? null
 
 export default slice.reducer

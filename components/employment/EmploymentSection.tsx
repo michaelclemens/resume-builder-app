@@ -1,11 +1,10 @@
 import ListEmployments from "./ListEmployments";
 import FormEmployment from "./FormEmployment";
-import { EmploymentWithHistory } from "@/lib/client/employment";
 
-export default function EmploymentSection({ resumeId, initialEmployments }: { resumeId: string, initialEmployments?: EmploymentWithHistory[] }) {
+export default function EmploymentSection({ resumeId }: { resumeId: string }) {
     return (
         <>
-            <ListEmployments initialEmployments={initialEmployments} />
+            <ListEmployments resumeId={resumeId} />
             <FormEmployment resumeId={resumeId} />
         </>
     )

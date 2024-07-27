@@ -1,4 +1,4 @@
-import { useEducation, useEmployment, usePersonal, useSkill, useStrength } from "@/hooks";
+import { useEducation, useEmployment, usePersonal, useSkill, useStrengthList } from "@/hooks";
 import { ResumeFull } from "@/lib/client/resume"
 import { Details, Education, EmploymentHistory, Experience, Profile, Strengths } from "./default";
 
@@ -7,7 +7,7 @@ export default ({ resume }: { resume: ResumeFull }) => {
     const { employments } = useEmployment(resume.employments);
     const { educations } = useEducation(resume.educations);
     const { skills } = useSkill(resume.skills);
-    const { strengths } = useStrength(resume.strengths);
+    const { strengths } = useStrengthList(resume.strengths);
 
     return (
         <div className="flex bg-white text-[7.5pt] min-h-screen">

@@ -1,13 +1,15 @@
 "use server"
 
 import prisma from "@/lib/prisma";
+import { SkillSchema, SkillSchemaType } from "@/types/skill";
 import { Skill } from "@prisma/client";
+import { IResponse, response, ResponseStatus } from "../response";
 
-const createSkillDataPayload = (resumeId: string, formData: FormData) => {
-    return {
-        resumeId, 
-        name: formData.get('name') as string,
-    }
+type SkillPayload = { skill: Skill }
+
+const createDataPayload = (resumeId: string, formData: SkillSchemaType) => {
+    SkillSchema.parse(formData);
+    return { resumeId, ...formData }
 }
 
 export async function getSkills(resumeId: string) {
@@ -19,21 +21,21 @@ export async function getSkills(resumeId: string) {
     }
 }
 
-export async function addSkill(resumeId: string, formData: FormData) {
+export async function addSkill(resumeId: string, formData: SkillSchemaType): Promise<IResponse<SkillPayload>> {
     try {
-        return await prisma.skill.create({ data: createSkillDataPayload(resumeId, formData) });
+        const skill = await prisma.skill.create({ data: createDataPayload(resumeId, formData) });
+        return response<SkillPayload>(ResponseStatus.success, { payload: { skill }});
     } catch (error) {
-        console.error(error);
-        return null;
+        return response(ResponseStatus.error, { error });
     }
 }
 
-export async function updateSkill(id: string, resumeId: string, formData: FormData) {
+export async function updateSkill(id: string, resumeId: string, formData: SkillSchemaType): Promise<IResponse<SkillPayload>> {
     try {
-        return await prisma.skill.update({ where: { id }, data: createSkillDataPayload(resumeId, formData) });
+        const skill = await prisma.skill.update({ where: { id }, data: createDataPayload(resumeId, formData) });
+        return response<SkillPayload>(ResponseStatus.success, { payload: { skill }});
     } catch (error) {
-        console.error(error);
-        return null;
+        return response(ResponseStatus.error, { error });
     }
 }
 

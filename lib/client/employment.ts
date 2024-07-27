@@ -1,18 +1,19 @@
 "use server"
 
 import prisma from "@/lib/prisma";
+import { EmploymentSchema, EmploymentSchemaType } from "@/types/employment";
 import { Prisma } from "@prisma/client";
+import { IResponse, response, ResponseStatus } from "../response";
 
 export type EmploymentWithHistory = Prisma.EmploymentGetPayload<{
     include: { history: true }
 }>
 
-const createEmploymentDataPayload = (resumeId: string, formData: FormData) => {
-    return {
-        resumeId, 
-        employer: formData.get('employer') as string,
-        city: formData.get('city') as string || null
-    }
+type EmploymentPayload = { employment: EmploymentWithHistory }
+
+const createDataPayload = (resumeId: string, formData: EmploymentSchemaType) => {
+    EmploymentSchema.parse(formData);
+    return { resumeId, ...formData }
 }
 
 export async function getEmployments(resumeId: string) {
@@ -24,21 +25,21 @@ export async function getEmployments(resumeId: string) {
     }
 }
 
-export async function addEmployment(resumeId: string, formData: FormData) {
+export async function addEmployment(resumeId: string, formData: EmploymentSchemaType): Promise<IResponse<EmploymentPayload>> {
     try {
-        return await prisma.employment.create({ data: createEmploymentDataPayload(resumeId, formData) });
+        const employment = await prisma.employment.create({ data: createDataPayload(resumeId, formData), include: { history: true }});
+        return response<EmploymentPayload>(ResponseStatus.success, { payload: { employment }});
     } catch (error) {
-        console.error(error);
-        return null;
+        return response(ResponseStatus.error, { error });
     }
 }
 
-export async function updateEmployment(id: string, resumeId: string, formData: FormData) {
+export async function updateEmployment(id: string, resumeId: string, formData: EmploymentSchemaType): Promise<IResponse<EmploymentPayload>> {
     try {
-        return await prisma.employment.update({ where: { id }, data: createEmploymentDataPayload(resumeId, formData) });
+        const employment = await prisma.employment.update({ where: { id }, data: createDataPayload(resumeId, formData), include: { history: true }});
+        return response<EmploymentPayload>(ResponseStatus.success, { payload: { employment }});
     } catch (error) {
-        console.error(error);
-        return null;
+        return response(ResponseStatus.error, { error });
     }
 }
 

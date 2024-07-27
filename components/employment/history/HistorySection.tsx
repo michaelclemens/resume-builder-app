@@ -15,8 +15,8 @@ export default function HistorySection({ employmentId, histories }: { employment
                 <span className="ml-auto flex mr-2">{open ? <FaChevronUp /> : <FaChevronDown />}</span>
             </div>
             <ExpandableWrapper open={open}>
-                <ListHistory employmentId={employmentId} histories={histories} />
-                <FormHistory employmentId={employmentId}/>
+                <ListHistory employmentId={employmentId} />
+                <FormHistory employmentId={employmentId} />
             </ExpandableWrapper>
         </div>
     )

@@ -7,15 +7,17 @@ import { RootState } from '../store';
 
 const initialState: { personal: Personal|null, loading: boolean, error: null|string  } = {
   personal: null,
-  loading: false,
+  loading: true,
   error: null,
 }
 
-export const fetchPersonal = createAsyncThunk('resume/personal/fetch', async(resumeId: string, { rejectWithValue }) => {
+export const fetchPersonal = createAsyncThunk<Personal|null, string, { rejectValue: string }>('resume/personal/fetch', async(resumeId: string, { rejectWithValue }) => {
     try {
       return await getPersonal(resumeId);
-    } catch (error) {
-      return rejectWithValue(error);
+    } catch (err) {
+      const error: Error = err as any;
+      rejectWithValue(error.message);
+      return null;
     }
 });
 
@@ -42,7 +44,7 @@ export const slice = createSlice({
       })
       .addCase(fetchPersonal.rejected, (state, action) => {
         state.personal = null;       
-        state.error = action.payload as string;
+        state.error = action.payload ?? null;
         state.loading = false;
       })
   }

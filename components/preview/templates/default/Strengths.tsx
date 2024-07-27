@@ -3,7 +3,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Strength } from "@prisma/client"
 
 export default ({ strengths }: { strengths: Strength[] }) => {
-    if (!strengths.length) return;
+    if (!strengths || !strengths.length) return;
     
     const [animationParent] = useAutoAnimate();
     return (

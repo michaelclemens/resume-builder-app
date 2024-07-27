@@ -7,7 +7,7 @@ import { RootState } from '../store';
 
 const initialState: { strengths: Strength[]|null, loading: boolean, error: null|string } = {
   strengths: null,
-  loading: false,
+  loading: true,
   error: null,
 }
 
@@ -68,5 +68,6 @@ export const {
 export const selectStrength = (state: RootState) => state.strength;
 export const selectStrengthList = (state: RootState) => state.strength.strengths;
 export const selectStrengthLoading = (state: RootState) => state.strength.loading;
+export const selectStrengthById = (state: RootState, id: string) => state.strength.strengths?.find(strength => strength.id === id) ?? null
 
 export default slice.reducer

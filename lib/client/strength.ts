@@ -1,13 +1,15 @@
 "use server"
 
+import { StrengthSchema, StrengthSchemaType } from "@/types/strength";
 import prisma from "@/lib/prisma";
 import { Strength } from "@prisma/client";
+import { IResponse, response, ResponseStatus } from "../response";
 
-const createStrengthDataPayload = (resumeId: string, formData: FormData) => {
-    return {
-        resumeId, 
-        name: formData.get('name') as string,
-    }
+type StrengthPayload = { strength: Strength }
+
+const createDataPayload = (resumeId: string, formData: StrengthSchemaType) => {
+    StrengthSchema.parse(formData);
+    return { resumeId, ...formData }
 }
 
 export async function getStrengths(resumeId: string) {
@@ -19,21 +21,21 @@ export async function getStrengths(resumeId: string) {
     }
 }
 
-export async function addStrength(resumeId: string, formData: FormData) {
+export async function addStrength(resumeId: string, formData: StrengthSchemaType): Promise<IResponse<StrengthPayload>> {
     try {
-        return await prisma.strength.create({ data: createStrengthDataPayload(resumeId, formData) });
+        const strength = await prisma.strength.create({ data: createDataPayload(resumeId, formData) });
+        return response<StrengthPayload>(ResponseStatus.success, { payload: { strength }});
     } catch (error) {
-        console.error(error);
-        return null;
+        return response(ResponseStatus.error, { error });
     }
 }
 
-export async function updateStrength(id: string, resumeId: string, formData: FormData) {
+export async function updateStrength(id: string, resumeId: string, data: StrengthSchemaType): Promise<IResponse<StrengthPayload>> {
     try {
-        return await prisma.strength.update({ where: { id }, data: createStrengthDataPayload(resumeId, formData) });
+        const strength = await prisma.strength.update({ where: { id }, data: createDataPayload(resumeId, data) });
+        return response<StrengthPayload>(ResponseStatus.success, { payload: { strength }});
     } catch (error) {
-        console.error(error);
-        return null;
+        return response(ResponseStatus.error, { error });
     }
 }
 

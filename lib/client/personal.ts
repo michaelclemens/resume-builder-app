@@ -1,43 +1,45 @@
 "use server"
 
 import prisma from "@/lib/prisma";
+import { PersonalSchema, PersonalSchemaType } from "@/types/personal";
+import { Personal } from "@prisma/client";
 import { sanitize } from "isomorphic-dompurify";
+import { IResponse, response, ResponseStatus } from "../response";
 
-const createPersonalDataPayload = (resumeId: string, formData: FormData) => ({
-    resumeId, 
-    firstName: formData.get('first_name') as string,
-    lastName: formData.get('last_name') as string,
-    position: formData.get('position') as string || null,
-    summary: sanitize(formData.get('summary') as string) || null,
-    email: formData.get('email') as string || null,
-    phone: formData.get('phone') as string || null,
-    city: formData.get('city') as string || null,
-    country: formData.get('country') as string || null,
-})
+type PersonalPayload = { personal: Personal }
 
-export async function getPersonal(resumeId: string) {
+const createDataPayload = (resumeId: string, formData: PersonalSchemaType) => {
+    PersonalSchema.parse(formData);
+    return {
+        resumeId,
+        ...formData,
+        summary: formData.summary && sanitize(formData.summary)
+    }
+}
+
+export async function getPersonal(resumeId: string): Promise<Personal|null> {
     try {
-        return await prisma.personal.findUnique({ where: { resumeId }});
+        return await prisma.personal.findUniqueOrThrow({ where: { resumeId }});
     } catch (error) {
         console.error(error);
         return null;
     }
 }
 
-export async function addPersonal(resumeId: string, formData: FormData) {
+export async function addPersonal(resumeId: string, formData: PersonalSchemaType): Promise<IResponse<PersonalPayload>> {
     try {
-        return await prisma.personal.create({ data: createPersonalDataPayload(resumeId, formData) });
+        const personal = await prisma.personal.create({ data: createDataPayload(resumeId, formData) });
+        return response<PersonalPayload>(ResponseStatus.success, { payload: { personal }});
     } catch (error) {
-        console.error(error);
-        return null;
+        return response(ResponseStatus.error, { error });
     }
 }
 
-export async function updatePersonal(id: string, resumeId: string, formData: FormData) {
+export async function updatePersonal(id: string, resumeId: string, formData: PersonalSchemaType): Promise<IResponse<PersonalPayload>> {
     try {
-        return await prisma.personal.update({ where: { id }, data: createPersonalDataPayload(resumeId, formData) });
+        const personal = await prisma.personal.update({ where: { id }, data: createDataPayload(resumeId, formData) });
+        return response<PersonalPayload>(ResponseStatus.success, { payload: { personal }});
     } catch (error) {
-        console.error(error);
-        return null;
+        return response(ResponseStatus.error, { error });
     }
 }

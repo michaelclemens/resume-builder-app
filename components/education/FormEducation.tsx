@@ -1,46 +1,40 @@
 "use client"
 
-import { useEducation } from "@/hooks";
-import { Education } from "@prisma/client";
-import { FormEvent, useState } from "react";
-import { InputText, SubmitButton } from "@/components/form";
-import { getDisplayDateFromDate } from '@/util/date';
+import { useEducationForm } from "@/hooks";
+import { InputText, SubmitButton, InputTypeEnum } from "@/components/form";
+import { SubmitHandler } from "react-hook-form";
+import { EducationSchemaType } from "@/types/education";
+import { handleErrorResponse, ResponseStatus } from "@/lib/response";
 
-export default function FormEducation({ resumeId, education, editing = false, onSave = () => {} }: { resumeId: string, education?: Education, editing?: boolean, onSave?: () => void }) {
-    const { save } = useEducation();
-    const [saving, setSaving] = useState(false);
+export default function FormEducation({ resumeId, educationId, onSave = () => {} }: { resumeId: string, educationId?: string, onSave?: () => void }) {
+    const { save, register, handleSubmit, setError, reset, formState: { isSubmitting, errors }} = useEducationForm(educationId);
+    const editing = !!educationId;
 
-    const onSubmit = async(event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setSaving(true);
-        try {
-            const form = event.currentTarget;
-            const formData = new FormData(form);
-            await save(resumeId, formData, education?.id);
-            form.reset();
-            onSave()
-        } catch(error) {
-            console.error(error)
-        } finally {
-            setSaving(false);
-        } 
+    const onSubmit: SubmitHandler<EducationSchemaType> = async(data) => {
+        const response = await save(resumeId, data);
+
+        if (response.status === ResponseStatus.error) {
+            return handleErrorResponse(response, setError);
+        }
+        onSave();
+        if (!editing) reset();
     }
 
     return (
         <div className="my-3 mx-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
-            <form onSubmit={onSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid grid-cols-2 gap-5">
-                    <InputText name="school" label="School" defaultValue={education?.school} required disabled={saving} />
-                    <InputText name="city" label="City" defaultValue={education?.city ?? undefined} disabled={saving} />
+                    <InputText label="School" disabled={isSubmitting} error={errors.school?.message} {...register('school')} required />
+                    <InputText label="City" disabled={isSubmitting} error={errors.city?.message} {...register('city')} />
                 </div>
-                <InputText name="degree" label="Degree" defaultValue={education?.degree} required disabled={saving} />
+                <InputText label="Degree" disabled={isSubmitting} error={errors.degree?.message} {...register('degree')} required />
                 <div className="grid grid-cols-2 gap-5">
-                    <InputText type="date" name="start_date" label="Start Date" defaultValue={getDisplayDateFromDate(education?.startDate)} required disabled={saving} />
-                    <InputText type="date" name="end_date" label="End Date" defaultValue={getDisplayDateFromDate(education?.endDate ?? undefined)} disabled={saving} />
+                    <InputText type={InputTypeEnum.date} label="Start Date" disabled={isSubmitting} error={errors.startDate?.message} {...register('startDate')} required />
+                    <InputText type={InputTypeEnum.date} label="End Date" disabled={isSubmitting} error={errors.endDate?.message} {...register('endDate')} />
                 </div>
-                <InputText type="rte" name="description" label="Descripition" defaultValue={education?.description ?? undefined} disabled={saving} />
+                <InputText type={InputTypeEnum.rte} label="Descripition" disabled={isSubmitting} error={errors.description?.message} {...register('description')} />
 
-                <SubmitButton label={editing ? 'Save' : 'Add Education'} disabled={saving} />
+                <SubmitButton label={editing ? 'Save' : 'Add Education'} disabled={isSubmitting} />
             </form>
         </div>
     )

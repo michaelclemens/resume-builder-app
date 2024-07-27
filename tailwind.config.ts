@@ -10,6 +10,7 @@ const config: Config = {
   theme: {
     extend: {},
     transitionProperty: {
+      'height': 'height',
       'max-height': 'max-height',
     }
   },

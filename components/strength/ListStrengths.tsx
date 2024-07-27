@@ -2,14 +2,18 @@
 
 import ListItemStrength from "./ListItemStrength";
 import { sortByOrder } from "@/util/sort";
-import { Strength } from "@prisma/client";
-import { useStrength } from "@/hooks";
+import { useStrengthList } from "@/hooks";
 import { SortableVerticalList, SortableItem } from "@/components/list";
+import Loading from "@/app/loading";
+import { useEffect } from "react";
 
-export default function ListStrengths({ initialStrengths }: { initialStrengths?: Strength[] }) {
-    const { strengths, saveSortOrder } = useStrength(initialStrengths);
+export default function ListStrengths({ resumeId }: { resumeId: string }) {
+    const { strengths, loading, fetch, saveSortOrder } = useStrengthList();
 
-    if (!strengths.length) return <p>No Strengths</p>
+    useEffect(() => { fetch(resumeId) }, [resumeId]);
+
+    if (loading) return <Loading/>
+    if (!strengths || !strengths.length) return <p>No Strengths</p>
 
     return (
         <SortableVerticalList items={strengths} onNewSortOrder={saveSortOrder}>

@@ -30,7 +30,7 @@ export default function SortableVerticalList<T extends SortableItem>({ items, ch
     }
 
     return (
-        <div className="rounded-lg bg-white mx-1 mt-2 divide-y divide-slate-400/20 ring-1 ring-slate-700/10">
+        <div className="rounded-lg bg-white mx-1 mt-2 mb-1 divide-y divide-slate-400/20 ring-1 ring-slate-700/10">
             <DndContext
                 id={`dnd-${id}`}
                 sensors={sensors} 

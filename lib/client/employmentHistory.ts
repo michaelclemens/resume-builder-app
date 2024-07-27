@@ -1,32 +1,39 @@
 "use server"
 
 import prisma from "@/lib/prisma";
+import { EmploymentHistorySchema, EmploymentHistorySchemaType } from "@/types/employment";
 import { EmploymentHistory } from "@prisma/client";
 import { sanitize } from "isomorphic-dompurify";
+import { IResponse, response, ResponseStatus } from "../response";
 
-const createEmploymentHistoryDataPayload = (employmentId: string, formData: FormData) => {
+type HistoryPayload = { history: EmploymentHistory }
+
+const createDataPayload = (employmentId: string, formData: EmploymentHistorySchemaType) => {
+    EmploymentHistorySchema.parse(formData);
     return {
-        employmentId, 
-        title: formData.get('title') as string,
-        startDate: new Date(formData.get('start_date') as string),
-        endDate: formData.get('end_date') ? new Date(formData.get('end_date') as string) : null,
-        description: sanitize(formData.get('description') as string) || null
+        employmentId,
+        ...formData,
+        startDate: new Date(formData.startDate),
+        endDate: formData.endDate ? new Date(formData.endDate) : undefined,
+        description: formData.description && sanitize(formData.description) 
     }
 }
 
-export async function addEmploymentHistory(employmentId: string, formData: FormData) {
+export async function addEmploymentHistory(employmentId: string, formData: EmploymentHistorySchemaType): Promise<IResponse<HistoryPayload>> {
     try {
-        return await prisma.employmentHistory.create({ data: createEmploymentHistoryDataPayload(employmentId, formData) });
+        const history = await prisma.employmentHistory.create({ data: createDataPayload(employmentId, formData) });
+        return response<HistoryPayload>(ResponseStatus.success, { payload: { history }});
     } catch (error) {
-        console.error(error);
+        return response(ResponseStatus.error, { error });
     }
 }
 
-export async function updateEmploymentHistory(id: string, employmentId: string, formData: FormData) {
+export async function updateEmploymentHistory(id: string, employmentId: string, formData: EmploymentHistorySchemaType): Promise<IResponse<HistoryPayload>> {
     try {
-        return await prisma.employmentHistory.update({ where: { id }, data: createEmploymentHistoryDataPayload(employmentId, formData) });
+        const history = await prisma.employmentHistory.update({ where: { id }, data: createDataPayload(employmentId, formData) });
+        return response<HistoryPayload>(ResponseStatus.success, { payload: { history }});
     } catch (error) {
-        console.error(error);
+        return response(ResponseStatus.error, { error });
     }
 }
 

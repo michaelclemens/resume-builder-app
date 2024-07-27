@@ -1,11 +1,12 @@
+"use client"
+
 import { sortByOrder } from "@/util/sort";
-import { EmploymentHistory } from "@prisma/client";
 import ListItemHistory from "./ListItemHistory";
 import { SortableVerticalList, SortableItem } from "@/components/list";
-import { useEmploymentHistory } from "@/hooks";
+import { useEmploymentHistoryList } from "@/hooks";
 
-export default function ListHistory({ employmentId, histories }: { employmentId: string, histories: EmploymentHistory[] }) {
-    const { saveSortOrder } = useEmploymentHistory();
+export default function ListHistory({ employmentId }: { employmentId: string }) {
+    const { histories, saveSortOrder } = useEmploymentHistoryList(employmentId);
 
     if (!histories || !histories.length) return <p>No Employment History</p>
 

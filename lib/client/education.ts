@@ -1,18 +1,21 @@
 "use server"
 
 import prisma from "@/lib/prisma";
+import { EducationSchema, EducationSchemaType } from "@/types/education";
 import { Education } from "@prisma/client";
 import { sanitize } from "isomorphic-dompurify";
+import { IResponse, response, ResponseStatus } from "../response";
 
-const createEducationDataPayload = (resumeId: string, formData: FormData) => {
-    return {
+type EducationPayload = { education: Education }
+
+const createDataPayload = (resumeId: string, formData: EducationSchemaType) => {
+    EducationSchema.parse(formData);
+    return { 
         resumeId, 
-        school: formData.get('school') as string,
-        degree: formData.get('degree') as string,
-        startDate: new Date(formData.get('start_date') as string),
-        endDate: formData.get('end_date') ? new Date(formData.get('end_date') as string) : null,
-        city: formData.get('city') as string || null,
-        description: sanitize(formData.get('description') as string) || null
+        ...formData, 
+        startDate: new Date(formData.startDate),
+        endDate: formData.endDate ? new Date(formData.endDate) : undefined,
+        description: formData.description && sanitize(formData.description) 
     }
 }
 
@@ -25,21 +28,21 @@ export async function getEducations(resumeId: string) {
     }
 }
 
-export async function addEducation(resumeId: string, formData: FormData) {
+export async function addEducation(resumeId: string, formData: EducationSchemaType): Promise<IResponse<EducationPayload>> {
     try {
-        return await prisma.education.create({ data: createEducationDataPayload(resumeId, formData) });
+        const education = await prisma.education.create({ data: createDataPayload(resumeId, formData) });
+        return response<EducationPayload>(ResponseStatus.success, { payload: { education }});
     } catch (error) {
-        console.error(error);
-        return null;
+        return response(ResponseStatus.error, { error });
     }
 }
 
-export async function updateEducation(id: string, resumeId: string, formData: FormData) {
+export async function updateEducation(id: string, resumeId: string, formData: EducationSchemaType): Promise<IResponse<EducationPayload>> {
     try {
-        return await prisma.education.update({ where: { id }, data: createEducationDataPayload(resumeId, formData) });
+        const education = await prisma.education.update({ where: { id }, data: createDataPayload(resumeId, formData) });
+        return response<EducationPayload>(ResponseStatus.success, { payload: { education }});
     } catch (error) {
-        console.error(error);
-        return null;
+        return response(ResponseStatus.error, { error });
     }
 }
 

@@ -1,11 +1,10 @@
 import ListSkills from "./ListSkills";
 import FormSkill from "./FormSkill";
-import { Skill } from "@prisma/client";
 
-export default async function SkillSection({ resumeId, initialSkills }: { resumeId: string, initialSkills?: Skill[] }) {  
+export default async function SkillSection({ resumeId }: { resumeId: string }) {  
     return (
         <>
-            <ListSkills initialSkills={initialSkills}/>
+            <ListSkills resumeId={resumeId}/>
             <FormSkill resumeId={resumeId} />
         </>
     )

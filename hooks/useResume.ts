@@ -6,10 +6,8 @@ const useResume = () => {
     const dispatch = useAppDispatch();
 
     const fetch = (id: string) => { dispatch(fetchResume(id)) }
-    
-    const reset = () => { dispatch(clear()) }
 
-    return { resume, loading, error, fetch, reset }
+    return { resume, loading, error, fetch }
 }
 
 export default useResume;

@@ -4,12 +4,12 @@ import { useState } from "react";
 import FormEmployment from "./FormEmployment";
 import { EmploymentWithHistory } from "@/lib/client/employment";
 import HistorySection from "./history/HistorySection";
-import { useEmployment } from "@/hooks";
+import { useEmploymentList } from "@/hooks";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { ExpandableWrapper } from "@/components/util";
 
 export default function ListItemEmployment(employment: EmploymentWithHistory) {
-    const { remove } = useEmployment();
+    const { remove } = useEmploymentList();
     const [editing, setEditing] = useState(false);
     const [deleting, setDeleting] = useState(false);
 
@@ -34,7 +34,7 @@ export default function ListItemEmployment(employment: EmploymentWithHistory) {
                 <ListButton type="delete" onClick={onDelete} />
             </span>
             <ExpandableWrapper open={editing && !deleting}>
-                <FormEmployment resumeId={employment.resumeId} employment={employment} editing onSave={() => setEditing(false)} />
+                <FormEmployment resumeId={employment.resumeId} employmentId={employment.id} onSave={() => setEditing(false)} />
             </ExpandableWrapper>
             {deleting && <LoadingOverlay />}
 

@@ -6,7 +6,7 @@ import { RootState } from '../store';
 
 const initialState: { employments: EmploymentWithHistory[]|null, loading: boolean, error: null|string } = {
   employments: null,
-  loading: false,
+  loading: true,
   error: null,
 }
 
@@ -93,5 +93,8 @@ export const {
 export const selectEmployment = (state: RootState) => state.employment;
 export const selectEmploymentList = (state: RootState) => state.employment.employments;
 export const selectEmploymentLoading = (state: RootState) => state.employment.loading;
+export const selectEmploymentById = (state: RootState, id: string) => state.employment.employments?.find(employment => employment.id === id) ?? null
+export const selectEmploymentHistoryById = (state: RootState, employmentId: string, id: string) => state.employment.employments?.find(employment => employment.id === employmentId)?.history.find(h => h.id === id) ?? null;
+
 
 export default slice.reducer

@@ -7,7 +7,7 @@ import { RootState } from '../store';
 
 const initialState: { educations: Education[]|null, loading: boolean, error: null|string } = {
   educations: null,
-  loading: false,
+  loading: true,
   error: null,
 }
 
@@ -68,5 +68,6 @@ export const {
 export const selectEducation = (state: RootState) => state.education;
 export const selectEducationList = (state: RootState) => state.education.educations;
 export const selectEducationLoading = (state: RootState) => state.education.loading;
+export const selectEducationById = (state: RootState, id: string) => state.education.educations?.find(education => education.id === id) ?? null
 
 export default slice.reducer

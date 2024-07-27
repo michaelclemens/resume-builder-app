@@ -2,13 +2,17 @@
 
 import ListItemEducation from "./ListItemEducation";
 import { sortByOrder } from "@/util/sort";
-import { Education } from "@prisma/client";
 import { SortableVerticalList, SortableItem }  from "@/components/list";
-import { useEducation } from "@/hooks";
+import { useEducationList } from "@/hooks";
+import { useEffect } from "react";
+import Loading from "@/app/loading";
 
-export default function ListEducations({ initialEducations }: { initialEducations?: Education[] }) {
-    const { educations, saveSortOrder } = useEducation(initialEducations);
+export default function ListEducations({ resumeId }: { resumeId: string }) {
+    const { educations, loading, fetch, saveSortOrder } = useEducationList();
+
+    useEffect(() => { fetch(resumeId) }, [resumeId]);
     
+    if (loading) return <Loading/>
     if (!educations || !educations.length) return <p>No Educations</p>
 
     return (

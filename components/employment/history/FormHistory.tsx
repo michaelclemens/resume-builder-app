@@ -1,41 +1,37 @@
 "use client"
 
-import { useEmploymentHistory } from "@/hooks";
-import { EmploymentHistory } from "@prisma/client";
-import { FormEvent, useState } from "react";
-import { InputText, SubmitButton } from "@/components/form";
-import { getDisplayDateFromDate } from "@/util/date";
+import { useEmploymentHistoryForm } from "@/hooks";
+import { InputText, InputTypeEnum, SubmitButton } from "@/components/form";
+import { EmploymentHistorySchemaType } from "@/types/employment";
+import { SubmitHandler } from "react-hook-form";
+import { handleErrorResponse, ResponseStatus } from "@/lib/response";
 
-export default function FormHistory({ employmentId, history, editing = false, onSave = () => {} }: { employmentId: string, history?: EmploymentHistory, editing?: boolean, onSave?: () => void }) {
-    const { save } = useEmploymentHistory();
-    const [saving, setSaving] = useState(false);
-    
-    const onSubmit = async(event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setSaving(true);
-        try {
-            const formData = new FormData(event.currentTarget);
-            await save(employmentId, formData, history?.id);
-            onSave();
-        } catch(error) {
-            console.error(error)
-        } finally {
-            setSaving(false);
-        } 
+export default function FormHistory({ employmentId, historyId, onSave = () => {} }: { employmentId: string, historyId?: string, onSave?: () => void }) {
+    const { save, register, handleSubmit, setError, reset, formState: { isSubmitting, errors }} = useEmploymentHistoryForm(employmentId, historyId);
+    const editing = !!historyId;
+
+    const onSubmit: SubmitHandler<EmploymentHistorySchemaType> = async(data) => {
+        const response = await save(employmentId, data);
+
+        if (response.status === ResponseStatus.error) {
+            return handleErrorResponse(response, setError);
+        }
+        onSave();
+        if (!editing) reset();
     }
 
     return (
         <div className="mt-3 mx-1 mb-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
-            <form onSubmit={onSubmit}>
-                <InputText name="title" label="Title" defaultValue={history?.title} required disabled={saving} />
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <InputText label="Title" disabled={isSubmitting} error={errors.title?.message} {...register('title')} required />
 
                 <div className="grid grid-cols-2 gap-5">
-                    <InputText type="date" name="start_date" label="Start Date" defaultValue={getDisplayDateFromDate(history?.startDate)} required disabled={saving} />
-                    <InputText type="date" name="end_date" label="End Date" defaultValue={getDisplayDateFromDate(history?.endDate ?? undefined)} disabled={saving} />
+                    <InputText type={InputTypeEnum.date} label="Start Date" disabled={isSubmitting} error={errors.startDate?.message} {...register('startDate')} required />
+                    <InputText type={InputTypeEnum.date} label="End Date" disabled={isSubmitting} error={errors.endDate?.message} {...register('endDate')} />
                 </div>
-                <InputText type="rte" name="description" label="Descripition" defaultValue={history?.description ?? undefined} disabled={saving} />
+                <InputText type={InputTypeEnum.rte} label="Descripition" disabled={isSubmitting} error={errors.description?.message} {...register('description')} />
 
-                <SubmitButton label={editing ? 'Save' : 'Add Employment History'} disabled={saving} />
+                <SubmitButton label={editing ? 'Save' : 'Add Employment History'} disabled={isSubmitting} />
             </form>
         </div>
     );

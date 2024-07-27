@@ -1,11 +1,10 @@
 import ListStrengths from "./ListStrengths";
 import FormStrength from "./FormStrength";
-import { Strength } from "@prisma/client";
 
-export default function StrengthSection({ resumeId, initialStrengths }: { resumeId: string, initialStrengths?: Strength[] }) {    
+export default function StrengthSection({ resumeId }: { resumeId: string }) {
     return (
         <>
-            <ListStrengths initialStrengths={initialStrengths} />
+            <ListStrengths resumeId={resumeId} />
             <FormStrength resumeId={resumeId} />
         </>
     )
