@@ -1,5 +1,11 @@
-export { default as EducationSection } from "./education/EducationSection";
-export { default as EmploymentSection } from "./employment/EmploymentSection";
+export { default as FormEducation } from "./education/FormEducation";
+export { default as ListEducations } from "./education/ListEducations";
+export { default as FormEmployment } from "./employment/FormEmployment";
+export { default as ListEmployments } from "./employment/ListEmployments";
 export { default as FormPersonal } from "./personal/FormPersonal";
-export { default as SkillSection } from "./skill/SkillSection";
-export { default as StrengthSection } from "./strength/StrengthSection";
+export { default as FormSkill } from "./skill/FormSkill";
+export { default as ListSkills } from "./skill/ListSkills";
+export { default as FormStrength } from "./strength/FormStrength";
+export { default as ListStrengths } from "./strength/ListStrengths";
+export { default as ListResumes } from "./resume/ListResumes";
+export { default as ResumePreview } from "./resume/ResumePreview";

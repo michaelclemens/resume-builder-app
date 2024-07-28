@@ -7,7 +7,7 @@ import { RootState } from '../store';
 
 const initialState: { skills: Skill[]|null, loading: boolean, error: null|string } = {
   skills: null,
-  loading: true,
+  loading: false,
   error: null,
 }
 

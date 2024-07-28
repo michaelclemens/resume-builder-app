@@ -1,11 +1,14 @@
+import { useStrengthList } from "@/hooks/list";
 import { sortByOrder } from "@/util/sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Strength } from "@prisma/client"
 
-export default ({ strengths }: { strengths: Strength[] }) => {
-    if (!strengths || !strengths.length) return;
-    
+export default ({ strengths: initialStrengths }: { strengths: Strength[] }) => {
     const [animationParent] = useAutoAnimate();
+    const { strengths } = useStrengthList(initialStrengths);
+
+    if (!strengths || !strengths.length) return;
+
     return (
         <section>
             <h3 className="text-xl pb-1 border-b font-semibold">Strengths</h3>

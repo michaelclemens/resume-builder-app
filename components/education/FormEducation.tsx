@@ -1,14 +1,15 @@
 "use client"
 
-import { useEducationForm } from "@/hooks";
-import { InputText, SubmitButton, InputTypeEnum } from "@/components/form";
+import { useEducationForm } from "@/hooks/form";
+import { InputText, SubmitButton, InputTypeEnum, RichTextEditor } from "@/components/form";
 import { SubmitHandler } from "react-hook-form";
-import { EducationSchemaType } from "@/types/education";
+import { EducationSchemaType } from "@/types/form";
 import { handleErrorResponse, ResponseStatus } from "@/lib/response";
+import { Education } from "@prisma/client";
 
-export default function FormEducation({ resumeId, educationId, onSave = () => {} }: { resumeId: string, educationId?: string, onSave?: () => void }) {
-    const { save, register, handleSubmit, setError, reset, formState: { isSubmitting, errors }} = useEducationForm(educationId);
-    const editing = !!educationId;
+export default function FormEducation({ resumeId, education, onSave = () => {} }: { resumeId: string, education?: Education, onSave?: () => void }) {
+    const { save, register, handleSubmit, setError, reset, control, formState: { isSubmitting, errors }} = useEducationForm(education);
+    const editing = !!education;
 
     const onSubmit: SubmitHandler<EducationSchemaType> = async(data) => {
         const response = await save(resumeId, data);
@@ -24,15 +25,15 @@ export default function FormEducation({ resumeId, educationId, onSave = () => {}
         <div className="my-3 mx-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid grid-cols-2 gap-5">
-                    <InputText label="School" disabled={isSubmitting} error={errors.school?.message} {...register('school')} required />
-                    <InputText label="City" disabled={isSubmitting} error={errors.city?.message} {...register('city')} />
+                    <InputText label="School" disabled={isSubmitting} error={errors.school} {...register('school')} required />
+                    <InputText label="City" disabled={isSubmitting} error={errors.city} {...register('city')} />
                 </div>
-                <InputText label="Degree" disabled={isSubmitting} error={errors.degree?.message} {...register('degree')} required />
+                <InputText label="Degree" disabled={isSubmitting} error={errors.degree} {...register('degree')} required />
                 <div className="grid grid-cols-2 gap-5">
-                    <InputText type={InputTypeEnum.date} label="Start Date" disabled={isSubmitting} error={errors.startDate?.message} {...register('startDate')} required />
-                    <InputText type={InputTypeEnum.date} label="End Date" disabled={isSubmitting} error={errors.endDate?.message} {...register('endDate')} />
+                    <InputText type={InputTypeEnum.date} label="Start Date" disabled={isSubmitting} error={errors.startDate} {...register('startDate')} required />
+                    <InputText type={InputTypeEnum.date} label="End Date" disabled={isSubmitting} error={errors.endDate} {...register('endDate')} />
                 </div>
-                <InputText type={InputTypeEnum.rte} label="Descripition" disabled={isSubmitting} error={errors.description?.message} {...register('description')} />
+                <RichTextEditor<EducationSchemaType> name="description" control={control} />
 
                 <SubmitButton label={editing ? 'Save' : 'Add Education'} disabled={isSubmitting} />
             </form>

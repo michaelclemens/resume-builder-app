@@ -1,5 +1,6 @@
 import { forwardRef, Ref } from "react";
-import { ChangeHandler } from "react-hook-form";
+import { ChangeHandler, FieldError } from "react-hook-form";
+import ErrorMessage from "./ErrorMessage";
 
 export enum InputTypeEnum {
     text = "text",
@@ -12,7 +13,7 @@ type InputTypes = keyof typeof InputTypeEnum;
 
 export default forwardRef((
     { name, label, type = InputTypeEnum.text, required = false, disabled = false, error, onChange, onBlur }: 
-    { name: string, label: string, type?: InputTypes, required?: boolean, disabled?: boolean, error?: string, onChange?: ChangeHandler, onBlur?: ChangeHandler },
+    { name: string, label: string, type?: InputTypes, required?: boolean, disabled?: boolean, error?: FieldError, onChange?: ChangeHandler, onBlur?: ChangeHandler },
     ref: Ref<HTMLInputElement>
 ) => (
     <div>
@@ -37,6 +38,6 @@ export default forwardRef((
                 {label}{required && <span title="Required" className="text-red-600 ml-1">*</span>}
             </span>
         </label>
-        {error && <p role="alert" className="text-xs text-red-500 font-semibold ml-1 -mt-1 mb-1 italic">{error}</p>}
+        <ErrorMessage error={error} />
     </div>
 ))

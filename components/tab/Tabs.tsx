@@ -10,7 +10,7 @@ interface Tab {
 }
 
 export default function Tabs({ tabs }: { tabs: Tab[] }) {
-    const selectedTabName = useSelectedLayoutSegment('tabs');
+    const selectedTabName = useSelectedLayoutSegment('sections');
     const initialActiveTab = tabs.find(tab => tab.name === selectedTabName) ?? tabs[0];
     const [activeTab, setActiveTab] = useState(initialActiveTab);
 

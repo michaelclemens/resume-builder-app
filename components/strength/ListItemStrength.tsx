@@ -3,7 +3,7 @@
 import { Strength } from "@prisma/client";
 import { useState } from "react";
 import FormStrength from "./FormStrength";
-import { useStrengthList } from "@/hooks";
+import { useStrengthList } from "@/hooks/list";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { ExpandableWrapper } from "@/components/util";
 
@@ -32,7 +32,7 @@ export default function ListItemStrength(strength: Strength) {
                 <ListButton type="delete" onClick={onDelete} />
             </span>
             <ExpandableWrapper open={editing && !deleting}>
-                <FormStrength resumeId={strength.resumeId} strengthId={strength.id} onSave={() => setEditing(false)} />
+                <FormStrength resumeId={strength.resumeId} strength={strength} onSave={() => setEditing(false)} />
             </ExpandableWrapper>
             {deleting && <LoadingOverlay />}
         </>

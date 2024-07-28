@@ -7,7 +7,7 @@ import { RootState } from '../store';
 
 const initialState: { resume: null|Resume, loading: boolean, error: null|Error } = {
   resume: null,
-  loading: true,
+  loading: false,
   error: null,
 }
 

@@ -7,7 +7,7 @@ import { RootState } from '../store';
 
 const initialState: { educations: Education[]|null, loading: boolean, error: null|string } = {
   educations: null,
-  loading: true,
+  loading: false,
   error: null,
 }
 

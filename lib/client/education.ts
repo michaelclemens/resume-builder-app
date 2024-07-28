@@ -1,7 +1,7 @@
 "use server"
 
 import prisma from "@/lib/prisma";
-import { EducationSchema, EducationSchemaType } from "@/types/education";
+import { EducationSchema, EducationSchemaType } from "@/types/form";
 import { Education } from "@prisma/client";
 import { sanitize } from "isomorphic-dompurify";
 import { IResponse, response, ResponseStatus } from "../response";

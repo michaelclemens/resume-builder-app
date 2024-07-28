@@ -1,7 +1,7 @@
 "use server"
 
 import prisma from "@/lib/prisma";
-import { EmploymentSchema, EmploymentSchemaType } from "@/types/employment";
+import { EmploymentSchema, EmploymentSchemaType } from "@/types/form";
 import { Prisma } from "@prisma/client";
 import { IResponse, response, ResponseStatus } from "../response";
 

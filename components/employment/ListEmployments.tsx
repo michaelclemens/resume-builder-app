@@ -3,16 +3,12 @@
 import ListItemEmployment from "./ListItemEmployment";
 import { sortByOrder } from "@/util/sort";
 import { SortableVerticalList, SortableItem } from "@/components/list";
-import { useEmploymentList } from "@/hooks";
-import { useEffect } from "react";
-import Loading from "@/app/loading";
+import { useEmploymentList } from "@/hooks/list";
+import { EmploymentWithHistory } from "@/lib/client/employment";
 
-export default function ListEmployments({ resumeId }: { resumeId: string }) {
-    const { employments, loading, fetch, saveSortOrder } = useEmploymentList();
-
-    useEffect(() => { fetch(resumeId) }, [resumeId]);
+export default function ListEmployments({ employments: initialEmployments }: { employments: EmploymentWithHistory[] }) {
+    const { employments, saveSortOrder } = useEmploymentList(initialEmployments);
     
-    if (loading) return <Loading/>
     if (!employments || !employments.length) return <p>No Employments</p>
 
     return (

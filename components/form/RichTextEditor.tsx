@@ -2,8 +2,9 @@
 
 import Loading from "@/app/loading";
 import dynamic from "next/dynamic";
-import { Control, FieldValues, useController, UseControllerProps } from "react-hook-form";
+import { FieldValues, useController, UseControllerProps } from "react-hook-form";
 import 'react-quill/dist/quill.snow.css';
+import ErrorMessage from "./ErrorMessage";
 
 const ReactQuill = dynamic(() => import('react-quill'), { loading: () => <Loading/>, ssr: false });
 
@@ -16,20 +17,21 @@ const toolbarOptions = [
 ]
 
 export default function <T extends FieldValues>(
-    { name, control, placeholder = '', disabled = false }: 
+    { name, control, placeholder = '' }: 
     UseControllerProps<T> & { placeholder?: string }
 ) {
-    const { field } = useController({ name, control });
+    const { field: { value, onChange }, fieldState: { error }, formState: { isSubmitting} } = useController({ name, control });
     return (
-        <div className={`mb-3 min-h-24 ${disabled ? 'opacity-50 pointer-events-none' : ''}`}>
+        <div className={`mb-3 min-h-24 ${isSubmitting ? 'opacity-50 pointer-events-none' : ''}`}>
             <ReactQuill           
-                placeholder={placeholder.length > 0 ? `${placeholder}...` : ''}
-                value={field.value} 
-                onChange={(value) => field.onChange(value)} 
+                placeholder={placeholder}
+                value={value} 
+                onChange={(value) => onChange(value)} 
                 modules={{ toolbar: toolbarOptions }} 
-                readOnly={disabled}
+                readOnly={isSubmitting}
                 className="bg-white"
             />
+            <ErrorMessage error={error} />
         </div>
     )
 }

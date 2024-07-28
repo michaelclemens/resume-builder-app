@@ -1,9 +1,10 @@
 "use server"
 
-import { StrengthSchema, StrengthSchemaType } from "@/types/strength";
+import { StrengthSchema, StrengthSchemaType } from "@/types/form";
 import prisma from "@/lib/prisma";
 import { Strength } from "@prisma/client";
 import { IResponse, response, ResponseStatus } from "../response";
+import { revalidatePath } from "next/cache";
 
 type StrengthPayload = { strength: Strength }
 
@@ -44,6 +45,7 @@ export async function setSortOrders(strengths: Strength[]) {
         strengths.forEach(async(strength) => {
             await prisma.strength.update({ where: { id: strength.id }, data: { order: strength.order }})
         })
+        // revalidatePath('/resume/[id]/strengths', 'page');
     } catch (error) {
         console.error(error);
     }

@@ -1,9 +1,11 @@
+"use client"
+
 import ListHistory from "./ListHistory";
 import FormHistory from "./FormHistory";
-import { EmploymentHistory } from "@prisma/client";
 import { ExpandableWrapper } from "@/components/util";
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
+import { EmploymentHistory } from "@prisma/client";
 
 export default function HistorySection({ employmentId, histories }: { employmentId: string, histories: EmploymentHistory[] }) {
     const [open, setOpen] = useState(false);
@@ -15,7 +17,7 @@ export default function HistorySection({ employmentId, histories }: { employment
                 <span className="ml-auto flex mr-2">{open ? <FaChevronUp /> : <FaChevronDown />}</span>
             </div>
             <ExpandableWrapper open={open}>
-                <ListHistory employmentId={employmentId} />
+                <ListHistory employmentId={employmentId} histories={histories} />
                 <FormHistory employmentId={employmentId} />
             </ExpandableWrapper>
         </div>

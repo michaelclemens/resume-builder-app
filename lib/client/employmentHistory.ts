@@ -1,7 +1,7 @@
 "use server"
 
 import prisma from "@/lib/prisma";
-import { EmploymentHistorySchema, EmploymentHistorySchemaType } from "@/types/employment";
+import { EmploymentHistorySchema, EmploymentHistorySchemaType } from "@/types/form";
 import { EmploymentHistory } from "@prisma/client";
 import { sanitize } from "isomorphic-dompurify";
 import { IResponse, response, ResponseStatus } from "../response";

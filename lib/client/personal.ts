@@ -1,7 +1,7 @@
 "use server"
 
 import prisma from "@/lib/prisma";
-import { PersonalSchema, PersonalSchemaType } from "@/types/personal";
+import { PersonalSchema, PersonalSchemaType } from "@/types/form";
 import { Personal } from "@prisma/client";
 import { sanitize } from "isomorphic-dompurify";
 import { IResponse, response, ResponseStatus } from "../response";
@@ -19,7 +19,7 @@ const createDataPayload = (resumeId: string, formData: PersonalSchemaType) => {
 
 export async function getPersonal(resumeId: string): Promise<Personal|null> {
     try {
-        return await prisma.personal.findUniqueOrThrow({ where: { resumeId }});
+        return await prisma.personal.findUnique({ where: { resumeId }});
     } catch (error) {
         console.error(error);
         return null;

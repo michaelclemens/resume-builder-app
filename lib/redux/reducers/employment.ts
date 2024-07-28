@@ -6,7 +6,7 @@ import { RootState } from '../store';
 
 const initialState: { employments: EmploymentWithHistory[]|null, loading: boolean, error: null|string } = {
   employments: null,
-  loading: true,
+  loading: false,
   error: null,
 }
 

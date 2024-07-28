@@ -1,7 +1,11 @@
+import { usePersonal } from "@/hooks/list";
 import { Personal } from "@prisma/client"
 
-export default ({ personal }: { personal: Personal|null }) => {
+export default ({ personal: initialPerson }: { personal?: Personal|null }) => {
+    const { personal } = usePersonal(initialPerson);
+
     if (!personal) return;
+
     return (
         <section>
             <h3 className="text-xl pb-1 border-b font-semibold">Details</h3>

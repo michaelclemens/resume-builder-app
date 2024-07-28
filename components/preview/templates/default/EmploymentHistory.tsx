@@ -1,12 +1,15 @@
 import { RenderHtml } from "@/components/util";
+import { useEmploymentList } from "@/hooks/list";
 import { EmploymentWithHistory } from "@/lib/client/employment";
 import { sortByOrder } from "@/util/sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
-export default ({ employments }: { employments: EmploymentWithHistory[] }) => {
-    if (!employments.length) return;
-    
+export default ({ employments: initialEmployments }: { employments: EmploymentWithHistory[] }) => {
     const [animationParent] = useAutoAnimate();
+    const { employments } = useEmploymentList(initialEmployments);
+    
+    if (!employments || !employments.length) return;
+    
     return (
         <section>
             <h2 className="text-2xl mt-6 pb-1 border-b font-semibold">Employment History</h2>

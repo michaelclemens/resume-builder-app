@@ -1,12 +1,15 @@
 import { RenderHtml } from "@/components/util";
+import { useEducationList } from "@/hooks/list";
 import { sortByOrder } from "@/util/sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Education } from "@prisma/client"
 
-export default ({ educations }: { educations: Education[] }) => {
-    if (!educations.length) return;
-    
+export default ({ educations: initialEducations }: { educations: Education[] }) => {
     const [animationParent] = useAutoAnimate();
+    const { educations } = useEducationList(initialEducations);
+
+    if (!educations || !educations.length) return;
+    
     return (
         <section>
             <h2 className="text-2xl mt-6 pb-1 border-b font-semibold">Education</h2>

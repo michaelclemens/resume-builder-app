@@ -1,11 +1,14 @@
+import { useSkillList } from "@/hooks/list";
 import { sortByOrder } from "@/util/sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Skill } from "@prisma/client"
 
-export default ({ skills }: { skills: Skill[] }) => {
-    if (!skills.length) return;
-    
+export default ({ skills: initialSkills }: { skills: Skill[] }) => {
     const [animationParent] = useAutoAnimate();
+    const { skills } = useSkillList(initialSkills);
+
+    if (!skills || !skills.length) return;
+    
     return (
         <section>
             <h3 className="text-xl pb-1 border-b font-semibold">Experience</h3>

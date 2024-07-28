@@ -1,7 +1,7 @@
 "use server"
 
 import prisma from "@/lib/prisma";
-import { SkillSchema, SkillSchemaType } from "@/types/skill";
+import { SkillSchema, SkillSchemaType } from "@/types/form";
 import { Skill } from "@prisma/client";
 import { IResponse, response, ResponseStatus } from "../response";
 

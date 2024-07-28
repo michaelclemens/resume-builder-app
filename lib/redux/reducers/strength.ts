@@ -7,7 +7,7 @@ import { RootState } from '../store';
 
 const initialState: { strengths: Strength[]|null, loading: boolean, error: null|string } = {
   strengths: null,
-  loading: true,
+  loading: false,
   error: null,
 }
 

@@ -7,7 +7,7 @@ import { RootState } from '../store';
 
 const initialState: { personal: Personal|null, loading: boolean, error: null|string  } = {
   personal: null,
-  loading: true,
+  loading: false,
   error: null,
 }
 

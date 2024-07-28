@@ -3,16 +3,12 @@
 import ListItemSkill from "./ListItemSkill";
 import { sortByOrder } from "@/util/sort";
 import { SortableVerticalList, SortableItem } from "@/components/list";
-import { useSkillList } from "@/hooks";
-import { useEffect } from "react";
-import Loading from "@/app/loading";
+import { useSkillList } from "@/hooks/list";
+import { Skill } from "@prisma/client";
 
-export default function ListSkills({ resumeId }: { resumeId: string }) {
-    const { skills, loading, fetch, saveSortOrder } = useSkillList();
+export default function ListSkills({ skills: initialSkills }: { skills: Skill[] }) {
+    const { skills, saveSortOrder } = useSkillList(initialSkills);
     
-    useEffect(() => { fetch(resumeId) }, [resumeId]);
-
-    if (loading) return <Loading/>
     if (!skills || !skills.length) return <p>No Skills</p>
 
     return (
