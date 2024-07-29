@@ -7,25 +7,25 @@ export default ({ personal: initialPerson }: { personal?: Personal|null }) => {
     if (!personal) return;
 
     return (
-        <section>
-            <h3 className="text-xl pb-1 border-b font-semibold">Details</h3>
-            <ul className="mt-2 mb-10">
+        <section className="mb-7 text-[8pt]">
+            <h3 className="pb-1 border-b border-black font-bold uppercase tracking-[0.2em]">Details</h3>
+            <ul>
                 {(personal.city || personal.country) && (
-                    <li className="px-2 mt-1">
-                        <div className="font-semibold">Address</div>
+                    <li className="my-3">
+                        <div className="mb-1 text-[6.5pt] font-bold uppercase">Address</div>
                         {personal?.city && <div>{personal.city}</div>}
                         {personal?.country && <div>{personal.country}</div>}
                     </li>
                 )}
                 {personal.phone && (
-                    <li className="px-2 mt-1">
-                        <div className="font-semibold">Phone</div>
+                    <li className="my-3">
+                        <div className="mb-1 text-[6.5pt] font-bold uppercase">Phone</div>
                         <div>{personal.phone}</div>
                     </li>
                 )}
                 {personal.email && (
-                    <li className="px-2 mt-1">
-                        <div className="font-semibold">Email</div>
+                    <li className="my-3">
+                        <div className="mb-1 text-[6.5pt] font-bold uppercase">Email</div>
                         <div>{personal.email}</div>
                     </li>
                 )}

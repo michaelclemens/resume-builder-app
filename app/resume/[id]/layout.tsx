@@ -27,7 +27,7 @@ export default async function Layout({ params: { id }, children, sections }: { p
               <div>{sections}</div>
             </div>
         </div>
-        <main role="main" className="w-full h-full flex-grow overflow-y-auto bg-gray-600">
+        <main role="main" className="w-full h-full flex-grow overflow-y-auto bg-gray-500">
           {children}
         </main>
       </div>

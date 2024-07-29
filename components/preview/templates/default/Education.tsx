@@ -11,20 +11,20 @@ export default ({ educations: initialEducations }: { educations: Education[] }) 
     if (!educations || !educations.length) return;
     
     return (
-        <section>
-            <h2 className="text-2xl mt-6 pb-1 border-b font-semibold">Education</h2>
-            <ul ref={animationParent} className="mt-2">
+        <section className="mb-5 text-[8pt]">
+            <h3 className="mb-3 pb-1 border-b border-black font-bold uppercase tracking-[0.2em]">Education</h3>
+            <ul ref={animationParent}>
                 {educations.sort(sortByOrder).map(education => (
-                    <li key={education.id} className="pt-2">
-                        <p className="flex justify-between text-sm">
-                            <strong className="text-base">{education.degree}, {education.school}</strong>
+                    <li key={education.id}>
+                        <p className="flex justify-between">
+                            <span className="text-[9pt] font-bold">{education.degree}, {education.school}</span>
                             {education.city}
                         </p>
-                        <p className="text-justify text-xs">
+                        <p>
                             {new Date(education.startDate).toDateString()}
                             {education.endDate && ` - ${new Date(education.endDate).toDateString()}`}
                         </p>
-                        {education.description && <div className="text-justify"><RenderHtml html={education.description ?? ''} /></div>}
+                        {education.description && <div className="mt-2"><RenderHtml html={education.description ?? ''} /></div>}
                     </li>
                 ))}
             </ul>

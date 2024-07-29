@@ -43,7 +43,7 @@ body {
   }
   @page {
     size: A4 portrait;
-    margin: 1cm;
+    /* margin: 1cm; */
   }
   h1, section {
     break-before: auto;

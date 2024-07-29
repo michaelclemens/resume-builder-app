@@ -10,10 +10,10 @@ export default ({ skills: initialSkills }: { skills: Skill[] }) => {
     if (!skills || !skills.length) return;
     
     return (
-        <section>
-            <h3 className="text-xl pb-1 border-b font-semibold">Experience</h3>
-            <ul ref={animationParent} className="mt-2 mb-10">
-                {skills.sort(sortByOrder).map(skill => <li key={skill.id} className="px-2 mt-1">{skill.name}</li>)}
+        <section className="mb-7 text-[8pt]">
+            <h3 className="pb-1 border-b border-black font-bold uppercase tracking-[0.2em]">Experience</h3>
+            <ul ref={animationParent}>
+                {skills.sort(sortByOrder).map(skill => <li key={skill.id} className="my-3">{skill.name}</li>)}
             </ul>
         </section>
     )

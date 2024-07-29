@@ -10,10 +10,10 @@ export default ({ strengths: initialStrengths }: { strengths: Strength[] }) => {
     if (!strengths || !strengths.length) return;
 
     return (
-        <section>
-            <h3 className="text-xl pb-1 border-b font-semibold">Strengths</h3>
-            <ul ref={animationParent} className="mt-2 mb-10">
-                {strengths.sort(sortByOrder).map(strength => <li key={strength.id} className="px-2 mt-1">{strength.name}</li>)}
+        <section className="mb-7 text-[8pt]">
+            <h3 className="pb-1 border-b border-black font-bold uppercase tracking-[0.2em]">Strengths</h3>
+            <ul ref={animationParent}>
+                {strengths.sort(sortByOrder).map(strength => <li key={strength.id} className="my-3">{strength.name}</li>)}
             </ul>
         </section>
     )
