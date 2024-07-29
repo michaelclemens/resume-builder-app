@@ -3,9 +3,8 @@ import { useReactToPrint } from "react-to-print";
 
 export default ({ content, documentTitle }: { content: () => React.ReactInstance|null, documentTitle?: string }) => {
     const handlePrint = useReactToPrint({
-        bodyClass: 'resume-print',
         documentTitle,
-        content: content
+        content: content,
     });
     
     return (

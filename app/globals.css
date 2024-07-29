@@ -34,18 +34,26 @@ body {
   }
 }
 
-@media print {
-  html, body {
-    height: initial !important;
-    overflow: initial !important;
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
-  }
-  @page {
-    size: A4 portrait;
-    /* margin: 1cm; */
-  }
-  h1, section {
-    break-before: auto;
+@media print and (color) {
+	* {
+		print-color-adjust: exact;
+		-webkit-print-color-adjust: exact;
   }
 }
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  h1, h2, h3, h4, h5, h6 { 
+    break-after: avoid; 
+    break-inside: avoid;
+  }
+  ul, ol, dl { break-before: avoid; }
+  section {
+    break-before: auto;
+    break-after: auto;
+  }
+}
+
