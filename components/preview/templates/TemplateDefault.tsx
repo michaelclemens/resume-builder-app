@@ -14,7 +14,7 @@ export default forwardRef(({ resume: { personal, employments, educations, skills
             </div>
         </div>
         <div className="flex gap-x-7 min-h-screen h-full">
-            <div className="w-2/6 pl-14 pr-7 pt-52 bg-[#F4F4F4] pb-5">
+            <div className="w-2/6 pl-14 pr-7 pt-52 bg-[#f4f4f4] pb-5">
                 <Details personal={personal} />
                 <Experience skills={skills} />
                 <Strengths strengths={strengths} />

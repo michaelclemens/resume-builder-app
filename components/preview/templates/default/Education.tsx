@@ -11,11 +11,11 @@ export default ({ educations: initialEducations }: { educations: Education[] }) 
     if (!educations || !educations.length) return;
     
     return (
-        <section className="pt-5 text-[8pt]">
+        <div className="pt-5 text-[8pt]">
             <h3 className="mb-3 pb-1 border-b border-black font-bold uppercase tracking-[0.2em]">Education</h3>
-            <ul ref={animationParent}>
+            <div ref={animationParent}>
                 {educations.sort(sortByOrder).map(education => (
-                    <li key={education.id}>
+                    <section key={education.id}>
                         <p className="flex justify-between">
                             <span className="text-[9pt] font-bold">{education.degree}, {education.school}</span>
                             {education.city}
@@ -25,9 +25,9 @@ export default ({ educations: initialEducations }: { educations: Education[] }) 
                             {education.endDate && ` - ${new Date(education.endDate).toDateString()}`}
                         </p>
                         {education.description && <div className="mt-2"><RenderHtml html={education.description ?? ''} /></div>}
-                    </li>
+                    </section>
                 ))}
-            </ul>
-        </section>
+            </div>
+        </div>
     )
 }

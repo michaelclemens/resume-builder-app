@@ -11,33 +11,33 @@ export default ({ employments: initialEmployments }: { employments: EmploymentWi
     if (!employments || !employments.length) return;
     
     return (
-        <section className="pt-5 text-[8pt]">
+        <div className="pt-5 text-[8pt]">
             <h3 className="pb-1 border-b border-black font-bold uppercase tracking-[0.2em]">Employment History</h3>
-            <ul ref={animationParent}>
+            <div ref={animationParent}>
                 {employments.sort(sortByOrder).map(employment => (
-                    <li key={employment.id}>
+                    <section key={employment.id}>
                         <p className="pt-4 flex justify-between">
                             <span className="text-[9pt] font-bold">{employment.employer}</span>
                             {employment.city}
                         </p>
                         
                         {(employment.history && employment.history.length) && (
-                            <ul ref={animationParent}>
+                            <div ref={animationParent}>
                                 {[...employment.history].sort(sortByOrder).map(history => (
-                                    <li key={history.id} className="mb-4 last-of-type:mb-0">
+                                    <section key={history.id} className="pt-4 last-of-type:mb-0">
                                         <p className="text-[9pt] font-bold">{history.title}</p>
                                         <p>
                                             {new Date(history.startDate).toDateString()}
                                             {history.endDate && ` - ${new Date(history.endDate).toDateString()}`}
                                         </p>
                                         {history.description && <div className="mt-2"><RenderHtml html={history.description ?? ''} /></div>}
-                                    </li>
+                                    </section>
                                 ))}
-                            </ul>
+                            </div>
                         )}
-                    </li>
+                    </section>
                 ))}
-            </ul>
-        </section>
+            </div>
+        </div>
     )
 }

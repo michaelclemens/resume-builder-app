@@ -1,7 +1,7 @@
 import { FaPrint } from "react-icons/fa"
 import { useReactToPrint } from "react-to-print";
 
-export default ({ content, documentTitle }: { content: () => Element|null, documentTitle?: string }) => {
+export default ({ content, documentTitle }: { content: () => HTMLElement|null, documentTitle?: string }) => {
     const handlePrint = useReactToPrint({
         documentTitle,
         content: () => {
@@ -22,7 +22,7 @@ export default ({ content, documentTitle }: { content: () => Element|null, docum
         onAfterPrint: () => {
             const element = content();
             if (element) {
-                element.style.height = null;
+                element.style.height = '';
             }
         }
     });
