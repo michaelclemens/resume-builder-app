@@ -50,7 +50,7 @@ body {
     break-after: avoid; 
     break-inside: avoid;
   }
-  ul, ol, dl { break-before: avoid; }
+  ul, ol, dl { break-inside: avoid; }
   section {
     break-before: auto;
     break-after: auto;

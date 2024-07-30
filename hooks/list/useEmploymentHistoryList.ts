@@ -17,7 +17,7 @@ const useEmploymentHistoryList = (employmentId: string, initialHistories?: Emplo
         await setSortOrders(items);
     }
 
-    return { histories: employment?.history ? [...employment.history] : initialHistories ?? [], remove, saveSortOrder }
+    return { histories: employment?.history ? [...employment.history] : [...initialHistories ?? []], remove, saveSortOrder }
 }
 
 export default useEmploymentHistoryList;

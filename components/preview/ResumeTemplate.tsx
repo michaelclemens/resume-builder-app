@@ -7,13 +7,9 @@ export default forwardRef(({ resume }: { resume: ResumeFull }, ref: Ref<HTMLInpu
         // switch selected/stored template
         switch(true) {
             default:
-                return <TemplateDefault resume={resume} />
+                return <TemplateDefault resume={resume} ref={ref} />
         }
     }
 
-    return (
-        <div ref={ref}>
-            {renderTemplate()}
-        </div>
-    )
+    return renderTemplate()
 })

@@ -1,10 +1,30 @@
 import { FaPrint } from "react-icons/fa"
 import { useReactToPrint } from "react-to-print";
 
-export default ({ content, documentTitle }: { content: () => React.ReactInstance|null, documentTitle?: string }) => {
+export default ({ content, documentTitle }: { content: () => Element|null, documentTitle?: string }) => {
     const handlePrint = useReactToPrint({
         documentTitle,
-        content: content,
+        content: () => {
+            const size = 1122;
+            const element = content();
+            const resumeHeight = element?.clientHeight;
+
+            if (resumeHeight) {
+               const ratio = resumeHeight / size;
+                if (ratio > 1) {
+                    const vhs = Math.ceil(parseFloat(ratio.toFixed(2)));
+                    const newHeight = vhs * 100;
+                    element.style.height = `${newHeight}vh`
+                }
+            }
+            return element
+        },
+        onAfterPrint: () => {
+            const element = content();
+            if (element) {
+                element.style.height = null;
+            }
+        }
     });
     
     return (
