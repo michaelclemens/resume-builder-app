@@ -17,7 +17,7 @@ const useEducationList = (initialEducations?: Education[]) => {
         await setSortOrders(educations);
     }
 
-    return { educations: educations ? [...educations] : initialEducations, loading, remove, saveSortOrder }
+    return { educations: educations ? [...educations] : initialEducations ?? [], loading, remove, saveSortOrder }
 }
 
 export default useEducationList;

@@ -17,7 +17,7 @@ const useStrengthList = (initialStrengths?: Strength[]) => {
         await setSortOrders(strengths);
     }
 
-    return { strengths: strengths ? [...strengths] : initialStrengths, remove, saveSortOrder }
+    return { strengths: strengths ? [...strengths] : initialStrengths ?? [], remove, saveSortOrder }
 }
 
 export default useStrengthList;

@@ -17,7 +17,7 @@ const useSkillList = (initialSkills?: Skill[]) => {
         await setSortOrders(skills);
     }
 
-    return { skills: skills ? [...skills] : initialSkills, loading, remove, saveSortOrder }
+    return { skills: skills ? [...skills] : initialSkills ?? [], loading, remove, saveSortOrder }
 }
 
 export default useSkillList;
