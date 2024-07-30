@@ -1,6 +1,5 @@
 import { Tabs } from "@/components/tab";
 import { getResume } from "@/lib/client/resume";
-import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaHome } from "react-icons/fa";
@@ -10,8 +9,6 @@ const tabs = ['personal', 'employments', 'educations', 'skills', 'strengths'];
 export default async function Layout({ params: { id }, children, sections }: { params: { id: string }, children: React.ReactNode, sections: React.ReactNode }) {
   const resume = await getResume(id);
   if (!resume) notFound()
-
-  {revalidatePath('/resume/[id]', 'layout')}
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
