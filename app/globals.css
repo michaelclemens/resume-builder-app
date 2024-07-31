@@ -56,5 +56,20 @@ body {
     break-inside: avoid;
     break-after: auto;
   }
+  div.resume-print-footer {
+    position: fixed;
+    z-index: 9;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.25rem;
+    margin: 0 1rem 0 1rem;
+    font-size: 6pt;
+    color: #000;
+    opacity: 0.7;
+    page-break-after: always;
+  }
+  div.resume-print-footer::before {
+    content: "Created by github.com/michaelclemens/cv-builder-app";
+  }
 }
-

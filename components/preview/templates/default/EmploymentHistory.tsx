@@ -15,7 +15,7 @@ export default ({ employments: initialEmployments }: { employments: EmploymentWi
             <h3 className="pb-1 border-b border-black font-bold uppercase tracking-[0.2em]">Employment History</h3>
             <div ref={animationParent}>
                 {employments.sort(sortByOrder).map(employment => (
-                    <section key={employment.id}>
+                    <div key={employment.id}>
                         <p className="pt-4 flex justify-between">
                             <span className="text-[9pt] font-bold">{employment.employer}</span>
                             {employment.city}
@@ -35,7 +35,7 @@ export default ({ employments: initialEmployments }: { employments: EmploymentWi
                                 ))}
                             </div>
                         )}
-                    </section>
+                    </div>
                 ))}
             </div>
         </div>
