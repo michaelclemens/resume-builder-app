@@ -21,7 +21,7 @@ export default ({ employments: initialEmployments }: { employments: EmploymentWi
                             {employment.city}
                         </p>
                         
-                        {(employment.history && employment.history.length) && (
+                        {employment.history.length ? (
                             <div ref={animationParent}>
                                 {[...employment.history].sort(sortByOrder).map(history => (
                                     <section key={history.id} className="pt-4 last-of-type:mb-0">
@@ -34,7 +34,7 @@ export default ({ employments: initialEmployments }: { employments: EmploymentWi
                                     </section>
                                 ))}
                             </div>
-                        )}
+                        ) : null}
                     </div>
                 ))}
             </div>

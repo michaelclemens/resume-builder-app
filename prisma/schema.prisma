@@ -7,8 +7,14 @@ datasource db {
   url      = env("POSTGRES_PRISMA_URL")
 }
 
+enum Template {
+  DEFAULT
+  COMPACT
+}
+
 model Resume {
   id              String      @default(cuid())    @id
+  template        Template    @default(DEFAULT)
   personal        Personal?
   employments     Employment[]
   educations      Education[]

@@ -3,7 +3,7 @@ import { useAppSelector } from "@/lib/redux/store";
 import { Personal } from "@prisma/client";
 
 const usePersonal = (initialPersonal?: Personal|null) => {
-    const { personal } = useAppSelector(selectPersonal);    
+    const { personal } = useAppSelector(selectPersonal);
     return { personal: personal ?? initialPersonal ?? null }
 }
 

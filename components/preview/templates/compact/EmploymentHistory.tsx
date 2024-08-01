@@ -11,7 +11,7 @@ export default ({ employments: initialEmployments, oswaldClassName }: { employme
     if (!employments || !employments.length) return;
     
     return (
-        <div className="pt-5 text-[9.5pt]">
+        <div className="pt-5 text-[9pt]">
             <h3 className={`text-xl font-medium ${oswaldClassName}`}>Employment History</h3>
             <div ref={animationParent}>
                 {employments.sort(sortByOrder).map(employment => (

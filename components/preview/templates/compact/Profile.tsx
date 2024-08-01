@@ -8,7 +8,7 @@ export default ({ personal: initialPerson, oswaldClassName }: { personal: Person
     if ( !personal) return;
     
     return (
-        <section className="text-[8pt]">
+        <section className="text-[9pt]">
             <h3 className={`text-xl font-medium ${oswaldClassName}`}>Profile</h3>
             <div className="mt-2"><RenderHtml html={personal.summary ?? ''} /></div>
         </section>

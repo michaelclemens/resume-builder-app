@@ -23,6 +23,13 @@ export const slice = createSlice({
   name: 'resume',
   initialState,
   reducers: {
+    setResume: (state, action) => {
+      state.resume = action.payload;
+    },
+    setTemplate: (state, action) => {
+      if (!state.resume) return;
+      state.resume.template = action.payload;
+    },
     clear: () => initialState
   },
   extraReducers: (builder) => {
@@ -45,7 +52,7 @@ export const slice = createSlice({
   }
 })
 
-export const { clear } = slice.actions;
+export const { clear, setResume, setTemplate } = slice.actions;
 
 export const selectResume = (state: RootState) => state.resume;
 

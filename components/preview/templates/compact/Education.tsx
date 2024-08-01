@@ -11,7 +11,7 @@ export default ({ educations: initialEducations, oswaldClassName }: { educations
     if (!educations || !educations.length) return;
     
     return (
-        <div className="pt-5 text-[9.5pt]">
+        <div className="pt-5 text-[9pt]">
             <h3 className={`text-xl font-medium ${oswaldClassName}`}>Education</h3>
             <div ref={animationParent}>
                 {educations.sort(sortByOrder).map(education => (
