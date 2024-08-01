@@ -10,7 +10,7 @@ export default forwardRef(({ resume }: { resume: ResumeFull }, ref: Ref<HTMLDivE
         // switch selected/stored template
         switch(true) {
             default:
-                return <TemplateCompact resume={resume} />
+                // return <TemplateCompact resume={resume} />
                 return <TemplateDefault resume={resume} />
         }
     }
