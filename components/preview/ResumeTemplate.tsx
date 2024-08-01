@@ -3,15 +3,22 @@ import { forwardRef, Ref } from "react"
 import TemplateDefault from "./templates/TemplateDefault"
 import TemplateCompact from "./templates/TemplateCompact"
 
-export default forwardRef(({ resume }: { resume: ResumeFull }, ref: Ref<HTMLInputElement>) => {
-    const renderTemplate = () => {
+const resumePrintFooterClass = 'resume-print-footer';
+
+export default forwardRef(({ resume }: { resume: ResumeFull }, ref: Ref<HTMLDivElement>) => {
+    const Template = () => {
         // switch selected/stored template
         switch(true) {
             default:
-                return <TemplateCompact resume={resume} ref={ref} />
-                return <TemplateDefault resume={resume} ref={ref} />
+                return <TemplateCompact resume={resume} />
+                return <TemplateDefault resume={resume} />
         }
     }
 
-    return renderTemplate()
+    return (
+        <div ref={ref}>
+            <Template />
+            <div className={resumePrintFooterClass} />
+        </div>
+    )
 })

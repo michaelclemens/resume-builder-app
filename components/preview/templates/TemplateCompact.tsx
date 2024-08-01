@@ -1,14 +1,13 @@
 import { ResumeFull } from "@/lib/client/resume"
 import { Details, Education, EmploymentHistory, Experience, Profile, Strengths } from "./compact";
 import { Lato, Oswald } from "next/font/google";
-import { forwardRef, Ref } from "react";
 
 const oswald = Oswald({ subsets: ['latin'], display: 'swap' });
 const lato = Lato({ weight: ['400', '700'], subsets: ['latin']});
 
-export default forwardRef(({ resume: { personal, employments, educations, skills, strengths }}: { resume: ResumeFull }, ref: Ref<HTMLInputElement>) => (
-    <div ref={ref} className={`flex flex-col bg-white text-[8pt] ${lato.className}`}>
-        <div className="flex gap-x-10 min-h-screen h-full">
+export default ({ resume: { personal, employments, educations, skills, strengths }}: { resume: ResumeFull }) => (
+    <div className={`flex flex-col bg-white h-full text-[8pt] ${lato.className}`}>
+        <div className="flex gap-x-10 h-full">
             <div className="w-4/6 pl-14 pt-16 bg-white pb-5">
                 <div className="mb-7">
                     <div className={`mb-2 text-3xl font-medium ${oswald.className}`}>{personal?.firstName} {personal?.lastName}</div>
@@ -25,4 +24,4 @@ export default forwardRef(({ resume: { personal, employments, educations, skills
             </div>
         </div>
     </div>
-))
+)
