@@ -4,12 +4,13 @@ import { clear as clearEducations } from "@/lib/redux/reducers/education";
 import { clear as clearSkills } from "@/lib/redux/reducers/skill";
 import { clear as clearStrengths } from "@/lib/redux/reducers/strength";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
-import { Resume, Template } from "@prisma/client";
-import { clear, selectResume, setResume, setTemplate } from "@/lib/redux/reducers/resume";
+import { Template } from "@prisma/client";
+import { clear, selectResume, setResume, setTemplate, setTemplateOptions } from "@/lib/redux/reducers/resume";
 import { useEffect } from "react";
-import { updateResumeTemplate } from "@/lib/client/resume";
+import { ResumeFull, updateResume } from "@/lib/client/resume";
+import { TemplateOptions } from "@/types/template";
 
-export default function useResume(initialResume?: Resume|null) {
+export default function useResume(initialResume?: ResumeFull|null) {
     const { resume } = useAppSelector(selectResume);
     const dispatch = useAppDispatch();
 
@@ -21,8 +22,15 @@ export default function useResume(initialResume?: Resume|null) {
     }, [initialResume])
 
     const updateTemplate = async(resumeId: string, template: Template) => {
-        await updateResumeTemplate(resumeId, template);
+        await updateResume(resumeId, { template, templateOptions: {} });
+        dispatch(setTemplateOptions({}));
         dispatch(setTemplate(template));
+    }
+
+    const updateTemplateOptions = async(resumeId: string, templateOptions: TemplateOptions) => {
+        console.log(templateOptions);
+        await updateResume(resumeId, { templateOptions });
+        dispatch(setTemplateOptions(templateOptions));
     }
     
     const resetAllState = () => {
@@ -34,5 +42,5 @@ export default function useResume(initialResume?: Resume|null) {
         dispatch(clearStrengths())
     }
 
-    return { resume: resume ?? initialResume ?? null, resetAllState, updateTemplate }
+    return { resume: resume ?? initialResume ?? null, updateTemplate, updateTemplateOptions, resetAllState }
 }

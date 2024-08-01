@@ -1,7 +1,7 @@
 import { usePersonal } from "@/hooks/list";
 import { Personal } from "@prisma/client"
 
-export default ({ personal: initialPerson, oswaldClassName }: { personal?: Personal|null }) => {
+export default ({ personal: initialPerson, oswaldClassName }: { personal: Personal|null }) => {
     const { personal } = usePersonal(initialPerson);
 
     if (!personal) return;

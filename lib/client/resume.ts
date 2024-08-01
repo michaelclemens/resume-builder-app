@@ -1,7 +1,7 @@
 "use server"
 
 import prisma from "@/lib/prisma";
-import { Prisma, Resume, Template } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 export type ResumeWithPersonal = Prisma.ResumeGetPayload<{
@@ -57,9 +57,9 @@ export async function getAllResumes() {
     }
 }
 
-export async function updateResumeTemplate(id: string, template: Template) {
+export async function updateResume(id: string, data: Prisma.ResumeUpdateInput) {
     try {
-        return await prisma.resume.update({ where: { id }, data: { template }});
+        return await prisma.resume.update({ where: { id }, data });
     } catch (error) {
         console.error(error);
     }

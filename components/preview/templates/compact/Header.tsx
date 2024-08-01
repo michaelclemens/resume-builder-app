@@ -1,4 +1,3 @@
-import { RenderHtml } from "@/components/util";
 import { usePersonal } from "@/hooks/list";
 import { Personal } from "@prisma/client";
 
@@ -8,9 +7,9 @@ export default ({ personal: initialPerson, oswaldClassName }: { personal: Person
     if (!personal) return;
     
     return (
-        <section className="text-[9pt]">
-            <h3 className={`text-xl font-medium ${oswaldClassName}`}>Profile</h3>
-            <div className="mt-2"><RenderHtml html={personal.summary ?? ''} /></div>
-        </section>
+        <div className="mb-7">
+            <div className={`mb-2 text-3xl font-medium ${oswaldClassName}`}>{personal?.firstName} {personal?.lastName}</div>
+            <div className={"text-[6.5pt] uppercase tracking-widest"}>{personal?.position}</div>
+        </div>
     )
 }

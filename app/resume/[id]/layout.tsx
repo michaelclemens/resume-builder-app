@@ -18,7 +18,7 @@ export default async function Layout({ params: { id }, children, sections }: { p
         </span>
       </header>
       <div className="w-full flex flex-row flex-grow overflow-hidden">
-        <div className="w-3/4 flex-shrink flex-grow-0">
+        <div className="w-2/3 flex-shrink flex-grow-0">
             <div className="flex flex-col overflow-y-auto h-full p-3">
               <Tabs tabs={tabs.map(name => ({ name, href: `/resume/${id}/${name}`}))}/>
               <div>{sections}</div>

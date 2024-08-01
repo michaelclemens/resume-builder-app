@@ -1,11 +1,10 @@
 "use client"
 
-import { getResume } from '@/lib/client/resume';
-import { Resume } from '@prisma/client';
+import { getResume, ResumeFull } from '@/lib/client/resume';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 
-const initialState: { resume: null|Resume, loading: boolean, error: null|Error } = {
+const initialState: { resume: null|ResumeFull, loading: boolean, error: null|Error } = {
   resume: null,
   loading: false,
   error: null,
@@ -30,6 +29,10 @@ export const slice = createSlice({
       if (!state.resume) return;
       state.resume.template = action.payload;
     },
+    setTemplateOptions: (state, action) => {
+      if (!state.resume) return;
+      state.resume.templateOptions = action.payload;
+    },
     clear: () => initialState
   },
   extraReducers: (builder) => {
@@ -52,7 +55,7 @@ export const slice = createSlice({
   }
 })
 
-export const { clear, setResume, setTemplate } = slice.actions;
+export const { clear, setResume, setTemplate, setTemplateOptions } = slice.actions;
 
 export const selectResume = (state: RootState) => state.resume;
 

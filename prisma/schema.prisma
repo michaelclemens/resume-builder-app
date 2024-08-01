@@ -15,6 +15,7 @@ enum Template {
 model Resume {
   id              String      @default(cuid())    @id
   template        Template    @default(DEFAULT)
+  templateOptions Json?
   personal        Personal?
   employments     Employment[]
   educations      Education[]

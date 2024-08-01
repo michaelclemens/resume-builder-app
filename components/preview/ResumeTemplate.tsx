@@ -2,19 +2,31 @@ import { ResumeFull } from "@/lib/client/resume"
 import { forwardRef, Ref } from "react"
 import { TemplateDefault, TemplateCompact } from "./templates"
 import { Template } from "@prisma/client";
+import useResume from "@/hooks/useResume";
+import { ColourElementType, TemplateOptions } from "@/types/template";
 
 const resumePrintFooterClass = 'resume-print-footer';
 
-export default forwardRef(({ resume, template }: { resume: ResumeFull, template: Template|null }, ref: Ref<HTMLDivElement>) => {
+export default forwardRef(({ resume: initialResume, template }: { resume: ResumeFull, template: Template|null }, ref: Ref<HTMLDivElement>) => {
+    const { resume, updateTemplateOptions } = useResume(initialResume);
+
+    if (!resume) return;
+    
+    const onColourChange = async(elementType: ColourElementType, colour: string) => {
+        await updateTemplateOptions(resume.id, {...resume.templateOptions as TemplateOptions, colours: { [elementType]: colour } })
+    }
+
+    const onResetToDefault = async() => {
+        await updateTemplateOptions(resume.id, { colours: {}});
+    }
+
     const ResumeTemplate = () => {
-        // switch selected/stored template
         switch(template) {
             case Template.COMPACT:
-                return <TemplateCompact resume={resume} />
+                return <TemplateCompact resume={resume} onColourChange={onColourChange} onResetToDefault={onResetToDefault} />
             case Template.DEFAULT:
             default:
-                // return <TemplateCompact resume={resume} />
-                return <TemplateDefault resume={resume} />
+                return <TemplateDefault resume={resume} onColourChange={onColourChange} onResetToDefault={onResetToDefault} />
         }
     }
 

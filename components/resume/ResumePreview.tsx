@@ -15,13 +15,14 @@ const getResumeFromFull = (resumeFull: ResumeFull): Resume|null => {
     return {
         id: resumeFull.id,
         template: resumeFull.template,
+        templateOptions: resumeFull.templateOptions,
         createdAt: resumeFull.createdAt,
         updatedAt: resumeFull.updatedAt,
     }
 }
 
 export default function ResumePreview({ resume: resumeFull }: { resume: ResumeFull }) {
-    const { resume, resetAllState } = useResume(getResumeFromFull(resumeFull));
+    const { resume, resetAllState } = useResume(resumeFull);
     const componentRef = useRef<HTMLDivElement|null>(null);
 
     const onBeforePrint = () => {
@@ -45,10 +46,10 @@ export default function ResumePreview({ resume: resumeFull }: { resume: ResumeFu
     }, [])
 
     return (
-        <div className="relative mx-auto my-10 w-[210mm]">
+        <div className="relative ml-14 my-10 w-[210mm]">
             <ResumeTemplate resume={resumeFull} template={resume?.template ?? null} ref={componentRef} />
 
-            <div className="absolute top-0 -right-12">
+            <div className="absolute top-0 -right-36">
                 <div className="fixed">
                     <PrintButton getContent={() => (componentRef.current)} onBeforePrint={onBeforePrint} />
                     <TemplateSwitcher resumeId={resumeFull.id} />

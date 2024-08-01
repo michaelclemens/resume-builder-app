@@ -1,23 +1,33 @@
 import { ResumeFull } from "@/lib/client/resume"
-import { Details, Education, EmploymentHistory, Experience, Profile, Strengths } from "./default";
+import { Details, Education, EmploymentHistory, Experience, Header, Profile, Strengths } from "./default";
 import { Montserrat } from "next/font/google";
+import ColourPicker from "../ColourPicker";
+import { ColourElements, ColourElementType, TemplateOptions } from "@/types/template";
 
 const montserrat = Montserrat({ subsets: ['latin'], display: 'swap' });
 
-export default ({ resume: { personal, employments, educations, skills, strengths }}: { resume: ResumeFull }) => (
+const defaults = {[ColourElements.background]: '#f4f4f4', [ColourElements.text]: '#000'};
+
+export default (
+    { resume: { templateOptions, personal, employments, educations, skills, strengths }, onColourChange, onResetToDefault}:
+    { resume: ResumeFull, onColourChange: (type: ColourElementType, colour: string) => Promise<void>, onResetToDefault: () => Promise<void> }
+) => (
     <div className={`flex flex-col bg-white text-[6.5pt] min-h-screen h-full ${montserrat.className}`}>
-        <div className="flex justify-center">
-            <div className="absolute flex flex-col mt-10 px-16 py-10 text-center uppercase bg-white ring-1 ring-black">
-                <div className="mb-1 text-2xl font-bold tracking-widest">{personal?.firstName} {personal?.lastName}</div>
-                <div className="text-sm">{personal?.position}</div>
-            </div>
-        </div>
+        <Header personal={personal} />
         <div className="flex gap-x-7 min-h-screen h-full">
-            <div className="w-2/6 pl-14 pr-7 pt-52 bg-[#f4f4f4] pb-5">
+            
+            <ColourPicker 
+                templateOptions={templateOptions as TemplateOptions} 
+                defaults={defaults}
+                align="left"
+                className="w-2/6 pl-14 pr-7 pt-52"
+                onColourChange={onColourChange}
+                onResetToDefault={onResetToDefault}
+            >
                 <Details personal={personal} />
                 <Experience skills={skills} />
                 <Strengths strengths={strengths} />
-            </div>
+            </ColourPicker>
             <div className="w-4/6 pr-14 pt-52 bg-white pb-5">
                 <Profile personal={personal} />
                 <EmploymentHistory employments={employments} />
