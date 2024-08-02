@@ -1,5 +1,3 @@
-'use client'
-
 import { sanitize } from "isomorphic-dompurify";
 
 export default function RenderHtml({ html }: { html: string }) {
