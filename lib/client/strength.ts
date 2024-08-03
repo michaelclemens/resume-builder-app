@@ -4,7 +4,6 @@ import { StrengthSchema, StrengthSchemaType } from "@/types/form";
 import prisma from "@/lib/prisma";
 import { Strength } from "@prisma/client";
 import { IResponse, response, ResponseStatus } from "../response";
-import { revalidatePath } from "next/cache";
 
 type StrengthPayload = { strength: Strength }
 

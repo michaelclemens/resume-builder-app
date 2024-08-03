@@ -24,6 +24,7 @@ export default forwardRef((
             <input
                 type={type}
                 name={name}
+                aria-label={name}
                 ref={ref}
                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm disabled:opacity-50 disabled:pointer-events-none"
                 placeholder={label}

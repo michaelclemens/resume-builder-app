@@ -21,7 +21,7 @@ const useStrengthForm = (strength?: Strength) => {
         return response;
     }
 
-    return { strength, save, ...form }
+    return { strength, save, form }
 }
 
 export default useStrengthForm;

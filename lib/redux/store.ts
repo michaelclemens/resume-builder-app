@@ -4,17 +4,20 @@ import { configureStore } from '@reduxjs/toolkit';
 import reducers from '@/lib/redux/reducers';
 import { useDispatch, useSelector } from 'react-redux';
 
-export const store = configureStore({
-    reducer: reducers,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-        serializableCheck: false
-    }),
-    devTools: process.env.NODE_ENV !== "production",
-});
+export const setupStore = (preloadedState?: Partial<RootState>) => (
+    configureStore({
+        reducer: reducers,
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+            serializableCheck: false
+        }),
+        devTools: process.env.NODE_ENV !== "production",
+        preloadedState
+    })
+);
 
-type AppStore = typeof store
-type AppDispatch = typeof store.dispatch
-export type RootState = ReturnType<AppStore['getState']>
+export type RootState = ReturnType<typeof reducers>
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore['dispatch']
 
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
 export const useAppSelector = useSelector.withTypes<RootState>()

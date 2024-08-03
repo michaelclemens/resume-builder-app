@@ -8,9 +8,8 @@ import { StrengthSchemaType } from "@/types/form";
 import { Strength } from '@prisma/client';
 
 export default function FormStrength({ resumeId, strength, onSave = () => {} }: { resumeId: string, strength?: Strength, onSave?: () => void }) {
-    const { save, register, handleSubmit, setError, reset, formState: { isSubmitting, errors }} = useStrengthForm(strength);
+    const { save, form: { register, handleSubmit, setError, reset, formState: { isSubmitting, errors }}} = useStrengthForm(strength);
     const editing = !!strength;
-    
     const onSubmit: SubmitHandler<StrengthSchemaType> = async(data) => {
         const response = await save(resumeId, data);
 
@@ -23,7 +22,7 @@ export default function FormStrength({ resumeId, strength, onSave = () => {} }: 
 
     return (
         <div className="my-3 mx-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form role="form" onSubmit={handleSubmit(onSubmit)}>
                 <InputText label="Name" disabled={isSubmitting} error={errors.name} {...register('name')} required />
                 <SubmitButton label={editing ? 'Save' : 'Add Strength'} disabled={isSubmitting} />
             </form>

@@ -8,7 +8,7 @@ describe('Form/SubmitButtonComponent', () => {
 
         const { getByRole } = render(<SubmitButton label={label} />);
 
-        const button = getByRole('button', { name: label});
+        const button = getByRole('button', { name: label });
 
         expect(button).toBeInTheDocument();
         expect(button).toHaveAttribute('type', 'submit');
@@ -18,10 +18,10 @@ describe('Form/SubmitButtonComponent', () => {
 
         const { rerender } = render(<SubmitButton disabled={false} label={label} />);
 
-        expect(screen.getByRole('button', { name: label})).not.toHaveAttribute('disabled');
+        expect(screen.getByRole('button', { name: label })).not.toHaveAttribute('disabled');
 
         rerender(<SubmitButton disabled={true} label={label} />);
 
-        expect(screen.getByRole('button', { name: label})).toHaveAttribute('disabled');
+        expect(screen.getByRole('button', { name: label })).toHaveAttribute('disabled');
     })
 })

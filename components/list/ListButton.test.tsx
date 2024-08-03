@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker"
 import { fireEvent, render, screen } from "@testing-library/react";
-import ListButton, { ButtonType, iconYPaddingClass, labelYPaddingClass } from "./ListButton";
+import ListButton, { iconYPaddingClass, labelYPaddingClass } from "./ListButton";
+import { ButtonType } from "@/types/list";
 
 const label = faker.lorem.word();
 
@@ -18,12 +19,12 @@ describe('List/ListButtonComponent', () => {
     it('Should render an edit icon button', () => {
         const { getByTitle } = render(<ListButton type={ButtonType.edit} />);
 
-        expect(getByTitle('Edit')).toBeInTheDocument();
+        expect(getByTitle(new RegExp(ButtonType.edit, 'i'))).toBeInTheDocument();
     })
     it('Should render a delete icon button', () => {
         const { getByTitle } = render(<ListButton type={ButtonType.delete} />);
 
-        expect(getByTitle('Delete')).toBeInTheDocument();
+        expect(getByTitle(new RegExp(ButtonType.delete, 'i'))).toBeInTheDocument();
     })
     it('Should fire callback on click', () => {
         const onClick = jest.fn();

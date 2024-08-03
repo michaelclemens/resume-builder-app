@@ -1,10 +1,5 @@
+import { AvailableButtonTypes, ButtonType } from "@/types/list";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-
-export enum ButtonType {
-    edit = 'edit',
-    delete = 'delete'
-}
-type AvailableButtonTypes = keyof typeof ButtonType;
 
 export const labelYPaddingClass = 'py-1';
 export const iconYPaddingClass = 'py-2';

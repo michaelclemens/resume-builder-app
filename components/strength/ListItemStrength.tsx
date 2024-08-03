@@ -6,6 +6,7 @@ import FormStrength from "./FormStrength";
 import { useStrengthList } from "@/hooks/list";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { ExpandableWrapper } from "@/components/util";
+import { ButtonType } from "@/types/list";
 
 export default function ListItemStrength(strength: Strength) {
     const { remove } = useStrengthList();
@@ -27,9 +28,9 @@ export default function ListItemStrength(strength: Strength) {
         <>
             <span className="w-3/4 flex-none">{strength.name}</span>
             <span className="ml-auto flex font-medium">
-                <ListButton type="edit" onClick={() => setEditing(!editing)} />
+                <ListButton type={ButtonType.edit} onClick={() => setEditing(!editing)} />
                 <ListDivider />
-                <ListButton type="delete" onClick={onDelete} />
+                <ListButton type={ButtonType.delete} onClick={onDelete} />
             </span>
             <ExpandableWrapper open={editing && !deleting}>
                 <FormStrength resumeId={strength.resumeId} strength={strength} onSave={() => setEditing(false)} />
