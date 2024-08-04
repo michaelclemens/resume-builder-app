@@ -36,5 +36,5 @@ export default function(education?: Education) {
         if (!editing) form.reset();
     }
 
-    return { education, save, form, editing }
+    return { save, form, editing }
 }

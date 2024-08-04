@@ -31,5 +31,5 @@ export default function(employment?: Employment) {
         if (!editing) form.reset();
     }
 
-    return { employment, save, form, editing }
+    return { save, form, editing }
 }

@@ -28,5 +28,5 @@ export default function(strength?: Strength) {
         if (!editing) form.reset();
     }
 
-    return { strength, save, form, editing }
+    return { save, form, editing }
 }

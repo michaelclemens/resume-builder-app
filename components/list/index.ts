@@ -1,4 +1,5 @@
 export { default as List } from "./List";
+export { default as ListItem } from "./ListItem";
 export { default as ListButton } from "./ListButton";
 export { default as ListDivider } from "./ListDivider";
 export { default as LoadingOverlay } from "./LoadingOverlay";

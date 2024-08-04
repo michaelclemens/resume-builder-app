@@ -28,5 +28,5 @@ export default function(skill?: Skill) {
         if (!editing) form.reset();
     }
 
-    return { skill, save, form, editing }
+    return { save, form, editing }
 }

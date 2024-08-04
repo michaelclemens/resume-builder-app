@@ -20,7 +20,7 @@ export default function(personal?: Personal) {
         phone: personal?.phone ?? '',
         city: personal?.city ?? '',
         country: personal?.country ?? ''
-    }});
+    }})
 
     const editing = !!personal;
     
@@ -37,5 +37,5 @@ export default function(personal?: Personal) {
         if (!editing) form.reset();
     }
 
-    return { personal, save, form, editing }
+    return { save, form, editing }
 }

@@ -1,32 +1,16 @@
 "use client"
 
-import { useState } from "react";
 import { EmploymentWithHistory } from "@/lib/client/employment";
 import HistorySection from "./history/HistorySection";
-import { useEmploymentList } from "@/hooks/list";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { ExpandableWrapper } from "@/components/util";
 import { Form } from "../form";
 import { EmploymentSchemaType } from "@/types/form";
 import { useEmploymentForm } from "@/hooks/form";
 import { FormBodyEmployment } from "@/components";
+import { ItemComponentProps } from "@/types/hook";
 
-export default function ListItemEmployment(employment: EmploymentWithHistory) {
-    const { remove } = useEmploymentList();
-    const [editing, setEditing] = useState(false);
-    const [deleting, setDeleting] = useState(false);
-
-    const onDelete = async () => {
-        setDeleting(true);
-        try {
-            await remove(employment);
-        } catch(error) {
-            console.error(error);
-        } finally {
-            setDeleting(false);
-        }  
-    }
-
+export default function ListItemEmployment({ item: employment, remove, setEditing, editing, deleting }: ItemComponentProps<EmploymentWithHistory>) {
     return (
         <>
             <span className="w-2/4 flex-none">{employment.employer}</span>
@@ -34,7 +18,7 @@ export default function ListItemEmployment(employment: EmploymentWithHistory) {
             <span className="ml-auto flex items-cente font-medium">
                 <ListButton type="edit" onClick={() => setEditing(!editing)} />
                 <ListDivider />
-                <ListButton type="delete" onClick={onDelete} />
+                <ListButton type="delete" onClick={async() => remove(employment)} />
             </span>
             <ExpandableWrapper open={editing && !deleting}>
                 <Form<EmploymentWithHistory, EmploymentSchemaType>

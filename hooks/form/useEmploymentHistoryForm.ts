@@ -34,5 +34,5 @@ export default function(history?: EmploymentHistory) {
         if (!editing) form.reset();
     }
 
-    return { history, save, form, editing }
+    return { save, form, editing }
 }

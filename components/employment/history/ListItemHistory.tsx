@@ -1,8 +1,6 @@
 "use client"
 
 import { EmploymentHistory } from "@prisma/client";
-import { useState } from "react";
-import { useEmploymentHistoryList } from "@/hooks/list";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { getDisplayDateFromDate } from "@/util/date";
 import { ExpandableWrapper } from "@/components/util";
@@ -10,23 +8,9 @@ import { Form } from "@/components/form";
 import { useEmploymentHistoryForm } from "@/hooks/form";
 import { FormBodyHistory } from "@/components";
 import { EmploymentHistorySchemaType } from "@/types/form";
+import { ItemComponentProps } from "@/types/hook";
 
-export default function ListItemHistory(history: EmploymentHistory) {
-    const { remove } = useEmploymentHistoryList({ parentId: history.employmentId });
-    const [editing, setEditing] = useState(false);
-    const [deleting, setDeleting] = useState(false);
-
-    const onDelete = async () => {
-        setDeleting(true);
-        try {
-            await remove(history);
-        } catch(error) {
-            console.error(error);
-        } finally {
-            setDeleting(false);
-        }  
-    }
-    
+export default function ({ item: history, remove, setEditing, editing, deleting }: ItemComponentProps<EmploymentHistory>) {   
     return (
         <>
             <div className="flex-auto">
@@ -39,7 +23,7 @@ export default function ListItemHistory(history: EmploymentHistory) {
             <span className="ml-auto flex items-center justify-center font-medium">
                 <ListButton type="edit" onClick={() => setEditing(!editing)}/>
                 <ListDivider />
-                <ListButton type="delete" onClick={onDelete}/>
+                <ListButton type="delete" onClick={async() => remove(history)}/>
             </span>
             <ExpandableWrapper open={editing && !deleting}>
                 <Form<EmploymentHistory, EmploymentHistorySchemaType>

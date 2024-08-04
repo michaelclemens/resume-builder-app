@@ -4,11 +4,13 @@ import { deleteEducation, setSortOrders } from "@/lib/client/education";
 import { removeEducation, selectEducationList, setEducations } from "@/lib/redux/reducers/education";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Education } from "@prisma/client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function({ initialItems: initialEducations }: { initialItems?: Education[] } = {}) {
     const educations = useAppSelector(selectEducationList);
     const dispatch = useAppDispatch();
+    const [editing, setEditing] = useState(false);
+    const [deleting, setDeleting] = useState(false);
 
     useEffect(() => {
         if (initialEducations && !educations) {
@@ -18,8 +20,15 @@ export default function({ initialItems: initialEducations }: { initialItems?: Ed
     }, [initialEducations])
 
     const remove = async(education: Education) => {
-        await deleteEducation(education.id);
-        dispatch(removeEducation(education.id));
+        setDeleting(true);
+        try {
+            await deleteEducation(education.id);
+            dispatch(removeEducation(education.id));
+        } catch(error) {
+            console.error(error);
+        } finally {
+            setDeleting(false);
+        }
     }
 
     const saveSortOrder = async(educations: Education[]) => {
@@ -27,5 +36,5 @@ export default function({ initialItems: initialEducations }: { initialItems?: Ed
         await setSortOrders(educations);
     }
 
-    return { items: educations ? [...educations] : [...initialEducations ?? []], remove, saveSortOrder }
+    return { items: educations ? [...educations] : [...initialEducations ?? []], remove, saveSortOrder, setEditing, editing, deleting }
 }

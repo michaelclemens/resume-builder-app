@@ -1,4 +1,3 @@
-import { ResumeFull } from "@/lib/client/resume"
 import { forwardRef, Ref } from "react"
 import { TemplateDefault, TemplateCompact } from "./templates"
 import { Template } from "@prisma/client";
@@ -7,8 +6,8 @@ import { ColourElementType, TemplateOptions } from "@/types/template";
 
 const resumePrintFooterClass = 'resume-print-footer';
 
-export default forwardRef(({ resume: initialResume, template }: { resume: ResumeFull, template: Template|null }, ref: Ref<HTMLDivElement>) => {
-    const { resume, updateTemplateOptions } = useResume(initialResume);
+export default forwardRef(({ template }: { template: Template|null }, ref: Ref<HTMLDivElement>) => {
+    const { resume, updateTemplateOptions } = useResume();
 
     if (!resume) return;
     

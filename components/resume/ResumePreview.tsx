@@ -47,7 +47,7 @@ export default function ResumePreview({ resume: resumeFull }: { resume: ResumeFu
 
     return (
         <div className="relative ml-14 my-10 w-[210mm]">
-            <ResumeTemplate resume={resumeFull} template={resume?.template ?? null} ref={componentRef} />
+            <ResumeTemplate template={resume?.template ?? null} ref={componentRef} />
 
             <div className="absolute top-0 -right-36">
                 <div className="fixed">

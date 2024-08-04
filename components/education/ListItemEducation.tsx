@@ -1,8 +1,6 @@
 "use client"
 
 import { Education } from "@prisma/client";
-import { useState } from "react";
-import { useEducationList } from "@/hooks/list";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { getDisplayDateFromDate } from "@/util/date";
 import { ExpandableWrapper } from "@/components/util";
@@ -10,23 +8,9 @@ import { Form } from "../form";
 import { EducationSchemaType } from "@/types/form";
 import { useEducationForm } from "@/hooks/form";
 import { FormBodyEducation } from "@/components";
+import { ItemComponentProps } from "@/types/hook";
 
-export default function ListItemEducation(education: Education) {
-    const { remove } = useEducationList();
-    const [editing, setEditing] = useState(false);
-    const [deleting, setDeleting] = useState(false);
-
-    const onDelete = async () => {
-        setDeleting(true);
-        try {
-            await remove(education);
-        } catch(error) {
-            console.error(error);
-        } finally {
-            setDeleting(false);
-        }  
-    }
-
+export default function({ item: education, remove, setEditing, editing, deleting }: ItemComponentProps<Education>) {
     return (
         <>
             <div className="flex-auto">
@@ -39,7 +23,7 @@ export default function ListItemEducation(education: Education) {
             <span className="ml-auto flex items-cente font-medium">
                 <ListButton type="edit" onClick={() => setEditing(!editing)} />
                 <ListDivider />
-                <ListButton type="delete" onClick={onDelete} />
+                <ListButton type="delete" onClick={async() => remove(education)} />
             </span>
             <ExpandableWrapper open={editing && !deleting}>
                 <Form<Education, EducationSchemaType> 
