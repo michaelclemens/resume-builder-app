@@ -2,10 +2,12 @@
 
 import React from "react";
 import { Provider } from "react-redux";
-import { store } from "@/lib/redux/store";
+import { setupStore } from "@/lib/redux/store";
 
 function ReduxProvider({ children }: { children: React.ReactNode }) {
-  return <Provider store={store}>{children}</Provider>;
+  return <Provider store={setupStore()}>{children}</Provider>;
 }
 
 export default ReduxProvider;
+
+

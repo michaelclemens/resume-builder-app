@@ -1,10 +1,12 @@
+"use client"
+
 import { deleteStrength, setSortOrders } from "@/lib/client/strength";
 import { removeStrength, selectStrengthList, setStrengths } from "@/lib/redux/reducers/strength";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Strength } from "@prisma/client";
 import { useEffect } from "react";
 
-const useStrengthList = (initialStrengths?: Strength[]) => {
+export default function({ initialItems: initialStrengths }: { initialItems?: Strength[] } = {}) {
     const strengths = useAppSelector(selectStrengthList);
     const dispatch = useAppDispatch();
 
@@ -25,7 +27,5 @@ const useStrengthList = (initialStrengths?: Strength[]) => {
         await setSortOrders(strengths);
     }
 
-    return { strengths: strengths ? [...strengths] : [...initialStrengths ?? []], remove, saveSortOrder }
+    return { items: strengths ? [...strengths] : [...initialStrengths ?? []], remove, saveSortOrder }
 }
-
-export default useStrengthList;

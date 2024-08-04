@@ -1,10 +1,12 @@
+"use client"
+
 import { deleteEmployment, EmploymentWithHistory, setSortOrders } from "@/lib/client/employment";
-import { removeEmployment, selectEmployment, setEmployments, clear } from "@/lib/redux/reducers/employment";
+import { removeEmployment, selectEmploymentList, setEmployments } from "@/lib/redux/reducers/employment";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { useEffect } from "react";
 
-const useEmploymentList = (initialEmployments?: EmploymentWithHistory[]) => {
-    const { employments, loading } = useAppSelector(selectEmployment);
+export default function({ initialItems: initialEmployments }: { initialItems?: EmploymentWithHistory[] } = {}) {
+    const employments = useAppSelector(selectEmploymentList);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -24,7 +26,5 @@ const useEmploymentList = (initialEmployments?: EmploymentWithHistory[]) => {
         await setSortOrders(employments);
     }
 
-    return { employments: employments ? [...employments] : [...initialEmployments ?? []], loading, remove, saveSortOrder }
+    return { items: employments ? [...employments] : [...initialEmployments ?? []], remove, saveSortOrder }
 }
-
-export default useEmploymentList;

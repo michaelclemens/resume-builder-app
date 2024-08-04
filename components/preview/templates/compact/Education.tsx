@@ -6,7 +6,7 @@ import { Education } from "@prisma/client"
 
 export default ({ educations: initialEducations, oswaldClassName }: { educations: Education[] }) => {
     const [animationParent] = useAutoAnimate();
-    const { educations } = useEducationList(initialEducations);
+    const { items: educations } = useEducationList({ initialItems: initialEducations });
 
     if (!educations || !educations.length) return;
     

@@ -5,7 +5,7 @@ import { Strength } from "@prisma/client"
 
 export default ({ strengths: initialStrengths }: { strengths: Strength[] }) => {
     const [animationParent] = useAutoAnimate();
-    const { strengths } = useStrengthList(initialStrengths);
+    const { items: strengths } = useStrengthList({ initialItems: initialStrengths });
 
     if (!strengths || !strengths.length) return;
 

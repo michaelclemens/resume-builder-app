@@ -2,14 +2,17 @@
 
 import { EmploymentHistory } from "@prisma/client";
 import { useState } from "react";
-import FormHistory from "./FormHistory";
 import { useEmploymentHistoryList } from "@/hooks/list";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { getDisplayDateFromDate } from "@/util/date";
 import { ExpandableWrapper } from "@/components/util";
+import { Form } from "@/components/form";
+import { useEmploymentHistoryForm } from "@/hooks/form";
+import { FormBodyHistory } from "@/components";
+import { EmploymentHistorySchemaType } from "@/types/form";
 
 export default function ListItemHistory(history: EmploymentHistory) {
-    const { remove } = useEmploymentHistoryList(history.employmentId);
+    const { remove } = useEmploymentHistoryList({ parentId: history.employmentId });
     const [editing, setEditing] = useState(false);
     const [deleting, setDeleting] = useState(false);
 
@@ -39,7 +42,13 @@ export default function ListItemHistory(history: EmploymentHistory) {
                 <ListButton type="delete" onClick={onDelete}/>
             </span>
             <ExpandableWrapper open={editing && !deleting}>
-                <FormHistory employmentId={history.employmentId} history={history} onSave={() => setEditing(false)} />
+                <Form<EmploymentHistory, EmploymentHistorySchemaType>
+                    parentId={history.employmentId} 
+                    useFormHook={useEmploymentHistoryForm}
+                    formBody={FormBodyHistory}
+                    item={history} 
+                    onSave={() => setEditing(false)}
+                />
             </ExpandableWrapper>
             {deleting && <LoadingOverlay />}
         </>

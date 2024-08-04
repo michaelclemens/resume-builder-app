@@ -1,4 +1,4 @@
-import { usePersonal } from "@/hooks/list";
+import usePersonal from "@/hooks/usePersonal";
 import { Personal } from "@prisma/client";
 
 export default ({ personal: initialPerson }: { personal: Personal|null }) => {

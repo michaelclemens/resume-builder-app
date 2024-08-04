@@ -6,7 +6,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export default ({ employments: initialEmployments, oswaldClassName }: { employments: EmploymentWithHistory[] }) => {
     const [animationParent] = useAutoAnimate();
-    const { employments } = useEmploymentList(initialEmployments);
+    const { items: employments } = useEmploymentList({ initialItems: initialEmployments });
     
     if (!employments || !employments.length) return;
     

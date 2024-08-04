@@ -73,6 +73,6 @@ body {
     page-break-after: always;
   }
   div.resume-print-footer::before {
-    content: "Created by github.com/michaelclemens/cv-builder-app";
+    content: "Made using github.com/michaelclemens/cv-builder-app";
   }
 }

@@ -5,7 +5,7 @@ import { Skill } from "@prisma/client"
 
 export default ({ skills: initialSkills }: { skills: Skill[] }) => {
     const [animationParent] = useAutoAnimate();
-    const { skills } = useSkillList(initialSkills);
+    const { items: skills } = useSkillList({ initialItems: initialSkills });
 
     if (!skills || !skills.length) return;
     

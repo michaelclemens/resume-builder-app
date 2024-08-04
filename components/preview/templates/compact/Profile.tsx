@@ -1,5 +1,5 @@
 import { RenderHtml } from "@/components/util";
-import { usePersonal } from "@/hooks/list";
+import usePersonal from "@/hooks/usePersonal";
 import { Personal } from "@prisma/client";
 
 export default ({ personal: initialPerson, oswaldClassName }: { personal: Personal|null, oswaldClassName: string }) => {

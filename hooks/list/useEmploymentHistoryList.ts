@@ -1,10 +1,12 @@
+"use client"
+
 import { deleteEmploymentHistory, setSortOrders } from "@/lib/client/employmentHistory";
 import { removeEmploymentHistory, selectEmploymentById, setEmploymentHistories } from "@/lib/redux/reducers/employment";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { EmploymentHistory } from "@prisma/client";
 
-const useEmploymentHistoryList = (employmentId: string, initialHistories?: EmploymentHistory[]) => {
-    const employment = useAppSelector(state => selectEmploymentById(state, employmentId));
+export default function({ parentId: employmentId, initialItems: initialHistories }: { parentId?: string, initialItems?: EmploymentHistory[] }) {
+    const { history } = employmentId ? useAppSelector(state => selectEmploymentById(state, employmentId)) ?? { history: null } : { history: null };
     const dispatch = useAppDispatch();
 
     const remove = async(history: EmploymentHistory) => {
@@ -12,12 +14,10 @@ const useEmploymentHistoryList = (employmentId: string, initialHistories?: Emplo
         dispatch(removeEmploymentHistory({ id: history.id, employmentId: history.employmentId}))
     }
 
-    const saveSortOrder = async(employmentId: string, items: EmploymentHistory[]) => {
+    const saveSortOrder = async(items: EmploymentHistory[]) => {
         dispatch(setEmploymentHistories({ employmentId, items }));
         await setSortOrders(items);
     }
 
-    return { histories: employment?.history ? [...employment.history] : [...initialHistories ?? []], remove, saveSortOrder }
+    return { items: history ? [...history] : [...initialHistories ?? []], remove, saveSortOrder }
 }
-
-export default useEmploymentHistoryList;

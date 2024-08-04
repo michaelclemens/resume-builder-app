@@ -2,10 +2,13 @@
 
 import { Skill } from "@prisma/client";
 import { useState } from "react";
-import FormSkill from "./FormSkill";
 import { useSkillList } from "@/hooks/list";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { ExpandableWrapper } from '@/components/util';
+import { SkillSchemaType } from "@/types/form";
+import { Form } from "../form";
+import { useSkillForm } from "@/hooks/form";
+import { FormBodySkill } from "@/components";
 
 export default function ListItemSkill(skill: Skill) {
     const { remove } = useSkillList();
@@ -32,7 +35,13 @@ export default function ListItemSkill(skill: Skill) {
                 <ListButton type="delete" onClick={onDelete} />
             </span>
             <ExpandableWrapper open={editing && !deleting}>
-                <FormSkill resumeId={skill.resumeId} skill={skill} onSave={() => setEditing(false)} />
+                <Form<Skill, SkillSchemaType>
+                    parentId={skill.resumeId} 
+                    useFormHook={useSkillForm} 
+                    formBody={FormBodySkill}
+                    item={skill} 
+                    onSave={() => setEditing(false)}
+                />
             </ExpandableWrapper>
             {deleting && <LoadingOverlay />}
         </>

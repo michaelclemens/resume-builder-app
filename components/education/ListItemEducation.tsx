@@ -2,11 +2,14 @@
 
 import { Education } from "@prisma/client";
 import { useState } from "react";
-import FormEducation from "./FormEducation";
 import { useEducationList } from "@/hooks/list";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { getDisplayDateFromDate } from "@/util/date";
 import { ExpandableWrapper } from "@/components/util";
+import { Form } from "../form";
+import { EducationSchemaType } from "@/types/form";
+import { useEducationForm } from "@/hooks/form";
+import { FormBodyEducation } from "@/components";
 
 export default function ListItemEducation(education: Education) {
     const { remove } = useEducationList();
@@ -39,7 +42,13 @@ export default function ListItemEducation(education: Education) {
                 <ListButton type="delete" onClick={onDelete} />
             </span>
             <ExpandableWrapper open={editing && !deleting}>
-                <FormEducation resumeId={education.resumeId} education={education} onSave={() => setEditing(false)} />
+                <Form<Education, EducationSchemaType> 
+                    parentId={education.resumeId} 
+                    useFormHook={useEducationForm}
+                    formBody={FormBodyEducation}
+                    item={education} 
+                    onSave={() => setEditing(false)}
+                />
             </ExpandableWrapper>
             {deleting && <LoadingOverlay />}
         </>

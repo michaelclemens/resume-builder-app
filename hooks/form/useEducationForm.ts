@@ -1,5 +1,7 @@
+"use client"
+
 import { useAppDispatch } from "@/lib/redux/store";
-import { ResponseStatus } from "@/lib/response";
+import { handleErrorResponse, ResponseStatus } from "@/lib/response";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { setEducation } from "@/lib/redux/reducers/education";
@@ -8,7 +10,7 @@ import { addEducation, updateEducation } from "@/lib/client/education";
 import { getDisplayDateFromDate } from "@/util/date";
 import { Education } from "@prisma/client";
 
-const useEducationForm = (education?: Education) => {
+export default function(education?: Education) {
     const dispatch = useAppDispatch();
     const form = useForm<EducationSchemaType>({ resolver: zodResolver(EducationSchema), defaultValues: {
         school: education?.school ?? '',
@@ -18,18 +20,21 @@ const useEducationForm = (education?: Education) => {
         city: education?.city ?? '',
         description: education?.description ?? '',
     }});
+
+    const editing = !!education;
     
-    const save = async(resumeId: string, formData: EducationSchemaType) => {
+    const save = async(resumeId: string, formData: EducationSchemaType, onSave: () => void) => {
         const response = education?.id ? await updateEducation(education.id, resumeId, formData) : await addEducation(resumeId, formData);
 
         if (response.status === ResponseStatus.success) {
             dispatch(setEducation(response.payload.education));
         }
-
-        return response;
+        if (response.status === ResponseStatus.error) {
+            return handleErrorResponse(response, form.setError);
+        }
+        onSave()
+        if (!editing) form.reset();
     }
 
-    return { education, save, ...form }
+    return { education, save, form, editing }
 }
-
-export default useEducationForm;

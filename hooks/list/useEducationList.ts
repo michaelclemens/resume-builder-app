@@ -1,11 +1,13 @@
+"use client"
+
 import { deleteEducation, setSortOrders } from "@/lib/client/education";
-import { removeEducation, selectEducation, setEducations } from "@/lib/redux/reducers/education";
+import { removeEducation, selectEducationList, setEducations } from "@/lib/redux/reducers/education";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Education } from "@prisma/client";
 import { useEffect } from "react";
 
-const useEducationList = (initialEducations?: Education[]) => {
-    const { educations, loading } = useAppSelector(selectEducation);
+export default function({ initialItems: initialEducations }: { initialItems?: Education[] } = {}) {
+    const educations = useAppSelector(selectEducationList);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -25,7 +27,5 @@ const useEducationList = (initialEducations?: Education[]) => {
         await setSortOrders(educations);
     }
 
-    return { educations: educations ? [...educations] : [...initialEducations ?? []], loading, remove, saveSortOrder }
+    return { items: educations ? [...educations] : [...initialEducations ?? []], remove, saveSortOrder }
 }
-
-export default useEducationList;
