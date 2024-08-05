@@ -8,10 +8,14 @@ import { handleErrorResponse, ResponseStatus } from "@/lib/response";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Strength } from "@prisma/client";
+import { getDefaultValuesStrength } from "@/util/form";
 
 export default function(strength?: Strength) {
     const dispatch = useAppDispatch();
-    const form = useForm<StrengthSchemaType>({ resolver: zodResolver(StrengthSchema), defaultValues: { name: strength?.name ?? '' }});
+    const form = useForm<StrengthSchemaType>({ 
+        resolver: zodResolver(StrengthSchema), 
+        defaultValues: getDefaultValuesStrength(strength)
+    });
     
     const editing = !!strength;
 

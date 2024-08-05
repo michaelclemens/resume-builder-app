@@ -8,10 +8,14 @@ import { setSkill } from "@/lib/redux/reducers/skill";
 import { SkillSchema, SkillSchemaType } from "@/types/form";
 import { addSkill, updateSkill } from "@/lib/client/skill";
 import { Skill } from "@prisma/client";
+import { getDefaultValuesSkill } from "@/util/form";
 
 export default function(skill?: Skill) {
     const dispatch = useAppDispatch();
-    const form = useForm<SkillSchemaType>({ resolver: zodResolver(SkillSchema), defaultValues: { name: skill?.name ?? '' }});
+    const form = useForm<SkillSchemaType>({ 
+        resolver: zodResolver(SkillSchema), 
+        defaultValues: getDefaultValuesSkill(skill)
+    });
     
     const editing = !!skill;
 

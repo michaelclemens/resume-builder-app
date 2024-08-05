@@ -1,8 +1,9 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import ListItemStrength from "./ListItemStrength";
-import { createMockStrength } from "@/test/mocks";
+import { createMockEducation } from "@/test/mocks";
 import { ButtonType } from "@/types/list";
 import { Form } from "../form";
+import ListItemEducation from "./ListItemEducation";
+import { getDisplayDateFromDate } from "@/util/date";
 
 jest.mock('@/components/form/Form');
 jest.mock('@/components/list/LoadingOverlay', () => () => <div>Loading</div>)
@@ -11,11 +12,11 @@ const remove = jest.fn();
 const setEditing = jest.fn();
 const onSave = jest.fn();
 
-const strength = createMockStrength();
+const education = createMockEducation();
 
 const getListItemComponent = ({ editing = false, deleting = false } = {}) => (
-    <ListItemStrength 
-        item={strength} 
+    <ListItemEducation 
+        item={education} 
         remove={remove} 
         setEditing={setEditing}
         onSave={onSave}
@@ -23,15 +24,19 @@ const getListItemComponent = ({ editing = false, deleting = false } = {}) => (
         deleting={deleting}
     />
 );
+
 const renderComponent = (options = {}) => (
     render(getListItemComponent(options))
 );
 
-describe('ListItemStrengthComponent', () => {
-    it('Should render a strength', () => {
+describe('ListItemEducationComponent', () => {
+    it('Should render a education', () => {
         const { getByText } = renderComponent();
 
-        expect(getByText(strength.name)).toBeInTheDocument();
+        expect(getByText(new RegExp(`${education.degree} - ${education.school}`, 'i'))).toBeInTheDocument();
+        expect(getByText(new RegExp(
+            `${getDisplayDateFromDate(education.startDate)} to ${getDisplayDateFromDate(education.endDate ?? new Date())}`
+        ))).toBeInTheDocument();
     })
     it('Should render edit and delete buttons', () => {
         const { getByTitle } = renderComponent();
@@ -44,7 +49,7 @@ describe('ListItemStrengthComponent', () => {
 
         fireEvent.click(getByTitle(new RegExp(ButtonType.delete, 'i')));
 
-        await waitFor(() => expect(remove).toHaveBeenCalledWith(strength));
+        await waitFor(() => expect(remove).toHaveBeenCalledWith(education));
     })
     it('Should display loading overlay when deleting', () => {
         const { getByText } = renderComponent({ deleting: true });
@@ -61,10 +66,10 @@ describe('ListItemStrengthComponent', () => {
 
         expect(setEditing).toHaveBeenCalledWith(true);
         expect(Form).toHaveBeenCalledWith({ 
-            parentId: strength.resumeId, 
+            parentId: education.resumeId, 
             useFormHook: expect.any(Function),
             formBody: expect.any(Function),
-            item: strength,
+            item: education,
             onSave
         }, expect.anything());
     })

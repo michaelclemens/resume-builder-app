@@ -5,12 +5,12 @@ import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { ExpandableWrapper } from "@/components/util";
 import { ButtonType } from "@/types/list";
 import { useStrengthForm } from "@/hooks/form";
-import { Form } from "../form";
-import { FormBodyStrength } from "@/components";
+import { Form } from "@/components/form";
 import { StrengthSchemaType } from "@/types/form";
 import { ItemComponentProps } from "@/types/hook";
+import FormBodyStrength from "./FormBodyStrength";
 
-export default function({ item: strength, remove, setEditing, editing, deleting }: ItemComponentProps<Strength>) {
+export default function({ item: strength, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Strength>) {
     return (
         <>
             <span className="w-3/4 flex-none">{strength.name}</span>
@@ -25,7 +25,7 @@ export default function({ item: strength, remove, setEditing, editing, deleting 
                     useFormHook={useStrengthForm}
                     formBody={FormBodyStrength}
                     item={strength}
-                    onSave={() => setEditing(false)} 
+                    onSave={onSave} 
                 />
             </ExpandableWrapper>
             {deleting && <LoadingOverlay />}

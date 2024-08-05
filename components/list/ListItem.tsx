@@ -6,7 +6,8 @@ export default function<ItemType>({ item, useListHook, itemComponent: ItemCompon
         <ItemComponent 
             item={item} 
             remove={remove} 
-            setEditing={setEditing} 
+            setEditing={setEditing}
+            onSave={() => setEditing(false)} 
             editing={editing} 
             deleting={deleting}
         />

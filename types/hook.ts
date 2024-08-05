@@ -37,6 +37,7 @@ export type ItemComponentProps<ItemType> = {
     item: ItemType
     remove: (item: ItemType) => Promise<void>
     setEditing: (editing: boolean) => void
+    onSave: () => void
     editing: boolean
     deleting: boolean
 }

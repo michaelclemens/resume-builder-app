@@ -7,19 +7,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { setEducation } from "@/lib/redux/reducers/education";
 import { EducationSchema, EducationSchemaType } from "@/types/form";
 import { addEducation, updateEducation } from "@/lib/client/education";
-import { getDisplayDateFromDate } from "@/util/date";
 import { Education } from "@prisma/client";
+import { getDefaultValuesEducation } from "@/util/form";
 
 export default function(education?: Education) {
     const dispatch = useAppDispatch();
-    const form = useForm<EducationSchemaType>({ resolver: zodResolver(EducationSchema), defaultValues: {
-        school: education?.school ?? '',
-        degree: education?.degree ?? '',
-        startDate: getDisplayDateFromDate(education?.startDate) ?? '',
-        endDate: education?.endDate ? getDisplayDateFromDate(education?.endDate) : '',
-        city: education?.city ?? '',
-        description: education?.description ?? '',
-    }});
+    const form = useForm<EducationSchemaType>({ 
+        resolver: zodResolver(EducationSchema), 
+        defaultValues: getDefaultValuesEducation(education)
+    });
 
     const editing = !!education;
     

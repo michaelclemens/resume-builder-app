@@ -6,10 +6,10 @@ import { ExpandableWrapper } from '@/components/util';
 import { SkillSchemaType } from "@/types/form";
 import { Form } from "../form";
 import { useSkillForm } from "@/hooks/form";
-import { FormBodySkill } from "@/components";
+import FormBodySkill from "./FormBodySkill";
 import { ItemComponentProps } from "@/types/hook";
 
-export default function({ item: skill, remove, setEditing, editing, deleting }: ItemComponentProps<Skill>) {
+export default function({ item: skill, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Skill>) {
     return (
         <>
             <span className="w-3/4 flex-none">{skill.name}</span>
@@ -24,7 +24,7 @@ export default function({ item: skill, remove, setEditing, editing, deleting }: 
                     useFormHook={useSkillForm} 
                     formBody={FormBodySkill}
                     item={skill} 
-                    onSave={() => setEditing(false)}
+                    onSave={onSave}
                 />
             </ExpandableWrapper>
             {deleting && <LoadingOverlay />}

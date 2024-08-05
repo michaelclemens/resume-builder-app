@@ -1,37 +1,46 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import ListItemStrength from "./ListItemStrength";
-import { createMockStrength } from "@/test/mocks";
+import { createMockEmployment, createMockHistory } from "@/test/mocks";
 import { ButtonType } from "@/types/list";
 import { Form } from "../form";
+import ListItemEmployment from "./ListItemEmployment";
+import HistorySection from "./history/HistorySection";
 
 jest.mock('@/components/form/Form');
+jest.mock('@/components/employment/history/HistorySection');
 jest.mock('@/components/list/LoadingOverlay', () => () => <div>Loading</div>)
 
 const remove = jest.fn();
 const setEditing = jest.fn();
 const onSave = jest.fn();
+const mockHistorySection = jest.mocked(HistorySection);
 
-const strength = createMockStrength();
+const history = createMockHistory();
+const employment = createMockEmployment([history]);
 
 const getListItemComponent = ({ editing = false, deleting = false } = {}) => (
-    <ListItemStrength 
-        item={strength} 
+    <ListItemEmployment
+        item={employment} 
         remove={remove} 
         setEditing={setEditing}
         onSave={onSave}
         editing={editing} 
         deleting={deleting}
     />
-);
+)
 const renderComponent = (options = {}) => (
     render(getListItemComponent(options))
 );
 
-describe('ListItemStrengthComponent', () => {
-    it('Should render a strength', () => {
+describe('ListItemEmploymentComponent', () => {
+    it('Should render a employment', () => {
         const { getByText } = renderComponent();
 
-        expect(getByText(strength.name)).toBeInTheDocument();
+        expect(getByText(employment.employer)).toBeInTheDocument();
+        expect(getByText(employment.city)).toBeInTheDocument();
+        expect(mockHistorySection).toHaveBeenCalledWith({ 
+            employmentId: employment.id, 
+            histories: employment.history
+        }, expect.anything())
     })
     it('Should render edit and delete buttons', () => {
         const { getByTitle } = renderComponent();
@@ -44,7 +53,7 @@ describe('ListItemStrengthComponent', () => {
 
         fireEvent.click(getByTitle(new RegExp(ButtonType.delete, 'i')));
 
-        await waitFor(() => expect(remove).toHaveBeenCalledWith(strength));
+        await waitFor(() => expect(remove).toHaveBeenCalledWith(employment));
     })
     it('Should display loading overlay when deleting', () => {
         const { getByText } = renderComponent({ deleting: true });
@@ -60,12 +69,12 @@ describe('ListItemStrengthComponent', () => {
         rerender(getListItemComponent({ editing: true }));
 
         expect(setEditing).toHaveBeenCalledWith(true);
-        expect(Form).toHaveBeenCalledWith({ 
-            parentId: strength.resumeId, 
+        expect(Form).toHaveBeenCalledWith(expect.objectContaining({ 
+            parentId: employment.resumeId,
             useFormHook: expect.any(Function),
             formBody: expect.any(Function),
-            item: strength,
+            item: employment,
             onSave
-        }, expect.anything());
+        }), expect.anything());
     })
 })

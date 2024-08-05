@@ -7,10 +7,10 @@ import { ExpandableWrapper } from "@/components/util";
 import { Form } from "../form";
 import { EducationSchemaType } from "@/types/form";
 import { useEducationForm } from "@/hooks/form";
-import { FormBodyEducation } from "@/components";
+import FormBodyEducation from "./FormBodyEducation";
 import { ItemComponentProps } from "@/types/hook";
 
-export default function({ item: education, remove, setEditing, editing, deleting }: ItemComponentProps<Education>) {
+export default function({ item: education, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Education>) {
     return (
         <>
             <div className="flex-auto">
@@ -31,7 +31,7 @@ export default function({ item: education, remove, setEditing, editing, deleting
                     useFormHook={useEducationForm}
                     formBody={FormBodyEducation}
                     item={education} 
-                    onSave={() => setEditing(false)}
+                    onSave={onSave}
                 />
             </ExpandableWrapper>
             {deleting && <LoadingOverlay />}

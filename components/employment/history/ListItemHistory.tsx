@@ -6,11 +6,11 @@ import { getDisplayDateFromDate } from "@/util/date";
 import { ExpandableWrapper } from "@/components/util";
 import { Form } from "@/components/form";
 import { useEmploymentHistoryForm } from "@/hooks/form";
-import { FormBodyHistory } from "@/components";
+import FormBodyHistory from "./FormBodyHistory";
 import { EmploymentHistorySchemaType } from "@/types/form";
 import { ItemComponentProps } from "@/types/hook";
 
-export default function ({ item: history, remove, setEditing, editing, deleting }: ItemComponentProps<EmploymentHistory>) {   
+export default function ({ item: history, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<EmploymentHistory>) {   
     return (
         <>
             <div className="flex-auto">
@@ -31,7 +31,7 @@ export default function ({ item: history, remove, setEditing, editing, deleting 
                     useFormHook={useEmploymentHistoryForm}
                     formBody={FormBodyHistory}
                     item={history} 
-                    onSave={() => setEditing(false)}
+                    onSave={onSave}
                 />
             </ExpandableWrapper>
             {deleting && <LoadingOverlay />}

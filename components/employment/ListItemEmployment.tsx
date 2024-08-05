@@ -7,10 +7,10 @@ import { ExpandableWrapper } from "@/components/util";
 import { Form } from "../form";
 import { EmploymentSchemaType } from "@/types/form";
 import { useEmploymentForm } from "@/hooks/form";
-import { FormBodyEmployment } from "@/components";
+import FormBodyEmployment from "./FormBodyEmployment";
 import { ItemComponentProps } from "@/types/hook";
 
-export default function ListItemEmployment({ item: employment, remove, setEditing, editing, deleting }: ItemComponentProps<EmploymentWithHistory>) {
+export default function ListItemEmployment({ item: employment, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<EmploymentWithHistory>) {
     return (
         <>
             <span className="w-2/4 flex-none">{employment.employer}</span>
@@ -26,7 +26,7 @@ export default function ListItemEmployment({ item: employment, remove, setEditin
                     useFormHook={useEmploymentForm}
                     formBody={FormBodyEmployment}
                     item={employment} 
-                    onSave={() => setEditing(false)}
+                    onSave={onSave}
                 />
             </ExpandableWrapper>
             {deleting && <LoadingOverlay />}

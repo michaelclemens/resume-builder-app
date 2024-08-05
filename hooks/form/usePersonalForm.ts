@@ -5,22 +5,17 @@ import { setPersonal } from "@/lib/redux/reducers/personal";
 import { useAppDispatch } from "@/lib/redux/store";
 import { handleErrorResponse, ResponseStatus } from "@/lib/response";
 import { PersonalSchema, PersonalSchemaType } from "@/types/form";
+import { getDefaultValuesPersonal } from "@/util/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Personal } from "@prisma/client";
 import { useForm } from "react-hook-form";
 
 export default function(personal?: Personal) {
     const dispatch = useAppDispatch();
-    const form = useForm<PersonalSchemaType>({ resolver: zodResolver(PersonalSchema), defaultValues: {
-        firstName: personal?.firstName ?? '',
-        lastName: personal?.lastName ?? '',
-        position: personal?.position ?? '',
-        summary: personal?.summary ?? '',
-        email: personal?.email ?? '',
-        phone: personal?.phone ?? '',
-        city: personal?.city ?? '',
-        country: personal?.country ?? ''
-    }})
+    const form = useForm<PersonalSchemaType>({ 
+        resolver: zodResolver(PersonalSchema), 
+        defaultValues: getDefaultValuesPersonal(personal)
+    })
 
     const editing = !!personal;
     
