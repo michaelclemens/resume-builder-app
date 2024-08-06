@@ -1,4 +1,4 @@
-import { waitFor, fireEvent } from "@testing-library/react";
+import { waitFor, fireEvent, act } from "@testing-library/react";
 import FormBodyEducation from "./FormBodyEducation";
 import { createMockEducation, renderFormBody } from "@/test/mocks";
 import { Education } from "@prisma/client";
@@ -23,16 +23,16 @@ const renderComponent = ({ education }: { education?: Education } = {}) => (
 
 describe('FormBodyEducationComponent', () => {
     it('Should render create new form', async () => {
-        const { getByRole, getByLabelText } = renderComponent()
+        const { getByRole, getByLabelText } = renderComponent();
+
         expect(getByRole('textbox', { name: /school/i })).toHaveValue('');
         expect(getByRole('textbox', { name: /city/i })).toHaveValue('');
         expect(getByRole('textbox', { name: /degree/i })).toHaveValue('');
+        expect(getByLabelText(/startdate/i)).toHaveValue('');
+        expect(getByLabelText(/enddate/i)).toHaveValue('');
 
         await waitFor(() => {
-            const descriptionEl = getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`);
-            expect(getByLabelText(/startdate/i)).toHaveValue('');
-            expect(getByLabelText(/enddate/i)).toHaveValue('');
-            expect(descriptionEl).toHaveTextContent('');
+            expect(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent('');
         })
         
         expect(getByRole('button', { name: /add education/i })).toBeInTheDocument();
@@ -43,12 +43,11 @@ describe('FormBodyEducationComponent', () => {
         expect(getByRole('textbox', { name: /school/i })).toHaveValue(education.school);
         expect(getByRole('textbox', { name: /city/i })).toHaveValue(education.city);
         expect(getByRole('textbox', { name: /degree/i })).toHaveValue(education.degree);
+        expect(getByLabelText(/startdate/i)).toHaveValue(getDisplayDateFromDate(education.startDate));
+        expect(getByLabelText(/enddate/i)).toHaveValue(getDisplayDateFromDate(education.endDate));
 
         await waitFor(() => {
-            const descriptionEl = getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`);
-            expect(getByLabelText(/startdate/i)).toHaveValue(getDisplayDateFromDate(education.startDate));
-            expect(getByLabelText(/enddate/i)).toHaveValue(getDisplayDateFromDate(education.endDate));
-            expect(descriptionEl).toHaveTextContent(education.description);
+            expect(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent(education.description);
         })
 
         expect(getByRole('button', { name: /save/i })).toBeInTheDocument();
@@ -65,10 +64,11 @@ describe('FormBodyEducationComponent', () => {
             rerenderHook();
             expect(onSave).not.toHaveBeenCalled();
             expect(getAllByRole("alert")).toHaveLength(3);
-            expect(getByText(/school is required/i)).toBeInTheDocument();
-            expect(getByText(/degree is required/i)).toBeInTheDocument();
-            expect(getByText(/invalid date/i)).toBeInTheDocument();
         })
+
+        expect(getByText(/school is required/i)).toBeInTheDocument();
+        expect(getByText(/degree is required/i)).toBeInTheDocument();
+        expect(getByText(/invalid date/i)).toBeInTheDocument();
     })
     it('Should disable form elements when submitting', async () => {
         const { getByRole, getByLabelText, rerenderHook } = renderComponent();
@@ -77,14 +77,15 @@ describe('FormBodyEducationComponent', () => {
 
         await waitFor(() => {
             rerenderHook();
-            expect(getByRole('textbox', { name: /school/i })).toBeDisabled();
-            expect(getByRole('textbox', { name: /city/i })).toBeDisabled();
-            expect(getByRole('textbox', { name: /degree/i })).toBeDisabled();
-            expect(getByLabelText(/startdate/i)).toBeDisabled();
-            expect(getByLabelText(/enddate/i)).toBeDisabled();
-            expect(getByLabelText(/description/i)).toHaveClass(disabledClass);
-            expect(getByRole('button', { name: /add education/i })).toBeDisabled();
         })
+
+        expect(getByRole('textbox', { name: /school/i })).toBeDisabled();
+        expect(getByRole('textbox', { name: /city/i })).toBeDisabled();
+        expect(getByRole('textbox', { name: /degree/i })).toBeDisabled();
+        expect(getByLabelText(/startdate/i)).toBeDisabled();
+        expect(getByLabelText(/enddate/i)).toBeDisabled();
+        expect(getByLabelText(/description/i)).toHaveClass(disabledClass);
+        expect(getByRole('button', { name: /add education/i })).toBeDisabled();
     })
     it('Should successfully submit form with new values', async () => {
         const { getByRole, getByLabelText, rerenderHook } = renderComponent({ education });
@@ -97,8 +98,7 @@ describe('FormBodyEducationComponent', () => {
         fireEvent.change(getByLabelText(/enddate/i), { target: { value: getDisplayDateFromDate(newEducation.endDate ?? undefined) }});
        
         await waitFor(async () => {
-            const descriptionContent = getByLabelText(/description/i).querySelector(`.${richTextEditorClassName} p`);
-            fireEvent.change(descriptionContent, { target: { textContent: newEducation.description }});
+            fireEvent.change(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName} p`), { target: { textContent: newEducation.description }});
         })
        
         fireEvent.click(getByRole('button', { name: /save/i }));

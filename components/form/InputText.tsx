@@ -1,5 +1,5 @@
 import { forwardRef, Ref } from "react";
-import { ChangeHandler, FieldError, UseFormRegisterReturn } from "react-hook-form";
+import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import ErrorMessage from "./ErrorMessage";
 
 export enum InputTypeEnum {

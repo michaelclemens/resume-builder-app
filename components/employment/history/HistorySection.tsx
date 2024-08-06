@@ -18,7 +18,7 @@ export default function HistorySection({ employmentId, histories }: { employment
         <div className="w-full flex flex-wrap mt-3 mb-1 bg-gray-100 px-2 py-3 rounded-lg ring-1 ring-slate-700/10">
             <div onClick={() => setOpen(!open)} className="w-full flex cursor-pointer">
                 <span className="flex-auto text-sm ml-2 font-semibold">Employment History</span>
-                <span className="ml-auto flex mr-2">{open ? <FaChevronUp /> : <FaChevronDown />}</span>
+                <span className="ml-auto flex mr-2">{open ? <FaChevronUp title="Close" /> : <FaChevronDown title="Open" />}</span>
             </div>
             <ExpandableWrapper open={open}>
                 <List<EmploymentHistory> 

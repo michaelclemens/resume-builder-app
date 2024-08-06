@@ -4,13 +4,15 @@ import { sortByOrder } from "@/util/sort";
 import { SortableVerticalList, SortableItem, ListItem } from "@/components/list";
 import { ItemComponentType, SortableItemType, UseListHookType } from "@/types/hook";
 
+export const defaultEmptyMessage = 'Empty';
+
 export default function List<ItemType extends SortableItemType>(
-    { useListHook, itemComponent, initialItems, parentId }:
-    { useListHook: UseListHookType<ItemType>, itemComponent: ItemComponentType<ItemType>, initialItems: ItemType[], parentId?: string }
+    { useListHook, itemComponent, initialItems, parentId, emptyText = defaultEmptyMessage }:
+    { useListHook: UseListHookType<ItemType>, itemComponent: ItemComponentType<ItemType>, initialItems: ItemType[], parentId?: string, emptyText?: string }
 ) {
     const { items, saveSortOrder } = useListHook({ initialItems, parentId });
     
-    if (!items || !items.length) return <p>Empty</p>
+    if (!items || !items.length) return <p>{emptyText}</p>
 
     return (
         <SortableVerticalList items={items} onNewSortOrder={saveSortOrder}>

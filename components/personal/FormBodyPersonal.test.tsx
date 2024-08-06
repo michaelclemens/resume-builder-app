@@ -33,8 +33,7 @@ describe('FormBodyPersonalComponent', () => {
         expect(getByRole('textbox', { name: /country/i })).toHaveValue('');
 
         await waitFor(() => {
-            const summaryEl = getByLabelText(/summary/i).querySelector(`.${richTextEditorClassName}`);
-            expect(summaryEl).toHaveTextContent('');
+            expect(getByLabelText(/summary/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent('');
         })
         
         expect(getByRole('button', { name: /save/i })).toBeInTheDocument();
@@ -51,8 +50,7 @@ describe('FormBodyPersonalComponent', () => {
         expect(getByRole('textbox', { name: /country/i })).toHaveValue(personal.country);
 
         await waitFor(() => {
-            const summaryEl = getByLabelText(/summary/i).querySelector(`.${richTextEditorClassName}`);
-            expect(summaryEl).toHaveTextContent(personal.summary ?? '');
+            expect(getByLabelText(/summary/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent(personal.summary ?? '');
         })
 
         expect(getByRole('button', { name: /save/i })).toBeInTheDocument();
@@ -69,10 +67,11 @@ describe('FormBodyPersonalComponent', () => {
             rerenderHook();
             expect(onSave).not.toHaveBeenCalled();
             expect(getAllByRole('alert')).toHaveLength(3);
-            expect(getByText(/first name is required/i)).toBeInTheDocument();
-            expect(getByText(/last name is required/i)).toBeInTheDocument();
-            expect(getByText(/invalid email/i)).toBeInTheDocument();
         })
+
+        expect(getByText(/first name is required/i)).toBeInTheDocument();
+        expect(getByText(/last name is required/i)).toBeInTheDocument();
+        expect(getByText(/invalid email/i)).toBeInTheDocument();
     })
     it('Should disable form elements when submitting', async () => {
         const { getByRole, getByLabelText, rerenderHook } = renderComponent();
@@ -81,16 +80,17 @@ describe('FormBodyPersonalComponent', () => {
 
         await waitFor(() => {
             rerenderHook();
-            expect(getByRole('textbox', { name: /firstname/i })).toBeDisabled();
-            expect(getByRole('textbox', { name: /lastname/i })).toBeDisabled();            
-            expect(getByRole('textbox', { name: /position/i })).toBeDisabled();            
-            expect(getByRole('textbox', { name: /email/i })).toBeDisabled();         
-            expect(getByRole('textbox', { name: /phone/i })).toBeDisabled();         
-            expect(getByRole('textbox', { name: /city/i })).toBeDisabled();        
-            expect(getByRole('textbox', { name: /country/i })).toBeDisabled();
-            expect(getByLabelText(/summary/i)).toHaveClass(disabledClass);
-            expect(getByRole('button', { name: /save/i })).toBeDisabled();
         })
+
+        expect(getByRole('textbox', { name: /firstname/i })).toBeDisabled();
+        expect(getByRole('textbox', { name: /lastname/i })).toBeDisabled();            
+        expect(getByRole('textbox', { name: /position/i })).toBeDisabled();            
+        expect(getByRole('textbox', { name: /email/i })).toBeDisabled();         
+        expect(getByRole('textbox', { name: /phone/i })).toBeDisabled();         
+        expect(getByRole('textbox', { name: /city/i })).toBeDisabled();        
+        expect(getByRole('textbox', { name: /country/i })).toBeDisabled();
+        expect(getByLabelText(/summary/i)).toHaveClass(disabledClass);
+        expect(getByRole('button', { name: /save/i })).toBeDisabled();
     })
     it('Should successfully submit form with new values', async () => {
         const { getByRole, getByLabelText, rerenderHook } = renderComponent({ personal });
@@ -105,8 +105,7 @@ describe('FormBodyPersonalComponent', () => {
         fireEvent.change(getByRole('textbox', { name: /country/i }), { target: { value: newPersonal.country }});
 
         await waitFor(() => {
-            const summaryContent = getByLabelText(/summary/i).querySelector(`.${richTextEditorClassName} p`);
-            fireEvent.change(summaryContent, { target: { textContent: newPersonal.summary }});
+            fireEvent.change(getByLabelText(/summary/i).querySelector(`.${richTextEditorClassName} p`), { target: { textContent: newPersonal.summary }});
         })
        
         fireEvent.click(getByRole('button', { name: /save/i }));

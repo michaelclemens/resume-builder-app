@@ -28,7 +28,6 @@ describe('List/ListButtonComponent', () => {
     })
     it('Should fire callback on click', () => {
         const onClick = jest.fn();
-
         const { rerender } = render(<ListButton label={label} type={ButtonType.delete} />);
 
         fireEvent.click(screen.getByRole('button'));

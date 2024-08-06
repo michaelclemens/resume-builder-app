@@ -1,7 +1,7 @@
 import { EmploymentWithHistory } from "@/lib/client/employment";
 import { faker } from "@faker-js/faker";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } from "@prisma/client";
+import { Education, EmploymentHistory, Personal, Skill, Strength } from "@prisma/client";
 import { render, renderHook } from "@testing-library/react";
 import { useForm } from "react-hook-form";
 
@@ -13,14 +13,6 @@ export const createMockStrength = (): Strength => ({
     createdAt: faker.date.anytime(),
     updatedAt: faker.date.anytime(),
 })
-
-export const createMockStrengths = (count: number = 1): Strength[] => {
-    let strengths = [];
-    for(let i = 0; i <= count; i++) {
-        strengths.push(createMockStrength())
-    }
-    return strengths;
-}
 
 export const createMockSkill = (): Skill => ({
     id: faker.string.alphanumeric({ length: 5 }),
@@ -82,6 +74,22 @@ export const createMockPersonal = (): Personal => ({
     createdAt: faker.date.anytime(),
     updatedAt: faker.date.anytime(),
 })
+
+export const createMockStrengths = (count: number = 1): Strength[] => {
+    let strengths = [];
+    for(let i = 0; i <= count; i++) {
+        strengths.push(createMockStrength())
+    }
+    return strengths;
+}
+
+export const createMockHistories = (count: number = 1): EmploymentHistory[] => {
+    let history = [];
+    for(let i = 0; i <= count; i++) {
+        history.push(createMockHistory())
+    }
+    return history;
+}
 
 export const renderUseFormHook = ({ defaultValues, schema }) => (
     renderHook(() => useForm({ 

@@ -1,27 +1,36 @@
 import { PropsWithChildren } from 'react'
-import { render, RenderOptions } from '@testing-library/react'
+import { render, renderHook, RenderOptions } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { AppStore, RootState, setupStore } from '@/lib/redux/store'
 
-
-// This type interface extends the default options for render from RTL, as well
-// as allows the user to specify other things such as initialState, store.
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: Partial<RootState>
   store?: AppStore
 }
 
+const getWrapper = (store) => (
+  ({ children }: PropsWithChildren<{}>): JSX.Element => <Provider store={store}>{children}</Provider>
+)
+
 export function renderWithProviders(
   ui: React.ReactElement,
   {
     preloadedState = {},
-    // Automatically create a store instance if no store was passed in
     store = setupStore(preloadedState),
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {
-  function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
-    return <Provider store={store}>{children}</Provider>
-  }
-  return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) }
+  return { store, ...render(ui, { wrapper: getWrapper(store), ...renderOptions })}
+}
+
+
+export function renderHookWithProviders<Result, Props>(
+  hook: (initialProps: Props) => Result,
+  {
+    preloadedState = {},
+    store = setupStore(preloadedState),
+    ...renderOptions
+  }: ExtendedRenderOptions = {}
+) {
+  return { store, ...renderHook(hook, { wrapper: getWrapper(store), ...renderOptions })}
 }

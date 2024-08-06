@@ -19,7 +19,7 @@ export default function(history?: EmploymentHistory) {
     
     const editing = !!history;
 
-    const save = async(employmentId: string, formData: EmploymentHistorySchemaType, onSave: () => void) => {
+    const save = async(employmentId: string, formData: EmploymentHistorySchemaType, onSave: () => void) => {        
         const response = history?.id ? await updateEmploymentHistory(history.id, employmentId, formData) : await addEmploymentHistory(employmentId, formData);
 
         if (response.status === ResponseStatus.success) {

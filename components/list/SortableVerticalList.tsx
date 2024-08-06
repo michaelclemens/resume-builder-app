@@ -1,7 +1,7 @@
 "use client"
 
 import { SortableItemType } from "@/types/hook";
-import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { closestCenter, DndContext, DragEndEvent, KeyboardSensor, MouseSensor, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { restrictToParentElement, restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { useId } from "react";
@@ -31,7 +31,7 @@ export default function SortableVerticalList<T extends SortableItemType>({ items
                 id={`dnd-${id}`}
                 sensors={sensors} 
                 modifiers={[restrictToVerticalAxis, restrictToParentElement]}
-                collisionDetection={closestCenter} 
+                collisionDetection={closestCenter}
                 onDragEnd={onDragEnd}
             >
                 <SortableContext items={items} strategy={verticalListSortingStrategy}>

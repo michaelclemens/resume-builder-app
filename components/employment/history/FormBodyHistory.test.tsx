@@ -26,24 +26,26 @@ describe('FormBodyHistoryComponent', () => {
         const { getByRole, getByLabelText } = renderComponent();
 
         expect(getByRole('textbox', { name: /title/i })).toHaveValue('');
+        expect(getByLabelText(/startdate/i)).toHaveValue('');
+        expect(getByLabelText(/enddate/i)).toHaveValue('');
+
         await waitFor(() => {
-            const descriptionEl = getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`);
-            expect(getByLabelText(/startdate/i)).toHaveValue('');
-            expect(getByLabelText(/enddate/i)).toHaveValue('');
-            expect(descriptionEl).toHaveTextContent('');
+            expect(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent('');
         })
+
         expect(getByRole('button', { name: /add employment history/i })).toBeInTheDocument();
     })
     it('Should render an update form', async () => {
         const { getByRole, getByLabelText } = renderComponent({ history });
 
         expect(getByRole('textbox', { name: /title/i })).toHaveValue(history.title);
-        await waitFor(() => {
-            const descriptionEl = getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`);
-            expect(getByLabelText(/startdate/i)).toHaveValue(getDisplayDateFromDate(history.startDate));
-            expect(getByLabelText(/enddate/i)).toHaveValue(getDisplayDateFromDate(history.endDate));
-            expect(descriptionEl).toHaveTextContent(history.description);
+        expect(getByLabelText(/startdate/i)).toHaveValue(getDisplayDateFromDate(history.startDate));
+        expect(getByLabelText(/enddate/i)).toHaveValue(getDisplayDateFromDate(history.endDate));
+
+        await waitFor(() => {            
+            expect(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent(history.description);
         })
+
         expect(getByRole('button', { name: /save/i })).toBeInTheDocument();
     })
     it('Should display errros for required fields', async () => {
@@ -58,9 +60,10 @@ describe('FormBodyHistoryComponent', () => {
             rerenderHook();
             expect(onSave).not.toHaveBeenCalled();
             expect(getAllByRole("alert")).toHaveLength(2);
-            expect(getByText(/title is required/i)).toBeInTheDocument();
-            expect(getByText(/invalid date/i)).toBeInTheDocument();
         })
+
+        expect(getByText(/title is required/i)).toBeInTheDocument();
+        expect(getByText(/invalid date/i)).toBeInTheDocument();
     })
     it('Should disable form elements when submitting', async () => {
         const { getByRole, getByLabelText, rerenderHook } = renderComponent();
@@ -69,12 +72,13 @@ describe('FormBodyHistoryComponent', () => {
 
         await waitFor(() => {
             rerenderHook();
-            expect(getByRole('textbox', { name: /title/i })).toBeDisabled();
-            expect(getByLabelText(/startdate/i)).toBeDisabled();
-            expect(getByLabelText(/enddate/i)).toBeDisabled();
-            expect(getByLabelText(/description/i)).toHaveClass(disabledClass);
-            expect(getByRole('button', { name: /add employment history/i })).toBeDisabled();
         })
+
+        expect(getByRole('textbox', { name: /title/i })).toBeDisabled();
+        expect(getByLabelText(/startdate/i)).toBeDisabled();
+        expect(getByLabelText(/enddate/i)).toBeDisabled();
+        expect(getByLabelText(/description/i)).toHaveClass(disabledClass);
+        expect(getByRole('button', { name: /add employment history/i })).toBeDisabled();
     })
     it('Should successfully submit form with new values', async () => {
         const { getByRole, getByLabelText, rerenderHook } = renderComponent({ history });

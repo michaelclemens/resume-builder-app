@@ -44,8 +44,9 @@ describe('FormBodyEmploymentComponent', () => {
             rerenderHook();
             expect(onSave).not.toHaveBeenCalled();
             expect(getAllByRole("alert")).toHaveLength(1);
-            expect(getByText(/employer is required/i)).toBeInTheDocument();
         })
+
+        expect(getByText(/employer is required/i)).toBeInTheDocument();
     })
     it('Should disable form elements when submitting', async () => {
         const { getByRole, rerenderHook } = renderComponent();
@@ -54,10 +55,11 @@ describe('FormBodyEmploymentComponent', () => {
 
         await waitFor(() => {
             rerenderHook();
-            expect(getByRole('textbox', { name: /employer/i })).toBeDisabled();
-            expect(getByRole('textbox', { name: /city/i })).toBeDisabled();
-            expect(getByRole('button', { name: /add employment/i })).toBeDisabled();
         })
+
+        expect(getByRole('textbox', { name: /employer/i })).toBeDisabled();
+        expect(getByRole('textbox', { name: /city/i })).toBeDisabled();
+        expect(getByRole('button', { name: /add employment/i })).toBeDisabled();
     })
     it('Should successfully submit form with new values', async () => {
         const { getByRole, rerenderHook } = renderComponent({ employment });
