@@ -48,9 +48,9 @@ export async function updateEducation(id: string, resumeId: string, formData: Ed
 
 export async function setSortOrders(educations: Education[]) {
     try {
-        educations.forEach(async(education) => {
+        for (const education of educations) {
             await prisma.education.update({ where: { id: education.id }, data: { order: education.order }})
-        })
+        }
     } catch (error) {
         console.error(error);
     }
@@ -58,7 +58,7 @@ export async function setSortOrders(educations: Education[]) {
 
 export async function deleteEducation(id: string) {
     try {
-        await prisma.education.delete({ where: { id } });
+        return await prisma.education.delete({ where: { id } });
     } catch (error) {
         console.error(error);
     }

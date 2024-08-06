@@ -48,7 +48,9 @@ export const response = <TPayload extends {}>(status: StatusTypes, { message = '
 }
 
 export const handleErrorResponse = <TFieldValues extends FieldValues, TPayload extends {}>({ formErrors, message, serverError }: IResponse<TPayload>, setError: UseFormSetError<TFieldValues>) => {
-    formErrors.forEach(({ path, message }) => setError(path as FieldPath<TFieldValues>, { message }));
+    for (const { path, message } of formErrors) {
+        setError(path as FieldPath<TFieldValues>, { message });
+    }
     if (serverError) console.error(serverError);
     if (message) console.error(message);
 }

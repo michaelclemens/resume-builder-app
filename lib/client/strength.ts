@@ -41,10 +41,9 @@ export async function updateStrength(id: string, resumeId: string, data: Strengt
 
 export async function setSortOrders(strengths: Strength[]) {
     try {
-        strengths.forEach(async(strength) => {
+        for (const strength of strengths) {
             await prisma.strength.update({ where: { id: strength.id }, data: { order: strength.order }})
-        })
-        // revalidatePath('/resume/[id]/strengths', 'page');
+        }
     } catch (error) {
         console.error(error);
     }
@@ -52,7 +51,7 @@ export async function setSortOrders(strengths: Strength[]) {
 
 export async function deleteStrength(id: string) {
     try {
-        await prisma.strength.delete({ where: { id } });
+        return await prisma.strength.delete({ where: { id } });
     } catch (error) {
         console.error(error);
     }

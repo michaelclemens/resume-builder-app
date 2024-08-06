@@ -41,9 +41,9 @@ export async function updateSkill(id: string, resumeId: string, formData: SkillS
 
 export async function setSortOrders(skills: Skill[]) {
     try {
-        skills.forEach(async(skill) => {
+        for (const skill of skills) {
             await prisma.skill.update({ where: { id: skill.id }, data: { order: skill.order }})
-        })
+        }
     } catch (error) {
         console.error(error);
     }
@@ -51,7 +51,7 @@ export async function setSortOrders(skills: Skill[]) {
 
 export async function deleteSkill(id: string) {
     try {
-        await prisma.skill.delete({ where: { id } });
+        return await prisma.skill.delete({ where: { id } });
     } catch (error) {
         console.error(error);
     }

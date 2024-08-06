@@ -39,9 +39,9 @@ export async function updateEmploymentHistory(id: string, employmentId: string, 
 
 export async function setSortOrders(histories: EmploymentHistory[]) {
     try {
-        histories.forEach(async(history) => {
+        for (const history of histories) {
             await prisma.employmentHistory.update({ where: { id: history.id }, data: { order: history.order }})
-        })
+        }
     } catch (error) {
         console.error(error);
     }
@@ -49,7 +49,7 @@ export async function setSortOrders(histories: EmploymentHistory[]) {
 
 export async function deleteEmploymentHistory(id: string) {
     try {
-        await prisma.employmentHistory.delete({ where: { id } });
+        return await prisma.employmentHistory.delete({ where: { id } });
     } catch (error) {
         console.error(error);
     }

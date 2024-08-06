@@ -45,9 +45,9 @@ export async function updateEmployment(id: string, resumeId: string, formData: E
 
 export async function setSortOrders(employments: EmploymentWithHistory[]) {
     try {
-        employments.forEach(async(employment) => {
+        for (const employment of employments) {
             await prisma.employment.update({ where: { id: employment.id }, data: { order: employment.order }})
-        })
+        }
     } catch (error) {
         console.error(error);
     }
@@ -55,7 +55,7 @@ export async function setSortOrders(employments: EmploymentWithHistory[]) {
 
 export async function deleteEmployment(id: string) {
     try {
-        await prisma.employment.delete({ where: { id } });
+        return await prisma.employment.delete({ where: { id } });
     } catch (error) {
         console.error(error);
     }
