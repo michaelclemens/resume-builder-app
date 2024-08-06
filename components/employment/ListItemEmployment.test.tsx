@@ -1,5 +1,5 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
-import { createMockEmployment, createMockHistory } from "@/test/mocks";
+import { createMockEmploymentWithHistory } from "@/test/mocks";
 import { ButtonType } from "@/types/list";
 import { Form } from "../form";
 import ListItemEmployment from "./ListItemEmployment";
@@ -14,8 +14,7 @@ const setEditing = jest.fn();
 const onSave = jest.fn();
 const mockHistorySection = jest.mocked(HistorySection);
 
-const history = createMockHistory();
-const employment = createMockEmployment([history]);
+const employment = createMockEmploymentWithHistory();
 
 const getListItemComponent = ({ editing = false, deleting = false } = {}) => (
     <ListItemEmployment

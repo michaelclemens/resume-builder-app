@@ -3,7 +3,7 @@ import List, { defaultEmptyMessage } from "./List"
 import { SortableItemType } from "@/types/hook";
 import ListItem from "./ListItem";
 import { faker } from "@faker-js/faker";
-import { createMockHistories, createMockStrengths } from "@/test/mocks";
+import { createMockHistory, createMockStrength, createMultipleMockItems } from "@/test/mocks";
 import { EmploymentHistory, Strength } from "@prisma/client";
 
 jest.mock('@/components/list/ListItem');
@@ -41,7 +41,7 @@ describe('ListComponent', () => {
         expect(mockListItem).not.toHaveBeenCalled();
     })
     it('Should render a list of items', () => {
-        const strengths = createMockStrengths(5);
+        const strengths = createMultipleMockItems(createMockStrength, 5);
         const { queryByText } = renderComponent<Strength>({ initialItems: strengths });
 
         expect(queryByText(defaultEmptyMessage)).not.toBeInTheDocument();
@@ -56,7 +56,7 @@ describe('ListComponent', () => {
         ))
     })
     it('Should pass any parentId to the list item', () => {
-        const histories = createMockHistories(3);
+        const histories = createMultipleMockItems(createMockHistory, 3);
         const employmentId = histories[0].employmentId;
         renderComponent<EmploymentHistory>({ initialItems: histories, parentId: employmentId });
 

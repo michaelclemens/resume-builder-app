@@ -1,29 +1,29 @@
 import { EmploymentWithHistory } from "@/lib/client/employment";
 import { faker } from "@faker-js/faker";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Education, EmploymentHistory, Personal, Skill, Strength } from "@prisma/client";
+import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } from "@prisma/client";
 import { render, renderHook } from "@testing-library/react";
 import { useForm } from "react-hook-form";
 
-export const createMockStrength = (): Strength => ({
+export const createMockStrength = ({ index }: { index?: number } = {}): Strength => ({
     id: faker.string.alphanumeric({ length: 5 }),
     resumeId: faker.string.alphanumeric({ length: 5 }),
     name: faker.lorem.word(),
-    order: null,
+    order: index ?? null,
     createdAt: faker.date.anytime(),
     updatedAt: faker.date.anytime(),
 })
 
-export const createMockSkill = (): Skill => ({
+export const createMockSkill = ({ index }: { index?: number } = {}): Skill => ({
     id: faker.string.alphanumeric({ length: 5 }),
     resumeId: faker.string.alphanumeric({ length: 5 }),
     name: faker.lorem.word(),
-    order: null,
+    order: index ?? null,
     createdAt: faker.date.anytime(),
     updatedAt: faker.date.anytime(),
 })
 
-export const createMockEducation = (): Education => ({
+export const createMockEducation = ({ index }: { index?: number } = {}): Education => ({
     id: faker.string.alphanumeric({ length: 5 }),
     resumeId: faker.string.alphanumeric({ length: 5 }),
     school: faker.lorem.word(),
@@ -32,33 +32,46 @@ export const createMockEducation = (): Education => ({
     endDate: faker.date.anytime(),
     city: faker.location.city(),
     description: faker.lorem.paragraph(),
-    order: null,
+    order: index ?? null,
     createdAt: faker.date.anytime(),
     updatedAt: faker.date.anytime(),
 })
 
-export const createMockHistory = (): EmploymentHistory => ({
+export const createMockHistory = ({ index, employmentId }: { index?: number, employmentId?: string } = {}): EmploymentHistory => ({
     id: faker.string.alphanumeric({ length: 5 }),
-    employmentId: faker.string.alphanumeric({ length: 5 }),
+    employmentId: employmentId ?? faker.string.alphanumeric({ length: 5 }),
     title: faker.person.jobTitle(),
     startDate: faker.date.anytime(),
     endDate: faker.date.anytime(),
     description: faker.lorem.paragraph(),
-    order: null,
+    order: index ?? null,
     createdAt: faker.date.anytime(),
     updatedAt: faker.date.anytime(),
 })
 
-export const createMockEmployment = (histories: EmploymentHistory[] = []): EmploymentWithHistory => ({
+export const createMockEmployment = ({ index }: { index?: number } = {}): Employment => ({
     id: faker.string.alphanumeric({ length: 5 }),
     resumeId: faker.string.alphanumeric({ length: 5 }),
     employer: faker.lorem.word(),
     city: faker.location.city(),
-    order: null,
+    order: index ?? null,
     createdAt: faker.date.anytime(),
     updatedAt: faker.date.anytime(),
-    history: histories,
 })
+
+export const createMockEmploymentWithHistory = ({ index, }: { index?: number } = {}): EmploymentWithHistory => {
+    const employmentId = faker.string.alphanumeric({ length: 5 });
+    return ({
+        id: employmentId,
+        resumeId: faker.string.alphanumeric({ length: 5 }),
+        employer: faker.lorem.word(),
+        city: faker.location.city(),
+        order: index ?? null,
+        createdAt: faker.date.anytime(),
+        updatedAt: faker.date.anytime(),
+        history: createMultipleMockItems(({ index }) => createMockHistory({ index, employmentId  }), 3),
+    })
+}
 
 export const createMockPersonal = (): Personal => ({
     id: faker.string.alphanumeric({ length: 5 }),
@@ -75,20 +88,12 @@ export const createMockPersonal = (): Personal => ({
     updatedAt: faker.date.anytime(),
 })
 
-export const createMockStrengths = (count: number = 1): Strength[] => {
-    let strengths = [];
-    for(let i = 0; i <= count; i++) {
-        strengths.push(createMockStrength())
+export function createMultipleMockItems<ItemType>(creator: ({ index }: { index: number }) => ItemType, count: number = 1): ItemType[] {
+    let items = [];
+    for(let i = 0; i < count; i++) {
+        items.push(creator({ index: i + 1 }))
     }
-    return strengths;
-}
-
-export const createMockHistories = (count: number = 1): EmploymentHistory[] => {
-    let history = [];
-    for(let i = 0; i <= count; i++) {
-        history.push(createMockHistory())
-    }
-    return history;
+    return items;
 }
 
 export const renderUseFormHook = ({ defaultValues, schema }) => (

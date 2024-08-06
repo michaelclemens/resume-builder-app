@@ -29,7 +29,7 @@ export const slice = createSlice({
         action.payload.history = [...state.employments[index].history];
         state.employments[index] = action.payload;
       } else {
-        action.payload.history = [];
+        if (!action.payload.history) action.payload.history = [];
         state.employments.push(action.payload);
       }
     },
