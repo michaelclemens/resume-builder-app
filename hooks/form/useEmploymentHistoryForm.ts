@@ -1,7 +1,7 @@
 "use client"
 
 import { addEmploymentHistory, updateEmploymentHistory } from "@/lib/client/employmentHistory";
-import { setEmploymentHistory } from "@/lib/redux/reducers/employment";
+import { getSection, SectionEnums } from "@/lib/redux/reducers/sections";
 import { useAppDispatch } from "@/lib/redux/store";
 import { handleErrorResponse, ResponseStatus } from "@/lib/response";
 import { EmploymentHistorySchema, EmploymentHistorySchemaType } from "@/types/form";
@@ -11,6 +11,7 @@ import { EmploymentHistory } from "@prisma/client";
 import { useForm } from "react-hook-form";
 
 export default function(history?: EmploymentHistory) {
+    const { actions } = getSection(SectionEnums.employment);
     const dispatch = useAppDispatch();
     const form = useForm<EmploymentHistorySchemaType>({ 
         resolver: zodResolver(EmploymentHistorySchema), 
@@ -23,7 +24,7 @@ export default function(history?: EmploymentHistory) {
         const response = history?.id ? await updateEmploymentHistory(history.id, employmentId, formData) : await addEmploymentHistory(employmentId, formData);
 
         if (response.status === ResponseStatus.success) {
-            dispatch(setEmploymentHistory(response.payload.history));
+            dispatch(actions.setSiblingItem(response.payload.history));
         }
         if (response.status === ResponseStatus.error) {
             return handleErrorResponse(response, form.setError);

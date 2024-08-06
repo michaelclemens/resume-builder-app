@@ -1,9 +1,10 @@
-import { selectPersonal } from "@/lib/redux/reducers/personal";
+import { getSection, SectionEnums } from "@/lib/redux/reducers/sections";
 import { useAppSelector } from "@/lib/redux/store";
 import { Personal } from "@prisma/client";
 
 const usePersonal = (initialPersonal?: Personal|null) => {
-    const { personal } = useAppSelector(selectPersonal);
+    const { selectors } = getSection(SectionEnums.personal);
+    const personal = useAppSelector(selectors.selectItem);
     return { personal: personal ?? initialPersonal ?? null }
 }
 

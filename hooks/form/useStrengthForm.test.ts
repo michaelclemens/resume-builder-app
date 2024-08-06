@@ -45,7 +45,7 @@ describe('useStrengthFormHook', () => {
         })
         
         expect(result.current.form.getValues().name).toEqual('');
-        expect(store.getState().strength.strengths).toEqual([strength]);
+        expect(store.getState().strength.items).toEqual([strength]);
     })
     it('Should update a strength on save', async () => {
         const newStrength = createMockStrength();
@@ -64,7 +64,7 @@ describe('useStrengthFormHook', () => {
         })
         
         expect(result.current.form.getValues().name).toEqual(newStrength.name);
-        expect(store.getState().strength.strengths).toEqual([newStrength]);
+        expect(store.getState().strength.items).toEqual([newStrength]);
     })
     it('Should handle any errors when saving form', async () => {
         const error = { path: 'name', message: faker.lorem.sentences() };
@@ -81,7 +81,7 @@ describe('useStrengthFormHook', () => {
             
         })
         
-        expect(store.getState().strength.strengths).toBeNull();
+        expect(store.getState().strength.items).toBeNull();
         expect(result.current.form.getFieldState('name').error?.message).toEqual(error.message);
     })
 })

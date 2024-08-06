@@ -18,7 +18,7 @@ describe('useStrengthListHook', () => {
         const { result, store } = renderHookWithProviders(() => useStrengthList());
 
         expect(result.current.items).toEqual([]);
-        expect(store.getState().strength.strengths).toBeNull();
+        expect(store.getState().strength.items).toBeNull();
     })
     it('Should store the initial items in state', () => {
         const { result, rerender, store } = renderHookWithProviders(({ initialItems }: { initialItems?: Strength[]}) => useStrengthList({ initialItems }), {
@@ -26,14 +26,14 @@ describe('useStrengthListHook', () => {
         });
         
         expect(result.current.items).toEqual(strengths);
-        expect(store.getState().strength.strengths).toEqual(strengths);
+        expect(store.getState().strength.items).toEqual(strengths);
 
         act(() => {
             rerender({ initialItems: createMultipleMockItems(createMockStrength, 3) })
         })
 
         expect(result.current.items).toEqual(strengths);
-        expect(store.getState().strength.strengths).toEqual(strengths);
+        expect(store.getState().strength.items).toEqual(strengths);
     })
     it('Should successfully remove an item', async () => {
         const { result, store } = renderHookWithProviders(() => useStrengthList({ initialItems: strengths }));
@@ -51,7 +51,7 @@ describe('useStrengthListHook', () => {
         })
         
         expect(result.current.items.includes(deletedItem)).toBeFalsy();
-        expect(store.getState().strength.strengths?.includes(deletedItem)).toBeFalsy();
+        expect(store.getState().strength.items?.includes(deletedItem)).toBeFalsy();
     })
     it('Should handle errors when removing an item', async () => {
         const error = new Error(faker.lorem.sentence());
@@ -68,7 +68,7 @@ describe('useStrengthListHook', () => {
         })
 
         expect(result.current.items.includes(deletedItem)).toBeTruthy();
-        expect(store.getState().strength.strengths?.includes(deletedItem)).toBeTruthy();
+        expect(store.getState().strength.items?.includes(deletedItem)).toBeTruthy();
     })
     it('Should return editing state', async () => {
         const { result } = renderHookWithProviders(() => useStrengthList());
@@ -101,7 +101,7 @@ describe('useStrengthListHook', () => {
 
         expect(result.current.items[2].order).toEqual(5);
         expect(result.current.items[4].order).toEqual(3);
-        expect(store.getState().strength.strengths[2].order).toEqual(5);
-        expect(store.getState().strength.strengths[4].order).toEqual(3);
+        expect(store.getState().strength.items[2].order).toEqual(5);
+        expect(store.getState().strength.items[4].order).toEqual(3);
     })
 })

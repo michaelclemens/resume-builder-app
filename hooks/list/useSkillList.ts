@@ -1,13 +1,14 @@
 "use client"
 
 import { deleteSkill, setSortOrders } from "@/lib/client/skill";
-import { removeSkill, selectSkillList, setSkills } from "@/lib/redux/reducers/skill";
+import { getSection, SectionEnums } from "@/lib/redux/reducers/sections";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Skill } from "@prisma/client";
 import { useEffect, useState } from "react";
 
 const useSkillList = ({ initialItems: initialSkills }: { initialItems?: Skill[] } = {}) => {
-    const skills = useAppSelector(selectSkillList);
+    const { actions, selectors } = getSection(SectionEnums.skill);
+    const skills = useAppSelector(selectors.selectItems);
     const dispatch = useAppDispatch();
     const [editing, setEditing] = useState(false);
     const [deleting, setDeleting] = useState(false);
@@ -15,7 +16,7 @@ const useSkillList = ({ initialItems: initialSkills }: { initialItems?: Skill[] 
     useEffect(() => {
         if (initialSkills && !skills) {
             console.log('setting skills...');
-            dispatch(setSkills(initialSkills));
+            dispatch(actions.setItems(initialSkills));
         }
     }, [initialSkills])
     
@@ -23,7 +24,7 @@ const useSkillList = ({ initialItems: initialSkills }: { initialItems?: Skill[] 
         setDeleting(true);
         try {
             await deleteSkill(skill.id);
-            dispatch(removeSkill(skill.id));
+            dispatch(actions.removeItem(skill.id));
         } catch(error) {
             console.error(error);
         } finally {
@@ -32,7 +33,7 @@ const useSkillList = ({ initialItems: initialSkills }: { initialItems?: Skill[] 
     }
 
     const saveSortOrder = async(skills: Skill[]) => {
-        dispatch(setSkills(skills));
+        dispatch(actions.setItems(skills));
         await setSortOrders(skills);
     }
 

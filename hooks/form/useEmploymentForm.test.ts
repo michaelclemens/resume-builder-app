@@ -55,7 +55,7 @@ describe('useEmploymentFormHook', () => {
         Object.keys(payload).forEach(key => {
             expect(result.current.form.getValues()[key]).toEqual('');
         });
-        expect(store.getState().employment.employments).toEqual([employment]);
+        expect(store.getState().employment.items).toEqual([employment]);
     })
     it('Should update a employment on save', async () => {
         const newEmployment = createMockEmployment();
@@ -79,7 +79,7 @@ describe('useEmploymentFormHook', () => {
         Object.keys(payload).forEach(key => {
             expect(result.current.form.getValues()[key]).toEqual(newEmployment[key]);
         });
-        expect(store.getState().employment.employments).toEqual([newEmployment]);
+        expect(store.getState().employment.items).toEqual([newEmployment]);
     })
     it('Should handle any errors when saving form', async () => {
         const errors = [
@@ -98,7 +98,7 @@ describe('useEmploymentFormHook', () => {
             expect(mockAddEmployment).toHaveBeenCalledWith(employment.resumeId, payload);
         })
 
-        expect(store.getState().employment.employments).toBeNull();
+        expect(store.getState().employment.items).toBeNull();
         errors.forEach(({ path, message }) => {
             expect(result.current.form.getFieldState(path).error?.message).toEqual(message);
         })

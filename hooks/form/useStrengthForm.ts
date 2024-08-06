@@ -2,15 +2,16 @@
 
 import { StrengthSchema, StrengthSchemaType } from "@/types/form";
 import { addStrength, updateStrength } from "@/lib/client/strength";
-import { setStrength } from "@/lib/redux/reducers/strength";
 import { useAppDispatch } from "@/lib/redux/store";
 import { handleErrorResponse, ResponseStatus } from "@/lib/response";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Strength } from "@prisma/client";
 import { getDefaultValuesStrength } from "@/util/form";
+import { getSection, SectionEnums } from "@/lib/redux/reducers/sections";
 
 export default function(strength?: Strength) {
+    const { actions } = getSection(SectionEnums.strength);
     const dispatch = useAppDispatch();
     const form = useForm<StrengthSchemaType>({ 
         resolver: zodResolver(StrengthSchema), 
@@ -23,7 +24,7 @@ export default function(strength?: Strength) {
         const response = strength?.id ? await updateStrength(strength.id, resumeId, formData) : await addStrength(resumeId, formData);
 
         if (response.status === ResponseStatus.success) {
-            dispatch(setStrength(response.payload.strength));
+            dispatch(actions.setItem(response.payload.strength));
         }
         if (response.status === ResponseStatus.error) {
             return handleErrorResponse(response, form.setError);

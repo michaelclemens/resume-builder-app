@@ -1,14 +1,10 @@
-import { clear as clearPersonal } from "@/lib/redux/reducers/personal";
-import { clear as clearEmployments } from "@/lib/redux/reducers/employment";
-import { clear as clearEducations } from "@/lib/redux/reducers/education";
-import { clear as clearSkills } from "@/lib/redux/reducers/skill";
-import { clear as clearStrengths } from "@/lib/redux/reducers/strength";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Template } from "@prisma/client";
 import { clear, selectResume, setResume, setTemplate, setTemplateOptions } from "@/lib/redux/reducers/resume";
 import { useEffect } from "react";
 import { ResumeFull, updateResume } from "@/lib/client/resume";
 import { TemplateOptions } from "@/types/template";
+import { getSection, SectionEnums } from "@/lib/redux/reducers/sections";
 
 export default function useResume(initialResume?: ResumeFull|null) {
     const { resume } = useAppSelector(selectResume);
@@ -28,18 +24,17 @@ export default function useResume(initialResume?: ResumeFull|null) {
     }
 
     const updateTemplateOptions = async(resumeId: string, templateOptions: TemplateOptions) => {
-        console.log(templateOptions);
         await updateResume(resumeId, { templateOptions });
         dispatch(setTemplateOptions(templateOptions));
     }
     
     const resetAllState = () => {
         dispatch(clear())
-        dispatch(clearPersonal())
-        dispatch(clearEmployments())
-        dispatch(clearEducations())
-        dispatch(clearSkills())
-        dispatch(clearStrengths())
+        dispatch(getSection(SectionEnums.personal).actions.clear())
+        dispatch(getSection(SectionEnums.education).actions.clear())
+        dispatch(getSection(SectionEnums.employment).actions.clear())
+        dispatch(getSection(SectionEnums.skill).actions.clear())
+        dispatch(getSection(SectionEnums.strength).actions.clear())
     }
 
     return { resume: resume ?? initialResume ?? null, updateTemplate, updateTemplateOptions, resetAllState }

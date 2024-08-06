@@ -1,7 +1,8 @@
 import { EmploymentWithHistory } from "@/lib/client/employment";
+import { ResumeFull } from "@/lib/client/resume";
 import { faker } from "@faker-js/faker";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } from "@prisma/client";
+import { Education, Employment, EmploymentHistory, Personal, Resume, Skill, Strength, Template } from "@prisma/client";
 import { render, renderHook } from "@testing-library/react";
 import { useForm } from "react-hook-form";
 
@@ -86,6 +87,23 @@ export const createMockPersonal = (): Personal => ({
     country: faker.location.country(),
     createdAt: faker.date.anytime(),
     updatedAt: faker.date.anytime(),
+})
+
+export const createMockResume = (): Resume => ({
+    id: faker.string.alphanumeric({ length: 5 }),
+    template: Template.DEFAULT,
+    templateOptions: null,
+    createdAt: faker.date.anytime(),
+    updatedAt: faker.date.anytime(),
+})
+
+export const createMockFullResume = (): ResumeFull => ({
+    ...createMockResume(),
+    personal: createMockPersonal(),
+    employments: createMultipleMockItems(createMockEmploymentWithHistory, 3),
+    educations: createMultipleMockItems(createMockEducation, 3),
+    skills: createMultipleMockItems(createMockSkill, 3),
+    strengths: createMultipleMockItems(createMockStrength, 3),
 })
 
 export function createMultipleMockItems<ItemType>(creator: ({ index }: { index: number }) => ItemType, count: number = 1): ItemType[] {

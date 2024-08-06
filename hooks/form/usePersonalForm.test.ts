@@ -61,7 +61,7 @@ describe('usePersonalFormHook', () => {
         Object.keys(payload).forEach(key => {
             expect(result.current.form.getValues()[key]).toEqual('');
         });
-        expect(store.getState().personal.personal).toEqual(personal);
+        expect(store.getState().personal.item).toEqual(personal);
     })
     it('Should update a personal on save', async () => {
         const newPersonal = createMockPersonal();
@@ -85,7 +85,7 @@ describe('usePersonalFormHook', () => {
         Object.keys(payload).forEach(key => {
             expect(result.current.form.getValues()[key]).toEqual(newPersonal[key]);
         });
-        expect(store.getState().personal.personal).toEqual(newPersonal);
+        expect(store.getState().personal.item).toEqual(newPersonal);
     })
     it('Should handle any errors when saving form', async () => {
         const errors = [
@@ -105,7 +105,7 @@ describe('usePersonalFormHook', () => {
             expect(mockAddPersonal).toHaveBeenCalledWith(personal.resumeId, payload);
         })
 
-        expect(store.getState().personal.personal).toBeNull();
+        expect(store.getState().personal.item).toBeNull();
         errors.forEach(({ path, message }) => {
             expect(result.current.form.getFieldState(path).error?.message).toEqual(message);
         })

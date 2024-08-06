@@ -45,7 +45,7 @@ describe('useSkillFormHook', () => {
         })
 
         expect(result.current.form.getValues().name).toEqual('');
-        expect(store.getState().skill.skills).toEqual([skill]);
+        expect(store.getState().skill.items).toEqual([skill]);
     })
     it('Should update a skill on save', async () => {
         const newSkill = createMockSkill();
@@ -64,7 +64,7 @@ describe('useSkillFormHook', () => {
         })
 
         expect(result.current.form.getValues().name).toEqual(newSkill.name);
-        expect(store.getState().skill.skills).toEqual([newSkill]);
+        expect(store.getState().skill.items).toEqual([newSkill]);
     })
     it('Should handle any errors when saving form', async () => {
         const error = { path: 'name', message: faker.lorem.sentences() };
@@ -80,7 +80,7 @@ describe('useSkillFormHook', () => {
             expect(mockAddSkill).toHaveBeenCalledWith(skill.resumeId, { name: skill.name });
         })
 
-        expect(store.getState().skill.skills).toBeNull();
+        expect(store.getState().skill.items).toBeNull();
         expect(result.current.form.getFieldState('name').error?.message).toEqual(error.message);
     })
 })

@@ -36,6 +36,7 @@ export async function getResume(id: string) {
         return await prisma.resume.findUniqueOrThrow({ where: { id }})
     } catch (error) {
         console.error(error);
+        return null;
     }
 }
 
@@ -54,6 +55,7 @@ export async function getAllResumes() {
         return await prisma.resume.findMany({ take: 10, orderBy: { createdAt: 'asc' }})
     } catch (error) {
         console.error(error);
+        return [];
     }
 }
 
@@ -62,5 +64,6 @@ export async function updateResume(id: string, data: Prisma.ResumeUpdateInput) {
         return await prisma.resume.update({ where: { id }, data });
     } catch (error) {
         console.error(error);
+        return null;
     }
 }

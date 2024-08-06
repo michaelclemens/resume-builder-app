@@ -60,7 +60,7 @@ describe('useEducationFormHook', () => {
         Object.keys(payload).forEach(key => {
             expect(result.current.form.getValues()[key]).toEqual('');
         });
-        expect(store.getState().education.educations).toEqual([education]);
+        expect(store.getState().education.items).toEqual([education]);
     })
     it('Should update a education on save', async () => {
         const newEducation = createMockEducation();
@@ -84,7 +84,7 @@ describe('useEducationFormHook', () => {
         Object.keys(payload).forEach(key => {
             expect(result.current.form.getValues()[key]).toEqual(newEducation[key]);
         });
-        expect(store.getState().education.educations).toEqual([newEducation]);
+        expect(store.getState().education.items).toEqual([newEducation]);
     })
     it('Should handle any errors when saving form', async () => {
         const errors = [
@@ -104,7 +104,7 @@ describe('useEducationFormHook', () => {
             expect(mockAddEducation).toHaveBeenCalledWith(education.resumeId, payload);
         })
 
-        expect(store.getState().education.educations).toBeNull();
+        expect(store.getState().education.items).toBeNull();
         errors.forEach(({ path, message }) => {
             expect(result.current.form.getFieldState(path).error?.message).toEqual(message);
         })

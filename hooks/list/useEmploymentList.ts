@@ -1,12 +1,13 @@
 "use client"
 
 import { deleteEmployment, EmploymentWithHistory, setSortOrders } from "@/lib/client/employment";
-import { removeEmployment, selectEmploymentList, setEmployments } from "@/lib/redux/reducers/employment";
+import { getSection, SectionEnums } from "@/lib/redux/reducers/sections";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { useEffect, useState } from "react";
 
 export default function({ initialItems: initialEmployments }: { initialItems?: EmploymentWithHistory[] } = {}) {
-    const employments = useAppSelector(selectEmploymentList);
+    const { actions, selectors } = getSection(SectionEnums.employment);
+    const employments = useAppSelector(selectors.selectItems);
     const dispatch = useAppDispatch();
     const [editing, setEditing] = useState(false);
     const [deleting, setDeleting] = useState(false);
@@ -14,7 +15,7 @@ export default function({ initialItems: initialEmployments }: { initialItems?: E
     useEffect(() => {
         if (initialEmployments && !employments) {
             console.log('setting employments...');
-            dispatch(setEmployments(initialEmployments));
+            dispatch(actions.setItems(initialEmployments));
         }
     }, [initialEmployments])
 
@@ -22,7 +23,7 @@ export default function({ initialItems: initialEmployments }: { initialItems?: E
         setDeleting(true);
         try {
             await deleteEmployment(employment.id);
-            dispatch(removeEmployment(employment.id));
+            dispatch(actions.removeItem(employment.id));
         } catch(error) {
             console.error(error);
         } finally {
@@ -31,7 +32,7 @@ export default function({ initialItems: initialEmployments }: { initialItems?: E
     }
 
     const saveSortOrder = async(employments: EmploymentWithHistory[]) => {
-        dispatch(setEmployments(employments));
+        dispatch(actions.setItems(employments));
         await setSortOrders(employments);
     }
 

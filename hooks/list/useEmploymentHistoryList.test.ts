@@ -18,11 +18,11 @@ describe('useEmploymentHistoryListHook', () => {
         const { result, store } = renderHookWithProviders(() => useEmploymentHistoryList());
 
         expect(result.current.items).toEqual([]);
-        expect(store.getState().employment.employments).toBeNull();
+        expect(store.getState().employment.items).toBeNull();
     })
     it('Should successfully remove an item', async () => {
         const { result, store } = renderHookWithProviders(() => useEmploymentHistoryList({ parentId: employment.id, initialItems: histories }), {
-            preloadedState: { employment: { employments: [employment] }}
+            preloadedState: { employment: { items: [employment] }}
         });
                 
         expect(result.current.deleting).toBeFalsy();
@@ -34,14 +34,14 @@ describe('useEmploymentHistoryListHook', () => {
 
         await waitFor(() => {
             expect(result.current.items.includes(deletedItem)).toBeFalsy();
-            expect(store.getState().employment.employments?.find(item => item.id === employment.id)?.history.includes(deletedItem)).toBeFalsy();
+            expect(store.getState().employment.items?.find(item => item.id === employment.id)?.history.includes(deletedItem)).toBeFalsy();
         })   
     })
     it('Should handle errors when removing an item', async () => {
         const error = new Error(faker.lorem.sentence());
         mockDeleteEmploymentHistory.mockRejectedValueOnce(error);
         const { result, store } = renderHookWithProviders(() => useEmploymentHistoryList({ parentId: employment.id, initialItems: histories }), {
-            preloadedState: { employment: { employments: [employment] }}
+            preloadedState: { employment: { items: [employment] }}
         });
 
         const deletedItem = histories[0];
@@ -54,7 +54,7 @@ describe('useEmploymentHistoryListHook', () => {
         })
 
         expect(result.current.items.includes(deletedItem)).toBeTruthy();
-        expect(store.getState().employment.employments?.find(item => item.id === employment.id)?.history?.includes(deletedItem)).toBeTruthy();
+        expect(store.getState().employment.items?.find(item => item.id === employment.id)?.history?.includes(deletedItem)).toBeTruthy();
     })
     it('Should return editing state', async () => {
         const { result } = renderHookWithProviders(() => useEmploymentHistoryList());
@@ -69,7 +69,7 @@ describe('useEmploymentHistoryListHook', () => {
     })
     it('Should save a new sort order', async () => {
         const { result, store } = renderHookWithProviders(() => useEmploymentHistoryList({ parentId: employment.id, initialItems: histories }), {
-            preloadedState: { employment: { employments: [employment] }}
+            preloadedState: { employment: { items: [employment] }}
         });
 
         const sortableItems = [...histories];
@@ -89,7 +89,7 @@ describe('useEmploymentHistoryListHook', () => {
 
         expect(result.current.items[0].order).toEqual(3);
         expect(result.current.items[2].order).toEqual(1);
-        expect(store.getState().employment.employments?.find(item => item.id === employment.id)?.history[0].order).toEqual(3);
-        expect(store.getState().employment.employments?.find(item => item.id === employment.id)?.history[2].order).toEqual(1);
+        expect(store.getState().employment.items?.find(item => item.id === employment.id)?.history[0].order).toEqual(3);
+        expect(store.getState().employment.items?.find(item => item.id === employment.id)?.history[2].order).toEqual(1);
     })
 })

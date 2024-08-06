@@ -18,7 +18,7 @@ describe('useEducationListHook', () => {
         const { result, store } = renderHookWithProviders(() => useEducationList());
 
         expect(result.current.items).toEqual([]);
-        expect(store.getState().education.educations).toBeNull();
+        expect(store.getState().education.items).toBeNull();
     })
     it('Should store the initial items in state', () => {
         const { result, rerender, store } = renderHookWithProviders(({ initialItems }: { initialItems?: Education[]}) => useEducationList({ initialItems }), {
@@ -26,14 +26,14 @@ describe('useEducationListHook', () => {
         });
         
         expect(result.current.items).toEqual(educations);
-        expect(store.getState().education.educations).toEqual(educations);
+        expect(store.getState().education.items).toEqual(educations);
 
         act(() => {
             rerender({ initialItems: createMultipleMockItems(createMockEducation, 3) })
         })
 
         expect(result.current.items).toEqual(educations);
-        expect(store.getState().education.educations).toEqual(educations);
+        expect(store.getState().education.items).toEqual(educations);
     })
     it('Should successfully remove an item', async () => {
         const { result, store } = renderHookWithProviders(() => useEducationList({ initialItems: educations }));
@@ -51,7 +51,7 @@ describe('useEducationListHook', () => {
         })
         
         expect(result.current.items.includes(deletedItem)).toBeFalsy();
-        expect(store.getState().education.educations?.includes(deletedItem)).toBeFalsy();
+        expect(store.getState().education.items?.includes(deletedItem)).toBeFalsy();
     })
     it('Should handle errors when removing an item', async () => {
         const error = new Error(faker.lorem.sentence());
@@ -68,7 +68,7 @@ describe('useEducationListHook', () => {
         })
 
         expect(result.current.items.includes(deletedItem)).toBeTruthy();
-        expect(store.getState().education.educations?.includes(deletedItem)).toBeTruthy();
+        expect(store.getState().education.items?.includes(deletedItem)).toBeTruthy();
     })
     it('Should return editing state', async () => {
         const { result } = renderHookWithProviders(() => useEducationList());
@@ -101,7 +101,7 @@ describe('useEducationListHook', () => {
 
         expect(result.current.items[2].order).toEqual(5);
         expect(result.current.items[4].order).toEqual(3);
-        expect(store.getState().education.educations[2].order).toEqual(5);
-        expect(store.getState().education.educations[4].order).toEqual(3);
+        expect(store.getState().education.items[2].order).toEqual(5);
+        expect(store.getState().education.items[4].order).toEqual(3);
     })
 })

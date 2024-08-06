@@ -18,7 +18,7 @@ describe('useEmploymentListHook', () => {
         const { result, store } = renderHookWithProviders(() => useEmploymentList());
 
         expect(result.current.items).toEqual([]);
-        expect(store.getState().employment.employments).toBeNull();
+        expect(store.getState().employment.items).toBeNull();
     })
     it('Should store the initial items in state', () => {
         const { result, rerender, store } = renderHookWithProviders(({ initialItems }: { initialItems?: Employment[]}) => useEmploymentList({ initialItems }), {
@@ -26,14 +26,14 @@ describe('useEmploymentListHook', () => {
         });
         
         expect(result.current.items).toEqual(employments);
-        expect(store.getState().employment.employments).toEqual(employments);
+        expect(store.getState().employment.items).toEqual(employments);
 
         act(() => {
             rerender({ initialItems: createMultipleMockItems(createMockEmployment, 3) })
         })
 
         expect(result.current.items).toEqual(employments);
-        expect(store.getState().employment.employments).toEqual(employments);
+        expect(store.getState().employment.items).toEqual(employments);
     })
     it('Should successfully remove an item', async () => {
         const { result, store } = renderHookWithProviders(() => useEmploymentList({ initialItems: employments }));
@@ -51,7 +51,7 @@ describe('useEmploymentListHook', () => {
         })
         
         expect(result.current.items.includes(deletedItem)).toBeFalsy();
-        expect(store.getState().employment.employments?.includes(deletedItem)).toBeFalsy();
+        expect(store.getState().employment.items?.includes(deletedItem)).toBeFalsy();
     })
     it('Should handle errors when removing an item', async () => {
         const error = new Error(faker.lorem.sentence());
@@ -68,7 +68,7 @@ describe('useEmploymentListHook', () => {
         })
 
         expect(result.current.items.includes(deletedItem)).toBeTruthy();
-        expect(store.getState().employment.employments?.includes(deletedItem)).toBeTruthy();
+        expect(store.getState().employment.items?.includes(deletedItem)).toBeTruthy();
     })
     it('Should return editing state', async () => {
         const { result } = renderHookWithProviders(() => useEmploymentList());
@@ -101,7 +101,7 @@ describe('useEmploymentListHook', () => {
 
         expect(result.current.items[2].order).toEqual(5);
         expect(result.current.items[4].order).toEqual(3);
-        expect(store.getState().employment.employments[2].order).toEqual(5);
-        expect(store.getState().employment.employments[4].order).toEqual(3);
+        expect(store.getState().employment.items[2].order).toEqual(5);
+        expect(store.getState().employment.items[4].order).toEqual(3);
     })
 })

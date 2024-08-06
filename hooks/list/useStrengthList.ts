@@ -1,13 +1,14 @@
 "use client"
 
 import { deleteStrength, setSortOrders } from "@/lib/client/strength";
-import { removeStrength, selectStrengthList, setStrengths } from "@/lib/redux/reducers/strength";
+import { getSection, SectionEnums } from "@/lib/redux/reducers/sections";
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Strength } from "@prisma/client";
 import { useEffect, useState } from "react";
 
 export default function({ initialItems: initialStrengths }: { initialItems?: Strength[] } = {}) {
-    const strengths = useAppSelector(selectStrengthList);
+    const { actions, selectors } = getSection(SectionEnums.strength);
+    const strengths = useAppSelector(selectors.selectItems);
     const dispatch = useAppDispatch();
     const [editing, setEditing] = useState(false);
     const [deleting, setDeleting] = useState(false);
@@ -15,7 +16,7 @@ export default function({ initialItems: initialStrengths }: { initialItems?: Str
     useEffect(() => {
         if (initialStrengths && !strengths) {
             console.log('setting strengths...');
-            dispatch(setStrengths(initialStrengths));
+            dispatch(actions.setItems(initialStrengths));
         }
     }, [initialStrengths])
 
@@ -23,7 +24,7 @@ export default function({ initialItems: initialStrengths }: { initialItems?: Str
         setDeleting(true);
         try {
             await deleteStrength(strength.id);
-            dispatch(removeStrength(strength.id));
+            dispatch(actions.removeItem(strength.id));
         } catch(error) {
             console.error(error);
         } finally {
@@ -32,7 +33,7 @@ export default function({ initialItems: initialStrengths }: { initialItems?: Str
     }
 
     const saveSortOrder = async(strengths: Strength[]) => {
-        dispatch(setStrengths(strengths));
+        dispatch(actions.setItems(strengths));
         await setSortOrders(strengths);
     }
 

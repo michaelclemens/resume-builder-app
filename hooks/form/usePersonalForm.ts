@@ -1,7 +1,7 @@
 "use client"
 
 import { addPersonal, updatePersonal } from "@/lib/client/personal";
-import { setPersonal } from "@/lib/redux/reducers/personal";
+import { getSection, SectionEnums } from "@/lib/redux/reducers/sections";
 import { useAppDispatch } from "@/lib/redux/store";
 import { handleErrorResponse, ResponseStatus } from "@/lib/response";
 import { PersonalSchema, PersonalSchemaType } from "@/types/form";
@@ -11,6 +11,7 @@ import { Personal } from "@prisma/client";
 import { useForm } from "react-hook-form";
 
 export default function(personal?: Personal) {
+    const { actions } = getSection(SectionEnums.personal);
     const dispatch = useAppDispatch();
     const form = useForm<PersonalSchemaType>({ 
         resolver: zodResolver(PersonalSchema), 
@@ -23,7 +24,7 @@ export default function(personal?: Personal) {
         const response = personal?.id ? await updatePersonal(personal.id, resumeId, formData) : await addPersonal(resumeId, formData);
 
         if (response.status === ResponseStatus.success) {
-            dispatch(setPersonal(response.payload.personal));
+            dispatch(actions.setItem(response.payload.personal));
         }
         if (response.status === ResponseStatus.error) {
             return handleErrorResponse(response, form.setError);

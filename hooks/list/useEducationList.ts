@@ -1,13 +1,14 @@
 "use client"
 
 import { deleteEducation, setSortOrders } from "@/lib/client/education";
-import { removeEducation, selectEducationList, setEducations } from "@/lib/redux/reducers/education";
+import { getSection, SectionEnums } from "@/lib/redux/reducers/sections"
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Education } from "@prisma/client";
 import { useEffect, useState } from "react";
 
 export default function({ initialItems: initialEducations }: { initialItems?: Education[] } = {}) {
-    const educations = useAppSelector(selectEducationList);
+    const { actions, selectors } = getSection(SectionEnums.education);
+    const educations = useAppSelector(selectors.selectItems);
     const dispatch = useAppDispatch();
     const [editing, setEditing] = useState(false);
     const [deleting, setDeleting] = useState(false);
@@ -15,7 +16,7 @@ export default function({ initialItems: initialEducations }: { initialItems?: Ed
     useEffect(() => {
         if (initialEducations && !educations) {
             console.log('setting education...');
-            dispatch(setEducations(initialEducations));
+            dispatch(actions.setItems(initialEducations));
         }
     }, [initialEducations])
 
@@ -23,7 +24,7 @@ export default function({ initialItems: initialEducations }: { initialItems?: Ed
         setDeleting(true);
         try {
             await deleteEducation(education.id);
-            dispatch(removeEducation(education.id));
+            dispatch(actions.removeItem(education.id));
         } catch(error) {
             console.error(error);
         } finally {
@@ -32,7 +33,7 @@ export default function({ initialItems: initialEducations }: { initialItems?: Ed
     }
 
     const saveSortOrder = async(educations: Education[]) => {
-        dispatch(setEducations(educations));
+        dispatch(actions.setItems(educations));
         await setSortOrders(educations);
     }
 

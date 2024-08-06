@@ -18,7 +18,7 @@ describe('useSkillListHook', () => {
         const { result, store } = renderHookWithProviders(() => useSkillList());
 
         expect(result.current.items).toEqual([]);
-        expect(store.getState().skill.skills).toBeNull();
+        expect(store.getState().skill.items).toBeNull();
     })
     it('Should store the initial items in state', () => {
         const { result, rerender, store } = renderHookWithProviders(({ initialItems }: { initialItems?: Skill[]}) => useSkillList({ initialItems }), {
@@ -26,14 +26,14 @@ describe('useSkillListHook', () => {
         });
         
         expect(result.current.items).toEqual(skills);
-        expect(store.getState().skill.skills).toEqual(skills);
+        expect(store.getState().skill.items).toEqual(skills);
 
         act(() => {
             rerender({ initialItems: createMultipleMockItems(createMockSkill, 3) })
         })
 
         expect(result.current.items).toEqual(skills);
-        expect(store.getState().skill.skills).toEqual(skills);
+        expect(store.getState().skill.items).toEqual(skills);
     })
     it('Should successfully remove an item', async () => {
         const { result, store } = renderHookWithProviders(() => useSkillList({ initialItems: skills }));
@@ -51,7 +51,7 @@ describe('useSkillListHook', () => {
         })
         
         expect(result.current.items.includes(deletedItem)).toBeFalsy();
-        expect(store.getState().skill.skills?.includes(deletedItem)).toBeFalsy();
+        expect(store.getState().skill.items?.includes(deletedItem)).toBeFalsy();
     })
     it('Should handle errors when removing an item', async () => {
         const error = new Error(faker.lorem.sentence());
@@ -68,7 +68,7 @@ describe('useSkillListHook', () => {
         })
 
         expect(result.current.items.includes(deletedItem)).toBeTruthy();
-        expect(store.getState().skill.skills?.includes(deletedItem)).toBeTruthy();
+        expect(store.getState().skill.items?.includes(deletedItem)).toBeTruthy();
     })
     it('Should return editing state', async () => {
         const { result } = renderHookWithProviders(() => useSkillList());
@@ -101,7 +101,7 @@ describe('useSkillListHook', () => {
 
         expect(result.current.items[2].order).toEqual(5);
         expect(result.current.items[4].order).toEqual(3);
-        expect(store.getState().skill.skills[2].order).toEqual(5);
-        expect(store.getState().skill.skills[4].order).toEqual(3);
+        expect(store.getState().skill.items[2].order).toEqual(5);
+        expect(store.getState().skill.items[4].order).toEqual(3);
     })
 })
