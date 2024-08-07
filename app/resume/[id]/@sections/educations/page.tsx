@@ -1,25 +1,22 @@
-import { Form } from "@/components/form";
-import { FormBodyEducation, ListItemEducation } from "@/components";
-import { List } from "@/components/list";
-import { useEducationList } from "@/hooks/list";
 import { getEducations } from "@/lib/client/education";
 import { Education } from "@prisma/client";
 import { EducationSchemaType } from "@/types/form";
-import { useEducationForm } from "@/hooks/form";
+import { SectionList } from "@/components/list";
+import { SectionForm } from "@/components/form";
+import { SectionEnums } from "@/types/section";
 
 export default async({ params: { id } }: { params: { id: string }}) => {
     const educations = await getEducations(id);
     return (
         <>
-            <List<Education>
-                useListHook={useEducationList} 
-                itemComponent={ListItemEducation} 
+            <SectionList<Education>
+                sectionType={SectionEnums.education}
                 initialItems={educations}
+                emptyText="No Educations"
             />
-            <Form<Education, EducationSchemaType>
+            <SectionForm<Education, EducationSchemaType>
+                sectionType={SectionEnums.education}
                 parentId={id}
-                useFormHook={useEducationForm}
-                formBody={FormBodyEducation}
             />
         </>
     )

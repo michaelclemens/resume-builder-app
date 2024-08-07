@@ -4,12 +4,13 @@ import prisma from "@/lib/prisma";
 import { EmploymentSchema, EmploymentSchemaType } from "@/types/form";
 import { Prisma } from "@prisma/client";
 import { IResponse, response, ResponseStatus } from "../response";
+import { SectionEnums } from "@/types/section";
 
 export type EmploymentWithHistory = Prisma.EmploymentGetPayload<{
     include: { history: true }
 }>
 
-type EmploymentPayload = { employment: EmploymentWithHistory }
+type EmploymentPayload = { [SectionEnums.employment]: EmploymentWithHistory }
 
 const createDataPayload = (resumeId: string, formData: EmploymentSchemaType) => {
     EmploymentSchema.parse(formData);
@@ -28,7 +29,7 @@ export async function getEmployments(resumeId: string) {
 export async function addEmployment(resumeId: string, formData: EmploymentSchemaType): Promise<IResponse<EmploymentPayload>> {
     try {
         const employment = await prisma.employment.create({ data: createDataPayload(resumeId, formData), include: { history: true }});
-        return response<EmploymentPayload>(ResponseStatus.success, { payload: { employment }});
+        return response<EmploymentPayload>(ResponseStatus.success, { payload: { [SectionEnums.employment]: employment }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
@@ -37,13 +38,13 @@ export async function addEmployment(resumeId: string, formData: EmploymentSchema
 export async function updateEmployment(id: string, resumeId: string, formData: EmploymentSchemaType): Promise<IResponse<EmploymentPayload>> {
     try {
         const employment = await prisma.employment.update({ where: { id }, data: createDataPayload(resumeId, formData), include: { history: true }});
-        return response<EmploymentPayload>(ResponseStatus.success, { payload: { employment }});
+        return response<EmploymentPayload>(ResponseStatus.success, { payload: { [SectionEnums.employment]: employment }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
 }
 
-export async function setSortOrders(employments: EmploymentWithHistory[]) {
+export async function setEmploymentSortOrders(employments: EmploymentWithHistory[]) {
     try {
         for (const employment of employments) {
             await prisma.employment.update({ where: { id: employment.id }, data: { order: employment.order }})

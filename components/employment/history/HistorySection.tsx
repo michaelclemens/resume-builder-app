@@ -4,13 +4,10 @@ import { ExpandableWrapper } from "@/components/util";
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { EmploymentHistory } from "@prisma/client";
-import { List } from "@/components/list";
-import { useEmploymentHistoryList } from "@/hooks/list";
-import { Form } from "@/components/form";
+import { SectionList } from "@/components/list";
+import { SectionForm } from "@/components/form";
 import { EmploymentHistorySchemaType } from "@/types/form";
-import { useEmploymentHistoryForm } from "@/hooks/form";
-import ListItemHistory from "./ListItemHistory";
-import FormBodyHistory from "./FormBodyHistory";
+import { SectionEnums } from "@/types/section";
 
 export default function HistorySection({ employmentId, histories }: { employmentId: string, histories: EmploymentHistory[] }) {
     const [open, setOpen] = useState(false);  
@@ -21,16 +18,14 @@ export default function HistorySection({ employmentId, histories }: { employment
                 <span className="ml-auto flex mr-2">{open ? <FaChevronUp title="Close" /> : <FaChevronDown title="Open" />}</span>
             </div>
             <ExpandableWrapper open={open}>
-                <List<EmploymentHistory> 
-                    useListHook={useEmploymentHistoryList} 
-                    itemComponent={ListItemHistory} 
+                <SectionList<EmploymentHistory> 
+                    sectionType={SectionEnums.employmentHistory}
                     initialItems={histories}
                     parentId={employmentId}
                 />
-                <Form<EmploymentHistory, EmploymentHistorySchemaType>
+                <SectionForm<EmploymentHistory, EmploymentHistorySchemaType>
+                    sectionType={SectionEnums.employmentHistory}
                     parentId={employmentId}
-                    useFormHook={useEmploymentHistoryForm}
-                    formBody={FormBodyHistory}
                 />
             </ExpandableWrapper>
         </div>

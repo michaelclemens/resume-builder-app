@@ -1,17 +1,15 @@
-import { FormBodyPersonal } from "@/components";
-import { Form } from "@/components/form";
-import { usePersonalForm } from "@/hooks/form";
+import { SectionForm } from "@/components/form";
 import { getPersonal } from "@/lib/client/personal";
 import { PersonalSchemaType } from "@/types/form";
+import { SectionEnums } from "@/types/section";
 import { Personal } from "@prisma/client";
 
 export default async ({ params: { id } }: { params: { id: string }}) => {
     const personal = await getPersonal(id);
     return (
-        <Form<Personal, PersonalSchemaType> 
+        <SectionForm<Personal, PersonalSchemaType> 
+            sectionType={SectionEnums.personal}
             parentId={id}
-            useFormHook={usePersonalForm}
-            formBody={FormBodyPersonal}
             item={personal ?? undefined}
         />
     )

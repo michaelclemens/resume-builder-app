@@ -1,5 +1,5 @@
 import { fireEvent, waitFor } from "@testing-library/react";
-import Form from "./Form"
+import Form from "./SectionForm"
 import { createMockStrength } from "@/test/mocks";
 import { useStrengthForm } from "@/hooks/form";
 import { updateStrength } from "@/lib/client/strength";

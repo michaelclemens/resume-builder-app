@@ -4,11 +4,10 @@ import { Education } from "@prisma/client";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { getDisplayDateFromDate } from "@/util/date";
 import { ExpandableWrapper } from "@/components/util";
-import { Form } from "../form";
+import { SectionForm } from "../form";
 import { EducationSchemaType } from "@/types/form";
-import { useEducationForm } from "@/hooks/form";
-import FormBodyEducation from "./FormBodyEducation";
 import { ItemComponentProps } from "@/types/hook";
+import { SectionEnums } from "@/types/section";
 
 export default function({ item: education, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Education>) {
     return (
@@ -26,10 +25,9 @@ export default function({ item: education, remove, setEditing, onSave, editing, 
                 <ListButton type="delete" onClick={async() => remove(education)} />
             </span>
             <ExpandableWrapper open={editing && !deleting}>
-                <Form<Education, EducationSchemaType> 
-                    parentId={education.resumeId} 
-                    useFormHook={useEducationForm}
-                    formBody={FormBodyEducation}
+                <SectionForm<Education, EducationSchemaType>
+                    sectionType={SectionEnums.education}
+                    parentId={education.resumeId}
                     item={education} 
                     onSave={onSave}
                 />

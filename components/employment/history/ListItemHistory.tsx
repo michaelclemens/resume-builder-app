@@ -4,11 +4,10 @@ import { EmploymentHistory } from "@prisma/client";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { getDisplayDateFromDate } from "@/util/date";
 import { ExpandableWrapper } from "@/components/util";
-import { Form } from "@/components/form";
-import { useEmploymentHistoryForm } from "@/hooks/form";
-import FormBodyHistory from "./FormBodyHistory";
+import { SectionForm } from "@/components/form";
 import { EmploymentHistorySchemaType } from "@/types/form";
 import { ItemComponentProps } from "@/types/hook";
+import { SectionEnums } from "@/types/section";
 
 export default function ({ item: history, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<EmploymentHistory>) {   
     return (
@@ -26,10 +25,9 @@ export default function ({ item: history, remove, setEditing, onSave, editing, d
                 <ListButton type="delete" onClick={async() => remove(history)}/>
             </span>
             <ExpandableWrapper open={editing && !deleting}>
-                <Form<EmploymentHistory, EmploymentHistorySchemaType>
+                <SectionForm<EmploymentHistory, EmploymentHistorySchemaType>
+                    sectionType={SectionEnums.employmentHistory}
                     parentId={history.employmentId} 
-                    useFormHook={useEmploymentHistoryForm}
-                    formBody={FormBodyHistory}
                     item={history} 
                     onSave={onSave}
                 />

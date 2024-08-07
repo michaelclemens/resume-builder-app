@@ -1,5 +1,6 @@
 import { FunctionComponent } from "react"
 import { FieldValues, UseFormReturn } from "react-hook-form"
+import { SectionType } from "./section"
 
 export type SortableItemType = {
     id: string,
@@ -27,9 +28,8 @@ export type BodyComponentProps<SchemaType extends FieldValues> = {
 }
 
 export type ListItemComponentProps<ItemType> = {
+    sectionType: SectionType
     item: ItemType
-    useListHook: UseListHookType<ItemType>
-    itemComponent: ItemComponentType<ItemType>
     parentId?: string
 }
 

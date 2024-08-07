@@ -4,8 +4,9 @@ import prisma from "@/lib/prisma";
 import { SkillSchema, SkillSchemaType } from "@/types/form";
 import { Skill } from "@prisma/client";
 import { IResponse, response, ResponseStatus } from "../response";
+import { SectionEnums } from "@/types/section";
 
-type SkillPayload = { skill: Skill }
+type SkillPayload = { [SectionEnums.skill]: Skill }
 
 const createDataPayload = (resumeId: string, formData: SkillSchemaType) => {
     SkillSchema.parse(formData);
@@ -24,7 +25,7 @@ export async function getSkills(resumeId: string) {
 export async function addSkill(resumeId: string, formData: SkillSchemaType): Promise<IResponse<SkillPayload>> {
     try {
         const skill = await prisma.skill.create({ data: createDataPayload(resumeId, formData) });
-        return response<SkillPayload>(ResponseStatus.success, { payload: { skill }});
+        return response<SkillPayload>(ResponseStatus.success, { payload: { [SectionEnums.skill]: skill }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
@@ -33,13 +34,13 @@ export async function addSkill(resumeId: string, formData: SkillSchemaType): Pro
 export async function updateSkill(id: string, resumeId: string, formData: SkillSchemaType): Promise<IResponse<SkillPayload>> {
     try {
         const skill = await prisma.skill.update({ where: { id }, data: createDataPayload(resumeId, formData) });
-        return response<SkillPayload>(ResponseStatus.success, { payload: { skill }});
+        return response<SkillPayload>(ResponseStatus.success, { payload: { [SectionEnums.skill]: skill }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
 }
 
-export async function setSortOrders(skills: Skill[]) {
+export async function setSkillSortOrders(skills: Skill[]) {
     try {
         for (const skill of skills) {
             await prisma.skill.update({ where: { id: skill.id }, data: { order: skill.order }})

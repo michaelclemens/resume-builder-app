@@ -1,12 +1,13 @@
 import { RenderHtml } from "@/components/util";
-import { useEducationList } from "@/hooks/list";
+import { useSectionList } from "@/hooks";
+import { SectionEnums } from "@/types/section";
 import { sortByOrder } from "@/util/sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Education } from "@prisma/client"
 
 export default ({ educations: initialEducations }: { educations: Education[] }) => {
     const [animationParent] = useAutoAnimate();
-    const { items: educations } = useEducationList({ initialItems: initialEducations });
+    const { items: educations } = useSectionList(SectionEnums.education, { initialItems: initialEducations });
 
     if (!educations || !educations.length) return;
     

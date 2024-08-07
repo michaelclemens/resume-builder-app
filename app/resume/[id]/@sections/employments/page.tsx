@@ -1,24 +1,21 @@
-import { Form } from "@/components/form"
-import { FormBodyEmployment, ListItemEmployment } from "@/components";
-import { List } from "@/components/list";
-import { useEmploymentList } from "@/hooks/list";
 import { EmploymentWithHistory, getEmployments } from "@/lib/client/employment"
 import { EmploymentSchemaType } from "@/types/form";
-import { useEmploymentForm } from "@/hooks/form";
+import { SectionList } from "@/components/list";
+import { SectionForm } from "@/components/form";
+import { SectionEnums } from "@/types/section";
 
 export default async({ params: { id } }: { params: { id: string }}) => {
     const employments = await getEmployments(id);
     return (
         <>
-            <List<EmploymentWithHistory>
-                useListHook={useEmploymentList} 
-                itemComponent={ListItemEmployment} 
+            <SectionList<EmploymentWithHistory>
+                sectionType={SectionEnums.employment}
                 initialItems={employments}
+                emptyText="No Employments"
             />
-            <Form<EmploymentWithHistory, EmploymentSchemaType>
+            <SectionForm<EmploymentWithHistory, EmploymentSchemaType>
+                sectionType={SectionEnums.employment}
                 parentId={id}
-                useFormHook={useEmploymentForm}
-                formBody={FormBodyEmployment}
             />
         </>
     )

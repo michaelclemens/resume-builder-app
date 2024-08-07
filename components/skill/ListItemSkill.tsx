@@ -4,10 +4,9 @@ import { Skill } from "@prisma/client";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { ExpandableWrapper } from '@/components/util';
 import { SkillSchemaType } from "@/types/form";
-import { Form } from "../form";
-import { useSkillForm } from "@/hooks/form";
-import FormBodySkill from "./FormBodySkill";
+import { SectionForm } from "../form";
 import { ItemComponentProps } from "@/types/hook";
+import { SectionEnums } from "@/types/section";
 
 export default function({ item: skill, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Skill>) {
     return (
@@ -19,10 +18,9 @@ export default function({ item: skill, remove, setEditing, onSave, editing, dele
                 <ListButton type="delete" onClick={async() => remove(skill)} />
             </span>
             <ExpandableWrapper open={editing && !deleting}>
-                <Form<Skill, SkillSchemaType>
+                <SectionForm<Skill, SkillSchemaType>
+                    sectionType={SectionEnums.skill}
                     parentId={skill.resumeId} 
-                    useFormHook={useSkillForm} 
-                    formBody={FormBodySkill}
                     item={skill} 
                     onSave={onSave}
                 />

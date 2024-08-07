@@ -1,25 +1,21 @@
-import { Form } from "@/components/form";
-import { List } from "@/components/list";
-import { FormBodyStrength, ListItemStrength } from "@/components";
-import { useStrengthForm } from "@/hooks/form";
-import { useStrengthList } from "@/hooks/list";
 import { getStrengths } from "@/lib/client/strength";
 import { StrengthSchemaType } from "@/types/form";
 import { Strength } from "@prisma/client";
+import { SectionList } from "@/components/list";
+import { SectionForm } from "@/components/form";
+import { SectionEnums } from "@/types/section";
 
 export default async ({ params: { id } }: { params: { id: string }}) => {
     const strengths = await getStrengths(id);
     return (
         <>
-            <List<Strength>
-                useListHook={useStrengthList} 
-                itemComponent={ListItemStrength} 
+            <SectionList<Strength>
+                sectionType={SectionEnums.strength}
                 initialItems={strengths}
             />
-            <Form<Strength, StrengthSchemaType> 
+            <SectionForm<Strength, StrengthSchemaType> 
+                sectionType={SectionEnums.strength}
                 parentId={id} 
-                useFormHook={useStrengthForm} 
-                formBody={FormBodyStrength} 
             />
         </>
     )

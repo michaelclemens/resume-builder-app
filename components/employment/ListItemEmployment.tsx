@@ -4,11 +4,10 @@ import { EmploymentWithHistory } from "@/lib/client/employment";
 import HistorySection from "./history/HistorySection";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { ExpandableWrapper } from "@/components/util";
-import { Form } from "../form";
+import { SectionForm } from "../form";
 import { EmploymentSchemaType } from "@/types/form";
-import { useEmploymentForm } from "@/hooks/form";
-import FormBodyEmployment from "./FormBodyEmployment";
 import { ItemComponentProps } from "@/types/hook";
+import { SectionEnums } from "@/types/section";
 
 export default function ListItemEmployment({ item: employment, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<EmploymentWithHistory>) {
     return (
@@ -21,10 +20,9 @@ export default function ListItemEmployment({ item: employment, remove, setEditin
                 <ListButton type="delete" onClick={async() => remove(employment)} />
             </span>
             <ExpandableWrapper open={editing && !deleting}>
-                <Form<EmploymentWithHistory, EmploymentSchemaType>
+                <SectionForm<EmploymentWithHistory, EmploymentSchemaType>
+                    sectionType={SectionEnums.employment}
                     parentId={employment.resumeId}
-                    useFormHook={useEmploymentForm}
-                    formBody={FormBodyEmployment}
                     item={employment} 
                     onSave={onSave}
                 />

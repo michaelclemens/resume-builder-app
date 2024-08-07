@@ -1,11 +1,10 @@
 import { ResumeFull } from "@/lib/client/resume"
-import { Details, Education, EmploymentHistory, Experience, Header, Profile, Strengths } from "./default";
+import { Details, Education, Employment, Experience, Header, Profile, Strengths } from "./default";
 import { Montserrat } from "next/font/google";
 import ColourPicker from "../ColourPicker";
 import { ColourElements, ColourElementType, TemplateOptions } from "@/types/template";
 
 const montserrat = Montserrat({ subsets: ['latin'], display: 'swap' });
-
 const defaults = {[ColourElements.background]: '#f4f4f4', [ColourElements.text]: '#000'};
 
 export default (
@@ -14,8 +13,7 @@ export default (
 ) => (
     <div className={`flex flex-col bg-white text-[6.5pt] min-h-screen h-full ${montserrat.className}`}>
         <Header personal={personal} />
-        <div className="flex gap-x-7 min-h-screen h-full">
-            
+        <div className="flex gap-x-7 min-h-screen h-full">      
             <ColourPicker 
                 templateOptions={templateOptions as TemplateOptions} 
                 defaults={defaults}
@@ -30,7 +28,7 @@ export default (
             </ColourPicker>
             <div className="w-4/6 pr-14 pt-52 bg-white pb-5">
                 <Profile personal={personal} />
-                <EmploymentHistory employments={employments} />
+                <Employment employments={employments} />
                 <Education educations={educations} />
             </div>
         </div>

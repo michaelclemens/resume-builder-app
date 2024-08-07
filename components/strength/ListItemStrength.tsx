@@ -4,11 +4,10 @@ import { Strength } from "@prisma/client";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { ExpandableWrapper } from "@/components/util";
 import { ButtonType } from "@/types/list";
-import { useStrengthForm } from "@/hooks/form";
-import { Form } from "@/components/form";
+import { SectionForm } from "@/components/form";
 import { StrengthSchemaType } from "@/types/form";
 import { ItemComponentProps } from "@/types/hook";
-import FormBodyStrength from "./FormBodyStrength";
+import { SectionEnums } from "@/types/section";
 
 export default function({ item: strength, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Strength>) {
     return (
@@ -20,10 +19,9 @@ export default function({ item: strength, remove, setEditing, onSave, editing, d
                 <ListButton type={ButtonType.delete} onClick={async() => remove(strength)} />
             </span>
             <ExpandableWrapper open={editing && !deleting}>
-                <Form<Strength, StrengthSchemaType>
+                <SectionForm<Strength, StrengthSchemaType>
+                    sectionType={SectionEnums.strength}
                     parentId={strength.resumeId}  
-                    useFormHook={useStrengthForm}
-                    formBody={FormBodyStrength}
                     item={strength}
                     onSave={onSave} 
                 />

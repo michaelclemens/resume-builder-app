@@ -5,8 +5,9 @@ import { EmploymentHistorySchema, EmploymentHistorySchemaType } from "@/types/fo
 import { EmploymentHistory } from "@prisma/client";
 import { sanitize } from "isomorphic-dompurify";
 import { IResponse, response, ResponseStatus } from "../response";
+import { SectionEnums } from "@/types/section";
 
-type HistoryPayload = { history: EmploymentHistory }
+type HistoryPayload = { [SectionEnums.employmentHistory]: EmploymentHistory }
 
 const createDataPayload = (employmentId: string, formData: EmploymentHistorySchemaType) => {
     EmploymentHistorySchema.parse(formData);
@@ -22,7 +23,7 @@ const createDataPayload = (employmentId: string, formData: EmploymentHistorySche
 export async function addEmploymentHistory(employmentId: string, formData: EmploymentHistorySchemaType): Promise<IResponse<HistoryPayload>> {
     try {
         const history = await prisma.employmentHistory.create({ data: createDataPayload(employmentId, formData) });
-        return response<HistoryPayload>(ResponseStatus.success, { payload: { history }});
+        return response<HistoryPayload>(ResponseStatus.success, { payload: { [SectionEnums.employmentHistory]: history }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
@@ -31,13 +32,13 @@ export async function addEmploymentHistory(employmentId: string, formData: Emplo
 export async function updateEmploymentHistory(id: string, employmentId: string, formData: EmploymentHistorySchemaType): Promise<IResponse<HistoryPayload>> {
     try {
         const history = await prisma.employmentHistory.update({ where: { id }, data: createDataPayload(employmentId, formData) });
-        return response<HistoryPayload>(ResponseStatus.success, { payload: { history }});
+        return response<HistoryPayload>(ResponseStatus.success, { payload: { [SectionEnums.employmentHistory]: history }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
 }
 
-export async function setSortOrders(histories: EmploymentHistory[]) {
+export async function setEmploymentHistorySortOrders(histories: EmploymentHistory[]) {
     try {
         for (const history of histories) {
             await prisma.employmentHistory.update({ where: { id: history.id }, data: { order: history.order }})

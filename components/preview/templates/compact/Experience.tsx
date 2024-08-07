@@ -1,11 +1,12 @@
-import { useSkillList } from "@/hooks/list";
+import { useSectionList } from "@/hooks";
+import { SectionEnums } from "@/types/section";
 import { sortByOrder } from "@/util/sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Skill } from "@prisma/client"
 
 export default ({ skills: initialSkills, oswaldClassName }: { skills: Skill[] }) => {
     const [animationParent] = useAutoAnimate();
-    const { items: skills } = useSkillList({ initialItems: initialSkills });
+    const { items: skills } = useSectionList(SectionEnums.skill, { initialItems: initialSkills });
 
     if (!skills || !skills.length) return;
     

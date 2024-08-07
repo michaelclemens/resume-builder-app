@@ -1,11 +1,12 @@
-import { useStrengthList } from "@/hooks/list";
+import { useSectionList } from "@/hooks";
+import { SectionEnums } from "@/types/section";
 import { sortByOrder } from "@/util/sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Strength } from "@prisma/client"
 
 export default ({ strengths: initialStrengths }: { strengths: Strength[] }) => {
     const [animationParent] = useAutoAnimate();
-    const { items: strengths } = useStrengthList({ initialItems: initialStrengths });
+    const { items: strengths } = useSectionList(SectionEnums.strength, { initialItems: initialStrengths });
 
     if (!strengths || !strengths.length) return;
 

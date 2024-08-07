@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react"
-import List, { defaultEmptyMessage } from "./List"
+import List, { defaultEmptyMessage } from "./SectionList"
 import { SortableItemType } from "@/types/hook";
-import ListItem from "./ListItem";
+import ListItem from "./SectionListItem";
 import { faker } from "@faker-js/faker";
 import { createMockHistory, createMockStrength, createMultipleMockItems } from "@/test/mocks";
 import { EmploymentHistory, Strength } from "@prisma/client";
