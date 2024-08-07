@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker"
 import ErrorMessage from "./ErrorMessage";
 import { render } from "@testing-library/react";
 
-describe('Form/ErrorMessageComponent', () => {
+describe('ErrorMessageComponent', () => {
     it('Should render the error message', () => {
         const message = faker.lorem.sentence();
 

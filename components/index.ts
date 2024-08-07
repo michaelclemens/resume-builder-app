@@ -1,6 +1,3 @@
-export { default as ListResumes } from "./resume/ListResumes";
-export { default as ResumePreview } from "./resume/ResumePreview";
-
 export { default as FormBodyPersonal } from './personal/FormBodyPersonal';
 export { default as FormBodyEducation } from "./education/FormBodyEducation";
 export { default as ListItemEducation } from "./education/ListItemEducation";

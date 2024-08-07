@@ -1,6 +1,6 @@
 import { createMockHistory, createMultipleMockItems } from "@/test/mocks";
 import { prismaMock } from "@/test/prisma";
-import { addEmploymentHistory, deleteEmploymentHistory, setSortOrders, updateEmploymentHistory } from "./employmentHistory";
+import { addEmploymentHistory, deleteEmploymentHistory, setEmploymentHistorySortOrders, updateEmploymentHistory } from "./employmentHistory";
 import { faker } from "@faker-js/faker";
 import { response, ResponseStatus } from "../response";
 import { EmploymentHistory } from "@prisma/client";
@@ -29,7 +29,7 @@ describe('EmploymentHistoryClient', () => {
         
         prismaMock.employmentHistory.create.mockResolvedValueOnce(history);
 
-        const res = response(ResponseStatus.success, { payload: { history }});
+        const res = response(ResponseStatus.success, { payload: { employmentHistory: history }});
         await expect(addEmploymentHistory(history.employmentId, getFormData(history))).resolves.toEqual(res);
         expect(prismaMock.employmentHistory.create).toHaveBeenCalledWith({ data: getDbData(history)});
     })
@@ -47,7 +47,7 @@ describe('EmploymentHistoryClient', () => {
         
         prismaMock.employmentHistory.update.mockResolvedValueOnce(history);
 
-        const res = response(ResponseStatus.success, { payload: { history }});
+        const res = response(ResponseStatus.success, { payload: { employmentHistory: history }});
         await expect(updateEmploymentHistory(history.id, history.employmentId, getFormData(history))).resolves.toEqual(res);
         expect(prismaMock.employmentHistory.update).toHaveBeenCalledWith({
             where: { id: history.id },
@@ -69,7 +69,7 @@ describe('EmploymentHistoryClient', () => {
         histories[1] = {...histories[1], order: 5}
         histories[4] = {...histories[4], order: 2}
 
-        await setSortOrders(histories);
+        await setEmploymentHistorySortOrders(histories);
 
         expect(prismaMock.employmentHistory.update).toHaveBeenNthCalledWith(2, {
             where: { id: histories[1].id },
@@ -86,7 +86,7 @@ describe('EmploymentHistoryClient', () => {
         
         prismaMock.employmentHistory.update.mockRejectedValueOnce(error);
 
-        await setSortOrders(historys);
+        await setEmploymentHistorySortOrders(historys);
         expect(console.error).toHaveBeenCalledWith(error);
     })
     it('Should delete a history', async () => {

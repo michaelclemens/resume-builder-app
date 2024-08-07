@@ -1,6 +1,6 @@
 import { createMockEmploymentWithHistory, createMultipleMockItems } from "@/test/mocks";
 import { prismaMock } from "@/test/prisma";
-import { addEmployment, deleteEmployment, getEmployments, setSortOrders, updateEmployment } from "./employment";
+import { addEmployment, deleteEmployment, getEmployments, setEmploymentSortOrders, updateEmployment } from "./employment";
 import { faker } from "@faker-js/faker";
 import { response, ResponseStatus } from "../response";
 import { Employment } from "@prisma/client";
@@ -83,7 +83,7 @@ describe('EmploymentClient', () => {
         employments[1] = {...employments[1], order: 5}
         employments[4] = {...employments[4], order: 2}
 
-        await setSortOrders(employments);
+        await setEmploymentSortOrders(employments);
 
         expect(prismaMock.employment.update).toHaveBeenNthCalledWith(2, {
             where: { id: employments[1].id },
@@ -100,7 +100,7 @@ describe('EmploymentClient', () => {
         
         prismaMock.employment.update.mockRejectedValueOnce(error);
 
-        await setSortOrders(employments);
+        await setEmploymentSortOrders(employments);
         expect(console.error).toHaveBeenCalledWith(error);
     })
     it('Should delete a employment', async () => {

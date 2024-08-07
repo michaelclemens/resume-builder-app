@@ -2,14 +2,16 @@ import { fireEvent, render, waitFor } from "@testing-library/react";
 import ListItemStrength from "./ListItemStrength";
 import { createMockStrength } from "@/test/mocks";
 import { ButtonType } from "@/types/list";
-import { Form } from "../form";
+import { SectionForm } from "../form";
+import { SectionEnums } from "@/types/section";
 
-jest.mock('@/components/form/Form');
+jest.mock('@/components/form/SectionForm');
 jest.mock('@/components/list/LoadingOverlay', () => () => <div>Loading</div>)
 
 const remove = jest.fn();
 const setEditing = jest.fn();
 const onSave = jest.fn();
+const mockSectionForm = jest.mocked(SectionForm);
 
 const strength = createMockStrength();
 
@@ -54,16 +56,15 @@ describe('ListItemStrengthComponent', () => {
     it('Should show form when editing', () => {
         const { rerender, getByTitle } = renderComponent();
 
-        expect(Form).not.toHaveBeenCalled();
+        expect(mockSectionForm).not.toHaveBeenCalled();
 
         fireEvent.click(getByTitle(new RegExp(ButtonType.edit, 'i')));
         rerender(getListItemComponent({ editing: true }));
 
         expect(setEditing).toHaveBeenCalledWith(true);
-        expect(Form).toHaveBeenCalledWith({ 
+        expect(mockSectionForm).toHaveBeenCalledWith({ 
+            sectionType: SectionEnums.strength,
             parentId: strength.resumeId, 
-            useFormHook: expect.any(Function),
-            formBody: expect.any(Function),
             item: strength,
             onSave
         }, expect.anything());

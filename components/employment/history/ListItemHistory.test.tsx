@@ -1,16 +1,18 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { createMockHistory } from "@/test/mocks";
 import { ButtonType } from "@/types/list";
-import { Form } from "../../form";
+import { SectionForm } from "../../form";
 import { getDisplayDateFromDate } from "@/util/date";
 import ListItemHistory from "./ListItemHistory";
+import { SectionEnums } from "@/types/section";
 
-jest.mock('@/components/form/Form');
+jest.mock('@/components/form/SectionForm');
 jest.mock('@/components/list/LoadingOverlay', () => () => <div>Loading</div>)
 
 const remove = jest.fn();
 const setEditing = jest.fn();
 const onSave = jest.fn();
+const mockSectionForm = jest.mocked(SectionForm);
 
 const history = createMockHistory();
 
@@ -58,16 +60,15 @@ describe('ListItemHistoryComponent', () => {
     it('Should show form when editing', () => {
         const { rerender, getByTitle } = renderComponent();
 
-        expect(Form).not.toHaveBeenCalled();
+        expect(mockSectionForm).not.toHaveBeenCalled();
 
         fireEvent.click(getByTitle(new RegExp(ButtonType.edit, 'i')));
         rerender(getListItemComponent({ editing: true }));
 
         expect(setEditing).toHaveBeenCalledWith(true);
-        expect(Form).toHaveBeenCalledWith({ 
+        expect(mockSectionForm).toHaveBeenCalledWith({ 
+            sectionType: SectionEnums.employmentHistory,
             parentId: history.employmentId, 
-            useFormHook: expect.any(Function),
-            formBody: expect.any(Function),
             item: history,
             onSave
         }, expect.anything());

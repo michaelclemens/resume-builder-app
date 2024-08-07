@@ -1,4 +1,4 @@
-import { FormBodyEducation, FormBodyEmployment, FormBodyHistory, FormBodyPersonal, FormBodySkill, FormBodyStrength, ListItemEducation, ListItemEmployment, ListItemHistory, ListItemSkill, ListItemStrength } from "@/components";
+import { FormBodyEducation, FormBodyEmployment, FormBodyHistory, FormBodyPersonal, FormBodySkill, FormBodyStrength, ListItemEducation, ListItemEmployment, ListItemHistory, ListItemSkill, ListItemStrength } from "../components";
 import { getClientSection } from "../lib/client/section";
 import { getStateSection } from "../lib/redux/reducers/section";
 import { BodyComponentType, ItemComponentType } from "@/types/hook";

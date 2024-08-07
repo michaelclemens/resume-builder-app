@@ -1,6 +1,6 @@
 import { createMockStrength, createMultipleMockItems } from "@/test/mocks";
 import { prismaMock } from "@/test/prisma";
-import { addStrength, deleteStrength, getStrengths, setSortOrders, updateStrength } from "./strength";
+import { addStrength, deleteStrength, getStrengths, setStrengthSortOrders, updateStrength } from "./strength";
 import { faker } from "@faker-js/faker";
 import { response, ResponseStatus } from "../response";
 
@@ -74,7 +74,7 @@ describe('StrengthClient', () => {
         strengths[1] = {...strengths[1], order: 5}
         strengths[4] = {...strengths[4], order: 2}
 
-        await setSortOrders(strengths);
+        await setStrengthSortOrders(strengths);
 
         expect(prismaMock.strength.update).toHaveBeenNthCalledWith(2, {
             where: { id: strengths[1].id },
@@ -91,7 +91,7 @@ describe('StrengthClient', () => {
         
         prismaMock.strength.update.mockRejectedValueOnce(error);
 
-        await setSortOrders(strengths);
+        await setStrengthSortOrders(strengths);
         expect(console.error).toHaveBeenCalledWith(error);
     })
     it('Should delete a strength', async () => {

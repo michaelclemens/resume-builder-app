@@ -1,17 +1,23 @@
 import { fireEvent, waitFor } from "@testing-library/react";
-import Form from "./SectionForm"
 import { createMockStrength } from "@/test/mocks";
-import { useStrengthForm } from "@/hooks/form";
 import { updateStrength } from "@/lib/client/strength";
 import { ResponseStatus } from "@/lib/response";
 import { renderWithProviders } from "@/test/redux";
 import { faker } from "@faker-js/faker";
 import { Strength } from "@prisma/client";
+import SectionForm from "./SectionForm";
+import { SectionEnums, SectionType } from "@/types/section";
+import { getSectionFormBodyComponent } from "@/util/section";
 
 jest.mock('@/lib/client/strength');
+jest.mock('@/util/section', (() => ({
+    ...jest.requireActual('@/util/section'),
+    getSectionFormBodyComponent: jest.fn()
+})));
 
+const FormBodyComponent = jest.fn();
 const mockUpdateStrength = jest.mocked(updateStrength);
-const formBody = jest.fn();
+jest.mocked(getSectionFormBodyComponent).mockReturnValue(( FormBodyComponent ));
 const onSave = jest.fn();
 
 const createSuccessResponseReturn = async (strength: Strength) => Promise.resolve(({ 
@@ -19,36 +25,34 @@ const createSuccessResponseReturn = async (strength: Strength) => Promise.resolv
     payload: { strength }
 }))
 
-function renderComponent({ parentId, useFormHook, item }: { parentId: string, useFormHook: any, item?: Strength }) {
+function renderComponent(
+    { sectionType = SectionEnums.strength, parentId, item, preloadedState }: 
+    { sectionType?: SectionType, parentId: string, item?: Strength, preloadedState?: any }
+) {
     return (renderWithProviders(
-        <Form
+        <SectionForm
+            sectionType={sectionType}
             parentId={parentId}
-            useFormHook={useFormHook}
-            formBody={formBody}
             item={item}
             onSave={onSave}
-        />
-    ))
+        />, { preloadedState })
+    )
 }
 describe('FormComponent', () => {
     it('Should render the body component for a create form', async () => {
         const resumeId = faker.string.alphanumeric({ length: 5 });
-        renderComponent({ 
-            parentId: resumeId,
-            useFormHook: useStrengthForm
-        })
+        renderComponent({ parentId: resumeId })
 
-        expect(formBody).toHaveBeenCalledWith(expect.objectContaining({ editing: false }), expect.anything());
+        expect(FormBodyComponent).toHaveBeenCalledWith(expect.objectContaining({ editing: false }), expect.anything());
     })
     it('Should render the body component for an update form', async () => {
         const strength = createMockStrength();
         renderComponent({ 
             parentId: strength.resumeId,
             item: strength,
-            useFormHook: useStrengthForm
         })
 
-        expect(formBody).toHaveBeenCalledWith(expect.objectContaining({ editing: true }), expect.anything());
+        expect(FormBodyComponent).toHaveBeenCalledWith(expect.objectContaining({ editing: true }), expect.anything());
     })
     it('Should call onSave on successful update form submission', async () => {
         const strength = createMockStrength();
@@ -57,7 +61,7 @@ describe('FormComponent', () => {
         const { getByRole } = renderComponent({ 
             parentId: strength.resumeId, 
             item: strength, 
-            useFormHook: useStrengthForm
+            preloadedState: { strength: [strength] }
         })
 
         expect(onSave).not.toHaveBeenCalled();

@@ -24,6 +24,8 @@ export default function<SchemaType extends FieldValues, ItemType>(
     const save = async(parentId: string, formData: SchemaType, onSave: () => void) => {
         const response = editing ? await client.actions.updateItem(item.id, parentId, formData) : await client.actions.addItem(parentId, formData);
 
+        console.log(response);
+
         if (response.status === ResponseStatus.success) {
             const item = response.payload[sectionType];
             dispatch(editing ? state.actions.updateItem(item) : state.actions.addItem(item));

@@ -1,24 +1,27 @@
 import { render } from "@testing-library/react"
-import List, { defaultEmptyMessage } from "./SectionList"
 import { SortableItemType } from "@/types/hook";
-import ListItem from "./SectionListItem";
 import { faker } from "@faker-js/faker";
 import { createMockHistory, createMockStrength, createMultipleMockItems } from "@/test/mocks";
 import { EmploymentHistory, Strength } from "@prisma/client";
+import { SectionEnums, SectionType } from "@/types/section";
+import SectionList, { defaultEmptyMessage } from "./SectionList";
+import SectionListItem from "./SectionListItem";
+import { renderWithProviders } from "@/test/redux";
 
-jest.mock('@/components/list/ListItem');
+jest.mock('@/components/list/SectionListItem');
 
-const useListHook = jest.fn();
-const itemComponent = jest.fn();
+const useSectionListHook = jest.fn();
 const saveSortOrder = jest.fn();
-const mockListItem = jest.mocked(ListItem);
+const mockSectionListItem = jest.mocked(SectionListItem);
 
-function renderComponent<ItemType extends SortableItemType>({ initialItems = [], parentId, emptyText }: { initialItems?: ItemType[], parentId?: string, emptyText?: string } = {}) {
-    useListHook.mockImplementation(({ initialItems }) => ({ items: initialItems, saveSortOrder }))
-    return (render(
-        <List
-            useListHook={useListHook}
-            itemComponent={itemComponent}
+function renderComponent<ItemType extends SortableItemType>(
+    { sectionType = SectionEnums.employment, initialItems = [], parentId, emptyText }: 
+    { sectionType?: SectionType, initialItems?: ItemType[], parentId?: string, emptyText?: string } = {}
+) {
+    useSectionListHook.mockImplementation(({ initialItems }) => ({ items: initialItems, saveSortOrder }))
+    return (renderWithProviders(
+        <SectionList
+            sectionType={sectionType}
             initialItems={initialItems}
             parentId={parentId}
             emptyText={emptyText}
@@ -26,31 +29,30 @@ function renderComponent<ItemType extends SortableItemType>({ initialItems = [],
     ))
 }
 
-describe('ListComponent', () => {
+describe('SectionListComponent', () => {
     it('Should render a default empty message', () => {
         const { getByText } = renderComponent();
 
         expect(getByText(defaultEmptyMessage)).toBeInTheDocument();
-        expect(mockListItem).not.toHaveBeenCalled();
+        expect(mockSectionListItem).not.toHaveBeenCalled();
     })
     it('Should render a custom empty message', () => {
         const emptyText = faker.lorem.sentence();
         const { getByText } = renderComponent({ emptyText });
 
         expect(getByText(emptyText)).toBeInTheDocument();
-        expect(mockListItem).not.toHaveBeenCalled();
+        expect(mockSectionListItem).not.toHaveBeenCalled();
     })
     it('Should render a list of items', () => {
         const strengths = createMultipleMockItems(createMockStrength, 5);
-        const { queryByText } = renderComponent<Strength>({ initialItems: strengths });
+        const { queryByText } = renderComponent<Strength>({ sectionType: SectionEnums.strength, initialItems: strengths });
 
         expect(queryByText(defaultEmptyMessage)).not.toBeInTheDocument();
 
         strengths.forEach((strength, index) => (
-            expect(mockListItem).toHaveBeenNthCalledWith(index + 1, {
+            expect(mockSectionListItem).toHaveBeenNthCalledWith(index + 1, {
+                sectionType: SectionEnums.strength,
                 item: strength,
-                useListHook,
-                itemComponent,
                 parentId: undefined
             }, expect.anything())
         ))
@@ -58,13 +60,12 @@ describe('ListComponent', () => {
     it('Should pass any parentId to the list item', () => {
         const histories = createMultipleMockItems(createMockHistory, 3);
         const employmentId = histories[0].employmentId;
-        renderComponent<EmploymentHistory>({ initialItems: histories, parentId: employmentId });
+        renderComponent<EmploymentHistory>({ sectionType: SectionEnums.employmentHistory, initialItems: histories, parentId: employmentId });
 
         histories.forEach((history, index) => (
-            expect(mockListItem).toHaveBeenNthCalledWith(index + 1, {
+            expect(mockSectionListItem).toHaveBeenNthCalledWith(index + 1, {
+                sectionType: SectionEnums.employmentHistory,
                 item: history,
-                useListHook,
-                itemComponent,
                 parentId: employmentId
             }, expect.anything())
         ))

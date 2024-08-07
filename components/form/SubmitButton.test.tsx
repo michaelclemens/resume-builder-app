@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker"
 import SubmitButton from "./SubmitButton";
 import { render, screen } from "@testing-library/react";
 
-describe('Form/SubmitButtonComponent', () => {
+describe('SubmitButtonComponent', () => {
     it('Should render a submit button', () => {
         const label = faker.lorem.word();
 

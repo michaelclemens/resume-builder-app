@@ -1,6 +1,6 @@
 import { createMockSkill, createMultipleMockItems } from "@/test/mocks";
 import { prismaMock } from "@/test/prisma";
-import { addSkill, deleteSkill, getSkills, setSortOrders, updateSkill } from "./skill";
+import { addSkill, deleteSkill, getSkills, setSkillSortOrders, updateSkill } from "./skill";
 import { faker } from "@faker-js/faker";
 import { response, ResponseStatus } from "../response";
 
@@ -74,7 +74,7 @@ describe('SkillClient', () => {
         skills[1] = {...skills[1], order: 5}
         skills[4] = {...skills[4], order: 2}
 
-        await setSortOrders(skills);
+        await setSkillSortOrders(skills);
 
         expect(prismaMock.skill.update).toHaveBeenNthCalledWith(2, {
             where: { id: skills[1].id },
@@ -91,7 +91,7 @@ describe('SkillClient', () => {
         
         prismaMock.skill.update.mockRejectedValueOnce(error);
 
-        await setSortOrders(skills);
+        await setSkillSortOrders(skills);
         expect(console.error).toHaveBeenCalledWith(error);
     })
     it('Should delete a skill', async () => {

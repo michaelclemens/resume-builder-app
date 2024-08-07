@@ -1,6 +1,6 @@
 import { createMockEducation, createMultipleMockItems } from "@/test/mocks";
 import { prismaMock } from "@/test/prisma";
-import { addEducation, deleteEducation, getEducations, setSortOrders, updateEducation } from "./education";
+import { addEducation, deleteEducation, getEducations, setEducationSortOrders, updateEducation } from "./education";
 import { faker } from "@faker-js/faker";
 import { response, ResponseStatus } from "../response";
 import { getDateFromDisplayDate, getDisplayDateFromDate } from "@/util/date";
@@ -91,7 +91,7 @@ describe('EducationClient', () => {
         educations[1] = {...educations[1], order: 5}
         educations[4] = {...educations[4], order: 2}
 
-        await setSortOrders(educations);
+        await setEducationSortOrders(educations);
 
         expect(prismaMock.education.update).toHaveBeenNthCalledWith(2, {
             where: { id: educations[1].id },
@@ -108,7 +108,7 @@ describe('EducationClient', () => {
         
         prismaMock.education.update.mockRejectedValueOnce(error);
 
-        await setSortOrders(educations);
+        await setEducationSortOrders(educations);
         expect(console.error).toHaveBeenCalledWith(error);
     })
     it('Should delete a education', async () => {

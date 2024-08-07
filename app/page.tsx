@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Loading from "@/app/loading";
-import { ListResumes } from "@/components";
 import { createResumeAction } from "@/lib/client/resume";
+import ListResumes from "@/components/resume/ListResumes";
 
 export default function Home() {
   return (

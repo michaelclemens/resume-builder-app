@@ -1,5 +1,4 @@
-
-import { ResumePreview } from "@/components";
+import ResumePreview from "@/components/resume/ResumePreview";
 import { getResumeFull } from "@/lib/client/resume";
 
 export default async({ params: { id }}: { params: { id: string }}) => {
