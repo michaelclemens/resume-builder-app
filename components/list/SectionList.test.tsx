@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react"
 import { SortableItemType } from "@/types/hook";
 import { faker } from "@faker-js/faker";
 import { createMockHistory, createMockStrength, createMultipleMockItems } from "@/test/mocks";

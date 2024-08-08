@@ -3,9 +3,10 @@ import { createMockHistory, renderFormBody } from "@/test/mocks";
 import { EmploymentHistory } from "@prisma/client";
 import { EmploymentHistorySchema } from "@/types/form";
 import { getDisplayDateFromDate } from "@/util/date";
-import { getDefaultValuesEmploymentHistory, richTextEditorClassName } from "@/util/form";
+import { getDefaultValues, richTextEditorClassName } from "@/util/form";
 import FormBodyHistory from "./FormBodyHistory";
 import { disabledClass } from "@/components/form/RichTextEditor";
+import { SectionEnums } from "@/types/section";
 
 const history = createMockHistory();
 const onSave = jest.fn();
@@ -15,7 +16,7 @@ const renderComponent = ({ history }: { history?: EmploymentHistory } = {}) => (
     renderFormBody({
         component: FormBodyHistory,
         editing: !!history,
-        defaultValues: getDefaultValuesEmploymentHistory(history),
+        defaultValues: getDefaultValues(SectionEnums.employmentHistory, history),
         schema: EmploymentHistorySchema,
         onSave
     })

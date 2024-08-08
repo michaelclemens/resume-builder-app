@@ -3,7 +3,8 @@ import { fireEvent, waitFor } from "@testing-library/react";
 import { createMockStrength, renderFormBody } from "@/test/mocks";
 import { Strength } from "@prisma/client";
 import { StrengthSchema } from "@/types/form";
-import { getDefaultValuesStrength } from "@/util/form";
+import { getDefaultValues } from "@/util/form";
+import { SectionEnums } from "@/types/section";
 
 const strength = createMockStrength();
 const onSave = jest.fn();
@@ -12,7 +13,7 @@ const renderComponent = ({ strength }: { strength?: Strength } = {}) => (
     renderFormBody({
         component: FormBodyStrength,
         editing: !!strength,
-        defaultValues: getDefaultValuesStrength(strength),
+        defaultValues: getDefaultValues(SectionEnums.strength, strength),
         schema: StrengthSchema,
         onSave
     })

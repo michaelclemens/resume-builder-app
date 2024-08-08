@@ -1,33 +1,33 @@
 import { fireEvent, waitFor } from "@testing-library/react";
-import { createMockStrength } from "@/test/mocks";
+import { createMockEmploymentWithHistory, createMockStrength } from "@/test/mocks";
 import { updateStrength } from "@/lib/client/strength";
 import { ResponseStatus } from "@/lib/response";
 import { renderWithProviders } from "@/test/redux";
 import { faker } from "@faker-js/faker";
-import { Strength } from "@prisma/client";
 import SectionForm from "./SectionForm";
 import { SectionEnums, SectionType } from "@/types/section";
-import { getSectionFormBodyComponent } from "@/util/section";
+import FormBodyStrength from "../strength/FormBodyStrength";
+import { updateEmploymentHistory } from "@/lib/client/employmentHistory";
 
+jest.mock('../strength/FormBodyStrength')
+jest.mock('../employment/history/FormBodyHistory')
 jest.mock('@/lib/client/strength');
-jest.mock('@/util/section', (() => ({
-    ...jest.requireActual('@/util/section'),
-    getSectionFormBodyComponent: jest.fn()
-})));
+jest.mock('@/lib/client/employmentHistory')
 
-const FormBodyComponent = jest.fn();
 const mockUpdateStrength = jest.mocked(updateStrength);
-jest.mocked(getSectionFormBodyComponent).mockReturnValue(( FormBodyComponent ));
+const mockUpdateEmploymentHistory = jest.mocked(updateEmploymentHistory);
 const onSave = jest.fn();
 
-const createSuccessResponseReturn = async (strength: Strength) => Promise.resolve(({ 
-    status: ResponseStatus.success, 
-    payload: { strength }
-}))
+async function createSuccessResponseReturn<ItemType>(key: SectionType, item: ItemType) {
+    return Promise.resolve(({ 
+        status: ResponseStatus.success, 
+        payload: {[key]: item }
+    }))
+}
 
-function renderComponent(
+function renderComponent<ItemType>(
     { sectionType = SectionEnums.strength, parentId, item, preloadedState }: 
-    { sectionType?: SectionType, parentId: string, item?: Strength, preloadedState?: any }
+    { sectionType?: SectionType, parentId: string, item?: ItemType, preloadedState?: any }
 ) {
     return (renderWithProviders(
         <SectionForm
@@ -43,7 +43,7 @@ describe('FormComponent', () => {
         const resumeId = faker.string.alphanumeric({ length: 5 });
         renderComponent({ parentId: resumeId })
 
-        expect(FormBodyComponent).toHaveBeenCalledWith(expect.objectContaining({ editing: false }), expect.anything());
+        expect(FormBodyStrength).toHaveBeenCalledWith(expect.objectContaining({ editing: false }), expect.anything());
     })
     it('Should render the body component for an update form', async () => {
         const strength = createMockStrength();
@@ -52,16 +52,36 @@ describe('FormComponent', () => {
             item: strength,
         })
 
-        expect(FormBodyComponent).toHaveBeenCalledWith(expect.objectContaining({ editing: true }), expect.anything());
+        expect(FormBodyStrength).toHaveBeenCalledWith(expect.objectContaining({ editing: true }), expect.anything());
     })
     it('Should call onSave on successful update form submission', async () => {
         const strength = createMockStrength();
-        mockUpdateStrength.mockImplementationOnce(async () => createSuccessResponseReturn(strength));
+        mockUpdateStrength.mockImplementationOnce(async () => createSuccessResponseReturn(SectionEnums.strength, strength));
 
         const { getByRole } = renderComponent({ 
             parentId: strength.resumeId, 
             item: strength, 
             preloadedState: { strength: [strength] }
+        })
+
+        expect(onSave).not.toHaveBeenCalled();
+
+        fireEvent.submit(getByRole('form'));
+
+        await waitFor(() => {
+            expect(onSave).toHaveBeenCalledTimes(1);
+        })
+    })
+    it('Should call onSave on successful update form submission with parent', async () => {
+        const employment = createMockEmploymentWithHistory();
+        const history = employment.history[0];
+        mockUpdateEmploymentHistory.mockImplementationOnce(async () => createSuccessResponseReturn(SectionEnums.employmentHistory, history));
+
+        const { getByRole } = renderComponent({ 
+            sectionType: SectionEnums.employmentHistory,
+            parentId: history.employmentId, 
+            item: history, 
+            preloadedState: { employment: [employment], employmentHistory: { [history.employmentId]: [history]} }
         })
 
         expect(onSave).not.toHaveBeenCalled();

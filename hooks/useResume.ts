@@ -10,7 +10,7 @@ import { getSection } from "@/util/section";
 import { SectionEnums } from "@/types/section";
 
 export default function useResume(initialResume?: ResumeFull|null) {
-    const { resume } = useAppSelector(selectResume);
+    const resume = useAppSelector(selectResume);
     const dispatch = useAppDispatch();
 
     useEffect(() => {

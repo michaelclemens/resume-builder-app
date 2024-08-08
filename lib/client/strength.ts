@@ -31,9 +31,9 @@ export async function addStrength(resumeId: string, formData: StrengthSchemaType
     }
 }
 
-export async function updateStrength(id: string, resumeId: string, data: StrengthSchemaType): Promise<IResponse<StrengthPayload>> {
+export async function updateStrength(id: string, resumeId: string, formData: StrengthSchemaType): Promise<IResponse<StrengthPayload>> {
     try {
-        const strength = await prisma.strength.update({ where: { id }, data: createDataPayload(resumeId, data) });
+        const strength = await prisma.strength.update({ where: { id }, data: createDataPayload(resumeId, formData) });
         return response<StrengthPayload>(ResponseStatus.success, { payload: { [SectionEnums.strength]: strength }});
     } catch (error) {
         return response(ResponseStatus.error, { error });

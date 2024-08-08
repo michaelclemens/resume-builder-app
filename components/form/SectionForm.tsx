@@ -2,7 +2,7 @@
 
 import { useSectionForm } from "@/hooks";
 import { SectionType } from "@/types/section";
-import { getSectionFormBodyComponent } from "@/util/section";
+import { getSectionFormBodyComponent } from "@/util/form";
 import { FieldValues } from "react-hook-form";
 
 export default function SectionForm<ItemType, SchemaType extends FieldValues>(

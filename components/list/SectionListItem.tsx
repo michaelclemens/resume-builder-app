@@ -1,5 +1,5 @@
 import { useSectionList } from "@/hooks";
-import { getSectionListItemComponent } from "@/util/section";
+import { getSectionListItemComponent } from "@/util/list";
 import { ListItemComponentProps } from "@/types/hook";
 
 export default function<ItemType>({ sectionType, item, parentId }: ListItemComponentProps<ItemType>) {

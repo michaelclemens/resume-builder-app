@@ -3,7 +3,8 @@ import { createMockEmployment, renderFormBody } from "@/test/mocks";
 import { Employment } from "@prisma/client";
 import { EmploymentSchema } from "@/types/form";
 import FormBodyEmployment from "./FormBodyEmployment";
-import { getDefaultValuesEmployment } from "@/util/form";
+import { getDefaultValues } from "@/util/form";
+import { SectionEnums } from "@/types/section";
 
 const employment = createMockEmployment();
 const onSave = jest.fn();
@@ -12,7 +13,7 @@ const renderComponent = ({ employment }: { employment?: Employment } = {}) => (
     renderFormBody({
         component: FormBodyEmployment,
         editing: !!employment,
-        defaultValues: getDefaultValuesEmployment(employment),
+        defaultValues: getDefaultValues(SectionEnums.employment, employment),
         schema: EmploymentSchema,
         onSave
     })

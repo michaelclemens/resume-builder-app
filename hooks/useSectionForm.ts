@@ -8,8 +8,8 @@ import { getDefaultValues, getSchema } from "@/util/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldValues, useForm } from "react-hook-form";
 
-export default function<SchemaType extends FieldValues, ItemType>(
-    sectionType: SectionType, 
+export default function<SchemaType extends FieldValues, ItemType, Name extends SectionType>(
+    sectionType: Name, 
     item?: ItemType
 ) {
     const { state, client } = getSection(sectionType);
@@ -18,17 +18,16 @@ export default function<SchemaType extends FieldValues, ItemType>(
         resolver: zodResolver(getSchema(sectionType)), 
         defaultValues: getDefaultValues<ItemType>(sectionType, item)
     })
-
-    const editing = !!item;
     
-    const save = async(parentId: string, formData: SchemaType, onSave: () => void) => {
-        const response = editing ? await client.actions.updateItem(item.id, parentId, formData) : await client.actions.addItem(parentId, formData);
+    const editing = !!item;
 
-        console.log(response);
+    const save = async(parentId: string, formData: SchemaType, onSave: () => void) => {
+        const response = editing ? await client.updateItem(item.id, parentId, formData) : await client.addItem(parentId, formData);
 
         if (response.status === ResponseStatus.success) {
-            const item = response.payload[sectionType];
-            dispatch(editing ? state.actions.updateItem(item) : state.actions.addItem(item));
+            const responseItem = response.payload[sectionType];
+            const action = editing ? state.actions.updateItem : state.actions.addItem;
+            dispatch(action({ item: responseItem, parentId }));
         }
         if (response.status === ResponseStatus.error) {
             return handleErrorResponse(response, form.setError);

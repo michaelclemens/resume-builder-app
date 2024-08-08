@@ -5,15 +5,15 @@ import { SortableVerticalList, SortableItem } from "@/components/list";
 import { SortableItemType } from "@/types/hook";
 import SectionListItem from "./SectionListItem";
 import { useSectionList } from "@/hooks";
-import { SectionType } from "@/types/section";
+import { ListItemTypes, ListSectionType } from "@/types/section";
 
 export const defaultEmptyMessage = 'Empty';
 
-export default function SectionList<ItemType extends SortableItemType>(
+export default function SectionList<ItemType extends ListItemTypes & SortableItemType, Name extends ListSectionType>(
     { sectionType, initialItems, parentId, emptyText = defaultEmptyMessage }:
-    { sectionType: SectionType, initialItems: ItemType[], parentId?: string, emptyText?: string }
+    { sectionType: Name, initialItems: ItemType[]|null, parentId?: string, emptyText?: string }
 ) {
-    const { items, saveSortOrder } = useSectionList(sectionType, { initialItems, parentId });
+    const { items, saveSortOrder } = useSectionList<ItemType, Name>(sectionType, { initialItems, parentId });
     
     if (!items || !items.length) return <p>{emptyText}</p>
 

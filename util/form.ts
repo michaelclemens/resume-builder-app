@@ -2,10 +2,13 @@ import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } f
 import { getDisplayDateFromDate } from "./date";
 import { SectionEnums, SectionType } from "@/types/section";
 import { EducationSchema, EmploymentHistorySchema, EmploymentSchema, PersonalSchema, SkillSchema, StrengthSchema } from "@/types/form";
+import { FormBodyEducation, FormBodyEmployment, FormBodyHistory, FormBodyPersonal, FormBodySkill, FormBodyStrength } from "../components";
+import { FieldValues } from "react-hook-form";
+import { BodyComponentType } from "@/types/hook";
 
 export const richTextEditorClassName = 'rte-editor';
 
-export const getDefaultValuesPersonal = (personal?: Personal) => ({
+const getDefaultValuesPersonal = (personal?: Personal) => ({
     firstName: personal?.firstName ?? '',
     lastName: personal?.lastName ?? '',
     position: personal?.position ?? '',
@@ -16,19 +19,19 @@ export const getDefaultValuesPersonal = (personal?: Personal) => ({
     country: personal?.country ?? ''
 })
 
-export const getDefaultValuesEmployment = (employment?: Employment) => ({
+const getDefaultValuesEmployment = (employment?: Employment) => ({
     employer: employment?.employer ?? '',
     city: employment?.city ?? '',
 })
 
-export const getDefaultValuesEmploymentHistory = (history?: EmploymentHistory) => ({
+const getDefaultValuesEmploymentHistory = (history?: EmploymentHistory) => ({
     title: history?.title ?? '',
     startDate: getDisplayDateFromDate(history?.startDate) ?? '',
     endDate: history?.endDate ? getDisplayDateFromDate(history?.endDate) : '',
     description: history?.description ?? '',
 })
 
-export const getDefaultValuesEducation = (education?: Education) => ({
+const getDefaultValuesEducation = (education?: Education) => ({
     school: education?.school ?? '',
     degree: education?.degree ?? '',
     startDate: getDisplayDateFromDate(education?.startDate) ?? '',
@@ -37,9 +40,9 @@ export const getDefaultValuesEducation = (education?: Education) => ({
     description: education?.description ?? '',
 })
 
-export const getDefaultValuesSkill = (skill?: Skill) => ({ name: skill?.name ?? '' })
+const getDefaultValuesSkill = (skill?: Skill) => ({ name: skill?.name ?? '' })
 
-export const getDefaultValuesStrength = (strength?: Strength) => ({ name: strength?.name ?? '' })
+const getDefaultValuesStrength = (strength?: Strength) => ({ name: strength?.name ?? '' })
 
 export function getDefaultValues<ItemType>(sectionType: SectionType, item?: ItemType) {
     switch (sectionType) {
@@ -74,5 +77,24 @@ export function getSchema(sectionType: SectionType) {
             return StrengthSchema;
         default:
             return null
+    }
+}
+
+export function getSectionFormBodyComponent<SchemaType extends FieldValues>(sectionType: SectionType): BodyComponentType<SchemaType> {
+    switch(sectionType) {
+        case SectionEnums.personal:
+            return FormBodyPersonal;
+        case SectionEnums.education:
+            return FormBodyEducation;
+        case SectionEnums.employment:
+            return FormBodyEmployment;
+        case SectionEnums.employmentHistory:
+            return FormBodyHistory;
+        case SectionEnums.skill:
+            return FormBodySkill;
+        case SectionEnums.strength:
+            return FormBodyStrength;
+        default:
+            return () => null;
     }
 }

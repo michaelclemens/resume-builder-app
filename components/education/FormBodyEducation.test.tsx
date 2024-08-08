@@ -5,7 +5,8 @@ import { Education } from "@prisma/client";
 import { EducationSchema } from "@/types/form";
 import { getDisplayDateFromDate } from "@/util/date";
 import { disabledClass } from "../form/RichTextEditor";
-import { getDefaultValuesEducation, richTextEditorClassName } from "@/util/form";
+import { getDefaultValues, richTextEditorClassName } from "@/util/form";
+import { SectionEnums } from "@/types/section";
 
 const education = createMockEducation();
 const onSave = jest.fn();
@@ -15,7 +16,7 @@ const renderComponent = ({ education }: { education?: Education } = {}) => (
     renderFormBody({
         component: FormBodyEducation,
         editing: !!education,
-        defaultValues: getDefaultValuesEducation(education),
+        defaultValues: getDefaultValues(SectionEnums.education, education),
         schema: EducationSchema,
         onSave
     })

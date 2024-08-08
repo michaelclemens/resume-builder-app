@@ -3,7 +3,8 @@ import FormBodySkill from "./FormBodySkill";
 import { createMockSkill, renderFormBody } from "@/test/mocks";
 import { Skill } from "@prisma/client";
 import { SkillSchema } from "@/types/form";
-import { getDefaultValuesSkill } from "@/util/form";
+import { getDefaultValues } from "@/util/form";
+import { SectionEnums } from "@/types/section";
 
 const skill = createMockSkill();
 const onSave = jest.fn();
@@ -12,7 +13,7 @@ const renderComponent = ({ skill }: { skill?: Skill } = {}) => (
     renderFormBody({
         component: FormBodySkill,
         editing: !!skill,
-        defaultValues: getDefaultValuesSkill(skill),
+        defaultValues: getDefaultValues(SectionEnums.skill, skill),
         schema: SkillSchema,
         onSave
     })

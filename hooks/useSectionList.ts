@@ -1,13 +1,13 @@
 "use client"
 
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
-import { SectionType } from "@/types/section";
+import { ListItemTypes, ListSectionType } from "@/types/section";
 import { getSection } from "@/util/section";
 import { useEffect, useState } from "react";
 
-export default function<ItemType>(
-    sectionType: SectionType, 
-    { initialItems, parentId }: { initialItems?: ItemType[], parentId?: string } = {}
+export default function<ItemType extends ListItemTypes, Name extends ListSectionType>(
+    sectionType: Name, 
+    { initialItems = null, parentId }: { initialItems?: ItemType[]|null, parentId?: string } = {}
 ) {
     const { state, client } = getSection(sectionType);
     const items = useAppSelector((rootState) => state.selectors.selectItems(rootState, { parentId }));
@@ -25,7 +25,7 @@ export default function<ItemType>(
     const remove = async(item: ItemType) => {
         setDeleting(true);
         try {
-            await client.actions.deleteItem(item.id);
+            await client.deleteItem(item.id);
             dispatch(state.actions.removeItem({ id: item.id, parentId }));
         } catch(error) {
             console.error(error);
@@ -36,7 +36,7 @@ export default function<ItemType>(
 
     const saveSortOrder = async(items: ItemType[]) => {
         dispatch(state.actions.setItems({ items, parentId }));
-        await client.actions.setSortOrders(items);
+        await client.setSortOrders(items);
     }
 
     return { 

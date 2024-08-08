@@ -2,9 +2,10 @@ import { waitFor, fireEvent } from "@testing-library/react";
 import { createMockPersonal, renderFormBody } from "@/test/mocks";
 import { PersonalSchema } from "@/types/form";
 import { disabledClass } from "../form/RichTextEditor";
-import { getDefaultValuesPersonal, richTextEditorClassName } from "@/util/form";
+import { getDefaultValues, richTextEditorClassName } from "@/util/form";
 import FormBodyPersonal from "./FormBodyPersonal";
 import { Personal } from "@prisma/client";
+import { SectionEnums } from "@/types/section";
 
 const personal = createMockPersonal();
 const onSave = jest.fn();
@@ -14,7 +15,7 @@ const renderComponent = ({ personal }: { personal?: Personal } = {}) => (
     renderFormBody({
         component: FormBodyPersonal,
         editing: !!personal,
-        defaultValues: getDefaultValuesPersonal(personal),
+        defaultValues: getDefaultValues(SectionEnums.personal, personal),
         schema: PersonalSchema,
         onSave
     })
