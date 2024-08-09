@@ -1,16 +1,15 @@
 "use client"
 
 import { useSectionForm } from "@/hooks";
-import { SectionType } from "@/types/section";
+import { SectionItemType, SectionType } from "@/types/section";
 import { getSectionFormBodyComponent } from "@/util/form";
-import { FieldValues } from "react-hook-form";
 
-export default function SectionForm<ItemType, SchemaType extends FieldValues>(
+export default function SectionForm(
     { sectionType, parentId, item, onSave = () => {} }: 
-    { sectionType: SectionType, parentId: string, item?: ItemType, onSave?: () => void }
+    { sectionType: SectionType, parentId: string, item?: SectionItemType, onSave?: () => void }
 ) {
-    const { save, form, editing } = useSectionForm<SchemaType, ItemType>(sectionType, item);
-    const FormBodyComponent = getSectionFormBodyComponent<SchemaType>(sectionType);
+    const { save, form, editing } = useSectionForm(sectionType, item);
+    const FormBodyComponent = getSectionFormBodyComponent(sectionType);
     return (
         <div className="my-3 mx-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
             <form role="form" onSubmit={form.handleSubmit(async(formData) => save(parentId, formData, onSave))}>

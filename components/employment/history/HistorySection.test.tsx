@@ -33,6 +33,7 @@ describe('HistorySectionComponent', () => {
         expect(mockListComponent).toHaveBeenCalledWith({
             sectionType: SectionEnums.employmentHistory,
             parentId: history.employmentId,
+            parentProperty: 'employmentId',
             initialItems: [history],
         }, expect.anything());
         expect(mockFormComponent).toHaveBeenCalledWith({

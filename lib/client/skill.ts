@@ -3,10 +3,8 @@
 import prisma from "@/lib/prisma";
 import { SkillSchema, SkillSchemaType } from "@/types/form";
 import { Skill } from "@prisma/client";
-import { IResponse, response, ResponseStatus } from "../response";
+import { response, ResponseStatus } from "../response";
 import { SectionEnums } from "@/types/section";
-
-type SkillPayload = { [SectionEnums.skill]: Skill }
 
 const createDataPayload = (resumeId: string, formData: SkillSchemaType) => {
     SkillSchema.parse(formData);
@@ -22,19 +20,19 @@ export async function getSkills(resumeId: string) {
     }
 }
 
-export async function addSkill(resumeId: string, formData: SkillSchemaType): Promise<IResponse<SkillPayload>> {
+export async function addSkill(resumeId: string, formData: SkillSchemaType) {
     try {
         const skill = await prisma.skill.create({ data: createDataPayload(resumeId, formData) });
-        return response<SkillPayload>(ResponseStatus.success, { payload: { [SectionEnums.skill]: skill }});
+        return response(ResponseStatus.success, { payload: { [SectionEnums.skill]: skill }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
 }
 
-export async function updateSkill(id: string, resumeId: string, formData: SkillSchemaType): Promise<IResponse<SkillPayload>> {
+export async function updateSkill(id: string, resumeId: string, formData: SkillSchemaType) {
     try {
         const skill = await prisma.skill.update({ where: { id }, data: createDataPayload(resumeId, formData) });
-        return response<SkillPayload>(ResponseStatus.success, { payload: { [SectionEnums.skill]: skill }});
+        return response(ResponseStatus.success, { payload: { [SectionEnums.skill]: skill }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }

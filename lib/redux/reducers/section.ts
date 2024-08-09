@@ -1,73 +1,51 @@
 "use client"
 
-import { SectionEnums, SectionType } from '@/types/section';
+import { ListItemType, SectionEnums, SectionType, SingleItemType } from '@/types/section';
 import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } from '@prisma/client';
-import { createSlice, EntityId, PayloadAction, SliceCaseReducers, SliceSelectors, ValidateSliceCaseReducers } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, SliceCaseReducers, SliceSelectors, ValidateSliceCaseReducers } from '@reduxjs/toolkit'
 
 type GenericState<T> = T | null
 
-const getSingleItemReducers = <Entity>() => ({
-  setItem: (state: GenericState<Entity>, action: PayloadAction<Entity>) => {
-    state = action.payload
-  }
+const singleItemReducers = ({
+  setItem: (_state: GenericState<SingleItemType>, { payload }: PayloadAction<SingleItemType>) => payload
 })
 
-const getListItemReducers = <Entity>() => ({
-  setItems: (state: GenericState<Entity[]|null>, action: PayloadAction<{ items: Entity[], parentId?: string }>) => {
-    state = action.payload.items
+const listItemReducers = ({
+  setItems: (state: GenericState<ListItemType[]|null>, { payload }: PayloadAction<{ items: ListItemType[], parentId?: string, parentProperty?: string }>) => {
+    if (state && payload.parentId && payload.parentProperty) {
+      state = state.filter((item: ListItemType) => item[payload.parentProperty] !== payload.parentId);
+    }
+    state = payload.items;
   },
-  addItem: (state: GenericState<Entity[]>, action: PayloadAction<{ item: Entity, parentId?: string }>) => {
-    if (!state) return;
-    state.push(action.payload.item);
+  addItem: (state: GenericState<ListItemType[]>, { payload }: PayloadAction<ListItemType>) => {
+    if (!state) state = [];
+    state.push(payload);
   },
-  updateItem: (state: GenericState<Entity[]>, action: PayloadAction<{ item: Entity, parentId?: string }>) => {    
+  updateItem: (state: GenericState<ListItemType[]>, { payload }: PayloadAction<ListItemType>) => {    
     if (!state) return;
-    const index = state.findIndex(({ id }: Entity) => id === action.payload.item.id);
+    const index = state.findIndex(({ id }: ListItemType) => id === payload.id);
     if (index === -1) return;
-    state[index] = action.payload.item;
+    state[index] = payload;
   },
-  removeItem: (state: GenericState<Entity[]>, action: PayloadAction<{ id: string, parentId?: string }>) => {
+  removeItem: (state: GenericState<ListItemType[]>, { payload }: PayloadAction<ListItemType>) => {
     if (!state) return;
-    const index = state.findIndex(({ id }: Entity) => id === action.payload.id);
+    const index = state.findIndex(({ id }: ListItemType) => id === payload.id);
     if (index === -1) return;
     state.splice(index, 1);
   }
 })
 
-const getSiblingItemReducers = <Entity>() => ({
-  setItems: (state: GenericState<Record<EntityId, Entity[]|null>>, action: PayloadAction<{ items: Entity[], parentId?: string }>) => {
-    if (!state || !action.payload.parentId) return;
-    if (!state[action.payload.parentId]) state[action.payload.parentId] = [];
-    state[action.payload.parentId] = action.payload.items;
-  },
-  addItem: (state: GenericState<Record<EntityId, Entity[]>>, action: PayloadAction<{ item: Entity, parentId?: string }>) => {
-    if (!state || !action.payload.parentId) return;
-    state[action.payload.parentId].push(action.payload.item)
-  },
-  updateItem: (state: GenericState<Record<EntityId, Entity[]>>, action: PayloadAction<{ item: Entity, parentId?: string }>) => {
-    if (!state || !action.payload.parentId) return;
-    const index = state[action.payload.parentId].findIndex(({ id }: Entity) => id === action.payload.item.id);
-    if (index === -1) return;
-    state[action.payload.parentId][index] = action.payload.item
-  },
-  removeItem: (state: GenericState<Record<EntityId, Entity[]>>, action: PayloadAction<{ id: string, parentId?: string }>) => {
-    if (!state || !action.payload.parentId) return;
-    const index = state[action.payload.parentId].findIndex(({ id }: Entity) => id === action.payload.id);
-    if (index === -1) return;
-    state[action.payload.parentId].splice(index, 1);
+const singleItemSelectors = ({
+  selectItem: (state: GenericState<SingleItemType>) => state,
+})
+
+const listItemSelectors = ({
+  selectItems: (state: GenericState<ListItemType[]>, { parentId, parentProperty }: { parentId?: string, parentProperty?: string }) => {
+    if (state && parentId && parentProperty) {
+      return state.filter((item: ListItemType) => item[parentProperty] === parentId);
+    }
+    return state;
   }
-})
-
-const getSingleItemSelectors = <Entity>() => ({
-  selectItem: (state: GenericState<Entity>) => state
-})
-
-const getListItemSelectors = <Entity>() => ({
-  selectItems: (state: GenericState<Entity[]>) => state
-})
-
-const getSiblingItemSelectors = <Entity>() => ({
-  selectItems: (state: GenericState<Record<EntityId, Entity[]>>,  { parentId }: { parentId?: string }) => state && parentId ? state[parentId] : null
 })
 
 const createSectionSlice = <State, Name extends SectionType, Reducers extends SliceCaseReducers<State>, Selectors extends SliceSelectors<State>> (
@@ -90,43 +68,43 @@ const createSectionSlice = <State, Name extends SectionType, Reducers extends Sl
 const personalSlice = createSectionSlice({
     name: SectionEnums.personal,
     initialState: null as GenericState<Personal|null>,
-    reducers: getSingleItemReducers<Personal>(),
-    selectors: getSingleItemSelectors<Personal>()
+    reducers: singleItemReducers,
+    selectors: singleItemSelectors
 });
 
 const educationSlice = createSectionSlice({
   name: SectionEnums.education,
   initialState: null as GenericState<Education[]|null>,
-  reducers: getListItemReducers<Education>(),
-  selectors: getListItemSelectors<Education>()
+  reducers: listItemReducers,
+  selectors: listItemSelectors
 });
 
 const employmentSlice = createSectionSlice({
   name: SectionEnums.employment,
   initialState: null as GenericState<Employment[]|null>,
-  reducers: getListItemReducers<Employment>(),
-  selectors: getListItemSelectors<Employment>()
+  reducers: listItemReducers,
+  selectors: listItemSelectors
 });
 
 const employmentHistorySlice = createSectionSlice({
   name: SectionEnums.employmentHistory,
-  initialState: {} as GenericState<Record<EntityId, EmploymentHistory[]>|null>,
-  reducers: getSiblingItemReducers<EmploymentHistory>(),
-  selectors: getSiblingItemSelectors<EmploymentHistory>()
+  initialState: null as GenericState<EmploymentHistory[]|null>,
+  reducers: listItemReducers,
+  selectors: listItemSelectors
 });
 
 const skillSlice = createSectionSlice({
   name: SectionEnums.skill,
   initialState: null as GenericState<Skill[]|null>,
-  reducers: getListItemReducers<Skill>(),
-  selectors: getListItemSelectors<Skill>()
+  reducers: listItemReducers,
+  selectors: listItemSelectors
 });
 
 const strengthSlice = createSectionSlice({
   name: SectionEnums.strength,
   initialState: null as GenericState<Strength[]|null>,
-  reducers: getListItemReducers<Strength>(),
-  selectors: getListItemSelectors<Strength>()
+  reducers: listItemReducers,
+  selectors: listItemSelectors
 });
 
 const allSlices = {
@@ -138,7 +116,9 @@ const allSlices = {
   strength: strengthSlice,
 }
 
-export const getStateSection = <Name extends SectionType>(sectionType: Name): typeof allSlices[Name] => allSlices[sectionType];
+export const getStateSection = <Name extends SectionType>(sectionType: Name): { actions: typeof allSlices[Name]['actions'], selectors: typeof allSlices[Name]['selectors'] } => (
+  { actions: allSlices[sectionType].actions, selectors: allSlices[sectionType].selectors }
+);
 
 export default {
   [SectionEnums.personal]: personalSlice.reducer,

@@ -44,7 +44,7 @@ describe('EmploymentClient', () => {
 
         const res = response(ResponseStatus.success, { payload: { employment }});
         await expect(addEmployment(employment.resumeId, getFormData(employment))).resolves.toEqual(res);
-        expect(prismaMock.employment.create).toHaveBeenCalledWith({ data: getDbData(employment), include: { history: true } });
+        expect(prismaMock.employment.create).toHaveBeenCalledWith({ data: getDbData(employment)});
     })
     it('Should handle errors when adding a employment', async () => {
         const employment = createMockEmploymentWithHistory();
@@ -65,7 +65,6 @@ describe('EmploymentClient', () => {
         expect(prismaMock.employment.update).toHaveBeenCalledWith({
             where: { id: employment.id },
             data: getDbData(employment),
-            include: { history: true }
         });
     })
     it('Should handle errors when updating a employment', async () => {

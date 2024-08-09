@@ -5,7 +5,6 @@ import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { ExpandableWrapper } from "@/components/util";
 import { ButtonType } from "@/types/list";
 import { SectionForm } from "@/components/form";
-import { StrengthSchemaType } from "@/types/form";
 import { ItemComponentProps } from "@/types/hook";
 import { SectionEnums } from "@/types/section";
 
@@ -19,7 +18,7 @@ export default function({ item: strength, remove, setEditing, onSave, editing, d
                 <ListButton type={ButtonType.delete} onClick={async() => remove(strength)} />
             </span>
             <ExpandableWrapper open={editing && !deleting}>
-                <SectionForm<Strength, StrengthSchemaType>
+                <SectionForm
                     sectionType={SectionEnums.strength}
                     parentId={strength.resumeId}  
                     item={strength}

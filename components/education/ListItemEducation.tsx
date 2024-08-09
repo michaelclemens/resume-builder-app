@@ -5,7 +5,6 @@ import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { getDisplayDateFromDate } from "@/util/date";
 import { ExpandableWrapper } from "@/components/util";
 import { SectionForm } from "../form";
-import { EducationSchemaType } from "@/types/form";
 import { ItemComponentProps } from "@/types/hook";
 import { SectionEnums } from "@/types/section";
 
@@ -25,7 +24,7 @@ export default function({ item: education, remove, setEditing, onSave, editing, 
                 <ListButton type="delete" onClick={async() => remove(education)} />
             </span>
             <ExpandableWrapper open={editing && !deleting}>
-                <SectionForm<Education, EducationSchemaType>
+                <SectionForm
                     sectionType={SectionEnums.education}
                     parentId={education.resumeId}
                     item={education} 

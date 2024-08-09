@@ -1,9 +1,8 @@
 import { useSectionList } from "@/hooks";
-import { EmploymentWithHistory } from "@/lib/client/employment";
 import { sortByOrder } from "@/util/sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import EmploymentHistory from "./EmploymentHistory";
-import { SectionEnums } from "@/types/section";
+import { EmploymentWithHistory, SectionEnums } from "@/types/section";
 
 export default ({ employments: initialEmployments }: { employments: EmploymentWithHistory[] }) => {
     const [animationParent] = useAutoAnimate();
@@ -21,7 +20,7 @@ export default ({ employments: initialEmployments }: { employments: EmploymentWi
                             <span className="text-[9pt] font-bold">{employment.employer}</span>
                             {employment.city}
                         </p>
-                        <EmploymentHistory employmentId={employment.id} histories={employment.histories} />
+                        <EmploymentHistory employmentId={employment.id} histories={employment.history} />
                     </div>
                 ))}
             </div>

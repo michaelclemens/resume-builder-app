@@ -1,8 +1,7 @@
-import { EmploymentWithHistory } from "@/lib/client/employment";
 import { sortByOrder } from "@/util/sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useSectionList } from "@/hooks";
-import { SectionEnums } from "@/types/section";
+import { EmploymentWithHistory, SectionEnums } from "@/types/section";
 import EmploymentHistory from "./EmploymentHistory";
 
 export default ({ employments: initialEmployments, oswaldClassName }: { employments: EmploymentWithHistory[] }) => {
@@ -21,7 +20,7 @@ export default ({ employments: initialEmployments, oswaldClassName }: { employme
                             {employment.employer}
                             {employment.city && `, ${employment.city}`}
                         </p>
-                        <EmploymentHistory employmentId={employment.id} histories={initialEmployments.find(item => item.id === employment.id).history} />
+                        <EmploymentHistory employmentId={employment.id} histories={initialEmployments.find(item => item.id === employment.id)?.history ?? []} />
                     </div>
                 ))}
             </div>

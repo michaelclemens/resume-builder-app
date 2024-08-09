@@ -1,4 +1,4 @@
-import { waitFor, fireEvent, act } from "@testing-library/react";
+import { waitFor, fireEvent } from "@testing-library/react";
 import FormBodyEducation from "./FormBodyEducation";
 import { createMockEducation, renderFormBody } from "@/test/mocks";
 import { Education } from "@prisma/client";

@@ -7,7 +7,7 @@ import { EmploymentHistory } from "@prisma/client";
 
 export default ({ employmentId, histories: initialHistories }: { employmentId: string, histories: EmploymentHistory[] }) => {
     const [animationParent] = useAutoAnimate();
-    const { items: histories } = useSectionList(SectionEnums.employmentHistory, { parentId: employmentId, initialItems: initialHistories })
+    const { items: histories } = useSectionList(SectionEnums.employmentHistory, { parentId: employmentId, parentProperty: 'employmentId', initialItems: initialHistories })
 
     if (!histories || !histories.length) return;
     

@@ -4,10 +4,8 @@ import prisma from "@/lib/prisma";
 import { EducationSchema, EducationSchemaType } from "@/types/form";
 import { Education } from "@prisma/client";
 import { sanitize } from "isomorphic-dompurify";
-import { IResponse, response, ResponseStatus } from "../response";
+import { response, ResponseStatus } from "../response";
 import { SectionEnums } from "@/types/section";
-
-type EducationPayload = { [SectionEnums.education]: Education }
 
 const createDataPayload = (resumeId: string, formData: EducationSchemaType) => {
     EducationSchema.parse(formData);
@@ -29,19 +27,19 @@ export async function getEducations(resumeId: string) {
     }
 }
 
-export async function addEducation(resumeId: string, formData: EducationSchemaType): Promise<IResponse<EducationPayload>> {
+export async function addEducation(resumeId: string, formData: EducationSchemaType) {
     try {
         const education = await prisma.education.create({ data: createDataPayload(resumeId, formData) });
-        return response<EducationPayload>(ResponseStatus.success, { payload: { [SectionEnums.education]: education }});
+        return response(ResponseStatus.success, { payload: { [SectionEnums.education]: education }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
 }
 
-export async function updateEducation(id: string, resumeId: string, formData: EducationSchemaType): Promise<IResponse<EducationPayload>> {
+export async function updateEducation(id: string, resumeId: string, formData: EducationSchemaType) {
     try {
         const education = await prisma.education.update({ where: { id }, data: createDataPayload(resumeId, formData) });
-        return response<EducationPayload>(ResponseStatus.success, { payload: { [SectionEnums.education]: education }});
+        return response(ResponseStatus.success, { payload: { [SectionEnums.education]: education }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }

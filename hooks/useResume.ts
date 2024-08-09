@@ -2,7 +2,7 @@
 
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
 import { Template } from "@prisma/client";
-import { clear, selectResume, setResume, setTemplate, setTemplateOptions } from "@/lib/redux/reducers/resume";
+import { reset, selectResume, setResume, setTemplate, setTemplateOptions } from "@/lib/redux/reducers/resume";
 import { useEffect } from "react";
 import { ResumeFull, updateResume } from "@/lib/client/resume";
 import { TemplateOptions } from "@/types/template";
@@ -32,12 +32,12 @@ export default function useResume(initialResume?: ResumeFull|null) {
     }
     
     const resetAllState = () => {
-        dispatch(clear())
-        dispatch(getSection(SectionEnums.personal).state.actions.clear())
-        dispatch(getSection(SectionEnums.education).state.actions.clear())
-        dispatch(getSection(SectionEnums.employment).state.actions.clear())
-        dispatch(getSection(SectionEnums.skill).state.actions.clear())
-        dispatch(getSection(SectionEnums.strength).state.actions.clear())
+        dispatch(reset())
+        dispatch(getSection(SectionEnums.personal).state.actions.reset())
+        dispatch(getSection(SectionEnums.education).state.actions.reset())
+        dispatch(getSection(SectionEnums.employment).state.actions.reset())
+        dispatch(getSection(SectionEnums.skill).state.actions.reset())
+        dispatch(getSection(SectionEnums.strength).state.actions.reset())
     }
 
     return { resume: resume ?? initialResume ?? null, updateTemplate, updateTemplateOptions, resetAllState }

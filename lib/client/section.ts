@@ -55,4 +55,4 @@ const allActions = {
     strength: strengthActions,
 }
 
-export const getClientSection =  <Name extends SectionType>(sectionType: Name): typeof allActions[Name] => allActions[sectionType];
+export const getClientSection = <Name extends SectionType>(sectionType: Name): typeof allActions[Name] => allActions[sectionType];

@@ -2,15 +2,8 @@
 
 import prisma from "@/lib/prisma";
 import { EmploymentSchema, EmploymentSchemaType } from "@/types/form";
-import { Prisma } from "@prisma/client";
-import { IResponse, response, ResponseStatus } from "../response";
-import { SectionEnums } from "@/types/section";
-
-export type EmploymentWithHistory = Prisma.EmploymentGetPayload<{
-    include: { history: true }
-}>
-
-type EmploymentPayload = { [SectionEnums.employment]: EmploymentWithHistory }
+import { response, ResponseStatus } from "../response";
+import { EmploymentWithHistory, SectionEnums } from "@/types/section";
 
 const createDataPayload = (resumeId: string, formData: EmploymentSchemaType) => {
     EmploymentSchema.parse(formData);
@@ -26,19 +19,19 @@ export async function getEmployments(resumeId: string) {
     }
 }
 
-export async function addEmployment(resumeId: string, formData: EmploymentSchemaType): Promise<IResponse<EmploymentPayload>> {
+export async function addEmployment(resumeId: string, formData: EmploymentSchemaType) {
     try {
-        const employment = await prisma.employment.create({ data: createDataPayload(resumeId, formData), include: { history: true }});
-        return response<EmploymentPayload>(ResponseStatus.success, { payload: { [SectionEnums.employment]: employment }});
+        const employment = await prisma.employment.create({ data: createDataPayload(resumeId, formData) });
+        return response(ResponseStatus.success, { payload: { [SectionEnums.employment]: employment }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
 }
 
-export async function updateEmployment(id: string, resumeId: string, formData: EmploymentSchemaType): Promise<IResponse<EmploymentPayload>> {
+export async function updateEmployment(id: string, resumeId: string, formData: EmploymentSchemaType) {
     try {
-        const employment = await prisma.employment.update({ where: { id }, data: createDataPayload(resumeId, formData), include: { history: true }});
-        return response<EmploymentPayload>(ResponseStatus.success, { payload: { [SectionEnums.employment]: employment }});
+        const employment = await prisma.employment.update({ where: { id }, data: createDataPayload(resumeId, formData) });
+        return response(ResponseStatus.success, { payload: { [SectionEnums.employment]: employment }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }

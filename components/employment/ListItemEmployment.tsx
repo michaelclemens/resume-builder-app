@@ -1,13 +1,11 @@
 "use client"
 
-import { EmploymentWithHistory } from "@/lib/client/employment";
 import HistorySection from "./history/HistorySection";
 import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
 import { ExpandableWrapper } from "@/components/util";
 import { SectionForm } from "../form";
-import { EmploymentSchemaType } from "@/types/form";
 import { ItemComponentProps } from "@/types/hook";
-import { SectionEnums } from "@/types/section";
+import { EmploymentWithHistory, SectionEnums } from "@/types/section";
 
 export default function ListItemEmployment({ item: employment, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<EmploymentWithHistory>) {
     return (
@@ -20,7 +18,7 @@ export default function ListItemEmployment({ item: employment, remove, setEditin
                 <ListButton type="delete" onClick={async() => remove(employment)} />
             </span>
             <ExpandableWrapper open={editing && !deleting}>
-                <SectionForm<EmploymentWithHistory, EmploymentSchemaType>
+                <SectionForm
                     sectionType={SectionEnums.employment}
                     parentId={employment.resumeId}
                     item={employment} 

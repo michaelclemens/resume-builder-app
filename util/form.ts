@@ -1,9 +1,8 @@
 import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } from "@prisma/client";
 import { getDisplayDateFromDate } from "./date";
-import { SectionEnums, SectionType } from "@/types/section";
-import { EducationSchema, EmploymentHistorySchema, EmploymentSchema, PersonalSchema, SkillSchema, StrengthSchema } from "@/types/form";
+import { SectionEnums, SectionItemType, SectionType } from "@/types/section";
+import { EducationSchema, EmploymentHistorySchema, EmploymentSchema, PersonalSchema, SectionSchemaType, SkillSchema, StrengthSchema } from "@/types/form";
 import { FormBodyEducation, FormBodyEmployment, FormBodyHistory, FormBodyPersonal, FormBodySkill, FormBodyStrength } from "../components";
-import { FieldValues } from "react-hook-form";
 import { BodyComponentType } from "@/types/hook";
 
 export const richTextEditorClassName = 'rte-editor';
@@ -44,24 +43,24 @@ const getDefaultValuesSkill = (skill?: Skill) => ({ name: skill?.name ?? '' })
 
 const getDefaultValuesStrength = (strength?: Strength) => ({ name: strength?.name ?? '' })
 
-export function getDefaultValues<ItemType>(sectionType: SectionType, item?: ItemType) {
+export function getDefaultValues(sectionType: SectionType, item?: SectionItemType) {
     switch (sectionType) {
         case SectionEnums.personal:
-            return getDefaultValuesPersonal(item);
+            return getDefaultValuesPersonal(item as Personal);
         case SectionEnums.education:
-            return getDefaultValuesEducation(item);
+            return getDefaultValuesEducation(item as Education);
         case SectionEnums.employment:
-            return getDefaultValuesEmployment(item);
+            return getDefaultValuesEmployment(item as Employment);
         case SectionEnums.employmentHistory:
-            return getDefaultValuesEmploymentHistory(item);
+            return getDefaultValuesEmploymentHistory(item as EmploymentHistory);
         case SectionEnums.skill:
-            return getDefaultValuesSkill(item);
+            return getDefaultValuesSkill(item as Skill);
         case SectionEnums.strength:
-            return getDefaultValuesStrength(item);
+            return getDefaultValuesStrength(item as Strength);
     }
 }
 
-export function getSchema(sectionType: SectionType) {
+export function getSchema(sectionType: SectionType): SectionSchemaType {
     switch (sectionType) {
         case SectionEnums.personal:
             return PersonalSchema;
@@ -76,11 +75,11 @@ export function getSchema(sectionType: SectionType) {
         case SectionEnums.strength:
             return StrengthSchema;
         default:
-            return null
+            throw new Error(`Section ${sectionType} is not implemented`)
     }
 }
 
-export function getSectionFormBodyComponent<SchemaType extends FieldValues>(sectionType: SectionType): BodyComponentType<SchemaType> {
+export function getSectionFormBodyComponent(sectionType: SectionType): BodyComponentType {
     switch(sectionType) {
         case SectionEnums.personal:
             return FormBodyPersonal;

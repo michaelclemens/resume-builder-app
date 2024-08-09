@@ -1,16 +1,16 @@
 "use client"
 
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
-import { ListItemTypes, ListSectionType } from "@/types/section";
+import { ListItemType, ListSectionType } from "@/types/section";
 import { getSection } from "@/util/section";
 import { useEffect, useState } from "react";
 
-export default function<ItemType extends ListItemTypes, Name extends ListSectionType>(
-    sectionType: Name, 
-    { initialItems = null, parentId }: { initialItems?: ItemType[]|null, parentId?: string } = {}
+export default function<ItemType extends ListItemType>(
+    sectionType: ListSectionType, 
+    { initialItems = null, parentId, parentProperty }: { initialItems?: ItemType[]|null, parentId?: string, parentProperty?: string } = {}
 ) {
     const { state, client } = getSection(sectionType);
-    const items = useAppSelector((rootState) => state.selectors.selectItems(rootState, { parentId }));
+    const items = useAppSelector((rootState) => state.selectors.selectItems(rootState, { parentId, parentProperty })) as ItemType[]|null;
     const dispatch = useAppDispatch();
     const [editing, setEditing] = useState(false);
     const [deleting, setDeleting] = useState(false);
@@ -18,7 +18,7 @@ export default function<ItemType extends ListItemTypes, Name extends ListSection
     useEffect(() => {
         if (initialItems && !items) {
             console.log(`setting ${sectionType}...`);
-            dispatch(state.actions.setItems({ items: initialItems, parentId }));
+            dispatch(state.actions.setItems({ items: initialItems, parentId, parentProperty }));
         }
     }, [initialItems])
     
@@ -26,7 +26,7 @@ export default function<ItemType extends ListItemTypes, Name extends ListSection
         setDeleting(true);
         try {
             await client.deleteItem(item.id);
-            dispatch(state.actions.removeItem({ id: item.id, parentId }));
+            dispatch(state.actions.removeItem(item));
         } catch(error) {
             console.error(error);
         } finally {
@@ -35,7 +35,7 @@ export default function<ItemType extends ListItemTypes, Name extends ListSection
     }
 
     const saveSortOrder = async(items: ItemType[]) => {
-        dispatch(state.actions.setItems({ items, parentId }));
+        dispatch(state.actions.setItems({ items, parentId, parentProperty }));
         await client.setSortOrders(items);
     }
 

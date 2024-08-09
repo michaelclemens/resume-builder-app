@@ -1,5 +1,5 @@
-import { EmploymentWithHistory } from "@/lib/client/employment";
 import { ResumeFull } from "@/lib/client/resume";
+import { EmploymentWithHistory } from "@/types/section";
 import { faker } from "@faker-js/faker";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Education, Employment, EmploymentHistory, Personal, Resume, Skill, Strength, Template } from "@prisma/client";

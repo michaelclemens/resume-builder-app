@@ -1,10 +1,13 @@
 import { useSectionList } from "@/hooks";
 import { getSectionListItemComponent } from "@/util/list";
-import { ListItemComponentProps } from "@/types/hook";
+import { ListItemType, ListSectionType } from "@/types/section";
 
-export default function<ItemType>({ sectionType, item, parentId }: ListItemComponentProps<ItemType>) {
-    const { remove, setEditing, editing, deleting } = useSectionList(sectionType, { parentId });
-    const ListItemComponent = getSectionListItemComponent<ItemType>(sectionType)
+export default function(
+    { sectionType, item, parentId, parentProperty }:
+    { sectionType: ListSectionType, item: ListItemType[], parentId?: string, parentProperty?: string }
+) {
+    const { remove, setEditing, editing, deleting } = useSectionList(sectionType, { parentId, parentProperty });
+    const ListItemComponent = getSectionListItemComponent(sectionType)
     return (
         <ListItemComponent 
             item={item} 

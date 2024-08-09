@@ -20,11 +20,11 @@ export const slice = createSlice({
       ...state ?? {},
       templateOptions: action.payload
     }),
-    clear: _state => initialState
+    reset: () => initialState
   }
 })
 
-export const { clear, setResume, setTemplate, setTemplateOptions } = slice.actions;
+export const { reset, setResume, setTemplate, setTemplateOptions } = slice.actions;
 
 export const selectResume = (state: RootState): ResumeFull|null => state.resume;
 

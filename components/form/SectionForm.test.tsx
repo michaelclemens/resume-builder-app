@@ -1,5 +1,5 @@
 import { fireEvent, waitFor } from "@testing-library/react";
-import { createMockEmploymentWithHistory, createMockStrength } from "@/test/mocks";
+import { createMockEmploymentWithHistory, createMockHistory, createMockStrength } from "@/test/mocks";
 import { updateStrength } from "@/lib/client/strength";
 import { ResponseStatus } from "@/lib/response";
 import { renderWithProviders } from "@/test/redux";
@@ -73,15 +73,14 @@ describe('FormComponent', () => {
         })
     })
     it('Should call onSave on successful update form submission with parent', async () => {
-        const employment = createMockEmploymentWithHistory();
-        const history = employment.history[0];
+        const history = createMockHistory();
         mockUpdateEmploymentHistory.mockImplementationOnce(async () => createSuccessResponseReturn(SectionEnums.employmentHistory, history));
 
         const { getByRole } = renderComponent({ 
             sectionType: SectionEnums.employmentHistory,
             parentId: history.employmentId, 
             item: history, 
-            preloadedState: { employment: [employment], employmentHistory: { [history.employmentId]: [history]} }
+            preloadedState: { employmentHistory: [history] }
         })
 
         expect(onSave).not.toHaveBeenCalled();

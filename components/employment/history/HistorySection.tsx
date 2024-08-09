@@ -6,7 +6,6 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { EmploymentHistory } from "@prisma/client";
 import { SectionList } from "@/components/list";
 import { SectionForm } from "@/components/form";
-import { EmploymentHistorySchemaType } from "@/types/form";
 import { SectionEnums } from "@/types/section";
 
 export default function HistorySection({ employmentId, histories }: { employmentId: string, histories: EmploymentHistory[] }) {
@@ -18,12 +17,13 @@ export default function HistorySection({ employmentId, histories }: { employment
                 <span className="ml-auto flex mr-2">{open ? <FaChevronUp title="Close" /> : <FaChevronDown title="Open" />}</span>
             </div>
             <ExpandableWrapper open={open}>
-                <SectionList<EmploymentHistory> 
+                <SectionList 
                     sectionType={SectionEnums.employmentHistory}
                     initialItems={histories}
                     parentId={employmentId}
+                    parentProperty="employmentId"
                 />
-                <SectionForm<EmploymentHistory, EmploymentHistorySchemaType>
+                <SectionForm
                     sectionType={SectionEnums.employmentHistory}
                     parentId={employmentId}
                 />

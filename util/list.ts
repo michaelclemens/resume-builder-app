@@ -1,8 +1,7 @@
 import { ListItemEducation, ListItemEmployment, ListItemHistory, ListItemSkill, ListItemStrength } from "@/components";
-import { ItemComponentType } from "@/types/hook";
 import { SectionEnums, SectionType } from "@/types/section";
 
-export function getSectionListItemComponent<ItemType>(sectionType: SectionType): ItemComponentType<ItemType> {
+export function getSectionListItemComponent(sectionType: SectionType) {
     switch(sectionType) {
         case SectionEnums.education:
             return ListItemEducation;

@@ -1,3 +1,4 @@
+import { SectionItemType, SectionType } from "@/types/section";
 import { FieldPath, FieldValues, UseFormSetError } from "react-hook-form";
 import { ZodError } from "zod";
 
@@ -10,9 +11,10 @@ type StatusTypes = keyof typeof ResponseStatus;
 
 const createErrorPayload = (error: Error|null|unknown) => {
     let serverError = null;
-    let formErrors: { path: string, message: string }[] = []
+    let formErrors: { path: string, message: string }[]|null = null
     
     if (error instanceof ZodError) {
+        formErrors = [];
         const { errors } = error;
         for (var i = 0; i < errors.length; i++) {
             formErrors.push({ path: errors[i].path[0] as string, message: errors[i].message });
@@ -24,21 +26,21 @@ const createErrorPayload = (error: Error|null|unknown) => {
     return { serverError, formErrors }
 }
 
-interface IResponseOptions<T> {
+interface IResponseOptions {
     message?: string
-    payload?: Partial<T>,
+    payload?: {[key in SectionType]?: SectionItemType | null },
     error?: Error | null | unknown
 }
 
-export interface IResponse<T> {
+export interface IResponse {
     status: StatusTypes,
-    message: string,
-    payload: Partial<T>,
+    message?: string,
+    payload?: {[key in SectionType]?: SectionItemType | null },
     serverError: string | null,
-    formErrors: { path: string, message: string }[]
+    formErrors: { path: string, message: string }[]|null
 }
 
-export const response = <TPayload extends {}>(status: StatusTypes, { message = '', payload = {}, error = null }: IResponseOptions<TPayload>): IResponse<TPayload> => {
+export const response = (status: StatusTypes, { message, payload, error = null }: IResponseOptions) => {
     return {
         status,
         message,
@@ -47,9 +49,11 @@ export const response = <TPayload extends {}>(status: StatusTypes, { message = '
     }
 }
 
-export const handleErrorResponse = <TFieldValues extends FieldValues, TPayload extends {}>({ formErrors, message, serverError }: IResponse<TPayload>, setError: UseFormSetError<TFieldValues>) => {
-    for (const { path, message } of formErrors) {
-        setError(path as FieldPath<TFieldValues>, { message });
+export const handleErrorResponse = <TFieldValues extends FieldValues>({ formErrors, message, serverError }: IResponse, setError: UseFormSetError<TFieldValues>) => {
+    if (formErrors) {
+        for (const { path, message } of formErrors) {
+            setError(path as FieldPath<TFieldValues>, { message });
+        }
     }
     if (serverError) console.error(serverError);
     if (message) console.error(message);

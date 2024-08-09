@@ -1,12 +1,15 @@
 "use client"
 
-import { SortableItemType } from "@/types/hook";
-import { closestCenter, DndContext, DragEndEvent, KeyboardSensor, MouseSensor, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { ListItemType } from "@/types/section";
+import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { restrictToParentElement, restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { useId } from "react";
 
-export default function SortableVerticalList<T extends SortableItemType>({ items, children, onNewSortOrder }: { items: T[], children: React.ReactNode, onNewSortOrder: (sortedItems: T[]) => Promise<void> }) {
+export default function SortableVerticalList(
+    { items, children, onNewSortOrder }:
+    { items: ListItemType[], children: React.ReactNode, onNewSortOrder: (sortedItems: ListItemType[]) => Promise<void> }
+) {
     const id = useId();
     const sensors = useSensors(useSensor(PointerSensor));
 

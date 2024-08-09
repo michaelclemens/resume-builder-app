@@ -46,3 +46,6 @@ export type EmploymentHistorySchemaType = z.infer<typeof EmploymentHistorySchema
 export type EducationSchemaType = z.infer<typeof EducationSchema>
 export type SkillSchemaType = z.infer<typeof SkillSchema>
 export type StrengthSchemaType = z.infer<typeof StrengthSchema>
+
+export type SectionSchemaType = typeof PersonalSchema | typeof EmploymentSchema | typeof EmploymentHistorySchema | typeof EducationSchema | typeof SkillSchema | typeof StrengthSchema;
+export type SectionSchemaValueType = PersonalSchemaType | EmploymentSchemaType | EmploymentHistorySchemaType | EducationSchemaType | SkillSchemaType | StrengthSchemaType;
