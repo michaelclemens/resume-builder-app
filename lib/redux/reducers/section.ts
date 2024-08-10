@@ -1,48 +1,62 @@
 "use client"
 
-import { ListItemType, SectionEnums, SectionType, SingleItemType } from '@/types/section';
+import { ListItemType, SectionEnums, SectionItemType, SectionType, SingleItemType } from '@/types/section';
 import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } from '@prisma/client';
 import { createSlice, PayloadAction, SliceCaseReducers, SliceSelectors, ValidateSliceCaseReducers } from '@reduxjs/toolkit'
 
 type GenericState<T> = T | null
 
 const singleItemReducers = ({
-  setItem: (_state: GenericState<SingleItemType>, { payload }: PayloadAction<SingleItemType>) => payload
+  setItem: <ItemType extends SingleItemType>(_state: GenericState<ItemType>, { payload }: PayloadAction<ItemType>) => payload,
+  addItem: <ItemType extends SectionItemType>(state: GenericState<ItemType|null>, { payload }: PayloadAction<ItemType>) => {
+    state = payload;
+    return state;
+  },
+  updateItem: <ItemType extends SectionItemType>(state: GenericState<ItemType|null>, { payload }: PayloadAction<ItemType>) => {    
+    if (!state) return;
+    state = payload;
+    return state;
+  },
 })
 
 const listItemReducers = ({
-  setItems: (state: GenericState<ListItemType[]|null>, { payload }: PayloadAction<{ items: ListItemType[], parentId?: string, parentProperty?: string }>) => {
+  setItems: <ItemType extends ListItemType>(state: GenericState<ItemType[]|null>, { payload }: PayloadAction<{ items: ItemType[], parentId?: string, parentProperty?: string }>) => {
     if (state && payload.parentId && payload.parentProperty) {
-      state = state.filter((item: ListItemType) => item[payload.parentProperty] !== payload.parentId);
+      state = state.filter((item: ItemType) => item[payload.parentProperty] !== payload.parentId);
+      return state;
     }
     state = payload.items;
+    return state;
   },
-  addItem: (state: GenericState<ListItemType[]>, { payload }: PayloadAction<ListItemType>) => {
+  addItem: <ItemType extends SectionItemType>(state: GenericState<ItemType[]|null>, { payload }: PayloadAction<ItemType>) => {
     if (!state) state = [];
     state.push(payload);
+    return state;
   },
-  updateItem: (state: GenericState<ListItemType[]>, { payload }: PayloadAction<ListItemType>) => {    
+  updateItem: <ItemType extends SectionItemType>(state: GenericState<ItemType[]|null>, { payload }: PayloadAction<ItemType>) => {    
     if (!state) return;
-    const index = state.findIndex(({ id }: ListItemType) => id === payload.id);
+    const index = state.findIndex(({ id }: ItemType) => id === payload.id);
     if (index === -1) return;
     state[index] = payload;
+    return state;
   },
-  removeItem: (state: GenericState<ListItemType[]>, { payload }: PayloadAction<ListItemType>) => {
+  removeItem: <ItemType extends ListItemType>(state: GenericState<ItemType[]|null>, { payload }: PayloadAction<ItemType>) => {
     if (!state) return;
-    const index = state.findIndex(({ id }: ListItemType) => id === payload.id);
+    const index = state.findIndex(({ id }: ItemType) => id === payload.id);
     if (index === -1) return;
     state.splice(index, 1);
+    return state;
   }
 })
 
 const singleItemSelectors = ({
-  selectItem: (state: GenericState<SingleItemType>) => state,
+  selectItem: <ItemType extends SingleItemType>(state: GenericState<ItemType|null>) => state,
 })
 
 const listItemSelectors = ({
-  selectItems: (state: GenericState<ListItemType[]>, { parentId, parentProperty }: { parentId?: string, parentProperty?: string }) => {
+  selectItems: <ItemType extends ListItemType>(state: GenericState<ItemType[]|null>, { parentId, parentProperty }: { parentId?: string, parentProperty?: string }): ItemType[]|null => {
     if (state && parentId && parentProperty) {
-      return state.filter((item: ListItemType) => item[parentProperty] === parentId);
+      return state.filter((item: ItemType) => item[parentProperty] === parentId);
     }
     return state;
   }

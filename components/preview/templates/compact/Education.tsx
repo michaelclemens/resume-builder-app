@@ -5,7 +5,7 @@ import { sortByOrder } from "@/util/sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Education } from "@prisma/client"
 
-export default ({ educations: initialEducations, oswaldClassName }: { educations: Education[] }) => {
+export default function EducationList({ educations: initialEducations, oswaldClassName }: { educations: Education[] }) {
     const [animationParent] = useAutoAnimate();
     const { items: educations } = useSectionList(SectionEnums.education, { initialItems: initialEducations });
 

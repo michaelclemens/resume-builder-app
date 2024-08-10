@@ -4,7 +4,7 @@ import { InputText, InputTypeEnum, RichTextEditor, SubmitButton } from "@/compon
 import { EmploymentHistorySchemaType } from "@/types/form";
 import { BodyComponentProps } from "@/types/hook";
 
-export default function({ form: { register, control, formState: { isSubmitting, errors } }, editing }: BodyComponentProps<EmploymentHistorySchemaType>) {
+export default function FormBodyHistory({ form: { register, control, formState: { isSubmitting, errors } }, editing }: BodyComponentProps<EmploymentHistorySchemaType>) {
     return (
         <>
             <InputText label="Title" disabled={isSubmitting} error={errors.title} {...register('title')} required />

@@ -1,42 +1,41 @@
 import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } from "@prisma/client";
 import { getDisplayDateFromDate } from "./date";
 import { SectionEnums, SectionItemType, SectionType } from "@/types/section";
-import { EducationSchema, EmploymentHistorySchema, EmploymentSchema, PersonalSchema, SectionSchemaType, SkillSchema, StrengthSchema } from "@/types/form";
+import { EducationSchema, EmploymentHistorySchema, EmploymentSchema, PersonalSchema, SkillSchema, StrengthSchema } from "@/types/form";
 import { FormBodyEducation, FormBodyEmployment, FormBodyHistory, FormBodyPersonal, FormBodySkill, FormBodyStrength } from "../components";
-import { BodyComponentType } from "@/types/hook";
 
 export const richTextEditorClassName = 'rte-editor';
 
 const getDefaultValuesPersonal = (personal?: Personal) => ({
     firstName: personal?.firstName ?? '',
     lastName: personal?.lastName ?? '',
-    position: personal?.position ?? '',
-    summary: personal?.summary ?? '',
-    email: personal?.email ?? '',
-    phone: personal?.phone ?? '',
-    city: personal?.city ?? '',
-    country: personal?.country ?? ''
+    position: personal?.position ?? undefined,
+    summary: personal?.summary ?? undefined,
+    email: personal?.email ?? undefined,
+    phone: personal?.phone ?? undefined,
+    city: personal?.city ?? undefined,
+    country: personal?.country ?? undefined
 })
 
 const getDefaultValuesEmployment = (employment?: Employment) => ({
     employer: employment?.employer ?? '',
-    city: employment?.city ?? '',
+    city: employment?.city ?? undefined,
 })
 
 const getDefaultValuesEmploymentHistory = (history?: EmploymentHistory) => ({
     title: history?.title ?? '',
     startDate: getDisplayDateFromDate(history?.startDate) ?? '',
-    endDate: history?.endDate ? getDisplayDateFromDate(history?.endDate) : '',
-    description: history?.description ?? '',
+    endDate: history?.endDate ? getDisplayDateFromDate(history?.endDate) : undefined,
+    description: history?.description ?? undefined,
 })
 
 const getDefaultValuesEducation = (education?: Education) => ({
     school: education?.school ?? '',
     degree: education?.degree ?? '',
     startDate: getDisplayDateFromDate(education?.startDate) ?? '',
-    endDate: education?.endDate ? getDisplayDateFromDate(education?.endDate) : '',
-    city: education?.city ?? '',
-    description: education?.description ?? '',
+    endDate: education?.endDate ? getDisplayDateFromDate(education?.endDate) : undefined,
+    city: education?.city ?? undefined,
+    description: education?.description ?? undefined,
 })
 
 const getDefaultValuesSkill = (skill?: Skill) => ({ name: skill?.name ?? '' })
@@ -57,10 +56,12 @@ export function getDefaultValues(sectionType: SectionType, item?: SectionItemTyp
             return getDefaultValuesSkill(item as Skill);
         case SectionEnums.strength:
             return getDefaultValuesStrength(item as Strength);
+        default:
+        throw new Error(`Section ${sectionType} is not implemented`)
     }
 }
 
-export function getSchema(sectionType: SectionType): SectionSchemaType {
+export function getSchema(sectionType: SectionType) {
     switch (sectionType) {
         case SectionEnums.personal:
             return PersonalSchema;
@@ -79,7 +80,7 @@ export function getSchema(sectionType: SectionType): SectionSchemaType {
     }
 }
 
-export function getSectionFormBodyComponent(sectionType: SectionType): BodyComponentType {
+export function getSectionFormBodyComponent(sectionType: SectionType) {
     switch(sectionType) {
         case SectionEnums.personal:
             return FormBodyPersonal;
@@ -94,6 +95,6 @@ export function getSectionFormBodyComponent(sectionType: SectionType): BodyCompo
         case SectionEnums.strength:
             return FormBodyStrength;
         default:
-            return () => null;
+            throw new Error(`Section ${sectionType} is not implemented`);
     }
 }

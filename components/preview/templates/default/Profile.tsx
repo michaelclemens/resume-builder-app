@@ -3,7 +3,7 @@ import { useSectionItem } from "@/hooks";
 import { SectionEnums } from "@/types/section";
 import { Personal } from "@prisma/client";
 
-export default ({ personal: initialPerson }: { personal: Personal|null }) => {
+export default function Profile({ personal: initialPerson }: { personal: Personal|null }) {
     const { item: personal } = useSectionItem(SectionEnums.personal, initialPerson);
 
     if ( !personal) return;

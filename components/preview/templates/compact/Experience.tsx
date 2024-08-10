@@ -4,7 +4,7 @@ import { sortByOrder } from "@/util/sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Skill } from "@prisma/client"
 
-export default ({ skills: initialSkills, oswaldClassName }: { skills: Skill[] }) => {
+export default function Experience({ skills: initialSkills, oswaldClassName }: { skills: Skill[] }) {
     const [animationParent] = useAutoAnimate();
     const { items: skills } = useSectionList(SectionEnums.skill, { initialItems: initialSkills });
 

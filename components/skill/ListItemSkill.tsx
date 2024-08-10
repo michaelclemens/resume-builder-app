@@ -7,7 +7,7 @@ import { SectionForm } from "../form";
 import { ItemComponentProps } from "@/types/hook";
 import { SectionEnums } from "@/types/section";
 
-export default function({ item: skill, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Skill>) {
+export default function ListItemSkill({ item: skill, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Skill>) {
     return (
         <>
             <span className="w-3/4 flex-none">{skill.name}</span>

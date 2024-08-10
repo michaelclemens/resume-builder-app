@@ -6,9 +6,9 @@ import { Strength } from "@prisma/client";
 import { response, ResponseStatus } from "../response";
 import { SectionEnums } from "@/types/section";
 
-const createDataPayload = (resumeId: string, formData: StrengthSchemaType) => {
+const createDataPayload = (parentId: string, formData: StrengthSchemaType) => {
     StrengthSchema.parse(formData);
-    return { resumeId, ...formData }
+    return { resumeId: parentId, ...formData }
 }
 
 export async function getStrengths(resumeId: string) {
@@ -20,27 +20,27 @@ export async function getStrengths(resumeId: string) {
     }
 }
 
-export async function addStrength(resumeId: string, formData: StrengthSchemaType) {
+export async function addStrength(parentId: string, formData: StrengthSchemaType) {
     try {
-        const strength = await prisma.strength.create({ data: createDataPayload(resumeId, formData) });
+        const strength = await prisma.strength.create({ data: createDataPayload(parentId, formData) });
         return response(ResponseStatus.success, { payload: { [SectionEnums.strength]: strength }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
 }
 
-export async function updateStrength(id: string, resumeId: string, formData: StrengthSchemaType) {
+export async function updateStrength(id: string, parentId: string, formData: StrengthSchemaType) {
     try {
-        const strength = await prisma.strength.update({ where: { id }, data: createDataPayload(resumeId, formData) });
+        const strength = await prisma.strength.update({ where: { id }, data: createDataPayload(parentId, formData) });
         return response(ResponseStatus.success, { payload: { [SectionEnums.strength]: strength }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
 }
 
-export async function setStrengthSortOrders(strengths: Strength[]) {
+export async function setStrengthSortOrders(items: Strength[]) {
     try {
-        for (const strength of strengths) {
+        for (const strength of items) {
             await prisma.strength.update({ where: { id: strength.id }, data: { order: strength.order }})
         }
     } catch (error) {

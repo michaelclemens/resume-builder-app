@@ -7,10 +7,10 @@ import { sanitize } from "isomorphic-dompurify";
 import { response, ResponseStatus } from "../response";
 import { SectionEnums } from "@/types/section";
 
-const createDataPayload = (resumeId: string, formData: EducationSchemaType) => {
+const createDataPayload = (parentId: string, formData: EducationSchemaType) => {
     EducationSchema.parse(formData);
     return { 
-        resumeId, 
+        resumeId: parentId, 
         ...formData, 
         startDate: new Date(formData.startDate),
         endDate: formData.endDate ? new Date(formData.endDate) : undefined,
@@ -27,27 +27,27 @@ export async function getEducations(resumeId: string) {
     }
 }
 
-export async function addEducation(resumeId: string, formData: EducationSchemaType) {
+export async function addEducation(parentId: string, formData: EducationSchemaType) {
     try {
-        const education = await prisma.education.create({ data: createDataPayload(resumeId, formData) });
+        const education = await prisma.education.create({ data: createDataPayload(parentId, formData) });
         return response(ResponseStatus.success, { payload: { [SectionEnums.education]: education }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
 }
 
-export async function updateEducation(id: string, resumeId: string, formData: EducationSchemaType) {
+export async function updateEducation(id: string, parentId: string, formData: EducationSchemaType) {
     try {
-        const education = await prisma.education.update({ where: { id }, data: createDataPayload(resumeId, formData) });
+        const education = await prisma.education.update({ where: { id }, data: createDataPayload(parentId, formData) });
         return response(ResponseStatus.success, { payload: { [SectionEnums.education]: education }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
 }
 
-export async function setEducationSortOrders(educations: Education[]) {
+export async function setEducationSortOrders(items: Education[]) {
     try {
-        for (const education of educations) {
+        for (const education of items) {
             await prisma.education.update({ where: { id: education.id }, data: { order: education.order }})
         }
     } catch (error) {

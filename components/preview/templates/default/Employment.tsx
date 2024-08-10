@@ -4,7 +4,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import EmploymentHistory from "./EmploymentHistory";
 import { EmploymentWithHistory, SectionEnums } from "@/types/section";
 
-export default ({ employments: initialEmployments }: { employments: EmploymentWithHistory[] }) => {
+export default function EmploymentList({ employments: initialEmployments }: { employments: EmploymentWithHistory[] }) {
     const [animationParent] = useAutoAnimate();
     const { items: employments } = useSectionList(SectionEnums.employment, { initialItems: initialEmployments });
 

@@ -4,46 +4,48 @@ import { addEmployment, deleteEmployment, setEmploymentSortOrders, updateEmploym
 import { addSkill, deleteSkill, setSkillSortOrders, updateSkill } from './skill';
 import { addStrength, deleteStrength, setStrengthSortOrders, updateStrength } from './strength';
 import { addEmploymentHistory, deleteEmploymentHistory, setEmploymentHistorySortOrders, updateEmploymentHistory } from './employmentHistory';
-import { SectionType } from '@/types/section';
+import { EmploymentWithHistory, SectionItemType, SectionType } from '@/types/section';
+import { EducationSchemaType, EmploymentHistorySchemaType, EmploymentSchemaType, PersonalSchemaType, SectionSchemaType, SkillSchemaType, StrengthSchemaType } from '@/types/form';
+import { Education, EmploymentHistory, Skill, Strength } from '@prisma/client';
 
 const personalActions = ({
-    addItem: addPersonal, 
-    updateItem: updatePersonal,
+    addItem: async (parentId: string, formData: SectionSchemaType) => addPersonal(parentId, formData as PersonalSchemaType), 
+    updateItem: async (id: string, parentId: string, formData: SectionSchemaType) => updatePersonal(id, parentId, formData as PersonalSchemaType),
 })
 
 const educationActions = ({
-    addItem: addEducation, 
-    updateItem: updateEducation, 
+    addItem: async (parentId: string, formData: SectionSchemaType) => addEducation(parentId, formData as EducationSchemaType), 
+    updateItem: async (id: string, parentId: string, formData: SectionSchemaType) => updateEducation(id, parentId, formData as EducationSchemaType), 
     deleteItem: deleteEducation, 
-    setSortOrders: setEducationSortOrders
+    setSortOrders: async (items: SectionItemType[]) => setEducationSortOrders(items as Education[])
 })
 
 const employmentActions = ({
-    addItem: addEmployment, 
-    updateItem: updateEmployment, 
+    addItem: async (parentId: string, formData: SectionSchemaType) => addEmployment(parentId, formData as EmploymentSchemaType), 
+    updateItem: async (id: string, parentId: string, formData: SectionSchemaType) => updateEmployment(id, parentId, formData as EmploymentSchemaType), 
     deleteItem: deleteEmployment, 
-    setSortOrders: setEmploymentSortOrders
+    setSortOrders: async (items: SectionItemType[]) => setEmploymentSortOrders(items as EmploymentWithHistory[])
 })
 
 const employmentHistoryActions = ({
-    addItem: addEmploymentHistory, 
-    updateItem: updateEmploymentHistory, 
+    addItem: async (parentId: string, formData: SectionSchemaType) => addEmploymentHistory(parentId, formData as EmploymentHistorySchemaType), 
+    updateItem: async (id: string, parentId: string, formData: SectionSchemaType) => updateEmploymentHistory(id, parentId, formData as EmploymentHistorySchemaType), 
     deleteItem: deleteEmploymentHistory, 
-    setSortOrders: setEmploymentHistorySortOrders
+    setSortOrders: async (items: SectionItemType[]) => setEmploymentHistorySortOrders(items as EmploymentHistory[])
 })
 
 const skillActions = ({
-    addItem: addSkill, 
-    updateItem: updateSkill, 
+    addItem: async (parentId: string, formData: SectionSchemaType) => addSkill(parentId, formData as SkillSchemaType), 
+    updateItem: async (id: string, parentId: string, formData: SectionSchemaType) => updateSkill(id, parentId, formData as SkillSchemaType), 
     deleteItem: deleteSkill, 
-    setSortOrders: setSkillSortOrders
+    setSortOrders: async (items: SectionItemType[]) => setSkillSortOrders(items as Skill[])
 })
 
 const strengthActions = ({
-    addItem: addStrength, 
-    updateItem: updateStrength, 
+    addItem: async (parentId: string, formData: SectionSchemaType) => addStrength(parentId, formData as StrengthSchemaType), 
+    updateItem: async (id: string, parentId: string, formData: SectionSchemaType) => updateStrength(id, parentId, formData as StrengthSchemaType), 
     deleteItem: deleteStrength, 
-    setSortOrders: setStrengthSortOrders
+    setSortOrders: async (items: SectionItemType[]) => setStrengthSortOrders(items as Strength[])
 })
 
 const allActions = {

@@ -8,7 +8,7 @@ import { SectionForm } from "../form";
 import { ItemComponentProps } from "@/types/hook";
 import { SectionEnums } from "@/types/section";
 
-export default function({ item: education, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Education>) {
+export default function ListItemEducation({ item: education, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Education>) {
     return (
         <>
             <div className="flex-auto">

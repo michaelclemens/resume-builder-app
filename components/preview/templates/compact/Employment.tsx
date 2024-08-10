@@ -4,7 +4,7 @@ import { useSectionList } from "@/hooks";
 import { EmploymentWithHistory, SectionEnums } from "@/types/section";
 import EmploymentHistory from "./EmploymentHistory";
 
-export default ({ employments: initialEmployments, oswaldClassName }: { employments: EmploymentWithHistory[] }) => {
+export default function EmploymentList({ employments: initialEmployments, oswaldClassName }: { employments: EmploymentWithHistory[] }) {
     const [animationParent] = useAutoAnimate();
     const { items: employments } = useSectionList(SectionEnums.employment, { initialItems: initialEmployments });
     

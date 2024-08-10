@@ -23,9 +23,9 @@ enum SingleItemSectionEnums {
     personal = SectionEnums.personal,
 }
 
-export type SectionType = keyof typeof SingleItemSectionEnums | keyof typeof ListSectionEnums;
 export type SingleItemSectionType = keyof typeof SingleItemSectionEnums;
 export type ListSectionType = keyof typeof ListSectionEnums;
+export type SectionType = SingleItemSectionType | ListSectionType;
 
 export type SingleItemType = Personal;
 export type ListItemType = Education | Employment | EmploymentWithHistory | EmploymentHistory | Skill | Strength;

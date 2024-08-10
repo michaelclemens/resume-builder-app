@@ -11,7 +11,7 @@ export default function SectionForm(
     const { save, form, editing } = useSectionForm(sectionType, item);
     const FormBodyComponent = getSectionFormBodyComponent(sectionType);
     return (
-        <div className="my-3 mx-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10">
+        <div className="my-3 mx-1 bg-gray-50 p-3 rounded-lg ring-1 ring-slate-700/10 dark:bg-slate-700">
             <form role="form" onSubmit={form.handleSubmit(async(formData) => save(parentId, formData, onSave))}>
                 <FormBodyComponent form={form} editing={editing} />
             </form>

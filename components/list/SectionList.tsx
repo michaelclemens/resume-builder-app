@@ -8,26 +8,28 @@ import { ListSectionType, ListItemType } from "@/types/section";
 
 export const defaultEmptyMessage = 'Empty';
 
-export default function SectionList<Name extends ListSectionType>(
+export default function SectionList(
     { sectionType, initialItems, parentId, parentProperty, emptyText = defaultEmptyMessage }: 
-    { sectionType: Name, initialItems: ListItemType[]|null, parentId?: string, parentProperty?: string, emptyText?: string }
+    { sectionType: ListSectionType, initialItems: ListItemType[]|null, parentId?: string, parentProperty?: string, emptyText?: string }
 ) {
     const { items, saveSortOrder } = useSectionList(sectionType, { initialItems, parentId, parentProperty });
     
     if (!items || !items.length) return <p>{emptyText}</p>
 
     return (
-        <SortableVerticalList items={items} onNewSortOrder={saveSortOrder}>
-            {items.sort(sortByOrder).map((item) => (
-                <SortableItem key={item.id} id={item.id}>
-                    <SectionListItem
-                        sectionType={sectionType}
-                        item={item}
-                        parentId={parentId}
-                        parentProperty={parentProperty}
-                    />
-                </SortableItem>
-            ))}
-        </SortableVerticalList>
+        <div className="rounded-lg bg-white mx-1 mt-2 mb-1 text-gray-700 divide-y divide-slate-400/20 ring-1 ring-slate-700/10 dark:bg-slate-800 dark:text-white">
+            <SortableVerticalList items={items} onNewSortOrder={saveSortOrder}>
+                {items.sort(sortByOrder).map((item) => (
+                    <SortableItem key={item.id} id={item.id}>
+                        <SectionListItem
+                            sectionType={sectionType}
+                            item={item}
+                            parentId={parentId}
+                            parentProperty={parentProperty}
+                        />
+                    </SortableItem>
+                ))}
+            </SortableVerticalList>
+        </div>
     )
 }

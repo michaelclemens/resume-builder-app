@@ -4,7 +4,7 @@ import { sortByOrder } from "@/util/sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Strength } from "@prisma/client"
 
-export default ({ strengths: initialStrengths, oswaldClassName }: { strengths: Strength[] }) => {
+export default function StrengthList({ strengths: initialStrengths, oswaldClassName }: { strengths: Strength[] }) {
     const [animationParent] = useAutoAnimate();
     const { items: strengths } = useSectionList(SectionEnums.strength, { initialItems: initialStrengths });
 

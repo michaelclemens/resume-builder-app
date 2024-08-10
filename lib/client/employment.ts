@@ -5,9 +5,9 @@ import { EmploymentSchema, EmploymentSchemaType } from "@/types/form";
 import { response, ResponseStatus } from "../response";
 import { EmploymentWithHistory, SectionEnums } from "@/types/section";
 
-const createDataPayload = (resumeId: string, formData: EmploymentSchemaType) => {
+const createDataPayload = (parentId: string, formData: EmploymentSchemaType) => {
     EmploymentSchema.parse(formData);
-    return { resumeId, ...formData }
+    return { resumeId: parentId, ...formData }
 }
 
 export async function getEmployments(resumeId: string) {
@@ -19,27 +19,27 @@ export async function getEmployments(resumeId: string) {
     }
 }
 
-export async function addEmployment(resumeId: string, formData: EmploymentSchemaType) {
+export async function addEmployment(parentId: string, formData: EmploymentSchemaType) {
     try {
-        const employment = await prisma.employment.create({ data: createDataPayload(resumeId, formData) });
+        const employment = await prisma.employment.create({ data: createDataPayload(parentId, formData) });
         return response(ResponseStatus.success, { payload: { [SectionEnums.employment]: employment }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
 }
 
-export async function updateEmployment(id: string, resumeId: string, formData: EmploymentSchemaType) {
+export async function updateEmployment(id: string, parentId: string, formData: EmploymentSchemaType) {
     try {
-        const employment = await prisma.employment.update({ where: { id }, data: createDataPayload(resumeId, formData) });
+        const employment = await prisma.employment.update({ where: { id }, data: createDataPayload(parentId, formData) });
         return response(ResponseStatus.success, { payload: { [SectionEnums.employment]: employment }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
 }
 
-export async function setEmploymentSortOrders(employments: EmploymentWithHistory[]) {
+export async function setEmploymentSortOrders(items: EmploymentWithHistory[]) {
     try {
-        for (const employment of employments) {
+        for (const employment of items) {
             await prisma.employment.update({ where: { id: employment.id }, data: { order: employment.order }})
         }
     } catch (error) {

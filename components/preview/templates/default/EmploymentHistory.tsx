@@ -5,7 +5,7 @@ import { sortByOrder } from "@/util/sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { EmploymentHistory } from "@prisma/client";
 
-export default ({ employmentId, histories: initialHistories }: { employmentId: string, histories: EmploymentHistory[] }) => {
+export default function EmploymentHistoryList({ employmentId, histories: initialHistories }: { employmentId: string, histories: EmploymentHistory[] }) {
     const [animationParent] = useAutoAnimate();
     const { items: histories } = useSectionList(SectionEnums.employmentHistory, { parentId: employmentId, parentProperty: 'employmentId', initialItems: initialHistories })
 

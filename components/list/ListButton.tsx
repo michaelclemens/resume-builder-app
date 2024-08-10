@@ -13,11 +13,11 @@ export default function ListButton(
     switch(type) {
         case ButtonType.edit:
             button = <FaEdit title="Edit"/>
-            className="hover:text-blue-600"
+            className="hover:text-blue-600 dark:hover:text-blue-400"
             break;
         case ButtonType.delete:
             button = <FaTrashAlt title="Delete"/>
-            className="hover:text-red-600"
+            className="hover:text-red-600 dark:hover:text-red-400"
             break;
         default:
             button = label;
@@ -26,7 +26,7 @@ export default function ListButton(
 
     const paddingY = typeof button === "string" ? labelYPaddingClass : iconYPaddingClass;
     return (
-        <button onClick={onClick} className={`rounded-md px-2 ${paddingY} font-medium shadow-sm ring-1 ring-slate-700/10 hover:bg-slate-50 text-gray-700 transition-colors duration-500 ${className}`}>
+        <button onClick={onClick} className={`rounded-md px-2 ${paddingY} font-medium shadow-sm ring-1 ring-slate-700/10 hover:bg-slate-50 text-gray-700 transition-colors duration-500 dark:text-white dark:ring-slate-600 dark:hover:bg-slate-500 ${className}`}>
             {button}
         </button>
     )

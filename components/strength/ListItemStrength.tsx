@@ -8,7 +8,7 @@ import { SectionForm } from "@/components/form";
 import { ItemComponentProps } from "@/types/hook";
 import { SectionEnums } from "@/types/section";
 
-export default function({ item: strength, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Strength>) {
+export default function ListItemStrength({ item: strength, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Strength>) {
     return (
         <>
             <span className="w-3/4 flex-none">{strength.name}</span>

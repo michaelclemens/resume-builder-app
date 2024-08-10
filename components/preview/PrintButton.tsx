@@ -1,7 +1,7 @@
 import { FaPrint } from "react-icons/fa"
 import { useReactToPrint } from "react-to-print";
 
-export default ({ getContent, documentTitle, onBeforePrint }: { getContent: () => HTMLElement|null, documentTitle?: string, onBeforePrint?: () => void }) => {
+export default function PrintButton({ getContent, documentTitle, onBeforePrint }: { getContent: () => HTMLElement|null, documentTitle?: string, onBeforePrint?: () => void }) {
     const handlePrint = useReactToPrint({
         documentTitle,
         onBeforeGetContent: onBeforePrint,

@@ -1,7 +1,7 @@
 import useResume from "@/hooks/useResume"
 import { Template } from "@prisma/client"
 
-export default ({ resumeId }: { resumeId: string }) => {
+export default function TemplateSwitcher({ resumeId }: { resumeId: string }) {
     const { updateTemplate } = useResume();
     return (
         <div className="mt-10">

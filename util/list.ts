@@ -1,7 +1,7 @@
 import { ListItemEducation, ListItemEmployment, ListItemHistory, ListItemSkill, ListItemStrength } from "@/components";
-import { SectionEnums, SectionType } from "@/types/section";
+import { ListSectionType, SectionEnums } from "@/types/section";
 
-export function getSectionListItemComponent(sectionType: SectionType) {
+export function getSectionListItemComponent(sectionType: ListSectionType) {
     switch(sectionType) {
         case SectionEnums.education:
             return ListItemEducation;
@@ -14,6 +14,6 @@ export function getSectionListItemComponent(sectionType: SectionType) {
         case SectionEnums.strength:
             return ListItemStrength;
         default:
-            return () => null;
+            throw new Error(`Section type ${sectionType} has no implementation`);
     }
 }

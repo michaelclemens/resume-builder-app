@@ -1,13 +1,14 @@
 import { fireEvent, waitFor } from "@testing-library/react";
-import { createMockEmploymentWithHistory, createMockHistory, createMockStrength } from "@/test/mocks";
+import { createMockHistory, createMockStrength } from "@/test/mocks";
 import { updateStrength } from "@/lib/client/strength";
 import { ResponseStatus } from "@/lib/response";
 import { renderWithProviders } from "@/test/redux";
 import { faker } from "@faker-js/faker";
 import SectionForm from "./SectionForm";
-import { SectionEnums, SectionType } from "@/types/section";
+import { SectionEnums, SectionItemType, SectionType } from "@/types/section";
 import FormBodyStrength from "../strength/FormBodyStrength";
 import { updateEmploymentHistory } from "@/lib/client/employmentHistory";
+import { RootState } from "@/lib/redux/store";
 
 jest.mock('../strength/FormBodyStrength')
 jest.mock('../employment/history/FormBodyHistory')
@@ -18,16 +19,16 @@ const mockUpdateStrength = jest.mocked(updateStrength);
 const mockUpdateEmploymentHistory = jest.mocked(updateEmploymentHistory);
 const onSave = jest.fn();
 
-async function createSuccessResponseReturn<ItemType>(key: SectionType, item: ItemType) {
+async function createSuccessResponseReturn(key: SectionType, item: SectionItemType) {
     return Promise.resolve(({ 
         status: ResponseStatus.success, 
         payload: {[key]: item }
     }))
 }
 
-function renderComponent<ItemType>(
+function renderComponent(
     { sectionType = SectionEnums.strength, parentId, item, preloadedState }: 
-    { sectionType?: SectionType, parentId: string, item?: ItemType, preloadedState?: any }
+    { sectionType?: SectionType, parentId: string, item?: SectionItemType, preloadedState?: Partial<RootState> }
 ) {
     return (renderWithProviders(
         <SectionForm

@@ -23,24 +23,21 @@ export default function SortableVerticalList(
             const newIndex = items.findIndex(item => item.id === over.id)
 
             const newItems = arrayMove(items, oldIndex, newIndex).map((item, index) => ({ ...item, order: index + 1 }))
-
             onNewSortOrder(newItems)
         }
     }
 
     return (
-        <div className="rounded-lg bg-white mx-1 mt-2 mb-1 divide-y divide-slate-400/20 ring-1 ring-slate-700/10">
-            <DndContext
-                id={`dnd-${id}`}
-                sensors={sensors} 
-                modifiers={[restrictToVerticalAxis, restrictToParentElement]}
-                collisionDetection={closestCenter}
-                onDragEnd={onDragEnd}
-            >
-                <SortableContext items={items} strategy={verticalListSortingStrategy}>
-                    {children}
-                </SortableContext>
-            </DndContext>
-        </div>
+        <DndContext
+            id={`dnd-${id}`}
+            sensors={sensors} 
+            modifiers={[restrictToVerticalAxis, restrictToParentElement]}
+            collisionDetection={closestCenter}
+            onDragEnd={onDragEnd}
+        >
+            <SortableContext items={items} strategy={verticalListSortingStrategy}>
+                {children}
+            </SortableContext>
+        </DndContext>
     )
 }

@@ -7,10 +7,10 @@ import { sanitize } from "isomorphic-dompurify";
 import { response, ResponseStatus } from "../response";
 import { SectionEnums } from "@/types/section";
 
-const createDataPayload = (resumeId: string, formData: PersonalSchemaType) => {
+const createDataPayload = (parentId: string, formData: PersonalSchemaType) => {
     PersonalSchema.parse(formData);
     return {
-        resumeId,
+        resumeId: parentId,
         ...formData,
         summary: formData.summary && sanitize(formData.summary)
     }
@@ -25,18 +25,18 @@ export async function getPersonal(resumeId: string): Promise<Personal|null> {
     }
 }
 
-export async function addPersonal(resumeId: string, formData: PersonalSchemaType) {
+export async function addPersonal(parentId: string, formData: PersonalSchemaType) {
     try {
-        const personal = await prisma.personal.create({ data: createDataPayload(resumeId, formData) });
+        const personal = await prisma.personal.create({ data: createDataPayload(parentId, formData) });
         return response(ResponseStatus.success, { payload: { [SectionEnums.personal]: personal }});
     } catch (error) {
         return response(ResponseStatus.error, { error });
     }
 }
 
-export async function updatePersonal(id: string, resumeId: string, formData: PersonalSchemaType) {
+export async function updatePersonal(id: string, parentId: string, formData: PersonalSchemaType) {
     try {
-        const personal = await prisma.personal.update({ where: { id }, data: createDataPayload(resumeId, formData) });
+        const personal = await prisma.personal.update({ where: { id }, data: createDataPayload(parentId, formData) });
         return response(ResponseStatus.success, { payload: { [SectionEnums.personal]: personal }});
     } catch (error) {
         return response(ResponseStatus.error, { error });

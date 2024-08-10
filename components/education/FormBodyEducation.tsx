@@ -4,7 +4,7 @@ import { InputText, SubmitButton, InputTypeEnum, RichTextEditor } from "@/compon
 import { EducationSchemaType } from "@/types/form";
 import { BodyComponentProps } from "@/types/hook";
 
-export default function ({ form: { register, control, formState: { isSubmitting, errors } }, editing }: BodyComponentProps<EducationSchemaType>) {
+export default function FormBodyEducation({ form: { register, control, formState: { isSubmitting, errors } }, editing }: BodyComponentProps<EducationSchemaType>) {
     return (
         <>
             <div className="grid grid-cols-2 gap-5">

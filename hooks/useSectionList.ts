@@ -5,12 +5,12 @@ import { ListItemType, ListSectionType } from "@/types/section";
 import { getSection } from "@/util/section";
 import { useEffect, useState } from "react";
 
-export default function<ItemType extends ListItemType>(
+export default function useSectionList<ItemType extends ListItemType>(
     sectionType: ListSectionType, 
     { initialItems = null, parentId, parentProperty }: { initialItems?: ItemType[]|null, parentId?: string, parentProperty?: string } = {}
 ) {
     const { state, client } = getSection(sectionType);
-    const items = useAppSelector((rootState) => state.selectors.selectItems(rootState, { parentId, parentProperty })) as ItemType[]|null;
+    const items = useAppSelector((rootState) => state.selectors.selectItems(rootState, { parentId, parentProperty }));
     const dispatch = useAppDispatch();
     const [editing, setEditing] = useState(false);
     const [deleting, setDeleting] = useState(false);
