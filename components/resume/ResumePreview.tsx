@@ -5,21 +5,8 @@ import { useEffect, useRef } from "react";
 import { PrintButton, ResumeTemplate } from "@/components/preview";
 import useResume from "@/hooks/useResume";
 import TemplateSwitcher from "../preview/TemplateSwitcher";
-import { Resume } from "@prisma/client";
 
 const A4Heightpx = 1122;
-
-const getResumeFromFull = (resumeFull: ResumeFull): Resume|null => {
-    if (!resumeFull) return null;
-
-    return {
-        id: resumeFull.id,
-        template: resumeFull.template,
-        templateOptions: resumeFull.templateOptions,
-        createdAt: resumeFull.createdAt,
-        updatedAt: resumeFull.updatedAt,
-    }
-}
 
 export default function ResumePreview({ resume: resumeFull }: { resume: ResumeFull }) {
     const { resume, resetAllState } = useResume(resumeFull);
@@ -49,7 +36,7 @@ export default function ResumePreview({ resume: resumeFull }: { resume: ResumeFu
         <div className="relative ml-14 my-10 w-[210mm]">
             <ResumeTemplate template={resume?.template ?? null} ref={componentRef} />
 
-            <div className="absolute top-0 -right-36">
+            <div className="absolute top-0 -right-24 text-center">
                 <div className="fixed">
                     <PrintButton getContent={() => (componentRef.current)} onBeforePrint={onBeforePrint} />
                     <TemplateSwitcher resumeId={resumeFull.id} />
