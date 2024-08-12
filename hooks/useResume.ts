@@ -21,8 +21,7 @@ export default function useResume(initialResume?: ResumeFull|null) {
     }, [initialResume])
 
     const updateTemplate = async(resumeId: string, template: Template) => {
-        await updateResume(resumeId, { template, templateOptions: {} });
-        dispatch(setTemplateOptions({}));
+        await updateResume(resumeId, { template });
         dispatch(setTemplate(template));
     }
 

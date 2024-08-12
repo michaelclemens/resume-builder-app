@@ -3,7 +3,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 import { ResumeFull } from '@/lib/client/resume';
-import { JsonValue } from '@prisma/client/runtime/library';
+import { Template } from '@prisma/client';
+import { TemplateOptions } from '@/types/template';
 
 const initialState: ResumeFull|null = null
 
@@ -11,15 +12,17 @@ export const slice = createSlice({
   name: 'resume',
   initialState,
   reducers: {
-    setResume: (_state, action) => action.payload,
-    setTemplate: (state, action) => ({
-      ...state ?? {},
-      template: action.payload
-    }),
-    setTemplateOptions: (state, action: PayloadAction<JsonValue>) => ({
-      ...state ?? {},
-      templateOptions: action.payload
-    }),
+    setResume: (_state: ResumeFull|null, { payload }: PayloadAction<ResumeFull>) => payload,
+    setTemplate: (state: ResumeFull|null, { payload }: PayloadAction<Template>) => {
+      if (!state) return;
+      state.template = payload;
+      return state;
+    },
+    setTemplateOptions: (state: ResumeFull|null, { payload }: PayloadAction<TemplateOptions>) => {
+      if (!state) return;
+      state.templateOptions = payload;
+      return state;
+    },
     reset: () => initialState
   }
 })

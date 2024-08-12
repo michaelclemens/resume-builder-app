@@ -12,7 +12,7 @@ export default forwardRef(({ template }: { template: Template|null }, ref: Ref<H
     if (!resume) return;
     
     const onColourChange = async(elementType: ColourElementType, colour: string) => {
-        await updateTemplateOptions(resume.id, {...resume.templateOptions as TemplateOptions, colours: { [elementType]: colour } })
+        await updateTemplateOptions(resume.id, {...resume.templateOptions as TemplateOptions, colours: {...resume.templateOptions.colours, [elementType]: colour } })
     }
 
     const onResetToDefault = async() => {

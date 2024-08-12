@@ -9,7 +9,7 @@ const lightThemeValue = 'light'
 
 const getDefaultDarkMode = (darkThemeValue: string, localStorageKey: string, checkWindow: boolean = true) => {
     if (checkWindow) if (typeof window === 'undefined') return false;
-    const localTheme = localStorage.getItem(localStorageKey);
+    const localTheme = localStorage.getItem(localStorageKey) || undefined;
     if (localTheme) return localTheme === darkThemeValue;
     return window.matchMedia(`(prefers-color-scheme: dark)`).matches;
 }

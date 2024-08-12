@@ -17,6 +17,8 @@ export default function TemplateSwitcher({ resumeId }: { resumeId: string }) {
                         width={100}
                         height={100}
                         alt={`Template ${template.toLowerCase()}`}
+                        priority={true}
+                        style={{ width: '100%', height: 'auto' }}
                     />
                 </div>
             ))}

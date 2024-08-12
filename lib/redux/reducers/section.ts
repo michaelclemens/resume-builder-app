@@ -12,8 +12,7 @@ const singleItemReducers = ({
     state = payload;
     return state;
   },
-  updateItem: <ItemType extends SectionItemType>(state: GenericState<ItemType|null>, { payload }: PayloadAction<ItemType>) => {    
-    if (!state) return;
+  updateItem: <ItemType extends SectionItemType>(state: GenericState<ItemType|null>, { payload }: PayloadAction<ItemType>) => { 
     state = payload;
     return state;
   },
