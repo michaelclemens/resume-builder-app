@@ -13,8 +13,8 @@ export default async function Layout({ params: { id }, children, sections }: { p
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <header className="w-full px-6 py-4 bg-white border-b divide-slate-400/20 flex items-center justify-between dark:bg-slate-950 dark:border-white dark:divide-white">
-        <span className="text-sm text-gray-700 text-center transition-color duration-500 hover:text-gray-500 dark:text-white">
+      <header className="w-full px-6 py-4 bg-white border-b divide-slate-400/20 flex items-center justify-between dark:bg-slate-950 dark:border-slate-600 dark:divide-white">
+        <span className="text-sm text-gray-700 text-center transition-color duration-500 hover:text-gray-500 dark:text-slate-500 dark:hover:text-slate-400">
           <Link href="/"><FaHome size="2em"/></Link>
         </span>
         <ThemeToggle />

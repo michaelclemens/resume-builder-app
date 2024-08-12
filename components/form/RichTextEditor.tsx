@@ -27,7 +27,7 @@ export default function <T extends FieldValues>(
     return (
         <div aria-label={name} className={`mb-3 min-h-24 ${isSubmitting ? disabledClass : ''}`}>
             <ReactQuill
-                className={`${richTextEditorClassName} bg-white`}        
+                className={`${richTextEditorClassName} bg-white dark:bg-slate-800 dark:text-white`}        
                 placeholder={placeholder}
                 value={value} 
                 onChange={(value) => onChange(value)} 

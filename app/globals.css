@@ -2,10 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-}
-
-@media (prefers-color-scheme: dark) {
+@layer components {
+  .dark {
+    .ql-toolbar.ql-snow, .ql-container.ql-snow {
+      @apply bg-slate-700
+    }
+    .ql-toolbar.ql-snow, .ql-container.ql-snow, .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label, .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+      @apply border-slate-600
+    }
+    .ql-toolbar .ql-stroke {
+      stroke: #fff;
+    }
+    .ql-toolbar .ql-fill {
+      fill: #fff;
+    }
+    .ql-toolbar .ql-picker {
+      color: #fff;
+    }
+    .ql-toolbar .ql-picker-options {
+      color: #fff;
+      @apply bg-slate-700;
+    }
+    .ql-snow.ql-toolbar button:hover, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-item:hover {
+      color: rgb(5, 26, 77);
+    }
+    .ql-snow.ql-toolbar button:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke {
+      stroke: rgb(5, 26, 77);
+    }
+    .ql-snow.ql-toolbar button:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill {
+      fill: rgb(5, 26, 77);
+    }
+  }
 }
 
 body {
@@ -21,6 +48,12 @@ body {
 @layer components {
   .ql-editor {
     @apply min-h-20 max-h-40 overflow-y-auto
+  }
+  .ql-toolbar.ql-snow {
+    @apply rounded-tl-md rounded-tr-md
+  }
+  .ql-container.ql-snow {
+    @apply rounded-bl-md rounded-br-md
   }
 }
 

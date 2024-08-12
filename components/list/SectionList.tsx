@@ -17,7 +17,7 @@ export default function SectionList(
     if (!items || !items.length) return <p>{emptyText}</p>
 
     return (
-        <div className="rounded-lg bg-white mx-1 mt-2 mb-1 text-gray-700 divide-y divide-slate-400/20 ring-1 ring-slate-700/10 dark:bg-slate-800 dark:text-white">
+        <div className="rounded-lg bg-white mx-1 mt-2 mb-1 text-gray-700 divide-y divide-slate-400/20 ring-1 ring-slate-700/10 dark:bg-slate-800 dark:text-white dark:ring-slate-700">
             <SortableVerticalList items={items} onNewSortOrder={saveSortOrder}>
                 {items.sort(sortByOrder).map((item) => (
                     <SortableItem key={item.id} id={item.id}>
