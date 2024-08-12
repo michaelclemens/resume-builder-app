@@ -9,7 +9,7 @@ interface Tab {
     href: string
 }
 
-export const activeStyleClass = 'bg-slate-500 text-white border-r-slate-300 dark:bg-slate-700 dark:border-r-slate-500';
+export const activeStyleClass = 'bg-slate-500 text-white dark:bg-slate-700 ';
 export const nonActiveStyleClass = 'text-slate-200 bg-slate-400 hover:bg-slate-500 dark:text-slate-400 dark:bg-slate-800 dark:hover:bg-slate-700';
 
 export default function Tabs({ tabs }: { tabs: Tab[] }) {
@@ -20,9 +20,9 @@ export default function Tabs({ tabs }: { tabs: Tab[] }) {
     const isActiveTab = (tab: Tab) => activeTab.name === tab.name
 
     return (
-        <ul className="text-sm font-medium text-center rounded-lg shadow-md flex divide-slate-300 dark:divide-slate-500 mb-3">
+        <ul className="text-sm font-medium text-center rounded-lg shadow-md flex mb-3">
             {tabs.map(tab => (
-                <li key={tab.name} className={`w-full focus-within:z-10 border-r rounded-none first:rounded-s-lg last:rounded-e-lg last:border-r-0 ${isActiveTab(tab) ? activeStyleClass : nonActiveStyleClass}`}>
+                <li key={tab.name} className={`w-full focus-within:z-10 border-r border-r-slate-300 dark:border-r-slate-500 first:rounded-s-lg last:rounded-e-lg last:border-r-0 ${isActiveTab(tab) ? activeStyleClass : nonActiveStyleClass}`}>
                     <Link href={tab.href} onClick={() => setActiveTab(tab)} className={`inline-block w-full p-4 capitalize`}>
                         {tab.name}
                     </Link>
