@@ -1,6 +1,6 @@
 export default function SubmitButton({ label, disabled = false }: { label: string, disabled?: boolean }) {
     return (
-        <div className="mt-2 leading-5 text-white">
+        <div className="leading-5 text-white">
             <button 
                 type="submit" 
                 disabled={disabled} 

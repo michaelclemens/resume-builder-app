@@ -9,14 +9,15 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
-    transitionProperty: {
-      'height': 'height',
-      'max-height': 'max-height',
-    }
+    extend: {
+      transitionProperty: {
+        'height': 'height',
+        'max-height': 'max-height',
+      }
+    },
   },
   plugins: [
-    require('@tailwindcss/forms')
+    require('@tailwindcss/forms'),
   ],
 };
 export default config;

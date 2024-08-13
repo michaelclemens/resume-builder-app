@@ -1,7 +1,7 @@
 "use client"
 
 import { Skill } from "@prisma/client";
-import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
+import { ListButton, ListDivider } from "@/components/list";
 import { ExpandableWrapper } from '@/components/util';
 import { SectionForm } from "../form";
 import { ItemComponentProps } from "@/types/hook";
@@ -24,7 +24,6 @@ export default function ListItemSkill({ item: skill, remove, setEditing, onSave,
                     onSave={onSave}
                 />
             </ExpandableWrapper>
-            {deleting && <LoadingOverlay />}
         </>
     )
 }

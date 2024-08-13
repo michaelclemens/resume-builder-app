@@ -43,10 +43,10 @@ export default function ThemeToggle() {
 
     return (
         <div>
-            <script dangerouslySetInnerHTML={{ __html: `(${script.toString()})(${getDefaultDarkMode}, ${applyTheme}, ${JSON.stringify([darkThemeValue, localStorageKey]).slice(1, -1)})`}} />
+            <script suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `(${script.toString()})(${getDefaultDarkMode}, ${applyTheme}, ${JSON.stringify([darkThemeValue, localStorageKey]).slice(1, -1)})`}} />
             <label className="relative flex justify-between items-center group p-2 cursor-pointer">
                 <input type="checkbox" className="theme-toggle sr-only peer" onChange={() => toggleMode(!darkMode)}/>
-                <span className={`w-16 h-8 flex p-1 shadow-md dark:shadow-none ring-1 ring-slate-700/10 dark:ring-slate-700 bg-gradient-to-r from-cyan-300 to-cyan-500 rounded-full ${loading ? 'after:translate-x-4' : ''} duration-300 ease-in-out peer-checked:bg-gradient-to-r peer-checked:from-slate-900 peer-checked:to-slate-400 after:w-6 after:h-6 after:bg-white after:dark:bg-slate-900 after:ring-1 after:ring-slate-700/10 after:dark:ring-slate-700 after:rounded-full after:shadow-md after:duration-300 peer-checked:after:translate-x-8 group-hover:after:translate-x-1 group-hover:after:peer-checked:translate-x-7`}></span>
+                <span className={`w-16 h-8 flex p-1 shadow-sm dark:shadow-none ring-1 ring-slate-700/10 dark:ring-slate-700 bg-gradient-to-r from-cyan-300 to-cyan-500 rounded-full ${loading ? 'after:translate-x-4' : ''} duration-300 ease-in-out peer-checked:bg-gradient-to-r peer-checked:from-slate-900 peer-checked:to-slate-400 after:w-6 after:h-6 after:bg-white after:dark:bg-slate-900 after:ring-1 after:ring-slate-700/10 after:dark:ring-slate-700 after:rounded-full after:shadow-md after:duration-300 peer-checked:after:translate-x-8 group-hover:after:translate-x-1 group-hover:after:peer-checked:translate-x-7`}></span>
                 
                 {loading ? (
                     <>

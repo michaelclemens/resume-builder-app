@@ -27,7 +27,7 @@ model Resume {
 
 model Personal {
   id              String      @default(cuid())    @id
-  resume          Resume      @relation(fields: [resumeId], references: [id])
+  resume          Resume      @relation(fields: [resumeId], references: [id], onDelete: Cascade)
   resumeId        String      @unique
   firstName       String
   lastName        String
@@ -43,7 +43,7 @@ model Personal {
 
 model Employment {
   id              String      @default(cuid())    @id
-  resume          Resume      @relation(fields: [resumeId], references: [id])
+  resume          Resume      @relation(fields: [resumeId], references: [id], onDelete: Cascade)
   resumeId        String
   employer        String
   city            String?
@@ -55,7 +55,7 @@ model Employment {
 
 model EmploymentHistory {
   id              String      @default(cuid())    @id
-  employment      Employment  @relation(fields: [employmentId], references: [id])
+  employment      Employment  @relation(fields: [employmentId], references: [id], onDelete: Cascade)
   employmentId    String
   title           String
   startDate       DateTime    @db.Date            @map(name: "start_date")
@@ -68,7 +68,7 @@ model EmploymentHistory {
 
 model Education {
   id              String      @default(cuid())    @id
-  resume          Resume      @relation(fields: [resumeId], references: [id])
+  resume          Resume      @relation(fields: [resumeId], references: [id], onDelete: Cascade)
   resumeId        String
   school          String
   degree          String 
@@ -83,7 +83,7 @@ model Education {
 
 model Skill {
   id              String      @default(cuid())    @id
-  resume          Resume      @relation(fields: [resumeId], references: [id])
+  resume          Resume      @relation(fields: [resumeId], references: [id], onDelete: Cascade)
   resumeId        String
   name            String
   order           Int?
@@ -93,7 +93,7 @@ model Skill {
 
 model Strength {
   id              String      @default(cuid())    @id
-  resume          Resume      @relation(fields: [resumeId], references: [id])
+  resume          Resume      @relation(fields: [resumeId], references: [id], onDelete: Cascade)
   resumeId        String
   name            String
   order           Int?

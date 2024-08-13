@@ -99,7 +99,7 @@ describe('ResumeClient', () => {
 
         await expect(createResumeAction()).resolves.toBeUndefined();
         expect(prismaMock.resume.create).toHaveBeenCalledWith({ data: {} });
-        expect(mockRedirect).toHaveBeenCalledWith(`/resume/${resume.id}`);
+        expect(mockRedirect).toHaveBeenCalledWith(`/resume/${resume.id}/personal`);
     })
     it('Should handle errors when creating a new resume', async () => {
         const error = new Error(faker.lorem.sentence());

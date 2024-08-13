@@ -5,7 +5,7 @@ import { handleErrorResponse, ResponseStatus } from "@/lib/response";
 import { getSection } from "@/util/section";
 import { getDefaultValues, getSchema } from "@/util/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DefaultValues, FieldValues, useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { SectionItemType, SectionType } from "@/types/section";
 import { SectionSchemaType } from "@/types/form";
 
@@ -17,7 +17,7 @@ export default function useSectionForm<TFormValues extends SectionSchemaType & F
     const dispatch = useAppDispatch();
     const form = useForm<TFormValues>({ 
         resolver: zodResolver(getSchema(sectionType)), 
-        defaultValues: getDefaultValues(sectionType, item) as DefaultValues<TFormValues>
+        defaultValues: async () => getDefaultValues(sectionType, item)
     })
     
     const editing = !!item;

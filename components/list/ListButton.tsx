@@ -5,7 +5,7 @@ export const labelYPaddingClass = 'py-1';
 export const iconYPaddingClass = 'py-2';
 
 export default function ListButton(
-    { label = '', type, onClick = () => {} }: 
+    { label = '', type, onClick }: 
     { label?: string|JSX.Element, type?: AvailableButtonTypes, onClick?: () => void }
 ) {
     let button = null;

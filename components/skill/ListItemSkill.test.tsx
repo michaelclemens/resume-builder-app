@@ -6,7 +6,6 @@ import ListItemSkill from "./ListItemSkill";
 import { SectionEnums } from "@/types/section";
 
 jest.mock('@/components/form/SectionForm');
-jest.mock('@/components/list/LoadingOverlay', () => () => <div>Loading</div>)
 
 const remove = jest.fn();
 const setEditing = jest.fn();
@@ -48,11 +47,6 @@ describe('ListItemSkillComponent', () => {
 
         await waitFor(() => expect(remove).toHaveBeenCalledWith(skill));
     })
-    it('Should display loading overlay when deleting', () => {
-        const { getByText } = renderComponent({ deleting: true });
-
-        expect(getByText(/loading/i)).toBeInTheDocument();
-    })
     it('Should show form when editing', () => {
         const { rerender, getByTitle } = renderComponent();
 
@@ -68,5 +62,12 @@ describe('ListItemSkillComponent', () => {
             item: skill,
             onSave
         }, expect.anything());
+    })
+    it('Should hide form when deleting', () => {
+        const { rerender } = renderComponent({ editing: true });
+
+        rerender(getListItemComponent({ editing: true, deleting: true }));
+
+        expect(mockSectionForm).toHaveBeenCalledTimes(1);
     })
 })

@@ -1,6 +1,7 @@
 import { useSectionList } from "@/hooks";
 import { getSectionListItemComponent } from "@/util/list";
 import { ListItemType, ListSectionType } from "@/types/section";
+import Loading from "@/components/ui/Loading";
 
 export default function SectionListItem(
     { sectionType, item, parentId, parentProperty }:
@@ -9,13 +10,16 @@ export default function SectionListItem(
     const { remove, setEditing, editing, deleting } = useSectionList(sectionType, { parentId, parentProperty });
     const ListItemComponent = getSectionListItemComponent(sectionType)
     return (
-        <ListItemComponent
-            item={item} 
-            remove={remove} 
-            setEditing={setEditing}
-            onSave={() => setEditing(false)} 
-            editing={editing} 
-            deleting={deleting}
-        />
+        <>
+            <ListItemComponent
+                item={item} 
+                remove={remove} 
+                setEditing={setEditing}
+                onSave={() => setEditing(false)} 
+                editing={editing} 
+                deleting={deleting}
+            />
+            {deleting && <Loading />}
+        </>
     )
 }

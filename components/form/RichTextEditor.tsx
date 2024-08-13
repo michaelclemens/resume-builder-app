@@ -1,13 +1,13 @@
 'use client'
 
-import Loading from "@/app/loading";
 import dynamic from "next/dynamic";
 import { FieldValues, useController, UseControllerProps } from "react-hook-form";
 import 'react-quill/dist/quill.snow.css';
 import ErrorMessage from "./ErrorMessage";
 import { richTextEditorClassName } from "@/util/form";
+import Loading from "../ui/Loading";
 
-const ReactQuill = dynamic(() => import('react-quill'), { loading: () => <Loading/>, ssr: false });
+const ReactQuill = dynamic(() => import('react-quill'), { loading: () => <Loading showSpinner={false} />, ssr: false });
 
 const toolbarOptions = [
     [{ 'header': [1, 2, 3, false] }],
@@ -25,7 +25,7 @@ export default function <T extends FieldValues>(
 ) {
     const { field: { value, onChange }, fieldState: { error }, formState: { isSubmitting} } = useController({ name, control });
     return (
-        <div aria-label={name} className={`mb-3 min-h-24 ${isSubmitting ? disabledClass : ''}`}>
+        <div aria-label={name} className={`relative mb-3 min-h-24 ${isSubmitting ? disabledClass : ''}`}>
             <ReactQuill
                 className={`${richTextEditorClassName} bg-white dark:bg-slate-800 dark:text-white`}        
                 placeholder={placeholder}

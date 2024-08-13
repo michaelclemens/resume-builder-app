@@ -1,7 +1,7 @@
 "use client"
 
 import { Education } from "@prisma/client";
-import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
+import { ListButton, ListDivider } from "@/components/list";
 import { getDisplayDateFromDate } from "@/util/date";
 import { ExpandableWrapper } from "@/components/util";
 import { SectionForm } from "../form";
@@ -31,7 +31,6 @@ export default function ListItemEducation({ item: education, remove, setEditing,
                     onSave={onSave}
                 />
             </ExpandableWrapper>
-            {deleting && <LoadingOverlay />}
         </>
     )
 }

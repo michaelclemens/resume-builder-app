@@ -7,7 +7,14 @@ const tab2 = { name: faker.lorem.word(), href: faker.internet.url({ appendSlash:
 const tabs = [tab1, tab2];
 
 const useSelectedLayoutSegment = jest.fn();
-jest.mock('next/navigation', () => ({ useSelectedLayoutSegment: () => useSelectedLayoutSegment() }));
+const useRouter = jest.fn();
+jest.mock('next/navigation', () => ({ 
+    useSelectedLayoutSegment: () => useSelectedLayoutSegment(),
+    useRouter: () => useRouter()
+ }));
+
+const push = jest.fn();
+useRouter.mockImplementation(() => ({ push }))
 
 describe('TabsComponent', () => {
     it('Should render tabs', () => {
@@ -17,9 +24,7 @@ describe('TabsComponent', () => {
         const tab2El = getByText(tab2.name);
 
         expect(tab1El).toBeInTheDocument();
-        expect(tab1El).toHaveAttribute('href', tab1.href);
         expect(tab2El).toBeInTheDocument();
-        expect(tab2El).toHaveAttribute('href', tab2.href);
     })
     it('Should default the first tab to be active', () => {
         const { getByText } = render(<Tabs tabs={tabs} />);
@@ -55,6 +60,7 @@ describe('TabsComponent', () => {
 
         fireEvent.click(tab2El);
 
+        expect(push).toHaveBeenCalledWith(tab2.href);
         expect(tab1El.parentElement).toHaveClass(nonActiveStyleClass);
         expect(tab2El.parentElement).toHaveClass(activeStyleClass);
     })

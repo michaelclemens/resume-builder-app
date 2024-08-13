@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 export type ResumeWithPersonal = Prisma.ResumeGetPayload<{
@@ -28,7 +29,7 @@ export async function createResumeAction() {
 
     if (!resume?.id) { return }
 
-    redirect(`/resume/${resume.id}`);
+    redirect(`/resume/${resume.id}/personal`);
 }
 
 export async function getResume(id: string) {
@@ -65,5 +66,14 @@ export async function updateResume(id: string, data: Prisma.ResumeUpdateInput) {
     } catch (error) {
         console.error(error);
         return null;
+    }
+}
+
+export async function deleteResume(id: string) {
+    try {
+        await prisma.resume.delete({ where: { id } });
+        revalidateTag('resumes');
+    } catch (error) {
+        console.error(error);
     }
 }

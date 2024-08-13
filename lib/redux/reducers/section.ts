@@ -2,7 +2,7 @@
 
 import { ListItemType, SectionEnums, SectionItemType, SectionType, SingleItemType } from '@/types/section';
 import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } from '@prisma/client';
-import { createSlice, PayloadAction, SliceCaseReducers, SliceSelectors, ValidateSliceCaseReducers } from '@reduxjs/toolkit'
+import { createSelector, createSlice, PayloadAction, SliceCaseReducers, SliceSelectors, ValidateSliceCaseReducers } from '@reduxjs/toolkit'
 
 type GenericState<T> = T | null
 
@@ -52,10 +52,19 @@ const singleItemSelectors = ({
   selectItem: <ItemType extends SingleItemType>(state: GenericState<ItemType|null>) => state,
 })
 
+const selectItemsById = createSelector(
+  [
+    (state) => state,
+    (state, parentProperty) => parentProperty,
+    (state, parentProperty, parentId) => parentId
+  ],
+  (state, parentProperty, parentId) => state.filter(item => item[parentProperty] === parentId)
+)
+
 const listItemSelectors = ({
   selectItems: <ItemType extends ListItemType>(state: GenericState<ItemType[]|null>, { parentId, parentProperty }: { parentId?: string, parentProperty?: string }): ItemType[]|null => {
     if (state && parentId && parentProperty) {
-      return state.filter((item: ItemType) => item[parentProperty] === parentId);
+      return selectItemsById(state, parentProperty, parentId);
     }
     return state;
   }

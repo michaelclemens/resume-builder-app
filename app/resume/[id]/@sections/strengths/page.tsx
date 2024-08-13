@@ -3,7 +3,7 @@ import { SectionList } from "@/components/list";
 import { SectionForm } from "@/components/form";
 import { SectionEnums } from "@/types/section";
 
-export default async ({ params: { id } }: { params: { id: string }}) => {
+export default async function StrengthSectionPage({ params: { id } }: { params: { id: string }}) {
     const strengths = await getStrengths(id);
     return (
         <>

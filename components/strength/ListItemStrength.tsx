@@ -1,7 +1,7 @@
 "use client"
 
 import { Strength } from "@prisma/client";
-import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
+import { ListButton, ListDivider } from "@/components/list";
 import { ExpandableWrapper } from "@/components/util";
 import { ButtonType } from "@/types/list";
 import { SectionForm } from "@/components/form";
@@ -25,7 +25,6 @@ export default function ListItemStrength({ item: strength, remove, setEditing, o
                     onSave={onSave} 
                 />
             </ExpandableWrapper>
-            {deleting && <LoadingOverlay />}
         </>
     )
 }

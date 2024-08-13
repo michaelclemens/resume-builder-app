@@ -1,7 +1,7 @@
 "use client"
 
 import HistorySection from "./history/HistorySection";
-import { ListButton, ListDivider, LoadingOverlay } from "@/components/list";
+import { ListButton, ListDivider } from "@/components/list";
 import { ExpandableWrapper } from "@/components/util";
 import { SectionForm } from "../form";
 import { ItemComponentProps } from "@/types/hook";
@@ -25,7 +25,6 @@ export default function ListItemEmployment({ item: employment, remove, setEditin
                     onSave={onSave}
                 />
             </ExpandableWrapper>
-            {deleting && <LoadingOverlay />}
 
             <HistorySection employmentId={employment.id} histories={employment.history} />
         </>
