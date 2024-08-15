@@ -33,16 +33,22 @@ export default function ResumePreview({ resume: initialResume }: { resume: Resum
     }, [])
 
     return (
-        <div className="relative ml-14 my-10 w-[210mm] h-full text-black">
-            <div className="pb-10">
-                <ResumeTemplate resume={initialResume} ref={componentRef} />    
-            </div>  
-            <div className="absolute top-0 -right-24 text-center">
-                <div className="fixed">
-                    <PrintButton getContent={() => (componentRef.current)} onBeforePrint={onBeforePrint} />
-                    <TemplateSwitcher resumeId={initialResume.id} />
-                </div>
+        <>
+        <div className="ml-1 my-3 flex flex-shrink">
+            <div className="relative px-12 py-10 flex flex-shrink backdrop-blur-sm shadow-md rounded-lg ring-1 ring-slate-300/60 dark:ring-slate-400/20">
+                <ResumeTemplate resume={initialResume} ref={componentRef} />
+                
             </div>
+                <div className="flex justify-center text-center w-full mt-5">
+                    <div className="fixed">
+                        <PrintButton getContent={() => (componentRef.current)} onBeforePrint={onBeforePrint} />
+                        <TemplateSwitcher resumeId={initialResume.id} />
+                    </div>
+                </div> 
+            
         </div>
+
+        
+        </>
     )
 }

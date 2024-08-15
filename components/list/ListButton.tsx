@@ -26,7 +26,7 @@ export default function ListButton(
 
     const paddingY = typeof button === "string" ? labelYPaddingClass : iconYPaddingClass;
     return (
-        <button onClick={onClick} className={`rounded-md px-2 ${paddingY} font-medium shadow-sm ring-1 ring-slate-700/10 hover:bg-slate-50 text-gray-700 transition-colors duration-500 dark:text-white dark:ring-slate-600 dark:hover:bg-slate-500 ${className}`}>
+        <button onClick={onClick} className={`rounded-md px-2 ${paddingY} font-medium shadow-sm ring-1 ring-slate-300/60 dark:ring-slate-400/20 hover:bg-slate-200/70 transition-colors duration-500 text-white dark:hover:bg-slate-600/70 ${className}`}>
             {button}
         </button>
     )

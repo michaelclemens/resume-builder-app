@@ -1,31 +1,36 @@
 "use client"
 
 import { sortByLatestCreated } from "@/util/sort";
-import { ListButton, ListDivider } from "../list";
+import { ListButton } from "../list";
 import { Resume } from "@prisma/client";
-import { getDisplayDateFromDate } from "@/util/date";
 import { deleteResume } from "@/lib/client/resume";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function ListResumes({ resumes }: { resumes: Resume[]|null }) {
     const { push } = useRouter();
     if (!resumes || !resumes.length) return
 
     return (
-        <div className="rounded-lg bg-white mx-1 mt-2 mb-1 text-gray-700 divide-y divide-slate-400/20 ring-1 ring-slate-700/10 dark:bg-slate-800 dark:text-white dark:ring-slate-700">
+        <div className="flex gap-6 rounded-lg p-5 mx-auto items-center overflow-x-auto overflow-y-hidden backdrop-blur-sm shadow-md text-white ring-1 ring-slate-300/60 dark:ring-slate-400/20 ">
             {resumes.sort(sortByLatestCreated).map(resume => (
-                <div key={resume.id} className="relative flex flex-wrap items-center p-3">
-                    <div className="flex-none">
-                        <div>{resume.id}</div>
-                        <div className="text-xs mt-1">
-                            {getDisplayDateFromDate(resume.createdAt)}
-                        </div>
+                <div key={resume.id} className="shrink-0">
+                    <div className="text-sm text-center mb-2">
+                        {resume.createdAt.toLocaleString("en-GB")}
                     </div>
-                    <span className="ml-auto flex font-medium">
-                        <ListButton type="edit" onClick={() => push(`/resume/${resume.id}/personal`)}/>
-                        <ListDivider />
+                    <div onClick={() => push(`/resume/${resume.id}/personal`)} className="cursor-pointer">
+                        <Image 
+                            className="brightness-75 hover:brightness-100 w-[160px] h-[208px] transition-all duration-500"
+                            src={`/templates/${resume.template.toLowerCase()}.png`}
+                            width={160}
+                            height={208}
+                            alt={"Edit Resume"}
+                        />
+                    </div>
+             
+                    <div className="text-center mt-2">
                         <ListButton type="delete" onClick={async() => deleteResume(resume.id)}/>
-                    </span>
+                    </div>
                 </div>
             ))}
         </div>

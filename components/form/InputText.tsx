@@ -18,7 +18,7 @@ export default forwardRef((
 ) => (
     <div>
         <label
-            className="relative block overflow-hidden mb-3 rounded-md border bg-white border-gray-200 px-3 pt-3 shadow-sm focus-within:border-gray-400 focus-within:ring-1 focus-within:ring-gray-400 aria-disabled:opacity-50 dark:bg-slate-700 dark:border-slate-600"
+            className="relative block overflow-hidden mb-3 rounded-md border bg-white text-gray-700 border-gray-200 px-3 pt-3 shadow-sm focus-within:border-gray-400 focus-within:ring-1 focus-within:ring-gray-400 aria-disabled:opacity-50 dark:bg-slate-700 dark:border-slate-600"
             aria-disabled={disabled}
         >
             <input

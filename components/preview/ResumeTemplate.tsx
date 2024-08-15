@@ -33,7 +33,7 @@ export default forwardRef(({ resume: initialResume }: { resume: ResumeFull|null 
     }
 
     return ( 
-        <div ref={ref} className="resume-print-preview">
+        <div ref={ref} className="resume-print-preview relative w-[210mm]">
             <ResumeTemplate />
             <div className={resumePrintFooterClass} />
         </div>

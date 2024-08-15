@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import { FieldValues, useController, UseControllerProps } from "react-hook-form";
-import 'react-quill/dist/quill.snow.css';
 import ErrorMessage from "./ErrorMessage";
 import { richTextEditorClassName } from "@/util/form";
 import Loading from "../ui/Loading";
@@ -27,7 +26,7 @@ export default function <T extends FieldValues>(
     return (
         <div aria-label={name} className={`relative mb-3 min-h-24 ${isSubmitting ? disabledClass : ''}`}>
             <ReactQuill
-                className={`${richTextEditorClassName} bg-white dark:bg-slate-800 dark:text-white`}        
+                className={`${richTextEditorClassName} text-gray-700 dark:text-white`}
                 placeholder={placeholder}
                 value={value} 
                 onChange={(value) => onChange(value)} 

@@ -7,7 +7,7 @@ import { BodyComponentProps } from "@/types/hook";
 export default function FormBodyEmployment({ form: { register, formState: { isSubmitting, errors } }, editing }: BodyComponentProps<EmploymentSchemaType>) {
     return (
         <>
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid grid-cols-2 gap-3">
                 <InputText label="Employer" disabled={isSubmitting} error={errors.employer} {...register('employer')} required />
                 <InputText label="City" disabled={isSubmitting} error={errors.city} {...register('city')} />
             </div>

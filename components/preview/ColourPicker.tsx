@@ -22,7 +22,7 @@ export default function ColourPicker(
         if (showTextColorPicker) {
             setShowTextColorPicker(false);
         }
-        const isUpdating = !!showBackgroundColorPicker;
+        const isUpdating = !!showBackgroundColorPicker && templateOptions?.colours?.[ColourElements.background] !== backgroundColor;
         setShowBackgroundColorPicker(!showBackgroundColorPicker);
         if (isUpdating) {
             await onColourChange(ColourElements.background, backgroundColor);
@@ -33,7 +33,7 @@ export default function ColourPicker(
         if (showBackgroundColorPicker) {
             setShowBackgroundColorPicker(false);
         }
-        const isUpdating = !!showTextColorPicker;
+        const isUpdating = !!showTextColorPicker && templateOptions?.colours?.[ColourElements.text] !== textColor;
         setShowTextColorPicker(!showTextColorPicker);
         if (isUpdating) {
             await onColourChange(ColourElements.text, textColor);

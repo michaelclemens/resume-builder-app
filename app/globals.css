@@ -3,35 +3,36 @@
 @tailwind utilities;
 
 @layer components {
-  .dark {
-    .ql-toolbar.ql-snow, .ql-container.ql-snow {
-      @apply bg-slate-700
-    }
-    .ql-toolbar.ql-snow, .ql-container.ql-snow, .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label, .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
-      @apply border-slate-600
-    }
-    .ql-toolbar .ql-stroke {
-      stroke: #fff;
-    }
-    .ql-toolbar .ql-fill {
-      fill: #fff;
-    }
-    .ql-toolbar .ql-picker {
-      color: #fff;
-    }
-    .ql-toolbar .ql-picker-options {
-      color: #fff;
-      @apply bg-slate-700;
-    }
-    .ql-snow.ql-toolbar button:hover, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-item:hover {
-      color: rgb(5, 26, 77);
-    }
-    .ql-snow.ql-toolbar button:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke {
-      stroke: rgb(5, 26, 77);
-    }
-    .ql-snow.ql-toolbar button:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill {
-      fill: rgb(5, 26, 77);
-    }
+  .dark .ql-snow .ql-picker {
+    color: #fff;
+  }
+  .dark .ql-toolbar.ql-snow, .dark .ql-container.ql-snow {
+    @apply bg-slate-700
+  }
+  .dark .ql-toolbar.ql-snow, .dark .ql-container.ql-snow, .dark .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label, .dark .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    @apply border-slate-600
+  }
+  .dark .ql-toolbar .ql-stroke, .dark .ql-snow .ql-stroke {
+    stroke: #fff;
+  }
+  .dark .ql-toolbar .ql-fill, .dark .ql-snow .ql-fill {
+    fill: #fff;
+  }
+  .dark .ql-toolbar .ql-picker {
+    color: #fff;
+  }
+  .dark .ql-toolbar .ql-picker-options, .dark .ql-snow .ql-picker-options  {
+    color: #fff;
+    @apply bg-slate-700;
+  }
+  .dark .ql-snow.ql-toolbar button:hover, .dark .ql-snow.ql-toolbar .ql-picker-label:hover, .dark .ql-snow.ql-toolbar .ql-picker-item:hover {
+    color: rgb(5, 26, 77);
+  }
+  .dark .ql-snow.ql-toolbar button:hover .ql-stroke, .dark .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke, .dark .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke {
+    stroke: rgb(5, 26, 77);
+  }
+  .dark .ql-snow.ql-toolbar button:hover .ql-fill, .dark .ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill, .dark .ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill {
+    fill: rgb(5, 26, 77);
   }
 }
 
@@ -45,7 +46,15 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 0s 600000s, color 0s 600000s !important;
+}
+
 @layer components {
+  .ql-toolbar.ql-snow, .ql-container.ql-snow {
+    background-color: #fff;
+  }
   .ql-editor {
     @apply min-h-20 max-h-40 overflow-y-auto
   }

@@ -9,7 +9,7 @@ export default function FormBodyHistory({ form: { register, control, formState: 
         <>
             <InputText label="Title" disabled={isSubmitting} error={errors.title} {...register('title')} required />
 
-            <div className="grid grid-cols-2 gap-5">
+            <div className="grid grid-cols-2 gap-3">
                 <InputText type={InputTypeEnum.date} label="Start Date" disabled={isSubmitting} error={errors.startDate} {...register('startDate')} required />
                 <InputText type={InputTypeEnum.date} label="End Date" disabled={isSubmitting} error={errors.endDate} {...register('endDate')} />
             </div>

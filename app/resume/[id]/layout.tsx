@@ -9,14 +9,14 @@ export default async function Layout({ params: { id }, children, sections }: { p
   if (!resume) notFound()
 
   return (
-    <div className="w-full flex flex-row flex-grow overflow-hidden">
-      <div className="w-2/3 flex-shrink flex-grow-0 dark:bg-slate-950">
+    <div className="w-full flex flex-row flex-grow overflow-hidden z-10">
+      <div className="w-2/3 flex-shrink flex-grow-0">
           <div className="flex flex-col h-full p-3">
             <Tabs tabs={tabs.map(name => ({ name, href: `/resume/${id}/${name}`}))}/>
             <div className="relative flex flex-col h-full overflow-y-auto">{sections}</div>
           </div>
       </div>
-      <main role="main" className="w-full h-full flex flex-grow flex-col overflow-y-auto bg-slate-600">
+      <main role="main" className="relative w-full h-full flex flex-grow flex-col overflow-y-auto">
         {children}
       </main>
     </div>

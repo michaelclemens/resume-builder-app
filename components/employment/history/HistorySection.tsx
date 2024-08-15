@@ -11,7 +11,7 @@ import { SectionEnums } from "@/types/section";
 export default function HistorySection({ employmentId, histories }: { employmentId: string, histories: EmploymentHistory[] }) {
     const [open, setOpen] = useState(false);  
     return (
-        <div className="w-full flex flex-wrap mt-3 mb-1 bg-gray-100 px-2 py-3 rounded-lg ring-1 ring-slate-700/10 dark:bg-slate-900 dark:ring-slate-700">
+        <div className="w-full flex flex-wrap mt-3 mb-1 px-2 py-3 rounded-lg ring-1 ring-slate-300/60 dark:ring-slate-400/20 bg-white/10 dark:bg-blue-900/10">
             <div onClick={() => setOpen(!open)} className="w-full flex cursor-pointer">
                 <span className="flex-auto text-sm ml-2 font-semibold">Employment History</span>
                 <span className="ml-auto flex mr-2">{open ? <FaChevronUp title="Close" /> : <FaChevronDown title="Open" />}</span>
