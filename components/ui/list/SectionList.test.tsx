@@ -5,7 +5,7 @@ import SectionList, { defaultEmptyMessage } from "./SectionList";
 import SectionListItem from "./SectionListItem";
 import { renderWithProviders } from "@/test/redux";
 
-jest.mock('@/components/list/SectionListItem');
+jest.mock('@/components/ui/list/SectionListItem');
 
 const useSectionListHook = jest.fn();
 const saveSortOrder = jest.fn();
