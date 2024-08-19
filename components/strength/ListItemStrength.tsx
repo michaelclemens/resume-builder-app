@@ -1,10 +1,10 @@
 "use client"
 
 import { Strength } from "@prisma/client";
-import { ListButton, ListDivider } from "@/components/list";
-import { ExpandableWrapper } from "@/components/util";
+import { ListButton, ListDivider } from "@/components/ui/list";
+import { ExpandableWrapper } from "@/components/ui";
 import { ButtonType } from "@/types/list";
-import { SectionForm } from "@/components/form";
+import { SectionForm } from "@/components/ui/form";
 import { ItemComponentProps } from "@/types/hook";
 import { SectionEnums } from "@/types/section";
 

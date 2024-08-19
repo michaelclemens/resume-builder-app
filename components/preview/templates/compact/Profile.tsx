@@ -1,16 +1,12 @@
-import { RenderHtml } from "@/components/util";
-import { useSectionItem } from "@/hooks";
-import { SectionEnums } from "@/types/section";
+import { RenderHtml } from "@/components/ui";
 import { Personal } from "@prisma/client";
 
-export default function Profile({ personal: initialPerson, oswaldClassName }: { personal: Personal|null, oswaldClassName: string }) {
-    const { item: personal } = useSectionItem(SectionEnums.personal, initialPerson);
-
+export default function Profile({ personal }: { personal: Personal|null }) {
     if (!personal) return;
     
     return (
         <section className="text-[9pt]">
-            <h3 className={`text-xl font-medium ${oswaldClassName}`}>Profile</h3>
+            <h3 className="font-oswald text-xl font-medium">Profile</h3>
             <div className="mt-2"><RenderHtml html={personal.summary ?? ''} /></div>
         </section>
     )

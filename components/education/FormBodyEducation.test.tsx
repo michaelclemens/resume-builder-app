@@ -4,9 +4,9 @@ import { createMockEducation, renderFormBody } from "@/test/mocks";
 import { Education } from "@prisma/client";
 import { EducationSchema } from "@/types/form";
 import { getDisplayDateFromDate } from "@/util/date";
-import { disabledClass } from "../form/RichTextEditor";
 import { getDefaultValues, richTextEditorClassName } from "@/util/form";
 import { SectionEnums } from "@/types/section";
+import { disabledClass } from "../ui/form/RichTextEditor";
 
 const education = createMockEducation();
 const onSave = jest.fn();

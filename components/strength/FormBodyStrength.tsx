@@ -1,6 +1,6 @@
 "use client"
 
-import { InputText, SubmitButton } from '@/components/form';
+import { InputText, SubmitButton } from '@/components/ui/form';
 import { StrengthSchemaType } from '@/types/form';
 import { BodyComponentProps } from '@/types/hook';
 

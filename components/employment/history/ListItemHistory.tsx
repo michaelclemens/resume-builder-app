@@ -1,13 +1,12 @@
 "use client"
 
 import { EmploymentHistory } from "@prisma/client";
-import { ListButton, ListDivider } from "@/components/list";
+import { ListButton, ListDivider } from "@/components/ui/list";
 import { getDisplayDateFromDate } from "@/util/date";
-import { ExpandableWrapper } from "@/components/util";
-import { SectionForm } from "@/components/form";
+import { ExpandableWrapper } from "@/components/ui";
+import { SectionForm } from "@/components/ui/form";
 import { ItemComponentProps } from "@/types/hook";
 import { SectionEnums } from "@/types/section";
-import Loading from "@/components/ui/Loading";
 
 export default function ListItemHistory({ item: history, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<EmploymentHistory>) {   
     return (

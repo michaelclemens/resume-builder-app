@@ -2,10 +2,10 @@ import { fireEvent, render, waitFor } from "@testing-library/react";
 import ListItemStrength from "./ListItemStrength";
 import { createMockStrength } from "@/test/mocks";
 import { ButtonType } from "@/types/list";
-import { SectionForm } from "../form";
+import { SectionForm } from "../ui/form";
 import { SectionEnums } from "@/types/section";
 
-jest.mock('@/components/form/SectionForm');
+jest.mock('@/components/ui/form/SectionForm');
 
 const remove = jest.fn();
 const setEditing = jest.fn();

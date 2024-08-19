@@ -1,15 +1,13 @@
 "use client"
 
 import { useAppDispatch, useAppSelector } from "@/lib/redux/store";
-import { Template } from "@prisma/client";
-import { reset, selectResume, setResume, setTemplate, setTemplateOptions } from "@/lib/redux/reducers/resume";
+import { Resume, Template } from "@prisma/client";
+import { selectResume, setResume, setTemplate, setTemplateOptions } from "@/lib/redux/reducers/resume";
 import { useEffect } from "react";
-import { ResumeFull, updateResume } from "@/lib/client/resume";
+import { generateResumePreview, updateResume } from "@/lib/client/resume";
 import { TemplateOptions } from "@/types/template";
-import { getSection } from "@/util/section";
-import { SectionEnums } from "@/types/section";
 
-export default function useResume(initialResume?: ResumeFull|null) {
+export default function useResume({ initialResume }: { initialResume?: Resume|null } = {}) {
     const resume = useAppSelector(selectResume);
     const dispatch = useAppDispatch();
 
@@ -23,21 +21,14 @@ export default function useResume(initialResume?: ResumeFull|null) {
     const updateTemplate = async(resumeId: string, template: Template) => {
         await updateResume(resumeId, { template });
         dispatch(setTemplate(template));
+        if (process.env.GENERATE_RESUME_SCREENSHOTS === 'true') generateResumePreview(resumeId)
     }
 
     const updateTemplateOptions = async(resumeId: string, templateOptions: TemplateOptions) => {
         await updateResume(resumeId, { templateOptions });
         dispatch(setTemplateOptions(templateOptions));
-    }
-    
-    const resetAllState = () => {
-        dispatch(reset())
-        dispatch(getSection(SectionEnums.personal).state.actions.reset())
-        dispatch(getSection(SectionEnums.education).state.actions.reset())
-        dispatch(getSection(SectionEnums.employment).state.actions.reset())
-        dispatch(getSection(SectionEnums.skill).state.actions.reset())
-        dispatch(getSection(SectionEnums.strength).state.actions.reset())
+        if (process.env.GENERATE_RESUME_SCREENSHOTS === 'true') generateResumePreview(resumeId)
     }
 
-    return { resume: resume ?? initialResume ?? null, updateTemplate, updateTemplateOptions, resetAllState }
+    return { resume: resume ?? initialResume ?? null, updateTemplate, updateTemplateOptions }
 }

@@ -1,9 +1,9 @@
 "use client"
 
 import HistorySection from "./history/HistorySection";
-import { ListButton, ListDivider } from "@/components/list";
-import { ExpandableWrapper } from "@/components/util";
-import { SectionForm } from "../form";
+import { ListButton, ListDivider } from "@/components/ui/list";
+import { ExpandableWrapper } from "@/components/ui";
+import { SectionForm } from "../ui/form";
 import { ItemComponentProps } from "@/types/hook";
 import { EmploymentWithHistory, SectionEnums } from "@/types/section";
 

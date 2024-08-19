@@ -13,6 +13,11 @@ const config: Config = {
       transitionProperty: {
         'height': 'height',
         'max-height': 'max-height',
+      },
+      fontFamily: {
+        montserrat: ['var(--font-montserrat)'],
+        lato: ['var(--font-lato)'],
+        oswald: ['var(--font-oswald)'],
       }
     },
   },

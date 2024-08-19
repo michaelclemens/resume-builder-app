@@ -1,20 +1,14 @@
-import { RenderHtml } from "@/components/util";
-import { useSectionList } from "@/hooks";
-import { SectionEnums } from "@/types/section";
+import { RenderHtml } from "@/components/ui";
 import { sortByOrder } from "@/util/sort";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Education } from "@prisma/client"
 
-export default function EducationList({ educations: initialEducations, oswaldClassName }: { educations: Education[] }) {
-    const [animationParent] = useAutoAnimate();
-    const { items: educations } = useSectionList(SectionEnums.education, { initialItems: initialEducations });
-
+export default function EducationList({ educations }: { educations: Education[] }) {
     if (!educations || !educations.length) return;
     
     return (
         <div className="pt-5 text-[9pt]">
-            <h3 className={`text-xl font-medium ${oswaldClassName}`}>Education</h3>
-            <div ref={animationParent}>
+            <h3 className="font-oswald text-xl font-medium">Education</h3>
+            <div>
                 {educations.sort(sortByOrder).map(education => (
                     <section key={education.id}>
                         <p className="pt-2 text-[10pt] font-bold">

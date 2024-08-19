@@ -1,18 +1,12 @@
-import { RenderHtml } from "@/components/util";
-import { useSectionList } from "@/hooks";
-import { SectionEnums } from "@/types/section";
+import { RenderHtml } from "@/components/ui";
 import { sortByOrder } from "@/util/sort";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { EmploymentHistory } from "@prisma/client";
 
-export default function EmploymentHistoryList({ employmentId, histories: initialHistories }: { employmentId: string, histories: EmploymentHistory[] }) {
-    const [animationParent] = useAutoAnimate();
-    const { items: histories } = useSectionList(SectionEnums.employmentHistory, { parentId: employmentId, parentProperty: 'employmentId', initialItems: initialHistories })
-
+export default function EmploymentHistoryList({ histories }: { histories: EmploymentHistory[] }) {
     if (!histories || !histories.length) return;
     
     return (
-        <div ref={animationParent}>
+        <div>
             {histories.sort(sortByOrder).map(history => (
                 <section key={history.id} className="pt-4 last-of-type:mb-0">
                     <p className="text-[9pt] font-bold">{history.title}</p>

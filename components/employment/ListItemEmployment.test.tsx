@@ -1,12 +1,12 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { createMockEmploymentWithHistory } from "@/test/mocks";
 import { ButtonType } from "@/types/list";
-import { SectionForm } from "../form";
+import { SectionForm } from "../ui/form";
 import ListItemEmployment from "./ListItemEmployment";
 import HistorySection from "./history/HistorySection";
 import { SectionEnums } from "@/types/section";
 
-jest.mock('@/components/form/SectionForm');
+jest.mock('@/components/ui/form/SectionForm');
 jest.mock('@/components/employment/history/HistorySection');
 
 const remove = jest.fn();

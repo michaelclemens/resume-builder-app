@@ -1,6 +1,6 @@
 "use client"
 
-import { InputText, InputTypeEnum, RichTextEditor, SubmitButton } from "@/components/form";
+import { InputText, InputTypeEnum, RichTextEditor, SubmitButton } from "@/components/ui/form";
 import { EmploymentHistorySchemaType } from "@/types/form";
 import { BodyComponentProps } from "@/types/hook";
 

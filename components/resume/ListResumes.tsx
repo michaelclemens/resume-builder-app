@@ -1,11 +1,13 @@
 "use client"
 
 import { sortByLatestCreated } from "@/util/sort";
-import { ListButton } from "../list";
+import { ListButton } from "../ui/list";
 import { Resume } from "@prisma/client";
 import { deleteResume } from "@/lib/client/resume";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+
+const displayResumeScreenshots = process.env.GENERATE_RESUME_SCREENSHOTS === 'true';
 
 export default function ListResumes({ resumes }: { resumes: Resume[]|null }) {
     const { push } = useRouter();
@@ -21,10 +23,11 @@ export default function ListResumes({ resumes }: { resumes: Resume[]|null }) {
                     <div onClick={() => push(`/resume/${resume.id}/personal`)} className="cursor-pointer">
                         <Image 
                             className="brightness-75 hover:brightness-100 w-[160px] h-[208px] transition-all duration-500"
-                            src={`/templates/${resume.template.toLowerCase()}.png`}
+                            src={displayResumeScreenshots ? `/previews/${resume.id}/preview.jpg` : `/templates/${resume.template.toLowerCase()}.jpg`}
                             width={160}
                             height={208}
                             alt={"Edit Resume"}
+                            unoptimized
                         />
                     </div>
              

@@ -1,28 +1,26 @@
 import { sortByOrder } from "@/util/sort";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { useSectionList } from "@/hooks";
-import { EmploymentWithHistory, SectionEnums } from "@/types/section";
+import { EmploymentWithHistory } from "@/types/section";
 import EmploymentHistory from "./EmploymentHistory";
 
-export default function EmploymentList({ employments: initialEmployments, oswaldClassName }: { employments: EmploymentWithHistory[] }) {
-    const [animationParent] = useAutoAnimate();
-    const { items: employments } = useSectionList(SectionEnums.employment, { initialItems: initialEmployments });
-    
+export default function EmploymentList({ employments, histories: initialHistories }: { employments: EmploymentWithHistory[] }) {    
     if (!employments || !employments.length) return;
-    
+
     return (
         <div className="pt-5 text-[9pt]">
-            <h3 className={`text-xl font-medium ${oswaldClassName}`}>Employment History</h3>
-            <div ref={animationParent}>
-                {employments.sort(sortByOrder).map(employment => (
-                    <div key={employment.id}>
-                        <p className="pt-2 text-[10pt] font-bold">
-                            {employment.employer}
-                            {employment.city && `, ${employment.city}`}
-                        </p>
-                        <EmploymentHistory employmentId={employment.id} histories={initialEmployments.find(item => item.id === employment.id)?.history ?? []} />
-                    </div>
-                ))}
+            <h3 className="font-oswald text-xl font-medium">Employment History</h3>
+            <div>
+                {employments.sort(sortByOrder).map(employment => {
+                    const histories = initialHistories ? initialHistories.filter(history => history.employmentId === employment.id) : employment.history ?? [];
+                    return (
+                        <div key={employment.id}>
+                            <p className="pt-2 text-[10pt] font-bold">
+                                {employment.employer}
+                                {employment.city && `, ${employment.city}`}
+                            </p>
+                            <EmploymentHistory histories={histories} />
+                        </div>
+                    )
+                })}
             </div>
         </div>
     )

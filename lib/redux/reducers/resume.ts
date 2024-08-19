@@ -12,6 +12,7 @@ export const slice = createSlice({
   name: 'resume',
   initialState,
   reducers: {
+    reset: () => initialState,
     setResume: (_state: ResumeFull|null, { payload }: PayloadAction<ResumeFull>) => payload,
     setTemplate: (state: ResumeFull|null, { payload }: PayloadAction<Template>) => {
       if (!state) return;
@@ -22,8 +23,7 @@ export const slice = createSlice({
       if (!state) return;
       state.templateOptions = payload;
       return state;
-    },
-    reset: () => initialState
+    }
   }
 })
 

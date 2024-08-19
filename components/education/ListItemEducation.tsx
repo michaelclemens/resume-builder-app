@@ -1,10 +1,10 @@
 "use client"
 
 import { Education } from "@prisma/client";
-import { ListButton, ListDivider } from "@/components/list";
+import { ListButton, ListDivider } from "@/components/ui/list";
 import { getDisplayDateFromDate } from "@/util/date";
-import { ExpandableWrapper } from "@/components/util";
-import { SectionForm } from "../form";
+import { ExpandableWrapper } from "@/components/ui";
+import { SectionForm } from "../ui/form";
 import { ItemComponentProps } from "@/types/hook";
 import { SectionEnums } from "@/types/section";
 

@@ -1,11 +1,7 @@
-import { RenderHtml } from "@/components/util";
-import { useSectionItem } from "@/hooks";
-import { SectionEnums } from "@/types/section";
+import { RenderHtml } from "@/components/ui";
 import { Personal } from "@prisma/client";
 
-export default function Profile({ personal: initialPerson }: { personal: Personal|null }) {
-    const { item: personal } = useSectionItem(SectionEnums.personal, initialPerson);
-
+export default function Profile({ personal }: { personal: Personal|null }) {
     if ( !personal) return;
     
     return (

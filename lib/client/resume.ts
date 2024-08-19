@@ -1,9 +1,11 @@
 "use server"
 
 import prisma from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
-import { revalidateTag } from "next/cache";
+import { EmploymentHistory, Prisma } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { generateScreenshot } from "../puppeteer";
+import { TemplateOptions } from "@/types/template";
 
 export type ResumeWithPersonal = Prisma.ResumeGetPayload<{
     include: { personal: true }
@@ -12,12 +14,12 @@ export type ResumeWithPersonal = Prisma.ResumeGetPayload<{
 export type ResumeFull = Prisma.ResumeGetPayload<{
     include: { 
         personal: true,
-        employments: { include: { history: true } },
+        employments: true | { include: { history: true } },
         educations: true,
         skills: true,
         strengths: true, 
     }
-}>
+}>  & { templateOptions: TemplateOptions, histories?: EmploymentHistory[] }
 
 export async function createResumeAction() {
     let resume = null;
@@ -72,7 +74,17 @@ export async function updateResume(id: string, data: Prisma.ResumeUpdateInput) {
 export async function deleteResume(id: string) {
     try {
         await prisma.resume.delete({ where: { id } });
-        revalidateTag('resumes');
+        revalidatePath('/');
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export async function generateResumePreview(id: string) {
+    if (process.env.GENERATE_RESUME_SCREENSHOTS !== 'true') return;
+    try {
+        await generateScreenshot(id, `previews/${id}`);
+        revalidatePath(`/resume/${id}/`);
     } catch (error) {
         console.error(error);
     }

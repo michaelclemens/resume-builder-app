@@ -5,7 +5,7 @@ import { EmploymentHistorySchema } from "@/types/form";
 import { getDisplayDateFromDate } from "@/util/date";
 import { getDefaultValues, richTextEditorClassName } from "@/util/form";
 import FormBodyHistory from "./FormBodyHistory";
-import { disabledClass } from "@/components/form/RichTextEditor";
+import { disabledClass } from "@/components/ui/form/RichTextEditor";
 import { SectionEnums } from "@/types/section";
 
 const history = createMockHistory();

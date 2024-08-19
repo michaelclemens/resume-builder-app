@@ -1,7 +1,7 @@
 import { waitFor, fireEvent } from "@testing-library/react";
 import { createMockPersonal, renderFormBody } from "@/test/mocks";
 import { PersonalSchema } from "@/types/form";
-import { disabledClass } from "../form/RichTextEditor";
+import { disabledClass } from "../ui/form/RichTextEditor";
 import { getDefaultValues, richTextEditorClassName } from "@/util/form";
 import FormBodyPersonal from "./FormBodyPersonal";
 import { Personal } from "@prisma/client";

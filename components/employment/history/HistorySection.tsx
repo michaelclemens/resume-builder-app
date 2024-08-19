@@ -1,11 +1,11 @@
 "use client"
 
-import { ExpandableWrapper } from "@/components/util";
+import { ExpandableWrapper } from "@/components/ui";
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { EmploymentHistory } from "@prisma/client";
-import { SectionList } from "@/components/list";
-import { SectionForm } from "@/components/form";
+import { SectionList } from "@/components/ui/list";
+import { SectionForm } from "@/components/ui/form";
 import { SectionEnums } from "@/types/section";
 
 export default function HistorySection({ employmentId, histories }: { employmentId: string, histories: EmploymentHistory[] }) {
