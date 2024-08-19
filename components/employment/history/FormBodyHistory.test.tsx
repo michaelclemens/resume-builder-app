@@ -1,5 +1,5 @@
 import { waitFor, fireEvent } from "@testing-library/react";
-import { createMockHistory, renderFormBody } from "@/test/mocks";
+import { createMockHistory } from "@/test/mocks";
 import { EmploymentHistory } from "@prisma/client";
 import { EmploymentHistorySchema } from "@/types/form";
 import { getDisplayDateFromDate } from "@/util/date";
@@ -7,6 +7,7 @@ import { getDefaultValues, richTextEditorClassName } from "@/util/form";
 import FormBodyHistory from "./FormBodyHistory";
 import { disabledClass } from "@/components/ui/form/RichTextEditor";
 import { SectionEnums } from "@/types/section";
+import { renderFormBody } from "@/test/form";
 
 const history = createMockHistory();
 const onSave = jest.fn();

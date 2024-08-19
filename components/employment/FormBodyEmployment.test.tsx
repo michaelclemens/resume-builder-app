@@ -1,10 +1,11 @@
 import { waitFor, fireEvent } from "@testing-library/react";
-import { createMockEmployment, renderFormBody } from "@/test/mocks";
+import { createMockEmployment } from "@/test/mocks";
 import { Employment } from "@prisma/client";
 import { EmploymentSchema } from "@/types/form";
 import FormBodyEmployment from "./FormBodyEmployment";
 import { getDefaultValues } from "@/util/form";
 import { SectionEnums } from "@/types/section";
+import { renderFormBody } from "@/test/form";
 
 const employment = createMockEmployment();
 const onSave = jest.fn();
