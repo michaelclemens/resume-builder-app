@@ -26,5 +26,6 @@ updates:
         update-types:
           - patch
     ignore:
-      update-types: ["version-update:semver-major"]
+      - dependency-name: npm
+        update-types: ["version-update:semver-major"]
     open-pull-requests-limit: 10
