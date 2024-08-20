@@ -24,9 +24,13 @@ export default function ColourPicker(
     const [showPicker, setShowPicker] = useState(false);
     const pickerRef = useRef(null);
 
-    const onColourSelect = (newColour: string) => {
+    const setElementStyle = (newColour: string) => {
         const property = elementType === ColourElements.background ? 'backgroundColor' : 'color'
         if (colourElementRef.current) colourElementRef.current.style[property] = newColour;
+    }
+
+    const onColourSelect = (newColour: string) => {
+        setElementStyle(newColour);
         onChange(newColour);
     }
 

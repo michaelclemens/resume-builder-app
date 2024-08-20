@@ -48,7 +48,7 @@ export const createMockHistory = ({ index, employmentId }: { index?: number, emp
         title: faker.person.jobTitle(),
         startDate,
         endDate,
-        description: faker.lorem.paragraphs({ min: 1, max: 3 }, '<br/>\n'),
+        description: faker.lorem.paragraphs({ min: 1, max: 3 }, '\n'),
         order: index ?? null,
         createdAt: faker.date.recent(),
         updatedAt: faker.date.recent(),

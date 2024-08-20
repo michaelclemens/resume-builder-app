@@ -4,7 +4,7 @@ import useResume from "@/hooks/useResume";
 import { ColourElements, ColourElementType } from "@/types/template";
 import { getDefaultOptions } from "@/util/template";
 import { Resume } from "@prisma/client";
-import { RefObject, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import { FaUndo } from "react-icons/fa";
 import { ColourPicker } from "../ui";
 
@@ -16,7 +16,7 @@ export default function ResumeColourPicker({ resume, colourElementRef }: { resum
     const [backgroundColour, setBGColour] = useState(initialBGColour);
     const [textColour, setTextColour] = useState(initialTextColour);
 
-    const getNewOptions = (elementType: ColourElementType, newColour: string) => ({...resume.templateOptions, colours: {...resume.templateOptions.colours, [elementType]: newColour }})
+    const getNewOptions = (elementType: ColourElementType, newColour: string) => ({...resume.templateOptions, colours: {...(resume.templateOptions?.colours ?? {}), [elementType]: newColour }})
 
     const onSave = async (elementType: ColourElementType, newColour: string) => {
         if (newColour === (elementType === ColourElements.background ? initialBGColour : initialTextColour)) return;
