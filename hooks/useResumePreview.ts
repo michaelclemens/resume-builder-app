@@ -1,12 +1,13 @@
 import { ResumeFull } from "@/lib/client/resume";
 import { useAppDispatch } from "@/lib/redux/store";
-import { EmploymentWithHistory, SectionEnums } from "@/types/section";
+import { SectionEnums } from "@/types/section";
 import { getSection } from "@/util/section";
-import { Employment, EmploymentHistory } from "@prisma/client";
+import { EmploymentHistory } from "@prisma/client";
 import useSectionItem from "./useSectionItem";
 import useSectionList from "./useSectionList";
 import useResume from "./useResume";
 import { reset } from "@/lib/redux/reducers/resume";
+import { useCallback } from "react";
 
 export default function useResumePreview(initialFullResume: ResumeFull) {
     const initialResume = {
@@ -34,14 +35,14 @@ export default function useResumePreview(initialFullResume: ResumeFull) {
     const { items: strengths } = useSectionList(SectionEnums.strength, { initialItems: initialFullResume.strengths });
 
 
-    const resetAllState = () => {
+    const resetAllState = useCallback(() => {
         dispatch(reset())
         dispatch(getSection(SectionEnums.personal).state.actions.reset())
         dispatch(getSection(SectionEnums.education).state.actions.reset())
         dispatch(getSection(SectionEnums.employment).state.actions.reset())
         dispatch(getSection(SectionEnums.skill).state.actions.reset())
         dispatch(getSection(SectionEnums.strength).state.actions.reset())
-    }
+    }, [])
 
     return {
         resume: {
