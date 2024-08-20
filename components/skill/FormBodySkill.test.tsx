@@ -1,10 +1,11 @@
 import { fireEvent, waitFor } from "@testing-library/react";
 import FormBodySkill from "./FormBodySkill";
-import { createMockSkill, renderFormBody } from "@/test/mocks";
+import { createMockSkill } from "@/test/mocks";
 import { Skill } from "@prisma/client";
 import { SkillSchema } from "@/types/form";
 import { getDefaultValues } from "@/util/form";
 import { SectionEnums } from "@/types/section";
+import { renderFormBody } from "@/test/form";
 
 const skill = createMockSkill();
 const onSave = jest.fn();

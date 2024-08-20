@@ -1,10 +1,11 @@
 import FormBodyStrength from "./FormBodyStrength";
 import { fireEvent, waitFor } from "@testing-library/react";
-import { createMockStrength, renderFormBody } from "@/test/mocks";
+import { createMockStrength } from "@/test/mocks";
 import { Strength } from "@prisma/client";
 import { StrengthSchema } from "@/types/form";
 import { getDefaultValues } from "@/util/form";
 import { SectionEnums } from "@/types/section";
+import { renderFormBody } from "@/test/form";
 
 const strength = createMockStrength();
 const onSave = jest.fn();
