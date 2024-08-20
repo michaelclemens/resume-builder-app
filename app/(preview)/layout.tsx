@@ -1,6 +1,6 @@
 import React from "react";
-import 'react-quill/dist/quill.snow.css';
 import "../globals.css";
+import 'quill/dist/quill.snow.css';
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

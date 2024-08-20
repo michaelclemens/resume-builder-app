@@ -4,7 +4,7 @@ import "../globals.css";
 import Header from "@/components/ui/Header";
 import { ThemeProvider } from "@/hooks/useTheme";
 import BackgroundImage from "@/components/ui/BackgroundImage";
-import 'react-quill/dist/quill.snow.css';
+import 'quill/dist/quill.snow.css';
 import React from "react";
 import ReduxProvider from "../redux-provider";
 

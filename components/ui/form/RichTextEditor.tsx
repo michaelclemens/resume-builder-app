@@ -6,7 +6,7 @@ import ErrorMessage from "./ErrorMessage";
 import { richTextEditorClassName } from "@/util/form";
 import Loading from "../Loading";
 
-const ReactQuill = dynamic(() => import('react-quill'), { loading: () => <Loading showSpinner={false} />, ssr: false });
+const ReactQuill = dynamic(() => import('react-quill-new'), { loading: () => <Loading showSpinner={false} />, ssr: false });
 
 const toolbarOptions = [
     [{ 'header': [1, 2, 3, false] }],
