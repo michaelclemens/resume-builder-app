@@ -19,7 +19,7 @@ export default function ResumePreview({ resume: initialResume }: { resume: Resum
             console.log('unmounting...');
             resetAllState();
         }
-    }, [])
+    }, [resetAllState])
 
     return (
         <div className="relative ml-1 my-3 flex flex-shrink">

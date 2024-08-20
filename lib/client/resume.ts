@@ -14,7 +14,7 @@ export type ResumeWithPersonal = Prisma.ResumeGetPayload<{
 export type ResumeFull = Prisma.ResumeGetPayload<{
     include: { 
         personal: true,
-        employments: true | { include: { history: true } },
+        employments: { include: { history: true } },
         educations: true,
         skills: true,
         strengths: true, 

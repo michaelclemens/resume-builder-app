@@ -18,7 +18,7 @@ const toolbarOptions = [
 
 export const disabledClass = 'opacity-50 pointer-events-none';
 
-export default function <T extends FieldValues>(
+export default function RichTextEditor<T extends FieldValues>(
     { name, control, placeholder = '' }: 
     UseControllerProps<T> & { placeholder?: string }
 ) {

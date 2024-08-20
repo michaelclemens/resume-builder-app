@@ -143,9 +143,9 @@ const allSlices = {
 
 export const getStateSection = <Name extends SectionType>(sectionType: Name): { actions: typeof allSlices[Name]['actions'], selectors: typeof allSlices[Name]['selectors'] } => (
   { actions: allSlices[sectionType].actions, selectors: allSlices[sectionType].selectors }
-);
+)
 
-export default {
+const allReducers = {
   [SectionEnums.personal]: personalSlice.reducer,
   [SectionEnums.education]: educationSlice.reducer,
   [SectionEnums.employment]: employmentSlice.reducer,
@@ -153,3 +153,5 @@ export default {
   [SectionEnums.skill]: skillSlice.reducer,
   [SectionEnums.strength]: strengthSlice.reducer,
 }
+
+export default allReducers;

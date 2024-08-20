@@ -1,8 +1,8 @@
 import { ResumeFull } from "@/lib/client/resume";
 import { useAppDispatch } from "@/lib/redux/store";
-import { SectionEnums } from "@/types/section";
+import { EmploymentWithHistory, SectionEnums } from "@/types/section";
 import { getSection } from "@/util/section";
-import { EmploymentHistory } from "@prisma/client";
+import { Employment, EmploymentHistory } from "@prisma/client";
 import useSectionItem from "./useSectionItem";
 import useSectionList from "./useSectionList";
 import useResume from "./useResume";
