@@ -10,9 +10,9 @@ export default function EducationList({ educations }: { educations: Education[] 
             <h3 className="mb-3 pb-1 border-b border-black font-bold uppercase tracking-[0.2em]">Education</h3>
             <div>
                 {educations.sort(sortByOrder).map(education => (
-                    <section key={education.id}>
+                    <section key={education.id} className="pt-4 first-of-type:pt-0">
                         <p className="flex justify-between">
-                            <span className="text-[9pt] font-bold">{education.degree}, {education.school}</span>
+                            <span className="text-[9pt] font-bold capitalize">{education.degree}, {education.school}</span>
                             {education.city}
                         </p>
                         <p>

@@ -11,7 +11,7 @@ export default function EducationList({ educations }: { educations: Education[] 
             <div>
                 {educations.sort(sortByOrder).map(education => (
                     <section key={education.id}>
-                        <p className="pt-2 text-[10pt] font-bold">
+                        <p className="pt-2 text-[10pt] font-bold capitalize">
                             {education.degree}, {education.school}
                             {education.city && `, ${education.city}`}
                         </p>
