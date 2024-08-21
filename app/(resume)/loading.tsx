@@ -1,5 +1,5 @@
-import Loading from "@/components/ui/Loading";
+import Loading from '@/components/ui/Loading'
 
 export default function RootLoading() {
-    return <Loading />
+  return <Loading />
 }

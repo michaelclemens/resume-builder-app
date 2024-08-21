@@ -1,110 +1,112 @@
-import { waitFor, fireEvent } from "@testing-library/react";
-import { createMockHistory } from "@/test/mocks";
-import { EmploymentHistory } from "@prisma/client";
-import { EmploymentHistorySchema } from "@/types/form";
-import { getDisplayDateFromDate } from "@/util/date";
-import { getDefaultValues, richTextEditorClassName } from "@/util/form";
-import FormBodyHistory from "./FormBodyHistory";
-import { disabledClass } from "@/components/ui/form/RichTextEditor";
-import { SectionEnums } from "@/types/section";
-import { renderFormBody } from "@/test/form";
+import { waitFor, fireEvent } from '@testing-library/react'
+import { createMockHistory } from '@/test/mocks'
+import { EmploymentHistory } from '@prisma/client'
+import { EmploymentHistorySchema } from '@/types/form'
+import { getDisplayDateFromDate } from '@/util/date'
+import { getDefaultValues, richTextEditorClassName } from '@/util/form'
+import FormBodyHistory from './FormBodyHistory'
+import { disabledClass } from '@/components/ui/form/RichTextEditor'
+import { SectionEnums } from '@/types/section'
+import { renderFormBody } from '@/test/form'
 
-const history = createMockHistory();
-const onSave = jest.fn();
-console.error = jest.fn();
+const history = createMockHistory()
+const onSave = jest.fn()
+console.error = jest.fn()
 
-const renderComponent = ({ history }: { history?: EmploymentHistory } = {}) => (
-    renderFormBody({
-        component: FormBodyHistory,
-        editing: !!history,
-        defaultValues: getDefaultValues(SectionEnums.employmentHistory, history),
-        schema: EmploymentHistorySchema,
-        onSave
-    })
-)
+const renderComponent = ({ history }: { history?: EmploymentHistory } = {}) =>
+  renderFormBody({
+    component: FormBodyHistory,
+    editing: !!history,
+    defaultValues: getDefaultValues(SectionEnums.employmentHistory, history),
+    schema: EmploymentHistorySchema,
+    onSave,
+  })
 
 describe('FormBodyHistoryComponent', () => {
-    it('Should render create new form', async () => {
-        const { getByRole, getByLabelText } = renderComponent();
+  it('Should render create new form', async () => {
+    const { getByRole, getByLabelText } = renderComponent()
 
-        expect(getByRole('textbox', { name: /title/i })).toHaveValue('');
-        expect(getByLabelText(/startdate/i)).toHaveValue('');
-        expect(getByLabelText(/enddate/i)).toHaveValue('');
+    expect(getByRole('textbox', { name: /title/i })).toHaveValue('')
+    expect(getByLabelText(/startdate/i)).toHaveValue('')
+    expect(getByLabelText(/enddate/i)).toHaveValue('')
 
-        await waitFor(() => {
-            expect(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent('');
-        })
-
-        expect(getByRole('button', { name: /add employment history/i })).toBeInTheDocument();
+    await waitFor(() => {
+      expect(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent('')
     })
-    it('Should render an update form', async () => {
-        const { getByRole, getByLabelText } = renderComponent({ history });
 
-        expect(getByRole('textbox', { name: /title/i })).toHaveValue(history.title);
-        expect(getByLabelText(/startdate/i)).toHaveValue(getDisplayDateFromDate(history.startDate));
-        expect(getByLabelText(/enddate/i)).toHaveValue(getDisplayDateFromDate(history.endDate));
+    expect(getByRole('button', { name: /add employment history/i })).toBeInTheDocument()
+  })
+  it('Should render an update form', async () => {
+    const { getByRole, getByLabelText } = renderComponent({ history })
 
-        await waitFor(() => {            
-            expect(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent(history.description);
-        })
+    expect(getByRole('textbox', { name: /title/i })).toHaveValue(history.title)
+    expect(getByLabelText(/startdate/i)).toHaveValue(getDisplayDateFromDate(history.startDate))
+    expect(getByLabelText(/enddate/i)).toHaveValue(getDisplayDateFromDate(history.endDate))
 
-        expect(getByRole('button', { name: /save/i })).toBeInTheDocument();
+    await waitFor(() => {
+      expect(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent(history.description)
     })
-    it('Should display errros for required fields', async () => {
-        const { getAllByRole, getByLabelText, getByRole, getByText, rerenderHook } = renderComponent();
 
-        expect(getByRole('textbox', { name: /title/i })).toBeRequired();
-        expect(getByLabelText(/startdate/i)).toBeRequired();
+    expect(getByRole('button', { name: /save/i })).toBeInTheDocument()
+  })
+  it('Should display errros for required fields', async () => {
+    const { getAllByRole, getByLabelText, getByRole, getByText, rerenderHook } = renderComponent()
 
-        fireEvent.click(getByRole('button', { name: /add employment history/i }));
-  
-        await waitFor(() => {
-            rerenderHook();
-            expect(onSave).not.toHaveBeenCalled();
-            expect(getAllByRole("alert")).toHaveLength(2);
-        })
+    expect(getByRole('textbox', { name: /title/i })).toBeRequired()
+    expect(getByLabelText(/startdate/i)).toBeRequired()
 
-        expect(getByText(/title is required/i)).toBeInTheDocument();
-        expect(getByText(/invalid date/i)).toBeInTheDocument();
+    fireEvent.click(getByRole('button', { name: /add employment history/i }))
+
+    await waitFor(() => {
+      rerenderHook()
+      expect(onSave).not.toHaveBeenCalled()
+      expect(getAllByRole('alert')).toHaveLength(2)
     })
-    it('Should disable form elements when submitting', async () => {
-        const { getByRole, getByLabelText, rerenderHook } = renderComponent();
 
-        fireEvent.click(getByRole('button', { name: /add employment history/i }));
+    expect(getByText(/title is required/i)).toBeInTheDocument()
+    expect(getByText(/invalid date/i)).toBeInTheDocument()
+  })
+  it('Should disable form elements when submitting', async () => {
+    const { getByRole, getByLabelText, rerenderHook } = renderComponent()
 
-        await waitFor(() => {
-            rerenderHook();
-        })
+    fireEvent.click(getByRole('button', { name: /add employment history/i }))
 
-        expect(getByRole('textbox', { name: /title/i })).toBeDisabled();
-        expect(getByLabelText(/startdate/i)).toBeDisabled();
-        expect(getByLabelText(/enddate/i)).toBeDisabled();
-        expect(getByLabelText(/description/i)).toHaveClass(disabledClass);
-        expect(getByRole('button', { name: /add employment history/i })).toBeDisabled();
+    await waitFor(() => {
+      rerenderHook()
     })
-    it('Should successfully submit form with new values', async () => {
-        const { getByRole, getByLabelText, rerenderHook } = renderComponent({ history });
 
-        const newHistory = createMockHistory();
-        fireEvent.change(getByRole('textbox', { name: /title/i }), { target: { value: newHistory.title }});
-        fireEvent.change(getByLabelText(/startdate/i), { target: { value: getDisplayDateFromDate(newHistory.startDate) }});
-        fireEvent.change(getByLabelText(/enddate/i), { target: { value: getDisplayDateFromDate(newHistory.endDate ?? undefined) }});
-       
-        await waitFor(async () => {
-            const descriptionContent = getByLabelText(/description/i).querySelector(`.${richTextEditorClassName} p`);
-            fireEvent.change(descriptionContent, { target: { textContent: newHistory.description }});
-        })
-       
-        fireEvent.click(getByRole('button', { name: /save/i }));
+    expect(getByRole('textbox', { name: /title/i })).toBeDisabled()
+    expect(getByLabelText(/startdate/i)).toBeDisabled()
+    expect(getByLabelText(/enddate/i)).toBeDisabled()
+    expect(getByLabelText(/description/i)).toHaveClass(disabledClass)
+    expect(getByRole('button', { name: /add employment history/i })).toBeDisabled()
+  })
+  it('Should successfully submit form with new values', async () => {
+    const { getByRole, getByLabelText, rerenderHook } = renderComponent({ history })
 
-        await waitFor(() => {
-            rerenderHook();
-            expect(onSave).toHaveBeenCalledWith(expect.objectContaining({
-                title: newHistory.title,
-                startDate: getDisplayDateFromDate(newHistory.startDate),
-                endDate: newHistory.endDate && getDisplayDateFromDate(newHistory.endDate),
-                description: expect.stringContaining(newHistory.description ?? '')
-            }), expect.anything());
-        })
+    const newHistory = createMockHistory()
+    fireEvent.change(getByRole('textbox', { name: /title/i }), { target: { value: newHistory.title } })
+    fireEvent.change(getByLabelText(/startdate/i), { target: { value: getDisplayDateFromDate(newHistory.startDate) } })
+    fireEvent.change(getByLabelText(/enddate/i), { target: { value: getDisplayDateFromDate(newHistory.endDate ?? undefined) } })
+
+    await waitFor(async () => {
+      const descriptionContent = getByLabelText(/description/i).querySelector(`.${richTextEditorClassName} p`)
+      fireEvent.change(descriptionContent, { target: { textContent: newHistory.description } })
     })
+
+    fireEvent.click(getByRole('button', { name: /save/i }))
+
+    await waitFor(() => {
+      rerenderHook()
+      expect(onSave).toHaveBeenCalledWith(
+        expect.objectContaining({
+          title: newHistory.title,
+          startDate: getDisplayDateFromDate(newHistory.startDate),
+          endDate: newHistory.endDate && getDisplayDateFromDate(newHistory.endDate),
+          description: expect.stringContaining(newHistory.description ?? ''),
+        }),
+        expect.anything()
+      )
+    })
+  })
 })

@@ -1,15 +1,17 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from '@prisma/client'
 
 export enum ColourElements {
-    background = 'background',
-    text = 'text'
+  background = 'background',
+  text = 'text',
 }
 
-export type ColourElementType = keyof typeof ColourElements;
+export type ColourElementType = keyof typeof ColourElements
 export type ColourOptions = {
-    [key in ColourElementType]?: string;
-};
+  [key in ColourElementType]?: string
+}
 
-export type TemplateOptions = ({
-    colours?: ColourOptions
-} & Prisma.JsonValue) | null
+export type TemplateOptions =
+  | ({
+      colours?: ColourOptions
+    } & Prisma.JsonValue)
+  | null

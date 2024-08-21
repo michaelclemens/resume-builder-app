@@ -1,19 +1,19 @@
-"use client"
+'use client'
 
-import { configureStore } from '@reduxjs/toolkit';
-import reducers from '@/lib/redux/reducers';
-import { useDispatch, useSelector } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit'
+import reducers from '@/lib/redux/reducers'
+import { useDispatch, useSelector } from 'react-redux'
 
-export const setupStore = (preloadedState?: Partial<RootState>) => (
-    configureStore({
-        reducer: reducers,
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-            serializableCheck: false
-        }),
-        devTools: process.env.NODE_ENV !== "production",
-        preloadedState
-    })
-);
+export const setupStore = (preloadedState?: Partial<RootState>) =>
+  configureStore({
+    reducer: reducers,
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware({
+        serializableCheck: false,
+      }),
+    devTools: process.env.NODE_ENV !== 'production',
+    preloadedState,
+  })
 
 export type RootState = ReturnType<typeof reducers>
 export type AppStore = ReturnType<typeof setupStore>

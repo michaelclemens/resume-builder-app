@@ -1,21 +1,21 @@
-import { faker } from "@faker-js/faker"
-import ErrorMessage from "./ErrorMessage";
-import { render } from "@testing-library/react";
+import { faker } from '@faker-js/faker'
+import ErrorMessage from './ErrorMessage'
+import { render } from '@testing-library/react'
 
 describe('ErrorMessageComponent', () => {
-    it('Should render the error message', () => {
-        const message = faker.lorem.sentence();
+  it('Should render the error message', () => {
+    const message = faker.lorem.sentence()
 
-        const { getByRole } = render(<ErrorMessage error={{ type: 'test', message }} />);
+    const { getByRole } = render(<ErrorMessage error={{ type: 'test', message }} />)
 
-        const errorEl = getByRole('alert');
+    const errorEl = getByRole('alert')
 
-        expect(errorEl).toBeInTheDocument();
-        expect(errorEl).toHaveTextContent(message);
-    })
-    it('Should not render if there is no error', () => {
-        const { queryByRole } = render(<ErrorMessage />);
-        
-        expect(queryByRole('alert')).toBeNull()
-    })
+    expect(errorEl).toBeInTheDocument()
+    expect(errorEl).toHaveTextContent(message)
+  })
+  it('Should not render if there is no error', () => {
+    const { queryByRole } = render(<ErrorMessage />)
+
+    expect(queryByRole('alert')).toBeNull()
+  })
 })

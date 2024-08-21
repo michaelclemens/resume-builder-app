@@ -1,28 +1,26 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
   darkMode: 'class',
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./containers/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './containers/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       transitionProperty: {
-        'height': 'height',
+        height: 'height',
         'max-height': 'max-height',
       },
       fontFamily: {
         montserrat: ['var(--font-montserrat)'],
         lato: ['var(--font-lato)'],
         oswald: ['var(--font-oswald)'],
-      }
+      },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-  ],
-};
-export default config;
+  plugins: [require('@tailwindcss/forms')],
+}
+export default config
