@@ -1,7 +1,7 @@
 import { Education, Employment, EmploymentHistory, Personal, Prisma, Skill, Strength } from "@prisma/client";
 
 export type EmploymentWithHistory = Prisma.EmploymentGetPayload<{
-    include: { history: true }
+    include: { history?: true }
 }>
 
 export enum SectionEnums {

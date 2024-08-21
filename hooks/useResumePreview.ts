@@ -36,13 +36,14 @@ export default function useResumePreview(initialFullResume: ResumeFull) {
 
 
     const resetAllState = useCallback(() => {
+        // @ts-ignore
         dispatch(reset())
         dispatch(getSection(SectionEnums.personal).state.actions.reset())
         dispatch(getSection(SectionEnums.education).state.actions.reset())
         dispatch(getSection(SectionEnums.employment).state.actions.reset())
         dispatch(getSection(SectionEnums.skill).state.actions.reset())
         dispatch(getSection(SectionEnums.strength).state.actions.reset())
-    }, [])
+    }, [dispatch])
 
     return {
         resume: {

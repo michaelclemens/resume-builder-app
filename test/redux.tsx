@@ -2,13 +2,16 @@ import { PropsWithChildren } from 'react'
 import { render, renderHook, RenderOptions } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { AppStore, RootState, setupStore } from '@/lib/redux/store'
+import { Store, UnknownAction } from '@reduxjs/toolkit'
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: Partial<RootState>
   store?: AppStore
 }
 
-const getWrapper = (store) => (
+
+const getWrapper = (store: Store<unknown, UnknownAction, unknown>) => (
+  // eslint-disable-next-line react/display-name
   ({ children }: PropsWithChildren<{}>): JSX.Element => <Provider store={store}>{children}</Provider>
 )
 

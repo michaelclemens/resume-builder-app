@@ -12,6 +12,7 @@ export default function SectionListItem(
     return (
         <>
             <ListItemComponent
+                // @ts-ignore
                 item={item} 
                 remove={remove} 
                 setEditing={setEditing}

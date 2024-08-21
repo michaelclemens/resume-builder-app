@@ -1,8 +1,9 @@
 import { sortByOrder } from "@/util/sort";
 import { EmploymentWithHistory } from "@/types/section";
 import EmploymentHistory from "./EmploymentHistory";
+import { EmploymentHistory as EmploymentHistoryType } from "@prisma/client";
 
-export default function EmploymentList({ employments, histories: initialHistories }: { employments: EmploymentWithHistory[] }) {    
+export default function EmploymentList({ employments, histories: initialHistories }: { employments: EmploymentWithHistory[], histories?: EmploymentHistoryType[] }) {    
     if (!employments || !employments.length) return;
 
     return (

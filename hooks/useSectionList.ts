@@ -10,6 +10,7 @@ export default function useSectionList<ItemType extends ListItemType>(
     { initialItems = null, parentId, parentProperty }: { initialItems?: ItemType[]|null, parentId?: string, parentProperty?: string } = {}
 ) {
     const { state, client } = getSection(sectionType);
+    // @ts-ignore
     const items = useAppSelector((rootState) => state.selectors.selectItems(rootState, { parentId, parentProperty }));
     const dispatch = useAppDispatch();
     const [editing, setEditing] = useState(false);
@@ -20,7 +21,7 @@ export default function useSectionList<ItemType extends ListItemType>(
             console.log(`setting ${sectionType}...`);
             dispatch(state.actions.setItems({ items: initialItems, parentId, parentProperty }));
         }
-    }, [initialItems])
+    }, [dispatch, initialItems, items, parentId, parentProperty, sectionType, state.actions])
     
     const remove = async(item: ItemType) => {
         setDeleting(true);

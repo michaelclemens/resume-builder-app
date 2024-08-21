@@ -15,7 +15,7 @@ export default function useSectionItem(sectionType: SingleItemSectionType, { ini
             console.log(`setting ${sectionType}...`);
             dispatch(state.actions.setItem(initialItem));
         }
-    }, [initialItem])
+    }, [dispatch, initialItem, item, sectionType, state.actions])
 
     return { item: item ?? initialItem ?? null }
 }

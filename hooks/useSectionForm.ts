@@ -17,6 +17,7 @@ export default function useSectionForm<TFormValues extends SectionSchemaType & F
     const dispatch = useAppDispatch();
     const form = useForm<TFormValues>({ 
         resolver: zodResolver(getSchema(sectionType)), 
+        // @ts-ignore
         defaultValues: getDefaultValues(sectionType, item)
     })
     

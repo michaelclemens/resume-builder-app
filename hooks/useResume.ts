@@ -16,7 +16,7 @@ export default function useResume({ initialResume }: { initialResume?: Resume|nu
             console.log('setting resume...');
             dispatch(setResume(initialResume));
         }
-    }, [initialResume])
+    }, [dispatch, initialResume, resume])
 
     const updateTemplate = async(resumeId: string, template: Template) => {
         await updateResume(resumeId, { template });
@@ -25,7 +25,7 @@ export default function useResume({ initialResume }: { initialResume?: Resume|nu
     }
 
     const updateTemplateOptions = async(resumeId: string, templateOptions: TemplateOptions) => {
-        await updateResume(resumeId, { templateOptions });
+        await updateResume(resumeId, { templateOptions: templateOptions ?? undefined });
         dispatch(setTemplateOptions(templateOptions));
         if (process.env.GENERATE_RESUME_SCREENSHOTS === 'true') generateResumePreview(resumeId)
     }

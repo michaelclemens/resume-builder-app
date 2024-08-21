@@ -21,10 +21,11 @@ const singleItemReducers = ({
 const listItemReducers = ({
   setItems: <ItemType extends ListItemType>(state: GenericState<ItemType[]|null>, { payload }: PayloadAction<{ items: ItemType[], parentId?: string, parentProperty?: string }>) => {
     if (state && payload.parentId && payload.parentProperty) {
-      state = state.filter((item: ItemType) => item[payload.parentProperty] !== payload.parentId);
-      payload.items.forEach(item => {
+      // @ts-ignore
+      state = state.filter((item: ItemType) => item[payload.parentProperty] !== payload.parentId) ?? [];
+      for (const item of payload.items) {
         state.push(item);
-      })
+      }
       return state;
     }
     state = payload.items;
@@ -61,7 +62,7 @@ const selectItemsById = createSelector(
     (state, parentProperty) => parentProperty,
     (state, parentProperty, parentId) => parentId
   ],
-  (state, parentProperty, parentId) => state.filter(item => item[parentProperty] === parentId)
+  (state, parentProperty, parentId) => state.filter((item: any) => item[parentProperty] === parentId)
 )
 
 const listItemSelectors = ({

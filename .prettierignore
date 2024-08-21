@@ -3,6 +3,7 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+package-lock.json
 
 # testing
 /coverage
@@ -24,19 +25,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env*
-!env.example
-
 # vercel
 .vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
 
 # puppeteer
 /tmpusr/
 
-# resume previews
-/public/previews/
+# git
+.gitignore
+.github/
