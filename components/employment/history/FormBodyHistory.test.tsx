@@ -44,7 +44,7 @@ describe('FormBodyHistoryComponent', () => {
     expect(getByLabelText(/enddate/i)).toHaveValue(getDisplayDateFromDate(history.endDate))
 
     await waitFor(() => {
-      expect(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent(history.description)
+      expect(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent(history.description?.replace(/\n/g, ' '))
     })
 
     expect(getByRole('button', { name: /save/i })).toBeInTheDocument()

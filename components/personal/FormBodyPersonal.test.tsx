@@ -51,7 +51,7 @@ describe('FormBodyPersonalComponent', () => {
     expect(getByRole('textbox', { name: /country/i })).toHaveValue(personal.country)
 
     await waitFor(() => {
-      expect(getByLabelText(/summary/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent(personal.summary ?? '')
+      expect(getByLabelText(/summary/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent(personal.summary?.replace(/\n/g, ' '))
     })
 
     expect(getByRole('button', { name: /save/i })).toBeInTheDocument()

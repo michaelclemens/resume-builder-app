@@ -48,7 +48,9 @@ describe('FormBodyEducationComponent', () => {
     expect(getByLabelText(/enddate/i)).toHaveValue(getDisplayDateFromDate(education.endDate))
 
     await waitFor(() => {
-      expect(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent(education.description)
+      expect(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent(
+        education.description?.replace(/\n/g, ' ')
+      )
     })
 
     expect(getByRole('button', { name: /save/i })).toBeInTheDocument()

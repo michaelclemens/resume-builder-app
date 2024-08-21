@@ -2,17 +2,17 @@ name: Continuous Integration
 
 on:
   push:
-    branches: ["main"]
+    branches: [main]
   pull_request:
-    branches: ["main"]
+    branches: [main]
 
 concurrency:
   cancel-in-progress: true
-  group: testing-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
 
 jobs:
-  test:
-    name: Test
+  checks:
+    name: Code Quality Checks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -29,6 +29,9 @@ jobs:
 
       - name: Lint code
         run: npm run lint
+
+      - name: Check formatting
+        run: npm run prettier:check
           
       - name: Test code
         run: npm run test
