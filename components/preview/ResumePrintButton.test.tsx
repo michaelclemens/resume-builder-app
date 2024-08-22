@@ -30,8 +30,10 @@ describe('ResumePrintButtonComponent', () => {
 
     await waitFor(() => fireEvent.click(getByRole('button', { name: /print/i })))
 
-    expect(mockUseReactToPrint).toHaveBeenCalledWith(expect.objectContaining({ 
-      documentTitle,
-    }))
+    expect(mockUseReactToPrint).toHaveBeenCalledWith(
+      expect.objectContaining({
+        documentTitle,
+      })
+    )
   })
 })

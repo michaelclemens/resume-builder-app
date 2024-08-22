@@ -1,8 +1,8 @@
-import { createMockFullResume } from "@/test/mocks"
-import { render } from "@testing-library/react"
-import ResumeTemplate, { resumePrintFooterClass } from "./ResumeTemplate"
-import { createRef } from "react"
-import { resumePrintPreviewID } from "@/util/template"
+import { createMockFullResume } from '@/test/mocks'
+import { render } from '@testing-library/react'
+import ResumeTemplate, { resumePrintFooterClass } from './ResumeTemplate'
+import { createRef } from 'react'
+import { resumePrintPreviewID } from '@/util/template'
 
 jest.mock('@/components/preview/templates')
 

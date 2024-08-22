@@ -40,7 +40,7 @@ describe('useResumeHook', () => {
     expect(store.getState().resume).toEqual(expect.objectContaining({ template: newTemplate }))
   })
   it('Should update resume template options', async () => {
-    resume.templateOptions = { colours: { background: faker.color.rgb({ format: 'hex' }) }}
+    resume.templateOptions = { colours: { background: faker.color.rgb({ format: 'hex' }) } }
     const { result, store } = renderHookWithProviders(() => useResume({ initialResume: resume }))
 
     const newTemplateOptions = { colours: { ...(resume.templateOptions?.colours as object), text: faker.color.rgb({ format: 'hex' }) } }

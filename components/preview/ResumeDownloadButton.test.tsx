@@ -4,13 +4,14 @@ import ResumeDownloadButton from './ResumeDownloadButton'
 import { faker } from '@faker-js/faker'
 
 const blob = faker.lorem.sentence()
-const fetch = jest.fn(() => Promise.resolve({
-  blob: () => Promise.resolve(new Blob([blob], { type: 'application/pdf' }))
-}))
+const fetch = jest.fn(() =>
+  Promise.resolve({
+    blob: () => Promise.resolve(new Blob([blob], { type: 'application/pdf' })),
+  })
+)
 // @ts-ignore
 global.fetch = fetch
 const resumeId = cuid()
-
 
 describe('ResumeDownloadButtonComponent', () => {
   it('Should render download button', () => {

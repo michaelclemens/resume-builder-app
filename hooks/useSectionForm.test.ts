@@ -43,7 +43,7 @@ describe('useSectionFormHook', () => {
   it('Should update an item on save', async () => {
     const currentEmployments = createMultipleMockItems(createMockEmployment, 3)
     const initEmployment = currentEmployments[1]
-    const updatingFormData = getDefaultValues(SectionEnums.employment, createMockEmployment()) as { employer: string, city: string }
+    const updatingFormData = getDefaultValues(SectionEnums.employment, createMockEmployment()) as { employer: string; city: string }
     const updatedEmployment = { ...initEmployment, employer: updatingFormData.employer, city: updatingFormData.city }
 
     mockUpdateItem.mockReturnValueOnce(Promise.resolve(response(ResponseStatus.success, { payload: { employment: updatedEmployment } })))

@@ -9,7 +9,7 @@ import { faker } from '@faker-js/faker'
 jest.mock('@/lib/client/employment')
 const mockSetSortOrder = jest.mocked(setEmploymentSortOrders)
 const mockDeleteItem = jest.mocked(deleteEmployment)
-console.error = jest.fn();
+console.error = jest.fn()
 
 const employments = createMultipleMockItems(createMockEmployment, 3)
 

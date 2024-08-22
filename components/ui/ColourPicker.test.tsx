@@ -75,7 +75,7 @@ describe('ColourPickerComponent', () => {
     const { rerender, getByRole, getByTestId } = renderComponent(ColourElements.background, newColourBG)
 
     fireEvent.click(getByRole('button', { name: /change background colour/i }))
-    
+
     await waitFor(() => {
       fireEvent.mouseDown(getByTestId(colourElementId))
       fireEvent.click(getByTestId(colourElementId))

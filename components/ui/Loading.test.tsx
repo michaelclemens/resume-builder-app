@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react"
-import Loading from "./Loading"
+import { render } from '@testing-library/react'
+import Loading from './Loading'
 
 describe('LoadingComponent', () => {
   it('Should render the spinner by default', () => {
