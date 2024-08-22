@@ -23,8 +23,9 @@ describe('TemplateCompactComponent', () => {
 
     for (const education of educations) {
       expect(getByText(new RegExp(`^${education.degree}, ${education.school}, ${education.city}`, 'i'))).toBeInTheDocument()
-      expect(getByText(new RegExp(`^${education.startDate.toDateString()}`, 'i'))).toBeInTheDocument()
-      education.endDate && expect(getByText(new RegExp(`- ${education.endDate.toDateString()}`, 'i')))
+      expect(
+        getByText(new RegExp(`^${education.startDate.toDateString()}${education.endDate ? ` - ${education.endDate.toDateString()}` : ''}`, 'i'))
+      ).toBeInTheDocument()
       education.description && expect(getByText(education.description.replace(/\n/g, ' '))).toBeInTheDocument()
     }
   })
@@ -37,26 +38,32 @@ describe('TemplateCompactComponent', () => {
 
       for (const employmentHistory of employment.history) {
         expect(getByText(new RegExp(`^${employmentHistory.title}`, 'i'))).toBeInTheDocument()
-        expect(getByText(new RegExp(`^${employmentHistory.startDate.toDateString()}`, 'i'))).toBeInTheDocument()
-        employmentHistory.endDate && expect(getByText(new RegExp(`- ${employmentHistory.endDate.toDateString()}`, 'i')))
+        expect(
+          getByText(
+            new RegExp(
+              `^${employmentHistory.startDate.toDateString()}${employmentHistory.endDate ? ` - ${employmentHistory.endDate.toDateString()}` : ''}`,
+              'i'
+            )
+          )
+        ).toBeInTheDocument()
         employmentHistory.description && expect(getByText(employmentHistory.description.replace(/\n/g, ' '))).toBeInTheDocument()
       }
     }
   })
   it('Should render skill details', () => {
     const { skills } = resume
-    const { getByText } = render(<TemplateCompact resume={resume} />)
+    const { getAllByText } = render(<TemplateCompact resume={resume} />)
 
     for (const skill of skills) {
-      expect(getByText(new RegExp(`^${skill.name}`, 'i'))).toBeInTheDocument()
+      expect(getAllByText(new RegExp(`^${skill.name}`, 'i'))[0]).toBeInTheDocument()
     }
   })
   it('Should render strength details', () => {
     const { strengths } = resume
-    const { getByText } = render(<TemplateCompact resume={resume} />)
+    const { getAllByText } = render(<TemplateCompact resume={resume} />)
 
     for (const strength of strengths) {
-      expect(getByText(new RegExp(`^${strength.name}`, 'i'))).toBeInTheDocument()
+      expect(getAllByText(new RegExp(`^${strength.name}`, 'i'))[0]).toBeInTheDocument()
     }
   })
 })
