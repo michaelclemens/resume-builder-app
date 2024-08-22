@@ -11,17 +11,17 @@ import { SectionEnums } from '@/types/section'
 export default function ListItemHistory({ item: history, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<EmploymentHistory>) {
   return (
     <>
-      <div className='flex-auto'>
+      <div className="flex-auto">
         <div>{history.title}</div>
-        <div className='mt-1 text-xs'>
+        <div className="mt-1 text-xs">
           {getDisplayDateFromDate(history.startDate)}
           {history.endDate && ` to ${getDisplayDateFromDate(history.endDate)}`}
         </div>
       </div>
-      <span className='ml-auto flex items-center justify-center font-medium'>
-        <ListButton type='edit' onClick={() => setEditing(!editing)} />
+      <span className="ml-auto flex items-center justify-center font-medium">
+        <ListButton type="edit" onClick={() => setEditing(!editing)} />
         <ListDivider />
-        <ListButton type='delete' onClick={async () => remove(history)} />
+        <ListButton type="delete" onClick={async () => remove(history)} />
       </span>
       <ExpandableWrapper open={editing && !deleting}>
         <SectionForm sectionType={SectionEnums.employmentHistory} parentId={history.employmentId} item={history} onSave={onSave} />

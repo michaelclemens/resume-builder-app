@@ -14,20 +14,20 @@ export default function FormBodyHistory({
 }: BodyComponentProps<EmploymentHistorySchemaType>) {
   return (
     <>
-      <InputText label='Title' disabled={isSubmitting} error={errors.title} {...register('title')} required />
+      <InputText label="Title" disabled={isSubmitting} error={errors.title} {...register('title')} required />
 
-      <div className='grid grid-cols-2 gap-3'>
+      <div className="grid grid-cols-2 gap-3">
         <InputText
           type={InputTypeEnum.date}
-          label='Start Date'
+          label="Start Date"
           disabled={isSubmitting}
           error={errors.startDate}
           {...register('startDate')}
           required
         />
-        <InputText type={InputTypeEnum.date} label='End Date' disabled={isSubmitting} error={errors.endDate} {...register('endDate')} />
+        <InputText type={InputTypeEnum.date} label="End Date" disabled={isSubmitting} error={errors.endDate} {...register('endDate')} />
       </div>
-      <RichTextEditor<EmploymentHistorySchemaType> name='description' control={control} />
+      <RichTextEditor<EmploymentHistorySchemaType> name="description" control={control} />
 
       <SubmitButton label={editing ? 'Save' : 'Add Employment History'} disabled={isSubmitting} />
     </>

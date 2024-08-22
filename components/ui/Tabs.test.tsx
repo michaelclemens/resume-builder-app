@@ -63,4 +63,11 @@ describe('TabsComponent', () => {
     expect(tab1El.parentElement).toHaveClass(nonActiveStyleClass)
     expect(tab2El.parentElement).toHaveClass(activeStyleClass)
   })
+  it('Should not do anything if selecting the active tab', () => {
+    const { getByText } = render(<Tabs tabs={tabs} />)
+
+    fireEvent.click(getByText(tab1.name))
+
+    expect(push).not.toHaveBeenCalled()
+  })
 })

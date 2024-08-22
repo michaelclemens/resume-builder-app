@@ -4,12 +4,11 @@
   "useTabs": false,
   "semi": false,
   "singleQuote": true,
-  "jsxSingleQuote": true,
+  "jsxSingleQuote": false,
   "trailingComma": "es5",
   "bracketSpacing": true,
   "bracketSameLine": false,
   "arrowParens": "avoid",
   "proseWrap": "always",
-
   "plugins": ["prettier-plugin-tailwindcss"]
 }

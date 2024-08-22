@@ -2,7 +2,7 @@ import { Ref } from 'react'
 import { ResumeFull } from '@/lib/client/resume'
 import { getTemplateComponent, resumePrintPreviewID } from '@/util/template'
 
-const resumePrintFooterClass = 'resume-print-footer'
+export const resumePrintFooterClass = 'resume-print-footer'
 
 export default function ResumeTemplate({
   resume,
@@ -15,9 +15,9 @@ export default function ResumeTemplate({
 }) {
   const ResumeTemplateComponent = getTemplateComponent(resume.template)
   return (
-    <div ref={resumePreviewRef} id={resumePrintPreviewID} className='relative w-[210mm]'>
+    <div ref={resumePreviewRef} id={resumePrintPreviewID} className="relative w-[210mm]">
       <ResumeTemplateComponent resume={resume} colourElementRef={colourElementRef} />
-      <div className={resumePrintFooterClass} />
+      <div title="Resume Print Footer" className={resumePrintFooterClass} />
     </div>
   )
 }

@@ -7,7 +7,7 @@ export default async function EmploymentSectionPage({ params: { id } }: { params
   const employments = await getEmployments(id)
   return (
     <>
-      <SectionList sectionType={SectionEnums.employment} initialItems={employments} emptyText='No Employments' />
+      <SectionList sectionType={SectionEnums.employment} initialItems={employments} emptyText="No Employments" />
       <SectionForm sectionType={SectionEnums.employment} parentId={id} />
     </>
   )

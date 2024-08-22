@@ -36,7 +36,7 @@ export default function ResumeColourPicker({ resume, colourElementRef }: { resum
 
   return (
     <div className={`absolute right-3 top-10 z-50 text-[6.5pt] print:hidden`}>
-      <div className='mb-2'>
+      <div className="mb-2">
         <ColourPicker
           elementType={ColourElements.background}
           colour={backgroundColour}
@@ -45,7 +45,7 @@ export default function ResumeColourPicker({ resume, colourElementRef }: { resum
           onSave={onSave}
         />
       </div>
-      <div className='mb-10'>
+      <div className="mb-10">
         <ColourPicker
           elementType={ColourElements.text}
           colour={textColour}
@@ -54,9 +54,9 @@ export default function ResumeColourPicker({ resume, colourElementRef }: { resum
           onSave={onSave}
         />
       </div>
-      <div className='mb-2'>
-        <button className='text-red-900' title='Reset to default colours' onClick={onResetToDefault}>
-          <FaUndo size='2.3em' />
+      <div className="mb-2">
+        <button className="text-red-900" title="Reset to default colours" onClick={onResetToDefault}>
+          <FaUndo size="2.3em" />
         </button>
       </div>
     </div>

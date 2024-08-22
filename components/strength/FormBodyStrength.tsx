@@ -13,7 +13,7 @@ export default function FormBodyStrength({
 }: BodyComponentProps<StrengthSchemaType>) {
   return (
     <>
-      <InputText label='Name' disabled={isSubmitting} error={errors.name} {...register('name')} required />
+      <InputText label="Name" disabled={isSubmitting} error={errors.name} {...register('name')} required />
       <SubmitButton label={editing ? 'Save' : 'Add Strength'} disabled={isSubmitting} />
     </>
   )

@@ -17,11 +17,11 @@ export default function ListButton({
   let className = ''
   switch (type) {
     case ButtonType.edit:
-      button = <FaEdit title='Edit' />
+      button = <FaEdit title="Edit" />
       className = 'hover:text-blue-600 dark:hover:text-blue-400'
       break
     case ButtonType.delete:
-      button = <FaTrashAlt title='Delete' />
+      button = <FaTrashAlt title="Delete" />
       className = 'hover:text-red-600 dark:hover:text-red-400'
       break
     default:

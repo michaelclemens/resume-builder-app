@@ -6,13 +6,13 @@ export default function EmploymentList({ employments }: { employments: Employmen
   if (!employments || !employments.length) return
 
   return (
-    <div className='pt-5 text-[8pt]'>
-      <h3 className='border-b border-black pb-1 font-bold uppercase tracking-[0.2em]'>Employment History</h3>
+    <div className="pt-5 text-[8pt]">
+      <h3 className="border-b border-black pb-1 font-bold uppercase tracking-[0.2em]">Employment History</h3>
       <div>
         {employments.sort(sortByOrder).map(employment => (
           <div key={employment.id}>
-            <p className='flex justify-between pt-4'>
-              <span className='text-[9pt] font-bold'>{employment.employer}</span>
+            <p className="flex justify-between pt-4">
+              <span className="text-[9pt] font-bold">{employment.employer}</span>
               {employment.city}
             </p>
             <EmploymentHistory histories={employment.history} />

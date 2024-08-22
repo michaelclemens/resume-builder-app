@@ -19,10 +19,10 @@ export default function TemplateDefault({
   return (
     <div className={`${montserrat.variable} flex h-full min-h-screen flex-col bg-white font-montserrat text-[6.5pt]`}>
       <Header personal={personal} />
-      <div className='flex h-full min-h-screen gap-x-7'>
+      <div className="flex h-full min-h-screen gap-x-7">
         <div
           ref={colourElementRef}
-          className='w-2/6 pl-14 pr-7 pt-52'
+          className="w-2/6 pl-14 pr-7 pt-52"
           style={{
             backgroundColor: templateOptions?.colours?.[ColourElements.background] ?? defaults[ColourElements.background],
             color: templateOptions?.colours?.[ColourElements.text] ?? defaults[ColourElements.text],
@@ -32,7 +32,7 @@ export default function TemplateDefault({
           <Experience skills={skills} />
           <Strengths strengths={strengths} />
         </div>
-        <div className='w-4/6 bg-white pb-5 pr-14 pt-52'>
+        <div className="w-4/6 bg-white pb-5 pr-14 pt-52">
           <Profile personal={personal} />
           <Employment employments={employments} />
           <Education educations={educations} />

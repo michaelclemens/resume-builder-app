@@ -2,13 +2,13 @@
 
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store'
-import { ResumeFull } from '@/lib/client/resume'
+import { Resume } from '@prisma/client'
 
-const initialState: ResumeFull | null = null
+const initialState: Resume | null = null
 
 export const slice = createSlice({
   name: 'resume',
-  initialState: initialState as ResumeFull | null,
+  initialState: initialState as Resume | null,
   reducers: {
     reset: () => initialState,
     setResume: (_state, { payload }) => payload,
@@ -27,6 +27,6 @@ export const slice = createSlice({
 
 export const { reset, setResume, setTemplate, setTemplateOptions } = slice.actions
 
-export const selectResume = (state: RootState): ResumeFull | null => state.resume
+export const selectResume = (state: RootState): Resume | null => state.resume
 
 export default slice.reducer

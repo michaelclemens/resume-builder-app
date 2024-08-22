@@ -26,7 +26,7 @@ export const renderFormBody = ({
 }) => {
   const hook = renderUseFormHook({ defaultValues, schema })
   const MockFormWrapper = ({ children }: { children: ReactNode }) => (
-    <form role='form' onSubmit={hook.result.current.handleSubmit(onSave)}>
+    <form role="form" onSubmit={hook.result.current.handleSubmit(onSave)}>
       {children}
     </form>
   )

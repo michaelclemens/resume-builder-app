@@ -13,13 +13,13 @@ export default function SortableItem({ id, children }: { id: string; children: R
   }
 
   return (
-    <div ref={setNodeRef} style={style} className='relative flex flex-wrap items-center p-3'>
+    <div ref={setNodeRef} style={style} className="relative flex flex-wrap items-center p-3">
       <div
         {...listeners}
         {...attributes}
-        className='mr-2 cursor-move text-gray-300 transition-colors duration-500 hover:text-gray-700 dark:text-slate-600 dark:hover:text-slate-200'
+        className="mr-2 cursor-move text-gray-300 transition-colors duration-500 hover:text-gray-700 dark:text-slate-600 dark:hover:text-slate-200"
       >
-        <RiDraggable size='1.25em' />
+        <RiDraggable size="1.25em" />
       </div>
       {children}
     </div>

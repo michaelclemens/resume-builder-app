@@ -8,14 +8,14 @@ export default function EmploymentHistoryList({ histories }: { histories: Employ
   return (
     <div>
       {histories.sort(sortByOrder).map(history => (
-        <section key={history.id} className='pt-4 last-of-type:mb-0'>
-          <p className='text-[9pt] font-bold'>{history.title}</p>
+        <section key={history.id} className="pt-4 last-of-type:mb-0">
+          <p className="text-[9pt] font-bold">{history.title}</p>
           <p>
-            {new Date(history.startDate).toDateString()}
-            {history.endDate && ` - ${new Date(history.endDate).toDateString()}`}
+            {history.startDate.toDateString()}
+            {history.endDate && ` - ${history.endDate.toDateString()}`}
           </p>
           {history.description && (
-            <div className='mt-2'>
+            <div className="mt-2">
               <RenderHtml html={history.description ?? ''} />
             </div>
           )}

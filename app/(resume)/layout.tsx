@@ -17,11 +17,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className={`relative ${inter.className}`}>
         <ThemeProvider>
           <ReduxProvider>
-            <div className='flex h-screen flex-col overflow-hidden bg-slate-950'>
+            <div className="flex h-screen flex-col overflow-hidden bg-slate-950">
               <Header />
               {children}
             </div>

@@ -13,7 +13,7 @@ export default function FormBodySkill({
 }: BodyComponentProps<SkillSchemaType>) {
   return (
     <>
-      <InputText label='Name' disabled={isSubmitting} error={errors.name} {...register('name')} required />
+      <InputText label="Name" disabled={isSubmitting} error={errors.name} {...register('name')} required />
       <SubmitButton label={editing ? 'Save' : 'Add Skill'} disabled={isSubmitting} />
     </>
   )

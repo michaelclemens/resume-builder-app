@@ -26,13 +26,13 @@ export default function Tabs({ tabs }: { tabs: Tab[] }) {
   }
 
   return (
-    <ul className='mb-3 flex rounded-lg text-center text-sm font-medium shadow-md'>
+    <ul className="mb-3 flex rounded-lg text-center text-sm font-medium shadow-md">
       {tabs.map(tab => (
         <li
           key={tab.name}
           className={`w-full border-r border-r-slate-300 first:rounded-s-lg last:rounded-e-lg last:border-r-0 focus-within:z-10 dark:border-r-slate-500 ${isActiveTab(tab) ? activeStyleClass : nonActiveStyleClass}`}
         >
-          <button onClick={() => selectTab(tab)} className='inline-block w-full p-4 capitalize'>
+          <button onClick={() => selectTab(tab)} className="inline-block w-full p-4 capitalize">
             {tab.name}
           </button>
         </li>

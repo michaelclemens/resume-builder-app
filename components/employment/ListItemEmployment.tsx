@@ -17,12 +17,12 @@ export default function ListItemEmployment({
 }: ItemComponentProps<EmploymentWithHistory>) {
   return (
     <>
-      <span className='w-2/4 flex-none'>{employment.employer}</span>
+      <span className="w-2/4 flex-none">{employment.employer}</span>
       {employment.city && <span>{employment.city}</span>}
-      <span className='items-cente ml-auto flex font-medium'>
-        <ListButton type='edit' onClick={() => setEditing(!editing)} />
+      <span className="items-cente ml-auto flex font-medium">
+        <ListButton type="edit" onClick={() => setEditing(!editing)} />
         <ListDivider />
-        <ListButton type='delete' onClick={async () => remove(employment)} />
+        <ListButton type="delete" onClick={async () => remove(employment)} />
       </span>
       <ExpandableWrapper open={editing && !deleting}>
         <SectionForm sectionType={SectionEnums.employment} parentId={employment.resumeId} item={employment} onSave={onSave} />

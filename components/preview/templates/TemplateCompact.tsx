@@ -19,8 +19,8 @@ export default function TemplateCompact({
   const defaults = getDefaultOptions(Template.COMPACT)
   return (
     <div className={`${lato.variable} ${oswald.variable} flex h-full min-h-screen flex-col bg-white font-lato text-[8pt]`}>
-      <div className='flex h-full min-h-screen gap-x-10'>
-        <div className='w-4/6 bg-white pb-5 pl-14 pt-16'>
+      <div className="flex h-full min-h-screen gap-x-10">
+        <div className="w-4/6 bg-white pb-5 pl-14 pt-16">
           <Header personal={personal} />
           <Profile personal={personal} />
           <Employment employments={employments} histories={histories} />
@@ -28,7 +28,7 @@ export default function TemplateCompact({
         </div>
         <div
           ref={colourElementRef}
-          className='w-2/6 px-10 pb-5 pt-36 text-white'
+          className="w-2/6 px-10 pb-5 pt-36 text-white"
           style={{
             backgroundColor: templateOptions?.colours?.[ColourElements.background] ?? defaults[ColourElements.background],
             color: templateOptions?.colours?.[ColourElements.text] ?? defaults[ColourElements.text],

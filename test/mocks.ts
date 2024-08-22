@@ -6,7 +6,7 @@ import { Education, Employment, EmploymentHistory, Personal, Resume, Skill, Stre
 export const createMockStrength = ({ index, resumeId }: { index?: number; resumeId?: string } = {}): Strength => ({
   id: cuid(),
   resumeId: resumeId ?? cuid(),
-  name: faker.company.buzzVerb(),
+  name: faker.helpers.arrayElement([faker.company.buzzVerb(), faker.company.catchPhraseDescriptor()]),
   order: index ?? null,
   createdAt: faker.date.recent(),
   updatedAt: faker.date.recent(),
@@ -15,7 +15,7 @@ export const createMockStrength = ({ index, resumeId }: { index?: number; resume
 export const createMockSkill = ({ index, resumeId }: { index?: number; resumeId?: string } = {}): Skill => ({
   id: cuid(),
   resumeId: resumeId ?? cuid(),
-  name: faker.company.buzzNoun(),
+  name: faker.helpers.arrayElement([faker.company.buzzNoun(), faker.company.catchPhraseNoun(), faker.lorem.word({ length: { min: 5, max: 10 } })]),
   order: index ?? null,
   createdAt: faker.date.recent(),
   updatedAt: faker.date.recent(),
