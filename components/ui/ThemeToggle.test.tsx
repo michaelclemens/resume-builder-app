@@ -13,18 +13,17 @@ describe('ThemeToggleComponent', () => {
     const { getByTitle, queryByTitle } = render(<ThemeToggle />)
 
     expect(getByTitle(lightModeTitle)).toBeInTheDocument()
-    expect(queryByTitle(darkModeTitle)).not.toBeInTheDocument()
+    expect(getByTitle(lightModeTitle)).toHaveClass('opacity-100', 'dark:opacity-0')
   })
   it('Should render dark mode selected', () => {
     mockUseTheme.mockReturnValueOnce({ darkMode: true, toggleMode })
     const { getByTitle, queryByTitle } = render(<ThemeToggle />)
 
-    expect(queryByTitle(lightModeTitle)).not.toBeInTheDocument()
     expect(getByTitle(darkModeTitle)).toBeInTheDocument()
+    expect(getByTitle(darkModeTitle)).toHaveClass('opacity-0', 'dark:opacity-100')
   })
   it('Should toggle mode', () => {
     mockUseTheme.mockReturnValueOnce({ darkMode: false, toggleMode }).mockReturnValueOnce({ darkMode: true, toggleMode })
-
     const { getByRole, rerender } = render(<ThemeToggle />)
 
     fireEvent.click(getByRole('checkbox'))

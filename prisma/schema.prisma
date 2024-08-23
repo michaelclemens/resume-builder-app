@@ -10,93 +10,94 @@ datasource db {
 enum Template {
   DEFAULT
   COMPACT
+  SIMPLE
 }
 
 model Resume {
-  id              String      @default(cuid())    @id
-  template        Template    @default(DEFAULT)
+  id              String       @id @default(cuid())
+  template        Template     @default(DEFAULT)
   templateOptions Json?
   personal        Personal?
   employments     Employment[]
   educations      Education[]
   skills          Skill[]
   strengths       Strength[]
-  createdAt       DateTime    @default(now())     @map(name: "created_at")
-  updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
+  createdAt       DateTime     @default(now()) @map(name: "created_at")
+  updatedAt       DateTime     @updatedAt @map(name: "updated_at")
 }
 
 model Personal {
-  id              String      @default(cuid())    @id
-  resume          Resume      @relation(fields: [resumeId], references: [id], onDelete: Cascade)
-  resumeId        String      @unique
-  firstName       String
-  lastName        String
-  position        String?
-  summary         String?
-  email           String?
-  phone           String?
-  city            String?
-  country         String?
-  createdAt       DateTime    @default(now())     @map(name: "created_at")
-  updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
+  id        String   @id @default(cuid())
+  resume    Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  resumeId  String   @unique
+  firstName String
+  lastName  String
+  position  String?
+  summary   String?
+  email     String?
+  phone     String?
+  city      String?
+  country   String?
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
 }
 
 model Employment {
-  id              String      @default(cuid())    @id
-  resume          Resume      @relation(fields: [resumeId], references: [id], onDelete: Cascade)
-  resumeId        String
-  employer        String
-  city            String?
-  history         EmploymentHistory[]
-  order           Int?
-  createdAt       DateTime    @default(now())     @map(name: "created_at")
-  updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
+  id        String              @id @default(cuid())
+  resume    Resume              @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  resumeId  String
+  employer  String
+  city      String?
+  history   EmploymentHistory[]
+  order     Int?
+  createdAt DateTime            @default(now()) @map(name: "created_at")
+  updatedAt DateTime            @updatedAt @map(name: "updated_at")
 }
 
 model EmploymentHistory {
-  id              String      @default(cuid())    @id
-  employment      Employment  @relation(fields: [employmentId], references: [id], onDelete: Cascade)
-  employmentId    String
-  title           String
-  startDate       DateTime    @db.Date            @map(name: "start_date")
-  endDate         DateTime?   @db.Date            @map(name: "end_date")
-  description     String?
-  order           Int?
-  createdAt       DateTime    @default(now())     @map(name: "created_at")
-  updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
+  id           String     @id @default(cuid())
+  employment   Employment @relation(fields: [employmentId], references: [id], onDelete: Cascade)
+  employmentId String
+  title        String
+  startDate    DateTime   @map(name: "start_date") @db.Date
+  endDate      DateTime?  @map(name: "end_date") @db.Date
+  description  String?
+  order        Int?
+  createdAt    DateTime   @default(now()) @map(name: "created_at")
+  updatedAt    DateTime   @updatedAt @map(name: "updated_at")
 }
 
 model Education {
-  id              String      @default(cuid())    @id
-  resume          Resume      @relation(fields: [resumeId], references: [id], onDelete: Cascade)
-  resumeId        String
-  school          String
-  degree          String 
-  startDate       DateTime    @db.Date            @map(name: "start_date")
-  endDate         DateTime?   @db.Date            @map(name: "end_date")
-  city            String?
-  description     String? 
-  order           Int?
-  createdAt       DateTime    @default(now())     @map(name: "created_at")
-  updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
+  id          String    @id @default(cuid())
+  resume      Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  resumeId    String
+  school      String
+  degree      String
+  startDate   DateTime  @map(name: "start_date") @db.Date
+  endDate     DateTime? @map(name: "end_date") @db.Date
+  city        String?
+  description String?
+  order       Int?
+  createdAt   DateTime  @default(now()) @map(name: "created_at")
+  updatedAt   DateTime  @updatedAt @map(name: "updated_at")
 }
 
 model Skill {
-  id              String      @default(cuid())    @id
-  resume          Resume      @relation(fields: [resumeId], references: [id], onDelete: Cascade)
-  resumeId        String
-  name            String
-  order           Int?
-  createdAt       DateTime    @default(now())     @map(name: "created_at")
-  updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
+  id        String   @id @default(cuid())
+  resume    Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  resumeId  String
+  name      String
+  order     Int?
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
 }
 
 model Strength {
-  id              String      @default(cuid())    @id
-  resume          Resume      @relation(fields: [resumeId], references: [id], onDelete: Cascade)
-  resumeId        String
-  name            String
-  order           Int?
-  createdAt       DateTime    @default(now())     @map(name: "created_at")
-  updatedAt       DateTime    @updatedAt          @map(name: "updated_at")
+  id        String   @id @default(cuid())
+  resume    Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  resumeId  String
+  name      String
+  order     Int?
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
 }

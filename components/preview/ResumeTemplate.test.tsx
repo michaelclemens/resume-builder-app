@@ -4,7 +4,7 @@ import ResumeTemplate, { resumePrintFooterClass } from './ResumeTemplate'
 import { createRef } from 'react'
 import { resumePrintPreviewID } from '@/util/template'
 
-jest.mock('@/components/preview/templates')
+jest.mock('@/components/templates')
 
 const resume = createMockFullResume()
 
