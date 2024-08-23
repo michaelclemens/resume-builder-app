@@ -16,12 +16,12 @@ export default function EducationList({ educations }: { educations: Education[] 
               {education.city && `, ${education.city}`}
             </p>
             <p className="pt-1 text-[7.5pt] font-thin uppercase tracking-wider text-gray-400">
-              {new Date(education.startDate).toDateString()}
-              {education.endDate && ` - ${new Date(education.endDate).toDateString()}`}
+              {education.startDate.toDateString()}
+              {education.endDate && ` - ${education.endDate.toDateString()}`}
             </p>
             {education.description && (
               <div className="mt-2">
-                <RenderHtml html={education.description ?? ''} />
+                <RenderHtml html={education.description} />
               </div>
             )}
           </section>

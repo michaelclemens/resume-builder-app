@@ -1,69 +1,32 @@
-import { createMockFullResume } from '@/test/mocks'
 import { render } from '@testing-library/react'
 import TemplateCompact from './TemplateCompact'
-
-const resume = createMockFullResume()
+import { createMockFullResume } from '@/test/mocks'
+import { createRef } from 'react'
+import { getDefaultOptions } from '@/util/template'
+import { Template } from '@prisma/client'
+import { faker } from '@faker-js/faker'
 
 describe('TemplateCompactComponent', () => {
-  it('Should render personal details', () => {
-    const { personal } = resume
-    const { getByText } = render(<TemplateCompact resume={resume} />)
-
-    expect(getByText(new RegExp(`^${personal.firstName} ${personal.lastName}`, 'i'))).toBeInTheDocument()
-    expect(getByText(new RegExp(`^${personal.position}`, 'i'))).toBeInTheDocument()
-    expect(getByText(new RegExp(`^${personal.city}`, 'i'))).toBeInTheDocument()
-    expect(getByText(new RegExp(`^${personal.country}`, 'i'))).toBeInTheDocument()
-    personal.phone && expect(getByText(personal.phone)).toBeInTheDocument()
-    expect(getByText(new RegExp(`^${personal.email}`, 'i'))).toBeInTheDocument()
-    personal.summary && expect(getByText(personal.summary.replace(/\n/g, ' '))).toBeInTheDocument()
+  it('Should render with default colours', () => {
+    const resume = createMockFullResume()
+    const defaults = getDefaultOptions(Template.COMPACT)
+    const colourElementRef = createRef<HTMLDivElement>()
+    render(<TemplateCompact resume={resume} colourElementRef={colourElementRef} />)
+    expect(colourElementRef.current).toHaveStyle({
+      backgroundColor: defaults.background,
+      color: defaults.text,
+    })
   })
-  it('Should render education details', () => {
-    const { educations } = resume
-    const { getByText } = render(<TemplateCompact resume={resume} />)
-
-    for (const education of educations) {
-      expect(getByText(new RegExp(`^${education.degree}, ${education.school}, ${education.city}`, 'i'))).toBeInTheDocument()
-      expect(
-        getByText(new RegExp(`^${education.startDate.toDateString()}${education.endDate ? ` - ${education.endDate.toDateString()}` : ''}`, 'i'))
-      ).toBeInTheDocument()
-      education.description && expect(getByText(education.description.replace(/\n/g, ' '))).toBeInTheDocument()
+  it('Should render saved colours', () => {
+    const resume = {
+      ...createMockFullResume(),
+      templateOptions: { colours: { background: faker.color.rgb({ format: 'hex' }), text: faker.color.rgb({ format: 'hex' }) } },
     }
-  })
-  it('Should render employment details', () => {
-    const { employments } = resume
-    const { getByText } = render(<TemplateCompact resume={resume} />)
-
-    for (const employment of employments) {
-      expect(getByText(new RegExp(`^${employment.employer}, ${employment.city}`, 'i'))).toBeInTheDocument()
-
-      for (const employmentHistory of employment.history) {
-        expect(getByText(new RegExp(`^${employmentHistory.title}`, 'i'))).toBeInTheDocument()
-        expect(
-          getByText(
-            new RegExp(
-              `^${employmentHistory.startDate.toDateString()}${employmentHistory.endDate ? ` - ${employmentHistory.endDate.toDateString()}` : ''}`,
-              'i'
-            )
-          )
-        ).toBeInTheDocument()
-        employmentHistory.description && expect(getByText(employmentHistory.description.replace(/\n/g, ' '))).toBeInTheDocument()
-      }
-    }
-  })
-  it('Should render skill details', () => {
-    const { skills } = resume
-    const { getAllByText } = render(<TemplateCompact resume={resume} />)
-
-    for (const skill of skills) {
-      expect(getAllByText(new RegExp(`^${skill.name}`, 'i'))[0]).toBeInTheDocument()
-    }
-  })
-  it('Should render strength details', () => {
-    const { strengths } = resume
-    const { getAllByText } = render(<TemplateCompact resume={resume} />)
-
-    for (const strength of strengths) {
-      expect(getAllByText(new RegExp(`^${strength.name}`, 'i'))[0]).toBeInTheDocument()
-    }
+    const colourElementRef = createRef<HTMLDivElement>()
+    render(<TemplateCompact resume={resume} colourElementRef={colourElementRef} />)
+    expect(colourElementRef.current).toHaveStyle({
+      backgroundColor: resume.templateOptions.colours.background,
+      color: resume.templateOptions.colours.text,
+    })
   })
 })

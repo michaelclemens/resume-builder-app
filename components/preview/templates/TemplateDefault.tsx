@@ -1,5 +1,5 @@
 import { ResumeFull } from '@/lib/client/resume'
-import { Details, Education, Employment, Experience, Header, Profile, Strengths } from './default'
+import { Details, EducationList, EmploymentList, Experience, Header, Profile, StrengthList } from './default'
 import { Montserrat } from 'next/font/google'
 import { ColourElements } from '@/types/template'
 import { getDefaultOptions } from '@/util/template'
@@ -30,12 +30,12 @@ export default function TemplateDefault({
         >
           <Details personal={personal} />
           <Experience skills={skills} />
-          <Strengths strengths={strengths} />
+          <StrengthList strengths={strengths} />
         </div>
         <div className="w-4/6 bg-white pb-5 pr-14 pt-52">
           <Profile personal={personal} />
-          <Employment employments={employments} />
-          <Education educations={educations} />
+          <EmploymentList employments={employments} />
+          <EducationList educations={educations} />
         </div>
       </div>
     </div>

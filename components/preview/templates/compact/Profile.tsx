@@ -7,9 +7,11 @@ export default function Profile({ personal }: { personal: Personal | null }) {
   return (
     <section className="text-[9pt]">
       <h3 className="font-oswald text-xl font-medium">Profile</h3>
-      <div className="mt-2">
-        <RenderHtml html={personal.summary ?? ''} />
-      </div>
+      {personal.summary && (
+        <div className="mt-2">
+          <RenderHtml html={personal.summary} />
+        </div>
+      )}
     </section>
   )
 }

@@ -7,8 +7,6 @@ import { renderWithProviders } from '@/test/redux'
 
 jest.mock('@/components/ui/list/SectionListItem')
 
-const useSectionListHook = jest.fn()
-const saveSortOrder = jest.fn()
 const mockSectionListItem = jest.mocked(SectionListItem)
 
 function renderComponent({
@@ -17,7 +15,6 @@ function renderComponent({
   parentId,
   emptyText,
 }: { sectionType?: ListSectionType; initialItems?: ListItemType[]; parentId?: string; emptyText?: string } = {}) {
-  useSectionListHook.mockImplementation(({ initialItems }) => ({ items: initialItems, saveSortOrder }))
   return renderWithProviders(<SectionList sectionType={sectionType} initialItems={initialItems} parentId={parentId} emptyText={emptyText} />)
 }
 

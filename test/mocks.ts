@@ -32,7 +32,7 @@ export const createMockEducation = ({ index, resumeId }: { index?: number; resum
     startDate,
     endDate,
     city: faker.location.city(),
-    description: faker.lorem.paragraph({ min: 0, max: 5 }),
+    description: faker.lorem.paragraph({ min: 1, max: 5 }),
     order: index ?? null,
     createdAt: faker.date.recent(),
     updatedAt: faker.date.recent(),

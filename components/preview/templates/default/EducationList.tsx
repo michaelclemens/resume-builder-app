@@ -23,7 +23,7 @@ export default function EducationList({ educations }: { educations: Education[] 
             </p>
             {education.description && (
               <div className="mt-2">
-                <RenderHtml html={education.description ?? ''} />
+                <RenderHtml html={education.description} />
               </div>
             )}
           </section>

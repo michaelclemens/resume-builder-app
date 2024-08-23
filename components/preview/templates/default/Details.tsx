@@ -23,7 +23,9 @@ export default function Details({ personal }: { personal?: Personal | null }) {
         {personal.email && (
           <li className="my-3">
             <div className="mb-1 text-[6.5pt] font-bold uppercase">Email</div>
-            <div>{personal.email}</div>
+            <div>
+              <a href={`mailto:${personal.email}`}>{personal.email}</a>
+            </div>
           </li>
         )}
       </ul>

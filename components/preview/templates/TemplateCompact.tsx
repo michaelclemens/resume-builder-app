@@ -1,5 +1,5 @@
 import { ResumeFull } from '@/lib/client/resume'
-import { Details, Education, Employment, Experience, Header, Profile, Strengths } from './compact'
+import { Details, EducationList, EmploymentList, Experience, Header, Profile, StrengthList } from './compact'
 import { Lato, Oswald } from 'next/font/google'
 import { ColourElements } from '@/types/template'
 import { getDefaultOptions } from '@/util/template'
@@ -23,8 +23,8 @@ export default function TemplateCompact({
         <div className="w-4/6 bg-white pb-5 pl-14 pt-16">
           <Header personal={personal} />
           <Profile personal={personal} />
-          <Employment employments={employments} histories={histories} />
-          <Education educations={educations} />
+          <EmploymentList employments={employments} histories={histories} />
+          <EducationList educations={educations} />
         </div>
         <div
           ref={colourElementRef}
@@ -36,7 +36,7 @@ export default function TemplateCompact({
         >
           <Details personal={personal} />
           <Experience skills={skills} />
-          <Strengths strengths={strengths} />
+          <StrengthList strengths={strengths} />
         </div>
       </div>
     </div>
