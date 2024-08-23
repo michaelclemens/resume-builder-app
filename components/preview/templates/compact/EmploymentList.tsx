@@ -9,7 +9,7 @@ export default function EmploymentList({
   employments: (Employment & { history?: EmploymentHistory[] })[]
   histories?: EmploymentHistory[]
 }) {
-  if (!employments || !employments.length) return
+  if (!employments.length) return
 
   return (
     <div className="pt-5 text-[9pt]">

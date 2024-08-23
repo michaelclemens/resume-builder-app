@@ -16,7 +16,7 @@ describe('CompactEmploymentListComponent', () => {
   })
   it('Should render the correct heading', () => {
     const { getByText } = render(<EmploymentList employments={[employment]} />)
-    expect(getByText(/employment history/i)).toBeInTheDocument()
+    expect(getByText(regexString('employment history'))).toBeInTheDocument()
   })
   it('Should render the correct details', () => {
     const partialEmployment = { ...employment, city: null, history: [] }
@@ -34,5 +34,8 @@ describe('CompactEmploymentListComponent', () => {
     rerender(<EmploymentList employments={[employmentWithoutHistory]} histories={[history]} />)
     expect(getByText(regexString(`${employmentWithoutHistory.employer}, ${employmentWithoutHistory.city}`))).toBeInTheDocument()
     expect(mockEmploymentHistoryList).toHaveBeenCalledWith(expect.objectContaining({ histories: [history] }), expect.anything())
+
+    rerender(<EmploymentList employments={[employmentWithoutHistory]} />)
+    expect(mockEmploymentHistoryList).toHaveBeenCalledWith(expect.objectContaining({ histories: [] }), expect.anything())
   })
 })

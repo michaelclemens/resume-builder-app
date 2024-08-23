@@ -2,7 +2,7 @@ import { sortByOrder } from '@/util/sort'
 import { Skill } from '@prisma/client'
 
 export default function Experience({ skills }: { skills: Skill[] }) {
-  if (!skills || !skills.length) return
+  if (!skills.length) return
 
   return (
     <section className="mb-7 text-[8pt]">

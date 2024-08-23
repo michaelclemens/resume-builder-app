@@ -11,7 +11,7 @@ describe('CompactDetailsComponent', () => {
   })
   it('Should render the correct heading', () => {
     const { getByText } = render(<Details personal={personal} />)
-    expect(getByText(/details/i)).toBeInTheDocument()
+    expect(getByText(regexString('details'))).toBeInTheDocument()
   })
   it('Should render the correct details', () => {
     const partialPersonal = { ...personal, city: null, country: null, phone: null, email: null }

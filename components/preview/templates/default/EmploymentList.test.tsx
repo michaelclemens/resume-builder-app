@@ -16,11 +16,11 @@ describe('DefaultEmploymentListComponent', () => {
   })
   it('Should render the correct heading', () => {
     const { getByText } = render(<EmploymentList employments={[employment]} />)
-    expect(getByText(/employment history/i)).toBeInTheDocument()
+    expect(getByText(regexString('employment history'))).toBeInTheDocument()
   })
   it('Should render the correct details', () => {
     const partialEmployment = { ...employment, city: null, history: [] }
-    const { queryByText, rerender, getByText, getByRole } = render(<EmploymentList employments={[partialEmployment]} />)
+    const { queryByText, rerender, getByText } = render(<EmploymentList employments={[partialEmployment]} />)
     expect(getByText(regexString(employment.employer))).toBeInTheDocument()
     expect(queryByText(regexString(employment.city as string))).not.toBeInTheDocument()
     expect(mockEmploymentHistoryList).toHaveBeenCalledWith(expect.objectContaining({ histories: [] }), expect.anything())
@@ -36,5 +36,8 @@ describe('DefaultEmploymentListComponent', () => {
     expect(getByText(regexString(employmentWithoutHistory.employer))).toBeInTheDocument()
     expect(getByText(regexString(employmentWithoutHistory.city as string))).toBeInTheDocument()
     expect(mockEmploymentHistoryList).toHaveBeenCalledWith(expect.objectContaining({ histories: [history] }), expect.anything())
+
+    rerender(<EmploymentList employments={[employmentWithoutHistory]} />)
+    expect(mockEmploymentHistoryList).toHaveBeenCalledWith(expect.objectContaining({ histories: [] }), expect.anything())
   })
 })

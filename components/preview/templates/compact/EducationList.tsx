@@ -3,7 +3,7 @@ import { sortByOrder } from '@/util/sort'
 import { Education } from '@prisma/client'
 
 export default function EducationList({ educations }: { educations: Education[] }) {
-  if (!educations || !educations.length) return
+  if (!educations.length) return
 
   return (
     <div className="pt-5 text-[9pt]">

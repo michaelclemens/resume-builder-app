@@ -11,7 +11,7 @@ describe('DefaultEducationComponent', () => {
   })
   it('Should render the correct heading', () => {
     const { getByText } = render(<EducationList educations={[education]} />)
-    expect(getByText(/education/i)).toBeInTheDocument()
+    expect(getByText(regexString('education'))).toBeInTheDocument()
   })
   it('Should render the correct details', () => {
     const partialEducation = { ...education, city: null, endDate: null, description: null }

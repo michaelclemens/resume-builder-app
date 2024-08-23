@@ -11,7 +11,7 @@ describe('DefaultExperienceComponent', () => {
   })
   it('Should render the correct heading', () => {
     const { getByText } = render(<Experience skills={[skill]} />)
-    expect(getByText(/experience/i)).toBeInTheDocument()
+    expect(getByText(regexString('experience'))).toBeInTheDocument()
   })
   it('Should render the correct details', () => {
     const { getByText } = render(<Experience skills={[skill]} />)

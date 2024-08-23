@@ -6,8 +6,10 @@ const personal = createMockPersonal()
 
 describe('DefaultHeaderComponent', () => {
   it('Should not render if no personal is passed', () => {
-    const { container } = render(<Header personal={null} />)
+    const { container, queryByText } = render(<Header personal={null} />)
     expect(container).toBeEmptyDOMElement()
+    expect(queryByText(regexString(`${personal.firstName} ${personal.lastName}`))).not.toBeInTheDocument()
+    expect(queryByText(regexString(personal.position as string))).not.toBeInTheDocument()
   })
   it('Should render the correct details', () => {
     const { getByText } = render(<Header personal={personal} />)

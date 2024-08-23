@@ -11,7 +11,7 @@ describe('CompactStrengthListComponent', () => {
   })
   it('Should render the correct heading', () => {
     const { getByText } = render(<StrengthList strengths={[strength]} />)
-    expect(getByText(/strengths/i)).toBeInTheDocument()
+    expect(getByText(regexString('strengths'))).toBeInTheDocument()
   })
   it('Should render the correct details', () => {
     const { getByText } = render(<StrengthList strengths={[strength]} />)
