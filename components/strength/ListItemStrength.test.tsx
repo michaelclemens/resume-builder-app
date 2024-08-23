@@ -1,6 +1,6 @@
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import ListItemStrength from './ListItemStrength'
-import { createMockStrength } from '@/test/mocks'
+import { createMockStrength, regexString } from '@/test/mocks'
 import { ButtonType } from '@/types/list'
 import { SectionForm } from '../ui/form'
 import { SectionEnums } from '@/types/section'
@@ -28,13 +28,13 @@ describe('ListItemStrengthComponent', () => {
   it('Should render edit and delete buttons', () => {
     const { getByTitle } = renderComponent()
 
-    expect(getByTitle(new RegExp(ButtonType.edit, 'i'))).toBeInTheDocument()
-    expect(getByTitle(new RegExp(ButtonType.delete, 'i'))).toBeInTheDocument()
+    expect(getByTitle(regexString(ButtonType.edit))).toBeInTheDocument()
+    expect(getByTitle(regexString(ButtonType.delete))).toBeInTheDocument()
   })
   it('Should be able to delete', async () => {
     const { getByTitle } = renderComponent()
 
-    fireEvent.click(getByTitle(new RegExp(ButtonType.delete, 'i')))
+    fireEvent.click(getByTitle(regexString(ButtonType.delete)))
 
     await waitFor(() => expect(remove).toHaveBeenCalledWith(strength))
   })
@@ -43,7 +43,7 @@ describe('ListItemStrengthComponent', () => {
 
     expect(mockSectionForm).not.toHaveBeenCalled()
 
-    fireEvent.click(getByTitle(new RegExp(ButtonType.edit, 'i')))
+    fireEvent.click(getByTitle(regexString(ButtonType.edit)))
     rerender(getListItemComponent({ editing: true }))
 
     expect(setEditing).toHaveBeenCalledWith(true)
@@ -59,9 +59,7 @@ describe('ListItemStrengthComponent', () => {
   })
   it('Should hide form when deleting', () => {
     const { rerender } = renderComponent({ editing: true })
-
     rerender(getListItemComponent({ editing: true, deleting: true }))
-
     expect(mockSectionForm).toHaveBeenCalledTimes(1)
   })
 })

@@ -1,5 +1,5 @@
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import { createMockEmploymentWithHistory } from '@/test/mocks'
+import { createMockEmploymentWithHistory, regexString } from '@/test/mocks'
 import { ButtonType } from '@/types/list'
 import { SectionForm } from '../ui/form'
 import ListItemEmployment from './ListItemEmployment'
@@ -27,7 +27,7 @@ describe('ListItemEmploymentComponent', () => {
     const { getByText } = renderComponent()
 
     expect(getByText(employment.employer)).toBeInTheDocument()
-    expect(getByText(employment.city)).toBeInTheDocument()
+    expect(getByText(employment.city as string)).toBeInTheDocument()
     expect(mockHistorySection).toHaveBeenCalledWith(
       {
         employmentId: employment.id,
@@ -39,22 +39,20 @@ describe('ListItemEmploymentComponent', () => {
   it('Should render edit and delete buttons', () => {
     const { getByTitle } = renderComponent()
 
-    expect(getByTitle(new RegExp(ButtonType.edit, 'i'))).toBeInTheDocument()
-    expect(getByTitle(new RegExp(ButtonType.delete, 'i'))).toBeInTheDocument()
+    expect(getByTitle(regexString(ButtonType.edit))).toBeInTheDocument()
+    expect(getByTitle(regexString(ButtonType.delete))).toBeInTheDocument()
   })
   it('Should be able to delete', async () => {
     const { getByTitle } = renderComponent()
-
-    fireEvent.click(getByTitle(new RegExp(ButtonType.delete, 'i')))
+    fireEvent.click(getByTitle(regexString(ButtonType.delete)))
 
     await waitFor(() => expect(remove).toHaveBeenCalledWith(employment))
   })
   it('Should show form when editing', () => {
     const { rerender, getByTitle } = renderComponent()
-
     expect(mockSectionForm).not.toHaveBeenCalled()
 
-    fireEvent.click(getByTitle(new RegExp(ButtonType.edit, 'i')))
+    fireEvent.click(getByTitle(regexString(ButtonType.edit)))
     rerender(getListItemComponent({ editing: true }))
 
     expect(setEditing).toHaveBeenCalledWith(true)
@@ -70,9 +68,7 @@ describe('ListItemEmploymentComponent', () => {
   })
   it('Should hide form when deleting', () => {
     const { rerender } = renderComponent({ editing: true })
-
     rerender(getListItemComponent({ editing: true, deleting: true }))
-
     expect(mockSectionForm).toHaveBeenCalledTimes(1)
   })
 })

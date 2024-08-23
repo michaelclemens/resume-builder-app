@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import EmploymentHistoryList from './EmploymentHistoryList'
-import { createMockHistory } from '@/test/mocks'
+import { createMockHistory, regexString } from '@/test/mocks'
 
 const history = createMockHistory()
 
@@ -12,14 +12,14 @@ describe('DefaultEmploymentHistoryListComponent', () => {
   it('Should render the correct details', () => {
     const partialHistory = { ...history, endDate: null, description: null }
     const { queryByText, rerender, getByText } = render(<EmploymentHistoryList histories={[partialHistory]} />)
-    expect(getByText(new RegExp(`^${history.title}`, 'i'))).toBeInTheDocument()
-    expect(getByText(new RegExp(`^${history.startDate.toDateString()}`, 'i'))).toBeInTheDocument()
-    expect(queryByText(new RegExp(`- ${history.endDate?.toDateString()}`, 'i'))).not.toBeInTheDocument()
-    expect(queryByText((history.description ?? '').replace(/\n/g, ' '))).not.toBeInTheDocument()
+    expect(getByText(regexString(history.title))).toBeInTheDocument()
+    expect(getByText(regexString(history.startDate.toDateString()))).toBeInTheDocument()
+    expect(queryByText(regexString(`- ${history.endDate?.toDateString()}`, false))).not.toBeInTheDocument()
+    expect(queryByText(regexString((history.description as string).replace(/\n/g, ' ')))).not.toBeInTheDocument()
 
     rerender(<EmploymentHistoryList histories={[history]} />)
-    expect(getByText(new RegExp(`^${history.title}`, 'i'))).toBeInTheDocument()
-    expect(getByText(new RegExp(`^${history.startDate.toDateString()} - ${history.endDate?.toDateString()}`, 'i'))).toBeInTheDocument()
-    expect(getByText((history.description ?? '').replace(/\n/g, ' '))).toBeInTheDocument()
+    expect(getByText(regexString(history.title))).toBeInTheDocument()
+    expect(getByText(regexString(`${history.startDate.toDateString()} - ${history.endDate?.toDateString()}`))).toBeInTheDocument()
+    expect(getByText(regexString((history.description as string).replace(/\n/g, ' ')))).toBeInTheDocument()
   })
 })

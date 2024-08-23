@@ -130,3 +130,8 @@ export function createMultipleMockItems<ItemType>(
   }
   return items
 }
+
+const escapeRegex = (string: string) => string.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&')
+
+export const regexString = (string: string, atBeginning: boolean = true, flags: string = 'i') =>
+  new RegExp(`${atBeginning ? '^' : ''}${escapeRegex(string)}`, flags)

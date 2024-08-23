@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import StrengthList from './StrengthList'
-import { createMockStrength } from '@/test/mocks'
+import { createMockStrength, regexString } from '@/test/mocks'
 
 const strength = createMockStrength()
 
@@ -15,6 +15,6 @@ describe('DefaultStrengthListComponent', () => {
   })
   it('Should render the correct details', () => {
     const { getByText } = render(<StrengthList strengths={[strength]} />)
-    expect(getByText(new RegExp(`^${strength.name}`, 'i'))).toBeInTheDocument()
+    expect(getByText(regexString(strength.name))).toBeInTheDocument()
   })
 })

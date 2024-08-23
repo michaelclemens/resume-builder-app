@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import Experience from './Experience'
-import { createMockSkill } from '@/test/mocks'
+import { createMockSkill, regexString } from '@/test/mocks'
 
 const skill = createMockSkill()
 
@@ -15,6 +15,6 @@ describe('CompactExperienceComponent', () => {
   })
   it('Should render the correct details', () => {
     const { getByText } = render(<Experience skills={[skill]} />)
-    expect(getByText(new RegExp(`^${skill.name}`, 'i'))).toBeInTheDocument()
+    expect(getByText(regexString(skill.name))).toBeInTheDocument()
   })
 })

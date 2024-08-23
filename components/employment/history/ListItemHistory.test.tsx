@@ -1,5 +1,5 @@
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import { createMockHistory } from '@/test/mocks'
+import { createMockHistory, regexString } from '@/test/mocks'
 import { ButtonType } from '@/types/list'
 import { SectionForm } from '../../ui/form'
 import { getDisplayDateFromDate } from '@/util/date'
@@ -26,19 +26,18 @@ describe('ListItemHistoryComponent', () => {
 
     expect(getByText(history.title)).toBeInTheDocument()
     expect(
-      getByText(new RegExp(`${getDisplayDateFromDate(history.startDate)} to ${getDisplayDateFromDate(history.endDate ?? new Date())}`))
+      getByText(regexString(`${getDisplayDateFromDate(history.startDate)} to ${getDisplayDateFromDate(history.endDate as Date)}`))
     ).toBeInTheDocument()
   })
   it('Should render edit and delete buttons', () => {
     const { getByTitle } = renderComponent()
-
-    expect(getByTitle(new RegExp(ButtonType.edit, 'i'))).toBeInTheDocument()
-    expect(getByTitle(new RegExp(ButtonType.delete, 'i'))).toBeInTheDocument()
+    expect(getByTitle(regexString(ButtonType.edit))).toBeInTheDocument()
+    expect(getByTitle(regexString(ButtonType.delete))).toBeInTheDocument()
   })
   it('Should be able to delete', async () => {
     const { getByTitle } = renderComponent()
 
-    fireEvent.click(getByTitle(new RegExp(ButtonType.delete, 'i')))
+    fireEvent.click(getByTitle(regexString(ButtonType.delete)))
 
     await waitFor(() => expect(remove).toHaveBeenCalledWith(history))
   })
@@ -47,7 +46,7 @@ describe('ListItemHistoryComponent', () => {
 
     expect(mockSectionForm).not.toHaveBeenCalled()
 
-    fireEvent.click(getByTitle(new RegExp(ButtonType.edit, 'i')))
+    fireEvent.click(getByTitle(regexString(ButtonType.edit)))
     rerender(getListItemComponent({ editing: true }))
 
     expect(setEditing).toHaveBeenCalledWith(true)
@@ -63,9 +62,7 @@ describe('ListItemHistoryComponent', () => {
   })
   it('Should hide form when deleting', () => {
     const { rerender } = renderComponent({ editing: true })
-
     rerender(getListItemComponent({ editing: true, deleting: true }))
-
     expect(mockSectionForm).toHaveBeenCalledTimes(1)
   })
 })

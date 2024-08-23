@@ -1,4 +1,4 @@
-import { createMockEmployment, createMockEmploymentWithHistory, createMockHistory } from '@/test/mocks'
+import { createMockEmployment, createMockEmploymentWithHistory, createMockHistory, regexString } from '@/test/mocks'
 import EmploymentList from './EmploymentList'
 import { render } from '@testing-library/react'
 import { EmploymentWithHistory } from '@/types/section'
@@ -21,20 +21,20 @@ describe('DefaultEmploymentListComponent', () => {
   it('Should render the correct details', () => {
     const partialEmployment = { ...employment, city: null, history: [] }
     const { queryByText, rerender, getByText, getByRole } = render(<EmploymentList employments={[partialEmployment]} />)
-    expect(getByText(new RegExp(`^${employment.employer}`, 'i'))).toBeInTheDocument()
-    expect(queryByText(new RegExp(`^${employment.city}`, 'i'))).not.toBeInTheDocument()
+    expect(getByText(regexString(employment.employer))).toBeInTheDocument()
+    expect(queryByText(regexString(employment.city as string))).not.toBeInTheDocument()
     expect(mockEmploymentHistoryList).toHaveBeenCalledWith(expect.objectContaining({ histories: [] }), expect.anything())
 
     rerender(<EmploymentList employments={[employment]} />)
-    expect(getByText(new RegExp(`^${employment.employer}`, 'i'))).toBeInTheDocument()
-    expect(getByText(new RegExp(`^${employment.city}`, 'i'))).toBeInTheDocument()
+    expect(getByText(regexString(employment.employer))).toBeInTheDocument()
+    expect(getByText(regexString(employment.city as string))).toBeInTheDocument()
     expect(mockEmploymentHistoryList).toHaveBeenCalledWith(expect.objectContaining({ histories: employment.history }), expect.anything())
 
     const employmentWithoutHistory = createMockEmployment()
     const history = { ...createMockHistory(), employmentId: employmentWithoutHistory.id }
     rerender(<EmploymentList employments={[employmentWithoutHistory]} histories={[history]} />)
-    expect(getByText(new RegExp(`^${employmentWithoutHistory.employer}`, 'i'))).toBeInTheDocument()
-    expect(getByText(new RegExp(`^${employmentWithoutHistory.city}`, 'i'))).toBeInTheDocument()
+    expect(getByText(regexString(employmentWithoutHistory.employer))).toBeInTheDocument()
+    expect(getByText(regexString(employmentWithoutHistory.city as string))).toBeInTheDocument()
     expect(mockEmploymentHistoryList).toHaveBeenCalledWith(expect.objectContaining({ histories: [history] }), expect.anything())
   })
 })

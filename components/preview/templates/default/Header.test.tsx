@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import Header from './Header'
-import { createMockPersonal } from '@/test/mocks'
+import { createMockPersonal, regexString } from '@/test/mocks'
 
 const personal = createMockPersonal()
 
@@ -11,7 +11,7 @@ describe('DefaultHeaderComponent', () => {
   })
   it('Should render the correct details', () => {
     const { getByText } = render(<Header personal={personal} />)
-    expect(getByText(new RegExp(`^${personal.firstName} ${personal.lastName}`, 'i'))).toBeInTheDocument()
-    expect(getByText(new RegExp(`^${personal.position}`, 'i'))).toBeInTheDocument()
+    expect(getByText(regexString(`${personal.firstName} ${personal.lastName}`))).toBeInTheDocument()
+    expect(getByText(regexString(personal.position as string))).toBeInTheDocument()
   })
 })

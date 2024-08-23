@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import EducationList from './EducationList'
-import { createMockEducation } from '@/test/mocks'
+import { createMockEducation, regexString } from '@/test/mocks'
 
 const education = createMockEducation()
 
@@ -16,16 +16,16 @@ describe('DefaultEducationComponent', () => {
   it('Should render the correct details', () => {
     const partialEducation = { ...education, city: null, endDate: null, description: null }
     const { queryByText, rerender, getByText } = render(<EducationList educations={[partialEducation]} />)
-    expect(getByText(new RegExp(`^${education.degree}, ${education.school}`, 'i'))).toBeInTheDocument()
-    expect(getByText(new RegExp(`^${education.startDate.toDateString()}`, 'i'))).toBeInTheDocument()
-    expect(queryByText(new RegExp(`^${education.city}`, 'i'))).not.toBeInTheDocument()
-    expect(queryByText(new RegExp(`- ${education.endDate?.toDateString()}`, 'i'))).not.toBeInTheDocument()
-    expect(queryByText((education.description ?? '').replace(/\n/g, ' '))).not.toBeInTheDocument()
+    expect(getByText(regexString(`${education.degree}, ${education.school}`))).toBeInTheDocument()
+    expect(getByText(regexString(education.startDate.toDateString()))).toBeInTheDocument()
+    expect(queryByText(regexString(education.city as string))).not.toBeInTheDocument()
+    expect(queryByText(regexString(`- ${education.endDate?.toDateString()}`, false))).not.toBeInTheDocument()
+    expect(queryByText(regexString((education.description as string).replace(/\n/g, ' ')))).not.toBeInTheDocument()
 
     rerender(<EducationList educations={[education]} />)
-    expect(getByText(new RegExp(`^${education.degree}, ${education.school}`, 'i'))).toBeInTheDocument()
-    expect(getByText(new RegExp(`^${education.city}`, 'i'))).toBeInTheDocument()
-    expect(getByText(new RegExp(`^${education.startDate.toDateString()} - ${education.endDate?.toDateString()}`, 'i'))).toBeInTheDocument()
-    expect(getByText((education.description ?? '').replace(/\n/g, ' '))).toBeInTheDocument()
+    expect(getByText(regexString(`${education.degree}, ${education.school}`))).toBeInTheDocument()
+    expect(getByText(regexString(education.city as string))).toBeInTheDocument()
+    expect(getByText(regexString(`${education.startDate.toDateString()} - ${education.endDate?.toDateString()}`))).toBeInTheDocument()
+    expect(getByText(regexString((education.description as string).replace(/\n/g, ' ')))).toBeInTheDocument()
   })
 })

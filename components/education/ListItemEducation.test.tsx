@@ -1,5 +1,5 @@
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import { createMockEducation } from '@/test/mocks'
+import { createMockEducation, regexString } from '@/test/mocks'
 import { ButtonType } from '@/types/list'
 import { SectionForm } from '../ui/form'
 import ListItemEducation from './ListItemEducation'
@@ -24,31 +24,28 @@ const renderComponent = (options = {}) => render(getListItemComponent(options))
 describe('ListItemEducationComponent', () => {
   it('Should render a education', () => {
     const { getByText } = renderComponent()
-
-    expect(getByText(new RegExp(`${education.degree} - ${education.school}`, 'i'))).toBeInTheDocument()
+    expect(getByText(regexString(`${education.degree} - ${education.school}`))).toBeInTheDocument()
     expect(
-      getByText(new RegExp(`${getDisplayDateFromDate(education.startDate)} to ${getDisplayDateFromDate(education.endDate ?? new Date())}`))
+      getByText(regexString(`${getDisplayDateFromDate(education.startDate)} to ${getDisplayDateFromDate(education.endDate as Date)}`))
     ).toBeInTheDocument()
   })
   it('Should render edit and delete buttons', () => {
     const { getByTitle } = renderComponent()
-
-    expect(getByTitle(new RegExp(ButtonType.edit, 'i'))).toBeInTheDocument()
-    expect(getByTitle(new RegExp(ButtonType.delete, 'i'))).toBeInTheDocument()
+    expect(getByTitle(regexString(ButtonType.edit))).toBeInTheDocument()
+    expect(getByTitle(regexString(ButtonType.delete))).toBeInTheDocument()
   })
   it('Should be able to delete', async () => {
     const { getByTitle } = renderComponent()
 
-    fireEvent.click(getByTitle(new RegExp(ButtonType.delete, 'i')))
+    fireEvent.click(getByTitle(regexString(ButtonType.delete)))
 
     await waitFor(() => expect(remove).toHaveBeenCalledWith(education))
   })
   it('Should show form when editing', () => {
     const { rerender, getByTitle } = renderComponent()
-
     expect(mockSectionForm).not.toHaveBeenCalled()
 
-    fireEvent.click(getByTitle(new RegExp(ButtonType.edit, 'i')))
+    fireEvent.click(getByTitle(regexString(ButtonType.edit)))
     rerender(getListItemComponent({ editing: true }))
 
     expect(setEditing).toHaveBeenCalledWith(true)
@@ -64,9 +61,7 @@ describe('ListItemEducationComponent', () => {
   })
   it('Should hide form when deleting', () => {
     const { rerender } = renderComponent({ editing: true })
-
     rerender(getListItemComponent({ editing: true, deleting: true }))
-
     expect(mockSectionForm).toHaveBeenCalledTimes(1)
   })
 })
