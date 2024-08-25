@@ -109,14 +109,14 @@ export default function Modern({
                 ? initialHistories.filter(history => history.employmentId === employment.id)
                 : (employment.history ?? [])
               return (
-                <div key={employment.id}>
+                <section key={employment.id}>
                   <div className="flex font-semibold tracking-wide">
                     <div className="flex-grow">{employment.employer}</div>
                     {employment.city && <div>{employment.city}</div>}
                   </div>
                   <ListContent items={histories}>
                     {history => (
-                      <section key={history.id} className="mt-1">
+                      <div key={history.id} className="mt-1">
                         <p className="font-semibold tracking-wide">{history.title}</p>
                         <p className="pt-1 text-[8pt] font-thin tracking-wide opacity-70">
                           {history.startDate.toDateString()}
@@ -127,10 +127,10 @@ export default function Modern({
                             <RenderHtml html={history.description} />
                           </div>
                         )}
-                      </section>
+                      </div>
                     )}
                   </ListContent>
-                </div>
+                </section>
               )
             }}
           </ListContent>

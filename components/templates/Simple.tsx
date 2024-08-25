@@ -60,14 +60,14 @@ export default function Simple({
               ? initialHistories.filter(history => history.employmentId === employment.id)
               : (employment.history ?? [])
             return (
-              <div key={employment.id}>
+              <section key={employment.id}>
                 <p className="pt-3 text-[10pt] font-bold">
                   {employment.employer}
                   {employment.city && `, ${employment.city}`}
                 </p>
                 <ListContent items={histories}>
                   {history => (
-                    <section key={history.id} className="pt-4 last-of-type:mb-0">
+                    <div key={history.id} className="pt-4 last-of-type:mb-0">
                       <p className="text-[10pt] font-bold">{history.title}</p>
                       <p className="text-[7.5pt] font-thin uppercase tracking-widest text-gray-400">
                         {history.startDate.toDateString()}
@@ -78,10 +78,10 @@ export default function Simple({
                           <RenderHtml html={history.description} />
                         </div>
                       )}
-                    </section>
+                    </div>
                   )}
                 </ListContent>
-              </div>
+              </section>
             )
           }}
         </ListContent>

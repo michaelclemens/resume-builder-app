@@ -17,9 +17,10 @@ export default function ItemContent<ItemType extends SingleItemType | null>({
 }) {
   const { headingClassName } = useContext(TemplateConfigContext)
   if (!item) return
+  const Element = headingType
   return (
     <section className={className}>
-      {heading && createElement(headingType, { className: headingClassName[headingType] }, heading)}
+      {heading && <Element className={headingClassName[headingType]}>{heading}</Element>}
       {typeof children === 'function' ? children(item) : children}
     </section>
   )

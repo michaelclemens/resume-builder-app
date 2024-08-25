@@ -89,14 +89,14 @@ export default function Default({
                 ? initialHistories.filter(history => history.employmentId === employment.id)
                 : (employment.history ?? [])
               return (
-                <div key={employment.id}>
+                <section key={employment.id}>
                   <p className="flex justify-between pt-4">
                     <span className="text-[9pt] font-bold">{employment.employer}</span>
                     {employment.city}
                   </p>
                   <ListContent items={histories}>
                     {history => (
-                      <section key={history.id} className="pt-4 last-of-type:mb-0">
+                      <div key={history.id} className="pt-4 last-of-type:mb-0">
                         <p className="text-[9pt] font-bold">{history.title}</p>
                         <p>
                           {history.startDate.toDateString()}
@@ -107,16 +107,16 @@ export default function Default({
                             <RenderHtml html={history.description} />
                           </div>
                         )}
-                      </section>
+                      </div>
                     )}
                   </ListContent>
-                </div>
+                </section>
               )
             }}
           </ListContent>
           <ListContent items={educations} heading="Education" className="pt-5 text-[8pt]">
             {education => (
-              <section key={education.id} className="pt-4 first-of-type:pt-0">
+              <section key={education.id}>
                 <p className="flex justify-between">
                   <span className="text-[9pt] font-bold capitalize">
                     {education.degree}, {education.school}

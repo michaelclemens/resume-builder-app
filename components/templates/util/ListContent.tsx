@@ -18,10 +18,11 @@ export default function ListContent<ItemType extends ListItemType>({
 }) {
   const { headingClassName } = useContext(TemplateConfigContext)
   if (!items.length) return
+  const Element = headingType
   return (
-    <section className={className}>
-      {heading && createElement(headingType, { className: headingClassName[headingType] }, heading)}
+    <div className={className}>
+      {heading && <Element className={headingClassName[headingType]}>{heading}</Element>}
       <div>{items.sort(sortByOrder).map(item => (typeof children === 'function' ? children(item) : children))}</div>
-    </section>
+    </div>
   )
 }
