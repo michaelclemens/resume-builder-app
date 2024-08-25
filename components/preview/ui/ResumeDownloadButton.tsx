@@ -1,3 +1,4 @@
+import CtaButton from '@/components/ui/CtaButton'
 import { FaDownload } from 'react-icons/fa'
 
 const downloadPDF = (blob: Blob, filename: string) => {
@@ -19,12 +20,9 @@ export default function ResumeDownloadButton({ resumeId, filename = 'My Resume' 
   }
 
   return (
-    <button
-      onClick={onDownload}
-      className="rounded-md bg-gray-400 px-2 py-2 text-gray-800 shadow-sm ring-1 ring-gray-700 transition-colors duration-500 hover:bg-gray-300"
-      title="Download PDF"
-    >
-      <FaDownload size="1.75em" />
-    </button>
+    <CtaButton title="Download Resume PDF" onClick={onDownload}>
+      <FaDownload size="0.5em" className="mr-3 text-green-700 dark:text-indigo-500" />
+      <span className="text-xl">Download</span>
+    </CtaButton>
   )
 }

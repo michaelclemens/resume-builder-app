@@ -16,7 +16,7 @@ export default function TemplateSwitcher({ resumeId, template: currentTemplate }
   }
 
   return (
-    <div className="mt-10 flex flex-col items-center">
+    <div className="flex flex-col items-center">
       {Object.values(Template).map(template => (
         <div
           key={template}

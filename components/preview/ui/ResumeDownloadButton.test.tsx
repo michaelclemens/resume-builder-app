@@ -16,7 +16,7 @@ const resumeId = cuid()
 describe('ResumeDownloadButtonComponent', () => {
   it('Should render download button', () => {
     const { getByRole } = render(<ResumeDownloadButton resumeId={resumeId} />)
-    expect(getByRole('button', { name: /download pdf/i })).toBeInTheDocument()
+    expect(getByRole('button', { name: /download resume pdf/i })).toBeInTheDocument()
   })
   it('Should download resume', async () => {
     const filename = faker.lorem.word()
@@ -28,7 +28,7 @@ describe('ResumeDownloadButtonComponent', () => {
     document.body.removeChild = jest.fn()
     document.createElement = jest.fn().mockImplementation(() => ({ setAttribute: jest.fn(), click: jest.fn() }))
 
-    fireEvent.click(getByRole('button', { name: /download pdf/i }))
+    fireEvent.click(getByRole('button', { name: /download resume pdf/i }))
 
     expect(fetch).toHaveBeenCalledWith(`/api/resume/${resumeId}/pdf`)
   })

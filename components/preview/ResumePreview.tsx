@@ -30,11 +30,13 @@ export default function ResumePreview({ resume: initialResume }: { resume: Resum
           colourElementRef={colourElementRef}
         />
       </div>
-      <div className="mt-5 flex w-full justify-center text-center">
-        <div className="fixed">
+      <div className="flex w-full justify-center text-center">
+        <div className="fixed -mt-3 h-screen">
           <ResumePrintButton resumePreviewRef={resumePreviewRef} />
           <ResumeDownloadButton resumeId={resume.id} />
-          <TemplateSwitcher resumeId={resume.id} template={resume.template} />
+          <div className="mt-5 h-4/6 overflow-y-auto px-2 pt-1 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300/70 dark:scrollbar-thumb-slate-900/70">
+            <TemplateSwitcher resumeId={resume.id} template={resume.template} />
+          </div>
         </div>
       </div>
     </div>

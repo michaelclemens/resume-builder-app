@@ -1,3 +1,4 @@
+import CtaButton from '@/components/ui/CtaButton'
 import { fixPDFHeight } from '@/util/print'
 import { RefObject } from 'react'
 import { FaPrint } from 'react-icons/fa'
@@ -17,12 +18,9 @@ export default function ResumePrintButton({
   })
 
   return (
-    <button
-      onClick={handlePrint}
-      className="rounded-md bg-gray-400 px-2 py-2 text-gray-800 shadow-sm ring-1 ring-gray-700 transition-colors duration-500 hover:bg-gray-300"
-      title="Print"
-    >
-      <FaPrint size="1.75em" />
-    </button>
+    <CtaButton title="Print Resume" onClick={handlePrint}>
+      <FaPrint size="0.5em" className="mr-3 text-green-700 dark:text-indigo-500" />
+      <span className="text-xl">Print</span>
+    </CtaButton>
   )
 }
