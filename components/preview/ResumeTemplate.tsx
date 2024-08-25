@@ -4,6 +4,7 @@ import { Ref, RefObject } from 'react'
 import { ResumeFull } from '@/lib/client/resume'
 import { getTemplateComponent, getTemplateConfig, resumePrintPreviewID, TemplateConfigContext } from '@/util/template'
 import ResumeColourPicker from './ui/ResumeColourPicker'
+import Footer from '../templates/util/Footer'
 
 export const resumePrintFooterClass = 'resume-print-footer'
 
@@ -22,13 +23,7 @@ export default function ResumeTemplate({
     <TemplateConfigContext.Provider value={templateConfig}>
       <div ref={resumePreviewRef} id={resumePrintPreviewID} className="relative w-[210mm]">
         <ResumeTemplateComponent resume={resume} colourElementRef={colourElementRef} />
-        <div
-          title="Resume Print Footer"
-          className={resumePrintFooterClass}
-          style={{
-            color: templateConfig.selectedColours.text ?? templateConfig.defaultColours.text,
-          }}
-        />
+        <Footer />
       </div>
       {colourElementRef && <ResumeColourPicker resumeId={resume.id} colourElementRef={colourElementRef} />}
     </TemplateConfigContext.Provider>

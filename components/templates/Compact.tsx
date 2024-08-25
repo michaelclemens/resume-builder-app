@@ -5,7 +5,7 @@ import ColourElement from './util/ColourElement'
 import ItemContent from './util/ItemContent'
 import { RenderHtml } from '../ui'
 import ListContent from './util/ListContent'
-import { Heading } from '@/util/template'
+import { TemplateHeading } from './util/Heading'
 
 const oswald = Oswald({ subsets: ['latin'], display: 'swap', variable: '--font-oswald' })
 const lato = Lato({ weight: ['400', '700'], subsets: ['latin'], variable: '--font-lato' })
@@ -94,7 +94,7 @@ export default function Compact({
           </ListContent>
         </div>
         <ColourElement colourElementRef={colourElementRef} className="w-2/6 px-10 pb-5 pt-36 text-white">
-          <ItemContent item={personal} heading="Details" headingType={Heading.h3} className="mb-7 text-[8pt]">
+          <ItemContent item={personal} heading="Details" headingType={TemplateHeading.h3} className="mb-7 text-[8pt]">
             {personal => (
               <>
                 {personal?.city && <div className="mb-1 mt-2">{personal.city}</div>}
@@ -108,14 +108,14 @@ export default function Compact({
               </>
             )}
           </ItemContent>
-          <ListContent items={skills} heading="Experience" headingType={Heading.h3} className="mb-7 text-[8pt]">
+          <ListContent items={skills} heading="Experience" headingType={TemplateHeading.h3} className="mb-7 text-[8pt]">
             {skill => (
               <div key={skill.id} className="my-2 capitalize">
                 {skill.name}
               </div>
             )}
           </ListContent>
-          <ListContent items={strengths} heading="Strengths" headingType={Heading.h3} className="mb-7 text-[8pt]">
+          <ListContent items={strengths} heading="Strengths" headingType={TemplateHeading.h3} className="mb-7 text-[8pt]">
             {strength => (
               <div key={strength.id} className="my-2 capitalize">
                 {strength.name}

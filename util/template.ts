@@ -12,16 +12,8 @@ type TemplateColours = {
   [ColourElements.text]?: string
 }
 
-export enum Heading {
-  h2 = 'h2',
-  h3 = 'h3',
-}
-export type HeadingType = keyof typeof Heading
-
 type TemplateConfig = {
-  headingClassName: {
-    [key in HeadingType]?: string
-  }
+  template: Template
   defaultColours: TemplateColours
   selectedColours: TemplateColours
 }
@@ -53,22 +45,8 @@ export const getDefaultColours = (template: Template): TemplateColours => {
   }
 }
 
-const getHeadingClassName = (template: Template) => {
-  switch (template) {
-    case Template.COMPACT:
-      return { [Heading.h2]: 'font-oswald text-xl font-medium', [Heading.h3]: 'font-oswald text-sm font-medium' }
-    case Template.SIMPLE:
-      return { [Heading.h2]: 'inline bg-black px-2 py-1 text-[8pt] font-semibold uppercase tracking-widest text-white' }
-    case Template.MODERN:
-      return { [Heading.h2]: 'text-lg font-semibold', [Heading.h3]: 'py-1 text-sm font-semibold' }
-    case Template.DEFAULT:
-    default:
-      return { [Heading.h2]: 'mb-3 border-b border-black pb-1 font-bold uppercase tracking-[0.2em]' }
-  }
-}
-
 export const getTemplateConfig = (template: Template, templateOptions?: TemplateOptions): TemplateConfig => ({
-  headingClassName: getHeadingClassName(template),
+  template,
   defaultColours: getDefaultColours(template),
   selectedColours: templateOptions?.colours ?? {},
 })

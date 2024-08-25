@@ -5,8 +5,8 @@ import ColourElement from './util/ColourElement'
 import ItemContent from './util/ItemContent'
 import { FaEnvelope, FaMapMarkerAlt, FaMobileAlt } from 'react-icons/fa'
 import ListContent from './util/ListContent'
-import { Heading } from '@/util/template'
 import { RenderHtml } from '../ui'
+import { TemplateHeading } from './util/Heading'
 
 const roboto = Roboto({ weight: ['400', '700'], subsets: ['latin'], display: 'swap', variable: '--font-roboto' })
 
@@ -21,7 +21,7 @@ export default function Modern({
     <div className={`${roboto.variable} flex h-full min-h-screen flex-col bg-white font-roboto text-[8pt] text-black`}>
       <div className="flex h-full min-h-screen gap-x-5">
         <ColourElement colourElementRef={colourElementRef} className="w-2/6 px-5 pb-2 pt-8 text-white">
-          <ItemContent item={personal} heading="Contact" headingType={Heading.h3} className="mb-3 text-[9pt]">
+          <ItemContent item={personal} heading="Contact" headingType={TemplateHeading.h3} className="mb-3 text-[9pt]">
             {personal => (
               <>
                 {personal?.email && (
@@ -48,7 +48,7 @@ export default function Modern({
               </>
             )}
           </ItemContent>
-          <ListContent items={skills} heading="Expertise" headingType={Heading.h3} className="mb-3 text-[9pt]">
+          <ListContent items={skills} heading="Expertise" headingType={TemplateHeading.h3} className="mb-3 text-[9pt]">
             {skill => {
               const typeAndSkill = skill.name.split(':')
               return (
@@ -59,7 +59,7 @@ export default function Modern({
               )
             }}
           </ListContent>
-          <ListContent items={educations} heading="Education" headingType={Heading.h3} className="mb-3 text-[9pt]">
+          <ListContent items={educations} heading="Education" headingType={TemplateHeading.h3} className="mb-3 text-[9pt]">
             {education => (
               <section key={education.id} className="mb-2 last-of-type:mb-0">
                 <p className="capitalize">
@@ -73,7 +73,7 @@ export default function Modern({
               </section>
             )}
           </ListContent>
-          <ListContent items={strengths} heading="Strengths" headingType={Heading.h3} className="text-[9pt]">
+          <ListContent items={strengths} heading="Strengths" headingType={TemplateHeading.h3} className="text-[9pt]">
             {strength => (
               <div key={strength.id} className="pb-1 capitalize last-of-type:pb-0">
                 {strength.name}
