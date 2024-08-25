@@ -5,9 +5,8 @@ import { useEffect, useRef } from 'react'
 import { TemplateSwitcher } from '@/components/ui'
 import ResumeTemplate from './ResumeTemplate'
 import useResumePreview from '@/hooks/useResumePreview'
-import ResumePrintButton from './ResumePrintButton'
-import ResumeDownloadButton from './ResumeDownloadButton'
-import ResumeColourPicker from './ResumeColourPicker'
+import ResumePrintButton from './ui/ResumePrintButton'
+import ResumeDownloadButton from './ui/ResumeDownloadButton'
 
 export default function ResumePreview({ resume: initialResume }: { resume: ResumeFull }) {
   const { resume, resetAllState } = useResumePreview(initialResume)
@@ -30,7 +29,6 @@ export default function ResumePreview({ resume: initialResume }: { resume: Resum
           resumePreviewRef={resumePreviewRef}
           colourElementRef={colourElementRef}
         />
-        <ResumeColourPicker resume={resume} colourElementRef={colourElementRef} />
       </div>
       <div className="mt-5 flex w-full justify-center text-center">
         <div className="fixed">

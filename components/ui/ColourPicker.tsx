@@ -25,7 +25,7 @@ export default function ColourPicker({
   onSave,
 }: {
   elementType: ColourElementType
-  colour: string
+  colour?: string
   colourElementRef: RefObject<HTMLDivElement>
   onChange: (colour: string) => void
   onSave: (elementType: ColourElementType, colour: string) => Promise<void>
@@ -44,7 +44,7 @@ export default function ColourPicker({
   }
 
   useClickOutside(pickerRef, async () => {
-    await onSave(elementType, colour)
+    await onSave(elementType, colour ?? '')
     setShowPicker(false)
   })
 

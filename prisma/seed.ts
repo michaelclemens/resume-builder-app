@@ -1,5 +1,6 @@
 import { createMockFullResume } from '../test/mocks'
 import { PrismaClient } from '@prisma/client'
+import { customSeed } from './seed-private'
 
 const prisma = new PrismaClient()
 
@@ -46,6 +47,8 @@ const main = async () => {
   }
 }
 
-main().catch(err => {
+const seed = process.env.CUSTOM_SEED === 'true' ? customSeed : main
+
+seed().catch(err => {
   console.warn('Error While generating Seed: \n', err)
 })

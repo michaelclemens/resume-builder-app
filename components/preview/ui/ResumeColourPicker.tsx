@@ -1,37 +1,34 @@
 'use client'
 
 import useResume from '@/hooks/useResume'
-import { ColourElements, ColourElementType, TemplateOptions } from '@/types/template'
-import { getDefaultOptions } from '@/util/template'
-import { Resume } from '@prisma/client'
-import { RefObject, useState } from 'react'
+import { ColourElements, ColourElementType } from '@/types/template'
+import { TemplateConfigContext } from '@/util/template'
+import { RefObject, useContext, useState } from 'react'
 import { FaUndo } from 'react-icons/fa'
-import { ColourPicker } from '../ui'
+import { ColourPicker } from '../../ui'
 
-export default function ResumeColourPicker({ resume, colourElementRef }: { resume: Resume; colourElementRef: RefObject<HTMLDivElement> }) {
+export default function ResumeColourPicker({ resumeId, colourElementRef }: { resumeId: string; colourElementRef: RefObject<HTMLDivElement> }) {
+  const { selectedColours, defaultColours } = useContext(TemplateConfigContext)
   const { updateTemplateOptions } = useResume()
-  const defaultOptions = getDefaultOptions(resume?.template)
-  const templateOptions = (resume.templateOptions as TemplateOptions) ?? {}
-  const initialBGColour = templateOptions.colours?.background ?? defaultOptions.background
-  const initialTextColour = templateOptions.colours?.text ?? defaultOptions.text
+  const initialBGColour = selectedColours.background ?? defaultColours.background
+  const initialTextColour = selectedColours.text ?? defaultColours.text
   const [backgroundColour, setBGColour] = useState(initialBGColour)
   const [textColour, setTextColour] = useState(initialTextColour)
 
   const getNewOptions = (elementType: ColourElementType, newColour: string) => ({
-    ...(templateOptions as object),
-    colours: { ...(templateOptions.colours ?? {}), [elementType]: newColour },
+    colours: { ...selectedColours, [elementType]: newColour },
   })
 
   const onSave = async (elementType: ColourElementType, newColour: string) => {
     if (newColour === (elementType === ColourElements.background ? initialBGColour : initialTextColour)) return
-    await updateTemplateOptions(resume.id, getNewOptions(elementType, newColour))
+    await updateTemplateOptions(resumeId, getNewOptions(elementType, newColour))
   }
 
   const onResetToDefault = async () => {
-    if (backgroundColour === defaultOptions.background && textColour === defaultOptions.text) return
-    await updateTemplateOptions(resume.id, { colours: {} })
-    setBGColour(defaultOptions.background)
-    setTextColour(defaultOptions.text)
+    if (backgroundColour === defaultColours.background && textColour === defaultColours.text) return
+    await updateTemplateOptions(resumeId, { colours: {} })
+    setBGColour(defaultColours.background)
+    setTextColour(defaultColours.text)
   }
 
   return (

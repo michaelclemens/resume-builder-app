@@ -1,3 +1,4 @@
-export { default as TemplateDefault } from './TemplateDefault'
-export { default as TemplateCompact } from './TemplateCompact'
-export { default as TemplateSimple } from './TemplateSimple'
+export { default as Default } from './Default'
+export { default as Compact } from './Compact'
+export { default as Simple } from './Simple'
+export { default as Modern } from './Modern'

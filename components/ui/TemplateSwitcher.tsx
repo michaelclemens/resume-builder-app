@@ -1,4 +1,5 @@
 import useResume from '@/hooks/useResume'
+import { getTemplateImage } from '@/util/template'
 import { Template } from '@prisma/client'
 import Image from 'next/image'
 
@@ -24,7 +25,7 @@ export default function TemplateSwitcher({ resumeId, template: currentTemplate }
         >
           <Image
             className={`transition-all duration-500 ${isSelectedTemplate(template) ? selectedClassName : unselectedClassName} hover:brightness-100`}
-            src={`/templates/${template.toLowerCase()}.jpg`}
+            src={getTemplateImage(template)}
             width={100}
             height={100}
             alt={`Template ${template.toLowerCase()}`}

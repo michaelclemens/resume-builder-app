@@ -18,6 +18,7 @@ const config: Config = {
         montserrat: ['var(--font-montserrat)'],
         lato: ['var(--font-lato)'],
         oswald: ['var(--font-oswald)'],
+        roboto: ['var(--font-roboto)'],
       },
     },
   },

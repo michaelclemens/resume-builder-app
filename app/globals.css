@@ -130,11 +130,13 @@ input:-webkit-autofill:focus {
     height: 1.25rem;
     margin: 0 1rem 0 1rem;
     font-size: 6pt;
-    color: #000;
-    opacity: 0.7;
+    opacity: 0.6;
     page-break-after: always;
   }
   div.resume-print-footer::before {
     content: 'Made using github.com/michaelclemens/cv-builder-app';
   }
+}
+div#resume-print-preview .ql-editor ul {
+  padding-left: 0;
 }

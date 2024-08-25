@@ -40,3 +40,6 @@ next-env.d.ts
 
 # resume previews
 /public/previews/
+
+# prisma
+/prisma/seed-private*

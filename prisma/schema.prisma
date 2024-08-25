@@ -11,6 +11,7 @@ enum Template {
   DEFAULT
   COMPACT
   SIMPLE
+  MODERN
 }
 
 model Resume {
