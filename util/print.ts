@@ -11,3 +11,15 @@ export const fixPDFHeight = (element: HTMLElement | null) => {
     element.style.setProperty('--print-height', `${newHeight}px`)
   }
 }
+
+export const downloadPDF = (blob: Blob, filename: string) => {
+  const url = window.URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.setAttribute('style', 'display:none')
+  link.setAttribute('href', url)
+  link.setAttribute('download', filename)
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  window.URL.revokeObjectURL(url)
+}

@@ -21,8 +21,8 @@ export default function ResumePreview({ resume: initialResume }: { resume: Resum
   }, [resetAllState])
 
   return (
-    <div className="relative my-3 ml-1 flex flex-shrink">
-      <div className="relative z-40 flex flex-shrink rounded-lg px-12 py-10 shadow-md ring-1 ring-slate-300/60 backdrop-blur-sm dark:ring-slate-400/20">
+    <div className="relative my-3 ml-1 flex">
+      <div className="relative z-40 rounded-lg px-12 py-10 shadow-md ring-1 ring-slate-300/60 backdrop-blur-sm dark:ring-slate-400/20">
         <ResumeTemplate
           // @ts-ignore
           resume={resume}
@@ -31,7 +31,7 @@ export default function ResumePreview({ resume: initialResume }: { resume: Resum
         />
       </div>
       <div className="flex w-full justify-center text-center">
-        <div className="fixed -mt-3 h-screen">
+        <div className="fixed -mt-3 h-screen px-5">
           <ResumePrintButton resumePreviewRef={resumePreviewRef} />
           <ResumeDownloadButton resumeId={resume.id} />
           <div className="mt-5 h-4/6 overflow-y-auto px-2 pt-1 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300/70 dark:scrollbar-thumb-slate-900/70">

@@ -1,17 +1,20 @@
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import cuid from 'cuid'
 import ResumeDownloadButton from './ResumeDownloadButton'
 import { faker } from '@faker-js/faker'
+import { downloadPDF } from '@/util/print'
 
-const blob = faker.lorem.sentence()
+jest.mock('@/util/print')
+const blob = new Blob([faker.lorem.sentence()], { type: 'application/pdf' })
 const fetch = jest.fn(() =>
   Promise.resolve({
-    blob: () => Promise.resolve(new Blob([blob], { type: 'application/pdf' })),
+    blob: () => Promise.resolve(blob),
   })
 )
 // @ts-ignore
 global.fetch = fetch
 const resumeId = cuid()
+const mockDownloadPDF = jest.mocked(downloadPDF)
 
 describe('ResumeDownloadButtonComponent', () => {
   it('Should render download button', () => {
@@ -22,14 +25,9 @@ describe('ResumeDownloadButtonComponent', () => {
     const filename = faker.lorem.word()
     const { getByRole } = render(<ResumeDownloadButton resumeId={resumeId} filename={filename} />)
 
-    window.URL.createObjectURL = jest.fn()
-    window.URL.revokeObjectURL = jest.fn()
-    document.body.appendChild = jest.fn()
-    document.body.removeChild = jest.fn()
-    document.createElement = jest.fn().mockImplementation(() => ({ setAttribute: jest.fn(), click: jest.fn() }))
-
     fireEvent.click(getByRole('button', { name: /download resume pdf/i }))
 
     expect(fetch).toHaveBeenCalledWith(`/api/resume/${resumeId}/pdf`)
+    await waitFor(() => expect(mockDownloadPDF).toHaveBeenCalledWith(blob, `${filename}.pdf`))
   })
 })

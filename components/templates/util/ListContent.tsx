@@ -2,6 +2,7 @@ import { ListItemType } from '@/types/section'
 import { sortByOrder } from '@/util/sort'
 import { ReactNode } from 'react'
 import Heading, { TemplateHeadingType } from './Heading'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 export default function ListContent<ItemType extends ListItemType>({
   items,
@@ -16,11 +17,12 @@ export default function ListContent<ItemType extends ListItemType>({
   headingType?: TemplateHeadingType
   className?: string
 }) {
+  const [animationParent] = useAutoAnimate()
   if (!items.length) return
   return (
     <div className={className}>
       {heading && <Heading heading={heading} headingType={headingType} />}
-      <div>{items.sort(sortByOrder).map(item => (typeof children === 'function' ? children(item) : children))}</div>
+      <div ref={animationParent}>{items.sort(sortByOrder).map(item => (typeof children === 'function' ? children(item) : children))}</div>
     </div>
   )
 }
