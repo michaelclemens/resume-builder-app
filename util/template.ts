@@ -5,8 +5,6 @@ import { ColourElements, TemplateOptions } from '@/types/template'
 import { Template } from '@prisma/client'
 import { createContext } from 'react'
 
-export const resumePrintPreviewID = 'resume-print-preview'
-
 type TemplateColours = {
   [ColourElements.background]?: string
   [ColourElements.text]?: string

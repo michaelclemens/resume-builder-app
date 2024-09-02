@@ -11,7 +11,7 @@ export default async function Home() {
       </div>
       <div className="mx-auto flex w-full flex-col lg:w-1/3">
         <form role="form" action={createResumeAction}>
-          <CtaButton>Start A New Resume 🔥🚀</CtaButton>
+          <CtaButton>Create A New Resume</CtaButton>
         </form>
       </div>
     </main>

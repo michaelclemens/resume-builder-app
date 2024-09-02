@@ -1,5 +1,8 @@
-import { permanentRedirect } from 'next/navigation'
+import { SectionForm } from '@/components/ui/form'
+import { getPersonal } from '@/lib/client/personal'
+import { SectionEnums } from '@/types/section'
 
-export default async function DefaultSectionPage({ params: { id } }: { params: { id: string } }) {
-  permanentRedirect(`/resume/${id}/personal`)
+export default async function PersonalSectionPage({ params: { id } }: { params: { id: string } }) {
+  const personal = await getPersonal(id)
+  return <SectionForm sectionType={SectionEnums.personal} parentId={id} item={personal ?? undefined} />
 }

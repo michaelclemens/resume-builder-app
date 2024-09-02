@@ -11,7 +11,7 @@ export type TemplateHeadingType = keyof typeof TemplateHeading
 const templateClassNames = {
   [Template.COMPACT]: { [TemplateHeading.h2]: 'font-oswald text-xl font-medium', [TemplateHeading.h3]: 'font-oswald text-sm font-medium' },
   [Template.SIMPLE]: { [TemplateHeading.h2]: 'inline bg-black px-2 py-1 text-[8pt] font-semibold uppercase tracking-widest text-white' },
-  [Template.MODERN]: { [TemplateHeading.h2]: 'text-lg font-semibold', [TemplateHeading.h3]: 'py-1 text-sm font-semibold' },
+  [Template.MODERN]: { [TemplateHeading.h2]: 'text-xl font-semibold', [TemplateHeading.h3]: 'pb-1 text-lg font-semibold' },
   [Template.DEFAULT]: { [TemplateHeading.h2]: 'mb-3 border-b border-black pb-1 font-bold uppercase tracking-[0.2em]' },
 }
 

@@ -1,5 +1,7 @@
 import { Prisma } from '@prisma/client'
 
+export const resumePrintPreviewID = 'resume-print-preview'
+
 export enum ColourElements {
   background = 'background',
   text = 'text',

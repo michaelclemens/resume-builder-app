@@ -20,8 +20,8 @@ export default function Modern({
   return (
     <div className={`${roboto.variable} flex h-full min-h-screen flex-col bg-white font-roboto text-[8pt] text-black`}>
       <div className="flex h-full min-h-screen gap-x-5">
-        <ColourElement colourElementRef={colourElementRef} className="w-2/6 px-5 pb-2 pt-8 text-white">
-          <ItemContent item={personal} heading="Contact" headingType={TemplateHeading.h3} className="mb-3 text-[9pt]">
+        <ColourElement colourElementRef={colourElementRef} className="w-2/6 pb-2 pl-5 pr-2 pt-5 text-white">
+          <ItemContent item={personal} heading="Contact" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt]">
             {personal => (
               <>
                 {personal?.email && (
@@ -40,7 +40,7 @@ export default function Modern({
                 )}
                 {(personal?.city || personal?.country) && (
                   <div>
-                    <FaMapMarkerAlt className="mb-1 mr-2 inline" />
+                    <FaMapMarkerAlt className="mr-2 inline" />
                     {personal?.city}
                     {personal?.country && `, ${personal.country}`}
                   </div>
@@ -48,51 +48,52 @@ export default function Modern({
               </>
             )}
           </ItemContent>
-          <ListContent items={skills} heading="Expertise" headingType={TemplateHeading.h3} className="mb-3 text-[9pt]">
-            {skill => {
-              const typeAndSkill = skill.name.split(':')
-              return (
-                <div key={skill.id} className="mb-1 border-b border-b-white/30 pb-1 capitalize last-of-type:border-b-0 last-of-type:pb-0">
-                  <div className="font-semibold tracking-wide">{typeAndSkill[0]}</div>
-                  <div>{typeAndSkill[1]}</div>
-                </div>
-              )
-            }}
+          <ListContent items={skills} heading="Expertise" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt]">
+            {skill => (
+              <div
+                key={skill.id}
+                className="mb-1 capitalize last-of-type:mb-0 [&>:first-of-type]:mr-1 [&>:first-of-type]:font-semibold [&>:first-of-type]:tracking-wide [&>:first-of-type]:text-orange-300 [&>:first-of-type]:after:content-[':']"
+              >
+                {skill.name.split(':').map(name => (
+                  <div key={name}>{name.trim()}</div>
+                ))}
+              </div>
+            )}
           </ListContent>
-          <ListContent items={educations} heading="Education" headingType={TemplateHeading.h3} className="mb-3 text-[9pt]">
+          <ListContent items={strengths} heading="Strengths" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt]">
+            {strength => (
+              <div key={strength.id} className="mb-1 capitalize last-of-type:mb-0">
+                {strength.name}
+              </div>
+            )}
+          </ListContent>
+          <ListContent items={educations} heading="Education" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt]">
             {education => (
-              <section key={education.id} className="mb-2 last-of-type:mb-0">
+              <section key={education.id} className="mb-1 last-of-type:mb-0">
                 <p className="capitalize">
                   {education.degree}, {education.school}
                   {education.city && `, ${education.city}`}
                 </p>
-                <p className="pt-1 text-[8pt] font-thin tracking-wide opacity-80">
+                <p className="pt-1 text-[9pt] font-thin tracking-wide opacity-80">
                   {education.startDate.toDateString()}
                   {education.endDate && ` - ${education.endDate.toDateString()}`}
                 </p>
               </section>
             )}
           </ListContent>
-          <ListContent items={strengths} heading="Strengths" headingType={TemplateHeading.h3} className="text-[9pt]">
-            {strength => (
-              <div key={strength.id} className="pb-1 capitalize last-of-type:pb-0">
-                {strength.name}
-              </div>
-            )}
-          </ListContent>
         </ColourElement>
-        <div className="w-4/6 bg-white pb-2 pr-5 pt-8">
+        <div className="w-4/6 bg-white pb-2 pr-3 pt-5">
           <ItemContent item={personal} className="mb-3">
             {personal => (
               <>
-                <div className="mb-1 text-3xl font-semibold">
+                <div className="text-3xl font-semibold">
                   {personal?.firstName} {personal?.lastName}
                 </div>
                 <div className="text-[9pt] capitalize tracking-wide">{personal?.position}</div>
               </>
             )}
           </ItemContent>
-          <ItemContent item={personal} heading="About" className="mb-3 text-[9pt]">
+          <ItemContent item={personal} heading="About" className="mb-2 text-[9.5pt]">
             {personal => (
               <>
                 {personal?.summary && (
@@ -103,13 +104,13 @@ export default function Modern({
               </>
             )}
           </ItemContent>
-          <ListContent items={employments} heading="Experience" className="text-[9pt]">
+          <ListContent items={employments} heading="Experience" className="text-[9.5pt]">
             {employment => {
               const histories = initialHistories
                 ? initialHistories.filter(history => history.employmentId === employment.id)
                 : (employment.history ?? [])
               return (
-                <section key={employment.id}>
+                <section key={employment.id} className="mb-2 last-of-type:mb-0">
                   <div className="flex font-semibold tracking-wide">
                     <div className="flex-grow">{employment.employer}</div>
                     {employment.city && <div>{employment.city}</div>}
@@ -118,12 +119,12 @@ export default function Modern({
                     {history => (
                       <div key={history.id} className="mt-1">
                         <p className="font-semibold tracking-wide">{history.title}</p>
-                        <p className="pt-1 text-[8pt] font-thin tracking-wide opacity-70">
+                        <p className="text-[9pt] font-thin tracking-wide opacity-70">
                           {history.startDate.toDateString()}
                           {history.endDate && ` - ${history.endDate.toDateString()}`}
                         </p>
                         {history.description && (
-                          <div className="mt-1">
+                          <div className="[&_.ql-editor]:leading-[18px] mt-1">
                             <RenderHtml html={history.description} />
                           </div>
                         )}

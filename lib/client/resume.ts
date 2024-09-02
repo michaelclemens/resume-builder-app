@@ -3,7 +3,7 @@
 import prisma from '@/lib/prisma'
 import { EmploymentHistory, Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { generateScreenshot } from '../puppeteer'
 import { TemplateOptions } from '@/types/template'
 
@@ -41,21 +41,26 @@ export async function getResume(id: string) {
     return await prisma.resume.findUniqueOrThrow({ where: { id } })
   } catch (error) {
     console.error(error)
-    return null
+    return notFound()
   }
 }
 
 export async function getResumeFull(id: string) {
-  return await prisma.resume.findUniqueOrThrow({
-    where: { id },
-    include: {
-      personal: true,
-      employments: { include: { history: true } },
-      educations: true,
-      skills: true,
-      strengths: true,
-    },
-  })
+  try {
+    return await prisma.resume.findUniqueOrThrow({
+      where: { id },
+      include: {
+        personal: true,
+        employments: { include: { history: true } },
+        educations: true,
+        skills: true,
+        strengths: true,
+      },
+    })
+  } catch (error) {
+    console.error(error)
+    return notFound()
+  }
 }
 
 export async function getAllResumes() {
