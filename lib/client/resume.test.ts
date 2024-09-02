@@ -3,7 +3,7 @@ import { prismaMock } from '@/test/prisma'
 import { faker } from '@faker-js/faker'
 import { Resume, Template } from '@prisma/client'
 import { createResumeAction, deleteResume, generateResumePreview, getAllResumes, getResume, getResumeFull, updateResume } from './resume'
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { generateScreenshot } from '../puppeteer'
 
@@ -15,6 +15,7 @@ jest.mock('../puppeteer')
 const mockRedirect = jest.mocked(redirect)
 const mockRevalidatePath = jest.mocked(revalidatePath)
 const mockGenerateScreenshot = jest.mocked(generateScreenshot)
+const mockNotFound = jest.mocked(notFound)
 console.error = jest.fn()
 
 const getFormData = (resume: Resume) => ({
@@ -30,11 +31,13 @@ describe('ResumeClient', () => {
     prismaMock.resume.findUniqueOrThrow.mockResolvedValueOnce(resume)
     await expect(getResume(resume.id)).resolves.toEqual(resume)
     expect(prismaMock.resume.findUniqueOrThrow).toHaveBeenCalledWith({ where: { id: resume.id } })
+    expect(mockNotFound).not.toHaveBeenCalled()
   })
   it('Should handle errors when getting resume by id', async () => {
     prismaMock.resume.findUniqueOrThrow.mockRejectedValueOnce(error)
-    await expect(getResume(resume.id)).resolves.toBeNull()
+    await expect(getResume(resume.id)).resolves.toBeUndefined()
     expect(console.error).toHaveBeenCalledWith(error)
+    expect(mockNotFound).toHaveBeenCalled()
   })
   it('Should update a resume', async () => {
     prismaMock.resume.update.mockResolvedValueOnce(resume)
@@ -77,6 +80,12 @@ describe('ResumeClient', () => {
         strengths: true,
       },
     })
+  })
+  it('Should handle errors when getting full resume by id', async () => {
+    prismaMock.resume.findUniqueOrThrow.mockRejectedValueOnce(error)
+    await expect(getResumeFull(resume.id)).resolves.toBeUndefined()
+    expect(console.error).toHaveBeenCalledWith(error)
+    expect(mockNotFound).toHaveBeenCalled()
   })
   it('Should create a blank new resume and redirect', async () => {
     prismaMock.resume.create.mockResolvedValueOnce(resume)
