@@ -56,7 +56,7 @@ export async function generatePDF(resumeId: string, elementId: string = resumePr
     executablePath: process.env.CHROME_EXECUTABLE_PATH,
   })
   const page = await browser.newPage()
-  
+
   try {
     await page.goto(getPreviewUrl(resumeId))
     await page.evaluate(

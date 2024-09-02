@@ -124,7 +124,7 @@ export default function Modern({
                           {history.endDate && ` - ${history.endDate.toDateString()}`}
                         </p>
                         {history.description && (
-                          <div className="[&_.ql-editor]:leading-[18px] mt-1">
+                          <div className="mt-1 [&_.ql-editor]:leading-[18px]">
                             <RenderHtml html={history.description} />
                           </div>
                         )}
