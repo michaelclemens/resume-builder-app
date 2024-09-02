@@ -40,6 +40,7 @@ export default function useResumePreview(initialFullResume: ResumeFull) {
     dispatch(getSection(SectionEnums.personal).state.actions.reset())
     dispatch(getSection(SectionEnums.education).state.actions.reset())
     dispatch(getSection(SectionEnums.employment).state.actions.reset())
+    dispatch(getSection(SectionEnums.employmentHistory).state.actions.reset())
     dispatch(getSection(SectionEnums.skill).state.actions.reset())
     dispatch(getSection(SectionEnums.strength).state.actions.reset())
   }, [dispatch])

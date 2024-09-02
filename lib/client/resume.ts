@@ -33,7 +33,7 @@ export async function createResumeAction() {
     return
   }
 
-  redirect(`/resume/${resume.id}/personal`)
+  redirect(`/resume/${resume.id}`)
 }
 
 export async function getResume(id: string) {

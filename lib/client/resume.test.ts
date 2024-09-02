@@ -91,7 +91,7 @@ describe('ResumeClient', () => {
     prismaMock.resume.create.mockResolvedValueOnce(resume)
     await expect(createResumeAction()).resolves.toBeUndefined()
     expect(prismaMock.resume.create).toHaveBeenCalledWith({ data: {} })
-    expect(mockRedirect).toHaveBeenCalledWith(`/resume/${resume.id}/personal`)
+    expect(mockRedirect).toHaveBeenCalledWith(`/resume/${resume.id}`)
   })
   it('Should handle errors when creating a new resume', async () => {
     prismaMock.resume.create.mockRejectedValueOnce(error)

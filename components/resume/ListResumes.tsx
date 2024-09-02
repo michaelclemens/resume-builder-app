@@ -18,7 +18,7 @@ export default function ListResumes({ resumes }: { resumes: Resume[] | null }) {
       {resumes.sort(sortByLatestCreated).map(resume => (
         <div key={resume.id} className="shrink-0">
           <div className="mb-2 text-center text-sm">{resume.createdAt.toLocaleString('en-GB')}</div>
-          <div onClick={() => push(`/resume/${resume.id}/personal`)} className="cursor-pointer">
+          <div onClick={() => push(`/resume/${resume.id}`)} className="cursor-pointer">
             <Image
               className="h-[208px] w-[160px] brightness-75 transition-all duration-500 hover:brightness-100"
               src={displayResumeScreenshots ? `/previews/${resume.id}/preview.jpg` : `/templates/${resume.template.toLowerCase()}.jpg`}
