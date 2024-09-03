@@ -3,7 +3,7 @@ import FormBodyEducation from './FormBodyEducation'
 import { createMockEducation } from '@/test/mocks'
 import { Education } from '@prisma/client'
 import { EducationSchema } from '@/types/form'
-import { getDisplayDateFromDate } from '@/util/date'
+import { getInputDate, getMockInputDate } from '@/util/date'
 import { getDefaultValues, richTextEditorClassName } from '@/util/form'
 import { SectionEnums } from '@/types/section'
 import { disabledClass } from '../ui/form/RichTextEditor'
@@ -44,8 +44,8 @@ describe('FormBodyEducationComponent', () => {
     expect(getByRole('textbox', { name: /school/i })).toHaveValue(education.school)
     expect(getByRole('textbox', { name: /city/i })).toHaveValue(education.city)
     expect(getByRole('textbox', { name: /degree/i })).toHaveValue(education.degree)
-    expect(getByLabelText(/startdate/i)).toHaveValue(getDisplayDateFromDate(education.startDate))
-    expect(getByLabelText(/enddate/i)).toHaveValue(getDisplayDateFromDate(education.endDate))
+    expect(getByLabelText(/startdate/i)).toHaveValue(getInputDate(education.startDate))
+    expect(getByLabelText(/enddate/i)).toHaveValue(getInputDate(education.endDate))
 
     await waitFor(() => {
       expect(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent(
@@ -71,7 +71,7 @@ describe('FormBodyEducationComponent', () => {
 
     expect(getByText(/school is required/i)).toBeInTheDocument()
     expect(getByText(/degree is required/i)).toBeInTheDocument()
-    expect(getByText(/invalid date/i)).toBeInTheDocument()
+    expect(getByText(/start date is required/i)).toBeInTheDocument()
   })
   it('Should disable form elements when submitting', async () => {
     const { getByRole, getByLabelText, rerenderHook } = renderComponent()
@@ -97,8 +97,8 @@ describe('FormBodyEducationComponent', () => {
     fireEvent.change(getByRole('textbox', { name: /school/i }), { target: { value: newEducation.school } })
     fireEvent.change(getByRole('textbox', { name: /city/i }), { target: { value: newEducation.city } })
     fireEvent.change(getByRole('textbox', { name: /degree/i }), { target: { value: newEducation.degree } })
-    fireEvent.change(getByLabelText(/startdate/i), { target: { value: getDisplayDateFromDate(newEducation.startDate) } })
-    fireEvent.change(getByLabelText(/enddate/i), { target: { value: getDisplayDateFromDate(newEducation.endDate ?? undefined) } })
+    fireEvent.change(getByLabelText(/startdate/i), { target: { value: getInputDate(newEducation.startDate) } })
+    fireEvent.change(getByLabelText(/enddate/i), { target: { value: getInputDate(newEducation.endDate ?? undefined) } })
 
     await waitFor(async () => {
       fireEvent.change(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName} p`), {
@@ -115,8 +115,8 @@ describe('FormBodyEducationComponent', () => {
           school: newEducation.school,
           city: newEducation.city,
           degree: newEducation.degree,
-          startDate: getDisplayDateFromDate(newEducation.startDate),
-          endDate: newEducation.endDate && getDisplayDateFromDate(newEducation.endDate),
+          startDate: getMockInputDate(newEducation.startDate),
+          endDate: newEducation.endDate && getMockInputDate(newEducation.endDate),
           description: expect.stringContaining(newEducation.description ?? ''),
         }),
         expect.anything()

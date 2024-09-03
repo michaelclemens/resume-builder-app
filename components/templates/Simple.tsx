@@ -5,6 +5,7 @@ import ColourElement from './util/ColourElement'
 import ItemContent from './util/ItemContent'
 import { RenderHtml } from '../ui'
 import ListContent from './util/ListContent'
+import { getDisplayDate } from '@/util/date'
 
 const lato = Lato({ weight: ['400', '700'], subsets: ['latin'], variable: '--font-lato' })
 
@@ -70,8 +71,8 @@ export default function Simple({
                     <div key={history.id} className="pt-4 last-of-type:mb-0">
                       <p className="text-[10pt] font-bold">{history.title}</p>
                       <p className="text-[7.5pt] font-thin uppercase tracking-widest text-gray-400">
-                        {history.startDate.toDateString()}
-                        {history.endDate && ` - ${history.endDate.toDateString()}`}
+                        {getDisplayDate(history.startDate)}
+                        {history.endDate && ` - ${getDisplayDate(history.endDate)}`}
                       </p>
                       {history.description && (
                         <div className="mt-2">
@@ -93,8 +94,8 @@ export default function Simple({
                 {education.city && `, ${education.city}`}
               </p>
               <p className="text-[7.5pt] font-thin uppercase tracking-widest text-gray-400">
-                {education.startDate.toDateString()}
-                {education.endDate && ` - ${education.endDate.toDateString()}`}
+                {getDisplayDate(education.startDate)}
+                {education.endDate && ` - ${getDisplayDate(education.endDate)}`}
               </p>
               {education.description && (
                 <div className="mt-2">

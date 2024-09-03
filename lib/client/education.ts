@@ -12,8 +12,6 @@ const createDataPayload = (parentId: string, formData: EducationSchemaType) => {
   return {
     resumeId: parentId,
     ...formData,
-    startDate: new Date(formData.startDate),
-    endDate: formData.endDate ? new Date(formData.endDate) : undefined,
     description: formData.description && sanitize(formData.description),
   }
 }

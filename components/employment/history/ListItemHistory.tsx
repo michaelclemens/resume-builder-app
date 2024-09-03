@@ -2,7 +2,7 @@
 
 import { EmploymentHistory } from '@prisma/client'
 import { ListButton, ListDivider } from '@/components/ui/list'
-import { getDisplayDateFromDate } from '@/util/date'
+import { getDisplayDate } from '@/util/date'
 import { ExpandableWrapper } from '@/components/ui'
 import { SectionForm } from '@/components/ui/form'
 import { ItemComponentProps } from '@/types/hook'
@@ -14,8 +14,8 @@ export default function ListItemHistory({ item: history, remove, setEditing, onS
       <div className="flex-auto">
         <div>{history.title}</div>
         <div className="mt-1 text-xs">
-          {getDisplayDateFromDate(history.startDate)}
-          {history.endDate && ` to ${getDisplayDateFromDate(history.endDate)}`}
+          {getDisplayDate(history.startDate)}
+          {history.endDate && ` to ${getDisplayDate(history.endDate)}`}
         </div>
       </div>
       <span className="ml-auto flex items-center justify-center font-medium">

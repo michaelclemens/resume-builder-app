@@ -1,5 +1,5 @@
 import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } from '@prisma/client'
-import { getDisplayDateFromDate } from './date'
+import { getInputDate } from './date'
 import { SectionEnums, SectionItemType, SectionType } from '@/types/section'
 import { EducationSchema, EmploymentHistorySchema, EmploymentSchema, PersonalSchema, SkillSchema, StrengthSchema } from '@/types/form'
 import { FormBodyEducation, FormBodyEmployment, FormBodyHistory, FormBodyPersonal, FormBodySkill, FormBodyStrength } from '../components'
@@ -24,16 +24,16 @@ const getDefaultValuesEmployment = (employment?: Employment) => ({
 
 const getDefaultValuesEmploymentHistory = (history?: EmploymentHistory) => ({
   title: history?.title ?? '',
-  startDate: getDisplayDateFromDate(history?.startDate) ?? '',
-  endDate: history?.endDate ? getDisplayDateFromDate(history?.endDate) : undefined,
+  startDate: getInputDate(history?.startDate) ?? '',
+  endDate: history?.endDate ? getInputDate(history?.endDate) : undefined,
   description: history?.description ?? undefined,
 })
 
 const getDefaultValuesEducation = (education?: Education) => ({
   school: education?.school ?? '',
   degree: education?.degree ?? '',
-  startDate: getDisplayDateFromDate(education?.startDate) ?? '',
-  endDate: education?.endDate ? getDisplayDateFromDate(education?.endDate) : undefined,
+  startDate: getInputDate(education?.startDate) ?? '',
+  endDate: education?.endDate ? getInputDate(education?.endDate) : undefined,
   city: education?.city ?? undefined,
   description: education?.description ?? undefined,
 })

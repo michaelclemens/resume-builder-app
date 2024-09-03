@@ -1,12 +1,13 @@
-import { forwardRef, Ref } from 'react'
-import { FieldError, UseFormRegisterReturn } from 'react-hook-form'
+import { ChangeHandler, FieldError } from 'react-hook-form'
 import ErrorMessage from './ErrorMessage'
+import { ForwardedRef, forwardRef, Ref } from 'react'
+import { getInputDate } from '@/util/date'
 
 export enum InputTypeEnum {
   text = 'text',
   email = 'email',
   phone = 'phone',
-  date = 'date',
+  month = 'month',
 }
 
 type InputTypes = keyof typeof InputTypeEnum
@@ -21,8 +22,17 @@ export default forwardRef(function InputText(
     name,
     onChange,
     onBlur,
-  }: { label: string; type?: InputTypes; required?: boolean; disabled?: boolean; error?: FieldError } & UseFormRegisterReturn,
-  ref: Ref<HTMLInputElement>
+  }: {
+    label: string
+    type?: InputTypes
+    required?: boolean
+    disabled?: boolean
+    error?: FieldError
+    name: string
+    onChange: ChangeHandler
+    onBlur: ChangeHandler
+  },
+  inputRef: ForwardedRef<HTMLInputElement>
 ) {
   return (
     <div>
@@ -33,14 +43,15 @@ export default forwardRef(function InputText(
         <input
           type={type}
           name={name}
+          ref={inputRef}
           aria-label={name}
           aria-required={required}
-          ref={ref}
           className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 disabled:pointer-events-none disabled:opacity-50 dark:bg-slate-700 dark:text-white sm:text-sm"
           placeholder={label}
           disabled={disabled}
           onChange={onChange}
           onBlur={onBlur}
+          max={type === InputTypeEnum.month ? getInputDate(new Date()) : undefined}
         />
 
         <span className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-white">

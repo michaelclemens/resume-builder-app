@@ -1,4 +1,3 @@
-import { FieldValues } from 'react-hook-form'
 import { z } from 'zod'
 
 export const PersonalSchema = z.object({
@@ -19,16 +18,32 @@ export const EmploymentSchema = z.object({
 
 export const EmploymentHistorySchema = z.object({
   title: z.string().min(1, { message: 'Title is required' }),
-  startDate: z.string().date().min(1, { message: 'Start Date is required' }),
-  endDate: z.string().date().optional().or(z.literal('')),
+  startDate: z
+    .date()
+    .or(z.string().min(1, { message: 'Start Date is required' }).pipe(z.coerce.date()))
+    .pipe(z.date().max(new Date(), { message: 'Date must be in the past' })),
+  endDate: z
+    .date()
+    .or(z.string().pipe(z.coerce.date()))
+    .pipe(z.date().max(new Date(), { message: 'Date must be in the past or leave blank' }))
+    .optional()
+    .or(z.literal('')),
   description: z.string().optional(),
 })
 
 export const EducationSchema = z.object({
   school: z.string().min(1, { message: 'School is required' }),
   degree: z.string().min(1, { message: 'Degree is required' }),
-  startDate: z.string().date().min(1, { message: 'Start Date is required' }),
-  endDate: z.string().date().optional().or(z.literal('')),
+  startDate: z
+    .date()
+    .or(z.string().min(1, { message: 'Start Date is required' }).pipe(z.coerce.date()))
+    .pipe(z.date().max(new Date(), { message: 'Date must be in the past' })),
+  endDate: z
+    .date()
+    .or(z.string().pipe(z.coerce.date()))
+    .pipe(z.date().max(new Date(), { message: 'Date must be in the past or leave blank' }))
+    .optional()
+    .or(z.literal('')),
   city: z.string().optional(),
   description: z.string().optional(),
 })

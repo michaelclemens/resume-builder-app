@@ -2,7 +2,7 @@ import { waitFor, fireEvent } from '@testing-library/react'
 import { createMockHistory } from '@/test/mocks'
 import { EmploymentHistory } from '@prisma/client'
 import { EmploymentHistorySchema } from '@/types/form'
-import { getDisplayDateFromDate } from '@/util/date'
+import { getInputDate, getMockInputDate } from '@/util/date'
 import { getDefaultValues, richTextEditorClassName } from '@/util/form'
 import FormBodyHistory from './FormBodyHistory'
 import { disabledClass } from '@/components/ui/form/RichTextEditor'
@@ -40,8 +40,8 @@ describe('FormBodyHistoryComponent', () => {
     const { getByRole, getByLabelText } = renderComponent({ history })
 
     expect(getByRole('textbox', { name: /title/i })).toHaveValue(history.title)
-    expect(getByLabelText(/startdate/i)).toHaveValue(getDisplayDateFromDate(history.startDate))
-    expect(getByLabelText(/enddate/i)).toHaveValue(getDisplayDateFromDate(history.endDate))
+    expect(getByLabelText(/startdate/i)).toHaveValue(getInputDate(history.startDate))
+    expect(getByLabelText(/enddate/i)).toHaveValue(getInputDate(history.endDate))
 
     await waitFor(() => {
       expect(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName}`)).toHaveTextContent(history.description?.replace(/\n/g, ' '))
@@ -64,7 +64,7 @@ describe('FormBodyHistoryComponent', () => {
     })
 
     expect(getByText(/title is required/i)).toBeInTheDocument()
-    expect(getByText(/invalid date/i)).toBeInTheDocument()
+    expect(getByText(/start date is required/i)).toBeInTheDocument()
   })
   it('Should disable form elements when submitting', async () => {
     const { getByRole, getByLabelText, rerenderHook } = renderComponent()
@@ -86,8 +86,8 @@ describe('FormBodyHistoryComponent', () => {
 
     const newHistory = createMockHistory()
     fireEvent.change(getByRole('textbox', { name: /title/i }), { target: { value: newHistory.title } })
-    fireEvent.change(getByLabelText(/startdate/i), { target: { value: getDisplayDateFromDate(newHistory.startDate) } })
-    fireEvent.change(getByLabelText(/enddate/i), { target: { value: getDisplayDateFromDate(newHistory.endDate ?? undefined) } })
+    fireEvent.change(getByLabelText(/startdate/i), { target: { value: getInputDate(newHistory.startDate) } })
+    fireEvent.change(getByLabelText(/enddate/i), { target: { value: getInputDate(newHistory.endDate ?? undefined) } })
 
     await waitFor(async () => {
       const descriptionContent = getByLabelText(/description/i).querySelector(`.${richTextEditorClassName} p`)
@@ -101,8 +101,8 @@ describe('FormBodyHistoryComponent', () => {
       expect(onSave).toHaveBeenCalledWith(
         expect.objectContaining({
           title: newHistory.title,
-          startDate: getDisplayDateFromDate(newHistory.startDate),
-          endDate: newHistory.endDate && getDisplayDateFromDate(newHistory.endDate),
+          startDate: getMockInputDate(newHistory.startDate),
+          endDate: newHistory.endDate && getMockInputDate(newHistory.endDate),
           description: expect.stringContaining(newHistory.description ?? ''),
         }),
         expect.anything()

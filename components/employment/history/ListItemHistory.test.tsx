@@ -2,7 +2,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import { createMockHistory, regexString } from '@/test/mocks'
 import { ButtonType } from '@/types/list'
 import { SectionForm } from '../../ui/form'
-import { getDisplayDateFromDate } from '@/util/date'
+import { getDisplayDate } from '@/util/date'
 import ListItemHistory from './ListItemHistory'
 import { SectionEnums } from '@/types/section'
 
@@ -25,9 +25,7 @@ describe('ListItemHistoryComponent', () => {
     const { getByText } = renderComponent()
 
     expect(getByText(history.title)).toBeInTheDocument()
-    expect(
-      getByText(regexString(`${getDisplayDateFromDate(history.startDate)} to ${getDisplayDateFromDate(history.endDate as Date)}`))
-    ).toBeInTheDocument()
+    expect(getByText(regexString(`${getDisplayDate(history.startDate)} to ${getDisplayDate(history.endDate as Date)}`))).toBeInTheDocument()
   })
   it('Should render edit and delete buttons', () => {
     const { getByTitle } = renderComponent()

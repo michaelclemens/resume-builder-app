@@ -4,22 +4,22 @@ import { addEmploymentHistory, deleteEmploymentHistory, setEmploymentHistorySort
 import { faker } from '@faker-js/faker'
 import { response, ResponseStatus } from '../response'
 import { EmploymentHistory } from '@prisma/client'
-import { getDateFromDisplayDate, getDisplayDateFromDate } from '@/util/date'
+import { getMockDBDate, getMockInputDate } from '@/util/date'
 
 jest.mock('@/lib/prisma')
 
 console.error = jest.fn()
 const getFormData = (history: EmploymentHistory) => ({
   title: history.title,
-  startDate: getDisplayDateFromDate(history.startDate),
-  endDate: history.endDate ? getDisplayDateFromDate(history.endDate) : undefined,
+  startDate: getMockInputDate(history.startDate),
+  endDate: history.endDate ? getMockInputDate(history.endDate) : undefined,
   description: history.description ?? undefined,
 })
 const getDbData = (history: EmploymentHistory) => ({
   employmentId: history.employmentId,
   title: history.title,
-  startDate: getDateFromDisplayDate(history.startDate.toISOString()),
-  endDate: history.endDate ? getDateFromDisplayDate(history.endDate.toISOString()) : undefined,
+  startDate: getMockDBDate(history.startDate),
+  endDate: history.endDate ? getMockDBDate(history.endDate) : undefined,
   description: history.description ?? undefined,
 })
 

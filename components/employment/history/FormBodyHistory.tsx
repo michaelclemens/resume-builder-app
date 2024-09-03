@@ -18,14 +18,14 @@ export default function FormBodyHistory({
 
       <div className="grid grid-cols-2 gap-3">
         <InputText
-          type={InputTypeEnum.date}
+          type={InputTypeEnum.month}
           label="Start Date"
           disabled={isSubmitting}
           error={errors.startDate}
           {...register('startDate')}
           required
         />
-        <InputText type={InputTypeEnum.date} label="End Date" disabled={isSubmitting} error={errors.endDate} {...register('endDate')} />
+        <InputText type={InputTypeEnum.month} label="End Date" disabled={isSubmitting} error={errors.endDate} {...register('endDate')} />
       </div>
       <RichTextEditor<EmploymentHistorySchemaType> name="description" control={control} />
 

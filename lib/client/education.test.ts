@@ -3,7 +3,7 @@ import { prismaMock } from '@/test/prisma'
 import { addEducation, deleteEducation, getEducations, setEducationSortOrders, updateEducation } from './education'
 import { faker } from '@faker-js/faker'
 import { response, ResponseStatus } from '../response'
-import { getDateFromDisplayDate, getDisplayDateFromDate } from '@/util/date'
+import { getMockDBDate, getMockInputDate } from '@/util/date'
 import { Education } from '@prisma/client'
 
 jest.mock('@/lib/prisma')
@@ -12,8 +12,8 @@ console.error = jest.fn()
 const getFormData = (education: Education) => ({
   school: education.school,
   degree: education.degree,
-  startDate: getDisplayDateFromDate(education.startDate),
-  endDate: getDisplayDateFromDate(education.endDate),
+  startDate: getMockInputDate(education.startDate),
+  endDate: education.endDate ? getMockInputDate(education.endDate) : undefined,
   city: education.city ?? undefined,
   description: education.description ?? undefined,
 })
@@ -21,8 +21,8 @@ const getDbData = (education: Education) => ({
   resumeId: education.resumeId,
   school: education.school,
   degree: education.degree,
-  startDate: getDateFromDisplayDate(education.startDate.toISOString()),
-  endDate: getDateFromDisplayDate(education.endDate.toISOString()),
+  startDate: getMockDBDate(education.startDate),
+  endDate: education.endDate ? getMockDBDate(education.endDate) : undefined,
   city: education.city ?? undefined,
   description: education.description ?? undefined,
 })

@@ -21,6 +21,7 @@ export default function useSectionForm<TFormValues extends SectionSchemaType & F
   const editing = !!item
 
   const save = async (parentId: string, formData: SectionSchemaType, onSave: () => void) => {
+    console.log(formData)
     const response = editing ? await client.updateItem(item.id, parentId, formData) : await client.addItem(parentId, formData)
 
     if (response.status === ResponseStatus.success && response.payload) {

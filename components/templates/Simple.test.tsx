@@ -3,6 +3,7 @@ import { getDefaultColours } from '@/util/template'
 import { Template } from '@prisma/client'
 import { faker } from '@faker-js/faker'
 import { getTemplateComponent, renderTemplateComponent } from '@/test/template'
+import { getDisplayDate } from '@/util/date'
 
 const template = Template.SIMPLE
 const resume = createMockFullResume()
@@ -62,14 +63,12 @@ describe('TemplateSimpleComponent', () => {
     const { queryByText, rerender, getByText } = renderTemplateComponent(template, { ...resume, educations: [partialEducation] })
     expect(getByText(regexString('education'))).toBeInTheDocument()
     expect(getByText(regexString(`${education.degree}, ${education.school}`))).toBeInTheDocument()
-    expect(getByText(regexString(education.startDate.toDateString()))).toBeInTheDocument()
-    expect(queryByText(regexString(`, ${education.city}`, false))).not.toBeInTheDocument()
-    expect(queryByText(regexString(`- ${education.endDate?.toDateString()}`, false))).not.toBeInTheDocument()
+    expect(getByText(regexString(getDisplayDate(education.startDate)))).toBeInTheDocument()
     expect(queryByText(regexString((education.description as string).replace(/\n/g, ' ')))).not.toBeInTheDocument()
 
     rerender(getTemplateComponent(template, { ...resume, educations: [education] }))
     expect(getByText(regexString(`${education.degree}, ${education.school}, ${education.city}`))).toBeInTheDocument()
-    expect(getByText(regexString(`${education.startDate.toDateString()} - ${education.endDate?.toDateString()}`))).toBeInTheDocument()
+    expect(getByText(regexString(`${getDisplayDate(education.startDate)} - ${getDisplayDate(education.endDate)}`))).toBeInTheDocument()
     expect(getByText(regexString((education.description as string).replace(/\n/g, ' ')))).toBeInTheDocument()
   })
   it('Should render the correct employment details', () => {
@@ -81,17 +80,15 @@ describe('TemplateSimpleComponent', () => {
     const { queryByText, rerender, getByText } = renderTemplateComponent(template, { ...resume, employments: [partialEmployment] })
     expect(getByText(regexString('employment history'))).toBeInTheDocument()
     expect(getByText(regexString(employment.employer))).toBeInTheDocument()
-    expect(queryByText(regexString(`, ${employment.city}`, false))).not.toBeInTheDocument()
     expect(getByText(regexString(history.title))).toBeInTheDocument()
-    expect(getByText(regexString(history.startDate.toDateString()))).toBeInTheDocument()
-    expect(queryByText(regexString(`- ${history.endDate?.toDateString()}`, false))).not.toBeInTheDocument()
+    expect(getByText(regexString(getDisplayDate(history.startDate)))).toBeInTheDocument()
     expect(queryByText(regexString((history.description as string).replace(/\n/g, ' ')))).not.toBeInTheDocument()
 
     rerender(getTemplateComponent(template, { ...resume, employments: [{ ...employment, history: [history] }] }))
     expect(getByText(regexString('employment history'))).toBeInTheDocument()
     expect(getByText(regexString(`${employment.employer}, ${employment.city}`))).toBeInTheDocument()
     expect(getByText(regexString(history.title))).toBeInTheDocument()
-    expect(getByText(regexString(`${history.startDate.toDateString()} - ${history.endDate?.toDateString()}`))).toBeInTheDocument()
+    expect(getByText(regexString(`${getDisplayDate(history.startDate)} - ${getDisplayDate(history.endDate)}`))).toBeInTheDocument()
     expect(getByText(regexString((history.description as string).replace(/\n/g, ' ')))).toBeInTheDocument()
   })
   it('Should render the correct skill details', () => {

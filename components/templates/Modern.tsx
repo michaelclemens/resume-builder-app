@@ -7,6 +7,7 @@ import { FaEnvelope, FaMapMarkerAlt, FaMobileAlt } from 'react-icons/fa'
 import ListContent from './util/ListContent'
 import { RenderHtml } from '../ui'
 import { TemplateHeading } from './util/Heading'
+import { getDisplayDate } from '@/util/date'
 
 const roboto = Roboto({ weight: ['400', '700'], subsets: ['latin'], display: 'swap', variable: '--font-roboto' })
 
@@ -75,8 +76,8 @@ export default function Modern({
                   {education.city && `, ${education.city}`}
                 </p>
                 <p className="pt-1 text-[9pt] font-thin tracking-wide opacity-80">
-                  {education.startDate.toDateString()}
-                  {education.endDate && ` - ${education.endDate.toDateString()}`}
+                  {getDisplayDate(education.startDate)}
+                  {education.endDate && ` - ${getDisplayDate(education.endDate)}`}
                 </p>
               </section>
             )}
@@ -120,8 +121,8 @@ export default function Modern({
                       <div key={history.id} className="mt-1">
                         <p className="font-semibold tracking-wide">{history.title}</p>
                         <p className="text-[9pt] font-thin tracking-wide opacity-70">
-                          {history.startDate.toDateString()}
-                          {history.endDate && ` - ${history.endDate.toDateString()}`}
+                          {getDisplayDate(history.startDate)}
+                          {history.endDate && ` - ${getDisplayDate(history.endDate)}`}
                         </p>
                         {history.description && (
                           <div className="mt-1 [&_.ql-editor]:leading-[18px]">

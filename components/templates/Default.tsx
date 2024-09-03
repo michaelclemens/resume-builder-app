@@ -5,6 +5,7 @@ import ColourElement from './util/ColourElement'
 import ItemContent from './util/ItemContent'
 import { RenderHtml } from '../ui'
 import ListContent from './util/ListContent'
+import { getDisplayDate } from '@/util/date'
 
 const montserrat = Montserrat({ subsets: ['latin'], display: 'swap', variable: '--font-montserrat' })
 
@@ -99,8 +100,8 @@ export default function Default({
                       <div key={history.id} className="pt-4 last-of-type:mb-0">
                         <p className="text-[9pt] font-bold">{history.title}</p>
                         <p>
-                          {history.startDate.toDateString()}
-                          {history.endDate && ` - ${history.endDate.toDateString()}`}
+                          {getDisplayDate(history.startDate)}
+                          {history.endDate && ` - ${getDisplayDate(history.endDate)}`}
                         </p>
                         {history.description && (
                           <div className="mt-2">
@@ -124,8 +125,8 @@ export default function Default({
                   {education.city}
                 </p>
                 <p>
-                  {education.startDate.toDateString()}
-                  {education.endDate && ` - ${education.endDate.toDateString()}`}
+                  {getDisplayDate(education.startDate)}
+                  {education.endDate && ` - ${getDisplayDate(education.endDate)}`}
                 </p>
                 {education.description && (
                   <div className="mt-2">

@@ -3,7 +3,7 @@ import { createMockEducation, regexString } from '@/test/mocks'
 import { ButtonType } from '@/types/list'
 import { SectionForm } from '../ui/form'
 import ListItemEducation from './ListItemEducation'
-import { getDisplayDateFromDate } from '@/util/date'
+import { getDisplayDate } from '@/util/date'
 import { SectionEnums } from '@/types/section'
 
 jest.mock('@/components/ui/form/SectionForm')
@@ -25,9 +25,7 @@ describe('ListItemEducationComponent', () => {
   it('Should render a education', () => {
     const { getByText } = renderComponent()
     expect(getByText(regexString(`${education.degree} - ${education.school}`))).toBeInTheDocument()
-    expect(
-      getByText(regexString(`${getDisplayDateFromDate(education.startDate)} to ${getDisplayDateFromDate(education.endDate as Date)}`))
-    ).toBeInTheDocument()
+    expect(getByText(regexString(`${getDisplayDate(education.startDate)} to ${getDisplayDate(education.endDate as Date)}`))).toBeInTheDocument()
   })
   it('Should render edit and delete buttons', () => {
     const { getByTitle } = renderComponent()
