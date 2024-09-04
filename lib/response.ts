@@ -1,6 +1,6 @@
-import { SectionItemType, SectionType } from '@/types/section'
 import { FieldPath, FieldValues, UseFormSetError } from 'react-hook-form'
 import { ZodError } from 'zod'
+import { SectionItemType, SectionType } from '@/types/section'
 
 export enum ResponseStatus {
   success = 'success',

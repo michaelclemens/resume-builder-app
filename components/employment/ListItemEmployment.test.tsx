@@ -1,10 +1,10 @@
-import { fireEvent, render, waitFor } from '@testing-library/react'
 import { createMockEmploymentWithHistory, regexString } from '@/test/mocks'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { ButtonType } from '@/types/list'
+import { SectionEnums } from '@/types/section'
 import { SectionForm } from '../ui/form'
 import ListItemEmployment from './ListItemEmployment'
 import HistorySection from './history/HistorySection'
-import { SectionEnums } from '@/types/section'
 
 jest.mock('@/components/ui/form/SectionForm')
 jest.mock('@/components/employment/history/HistorySection')

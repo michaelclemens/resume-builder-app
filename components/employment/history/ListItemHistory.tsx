@@ -1,10 +1,10 @@
 'use client'
 
 import { EmploymentHistory } from '@prisma/client'
-import { ListButton, ListDivider } from '@/components/ui/list'
-import { getDisplayDate } from '@/util/date'
 import { ExpandableWrapper } from '@/components/ui'
 import { SectionForm } from '@/components/ui/form'
+import { ListButton, ListDivider } from '@/components/ui/list'
+import { getDisplayDate } from '@/util/date'
 import { ItemComponentProps } from '@/types/hook'
 import { SectionEnums } from '@/types/section'
 

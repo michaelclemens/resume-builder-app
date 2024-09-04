@@ -1,10 +1,10 @@
 'use client'
 
-import { ListItemType } from '@/types/section'
 import { closestCenter, DndContext, DragEndEvent, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { useId } from 'react'
+import { ListItemType } from '@/types/section'
 
 export default function SortableVerticalList({
   items,

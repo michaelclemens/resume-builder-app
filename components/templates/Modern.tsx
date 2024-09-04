@@ -1,13 +1,13 @@
-import { ResumeFull } from '@/lib/client/resume'
 import { Roboto } from 'next/font/google'
 import { Ref } from 'react'
-import ColourElement from './util/ColourElement'
-import ItemContent from './util/ItemContent'
 import { FaEnvelope, FaMapMarkerAlt, FaMobileAlt } from 'react-icons/fa'
-import ListContent from './util/ListContent'
-import { RenderHtml } from '../ui'
-import { TemplateHeading } from './util/Heading'
+import { ResumeFull } from '@/lib/client/resume'
 import { getDisplayDate } from '@/util/date'
+import { RenderHtml } from '../ui'
+import ColourElement from './util/ColourElement'
+import { TemplateHeading } from './util/Heading'
+import ItemContent from './util/ItemContent'
+import ListContent from './util/ListContent'
 
 const roboto = Roboto({ weight: ['400', '700'], subsets: ['latin'], display: 'swap', variable: '--font-roboto' })
 

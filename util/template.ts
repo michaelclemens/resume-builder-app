@@ -1,9 +1,9 @@
 'use client'
 
-import { Compact, Simple, Default, Modern } from '@/components/templates'
-import { ColourElements, TemplateOptions } from '@/types/template'
 import { Template } from '@prisma/client'
 import { createContext } from 'react'
+import { Compact, Simple, Default, Modern } from '@/components/templates'
+import { ColourElements, TemplateOptions } from '@/types/template'
 
 type TemplateColours = {
   [ColourElements.background]?: string

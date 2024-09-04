@@ -1,7 +1,7 @@
-import { EmploymentWithHistory } from '@/types/section'
 import { faker } from '@faker-js/faker'
-import cuid from 'cuid'
 import { Education, Employment, EmploymentHistory, Personal, Resume, Skill, Strength, Template } from '@prisma/client'
+import cuid from 'cuid'
+import { EmploymentWithHistory } from '@/types/section'
 
 export const createMockStrength = ({ index, resumeId }: { index?: number; resumeId?: string } = {}): Strength => ({
   id: cuid(),

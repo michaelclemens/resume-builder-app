@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import '../globals.css'
-import Header from '@/components/ui/Header'
+import React from 'react'
+import 'react-quill/dist/quill.snow.css'
 import { ThemeProvider } from '@/hooks/useTheme'
 import BackgroundImage from '@/components/ui/BackgroundImage'
-import 'react-quill/dist/quill.snow.css'
-import React from 'react'
+import Header from '@/components/ui/Header'
+import '../globals.css'
 import ReduxProvider from '../redux-provider'
 
 const inter = Inter({ subsets: ['latin'] })

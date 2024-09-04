@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
-import SubmitButton from './SubmitButton'
 import { render, screen } from '@testing-library/react'
+import SubmitButton from './SubmitButton'
 
 describe('SubmitButtonComponent', () => {
   it('Should render a submit button', () => {

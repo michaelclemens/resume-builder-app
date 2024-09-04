@@ -1,7 +1,7 @@
 import { useSectionList } from '@/hooks'
+import Loading from '@/components/ui/Loading'
 import { getSectionListItemComponent } from '@/util/list'
 import { ListItemType, ListSectionType } from '@/types/section'
-import Loading from '@/components/ui/Loading'
 
 export default function SectionListItem({
   sectionType,

@@ -1,9 +1,9 @@
 import { createMockPersonal } from '@/test/mocks'
 import { prismaMock } from '@/test/prisma'
-import { addPersonal, getPersonal, updatePersonal } from './personal'
 import { faker } from '@faker-js/faker'
-import { response, ResponseStatus } from '../response'
 import { Personal } from '@prisma/client'
+import { response, ResponseStatus } from '../response'
+import { addPersonal, getPersonal, updatePersonal } from './personal'
 
 jest.mock('@/lib/prisma')
 

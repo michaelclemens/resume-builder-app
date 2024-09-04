@@ -2,10 +2,10 @@ import { createMockFullResume, createMockResume, createMultipleMockItems } from 
 import { prismaMock } from '@/test/prisma'
 import { faker } from '@faker-js/faker'
 import { Resume, Template } from '@prisma/client'
-import { createResumeAction, deleteResume, generateResumePreview, getAllResumes, getResume, getResumeFull, updateResume } from './resume'
-import { notFound, redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
+import { notFound, redirect } from 'next/navigation'
 import { generateScreenshot } from '../puppeteer'
+import { createResumeAction, deleteResume, generateResumePreview, getAllResumes, getResume, getResumeFull, updateResume } from './resume'
 
 jest.mock('@/lib/prisma')
 jest.mock('next/navigation')

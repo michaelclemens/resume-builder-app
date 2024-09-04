@@ -1,8 +1,8 @@
-import { PropsWithChildren } from 'react'
+import { Store, UnknownAction } from '@reduxjs/toolkit'
 import { render, renderHook, RenderOptions } from '@testing-library/react'
+import { PropsWithChildren } from 'react'
 import { Provider } from 'react-redux'
 import { AppStore, RootState, setupStore } from '@/lib/redux/store'
-import { Store, UnknownAction } from '@reduxjs/toolkit'
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: Partial<RootState>

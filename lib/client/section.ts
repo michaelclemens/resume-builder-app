@@ -1,10 +1,4 @@
-import { addPersonal, updatePersonal } from './personal'
-import { addEducation, deleteEducation, setEducationSortOrders, updateEducation } from './education'
-import { addEmployment, deleteEmployment, setEmploymentSortOrders, updateEmployment } from './employment'
-import { addSkill, deleteSkill, setSkillSortOrders, updateSkill } from './skill'
-import { addStrength, deleteStrength, setStrengthSortOrders, updateStrength } from './strength'
-import { addEmploymentHistory, deleteEmploymentHistory, setEmploymentHistorySortOrders, updateEmploymentHistory } from './employmentHistory'
-import { EmploymentWithHistory, SectionItemType, SectionType } from '@/types/section'
+import { Education, EmploymentHistory, Skill, Strength } from '@prisma/client'
 import {
   EducationSchemaType,
   EmploymentHistorySchemaType,
@@ -14,7 +8,13 @@ import {
   SkillSchemaType,
   StrengthSchemaType,
 } from '@/types/form'
-import { Education, EmploymentHistory, Skill, Strength } from '@prisma/client'
+import { EmploymentWithHistory, SectionItemType, SectionType } from '@/types/section'
+import { addEducation, deleteEducation, setEducationSortOrders, updateEducation } from './education'
+import { addEmployment, deleteEmployment, setEmploymentSortOrders, updateEmployment } from './employment'
+import { addEmploymentHistory, deleteEmploymentHistory, setEmploymentHistorySortOrders, updateEmploymentHistory } from './employmentHistory'
+import { addPersonal, updatePersonal } from './personal'
+import { addSkill, deleteSkill, setSkillSortOrders, updateSkill } from './skill'
+import { addStrength, deleteStrength, setStrengthSortOrders, updateStrength } from './strength'
 
 const personalActions = {
   addItem: async (parentId: string, formData: SectionSchemaType) => addPersonal(parentId, formData as PersonalSchemaType),

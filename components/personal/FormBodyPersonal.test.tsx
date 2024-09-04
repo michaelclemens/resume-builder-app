@@ -1,12 +1,12 @@
-import { waitFor, fireEvent } from '@testing-library/react'
-import { createMockPersonal } from '@/test/mocks'
-import { PersonalSchema } from '@/types/form'
-import { disabledClass } from '../ui/form/RichTextEditor'
-import { getDefaultValues, richTextEditorClassName } from '@/util/form'
-import FormBodyPersonal from './FormBodyPersonal'
-import { Personal } from '@prisma/client'
-import { SectionEnums } from '@/types/section'
 import { renderFormBody } from '@/test/form'
+import { createMockPersonal } from '@/test/mocks'
+import { Personal } from '@prisma/client'
+import { waitFor, fireEvent } from '@testing-library/react'
+import { getDefaultValues, richTextEditorClassName } from '@/util/form'
+import { PersonalSchema } from '@/types/form'
+import { SectionEnums } from '@/types/section'
+import { disabledClass } from '../ui/form/RichTextEditor'
+import FormBodyPersonal from './FormBodyPersonal'
 
 const personal = createMockPersonal()
 const onSave = jest.fn()

@@ -1,11 +1,11 @@
 'use server'
 
-import prisma from '@/lib/prisma'
 import { EmploymentHistory, Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { notFound, redirect } from 'next/navigation'
-import { generateScreenshot } from '../puppeteer'
+import prisma from '@/lib/prisma'
 import { TemplateOptions } from '@/types/template'
+import { generateScreenshot } from '../puppeteer'
 
 export type ResumeWithPersonal = Prisma.ResumeGetPayload<{
   include: { personal: true }

@@ -1,10 +1,10 @@
-import { renderHookWithProviders } from '@/test/redux'
-import useResume from './useResume'
 import { createMockResume } from '@/test/mocks'
-import { generateResumePreview, updateResume } from '@/lib/client/resume'
-import { waitFor } from '@testing-library/react'
-import { Template } from '@prisma/client'
+import { renderHookWithProviders } from '@/test/redux'
 import { faker } from '@faker-js/faker'
+import { Template } from '@prisma/client'
+import { waitFor } from '@testing-library/react'
+import { generateResumePreview, updateResume } from '@/lib/client/resume'
+import useResume from './useResume'
 
 jest.mock('@/lib/client/resume')
 

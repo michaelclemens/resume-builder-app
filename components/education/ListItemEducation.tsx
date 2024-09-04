@@ -1,12 +1,12 @@
 'use client'
 
 import { Education } from '@prisma/client'
+import { ExpandableWrapper } from '@/components/ui'
 import { ListButton, ListDivider } from '@/components/ui/list'
 import { getDisplayDate } from '@/util/date'
-import { ExpandableWrapper } from '@/components/ui'
-import { SectionForm } from '../ui/form'
 import { ItemComponentProps } from '@/types/hook'
 import { SectionEnums } from '@/types/section'
+import { SectionForm } from '../ui/form'
 
 export default function ListItemEducation({ item: education, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Education>) {
   return (

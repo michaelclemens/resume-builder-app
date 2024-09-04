@@ -1,8 +1,8 @@
 import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } from '@prisma/client'
-import { getInputDate } from './date'
-import { SectionEnums, SectionItemType, SectionType } from '@/types/section'
 import { EducationSchema, EmploymentHistorySchema, EmploymentSchema, PersonalSchema, SkillSchema, StrengthSchema } from '@/types/form'
+import { SectionEnums, SectionItemType, SectionType } from '@/types/section'
 import { FormBodyEducation, FormBodyEmployment, FormBodyHistory, FormBodyPersonal, FormBodySkill, FormBodyStrength } from '../components'
+import { getInputDate } from './date'
 
 export const richTextEditorClassName = 'rte-editor'
 

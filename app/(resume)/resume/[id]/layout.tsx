@@ -1,6 +1,6 @@
-import { Tabs } from '@/components/ui'
-import { getResume } from '@/lib/client/resume'
 import { Suspense } from 'react'
+import { getResume } from '@/lib/client/resume'
+import { Tabs } from '@/components/ui'
 
 const tabs = ['personal', 'employments', 'educations', 'skills', 'strengths']
 

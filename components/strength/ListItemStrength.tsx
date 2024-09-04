@@ -1,11 +1,11 @@
 'use client'
 
 import { Strength } from '@prisma/client'
-import { ListButton, ListDivider } from '@/components/ui/list'
 import { ExpandableWrapper } from '@/components/ui'
-import { ButtonType } from '@/types/list'
 import { SectionForm } from '@/components/ui/form'
+import { ListButton, ListDivider } from '@/components/ui/list'
 import { ItemComponentProps } from '@/types/hook'
+import { ButtonType } from '@/types/list'
 import { SectionEnums } from '@/types/section'
 
 export default function ListItemStrength({ item: strength, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Strength>) {

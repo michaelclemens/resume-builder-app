@@ -10,5 +10,6 @@
   "bracketSameLine": false,
   "arrowParens": "avoid",
   "proseWrap": "always",
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "importOrder": ["^@/lib/(.*)$", "^@/hooks/(.*)$", "^@/components/(.*)$", "^@/util/(.*)$", "^@/types/(.*)$", "^[./]"],
+  "plugins": ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"]
 }

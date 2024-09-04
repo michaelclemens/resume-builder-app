@@ -1,8 +1,8 @@
 'use client'
 
-import Image from 'next/image'
-import backgroundLight from '@/public/backgrounds/light.jpg'
 import backgroundDark from '@/public/backgrounds/dark.jpg'
+import backgroundLight from '@/public/backgrounds/light.jpg'
+import Image from 'next/image'
 
 export default function BackgroundImage() {
   const common = { quality: 100, priority: true, fill: true, sizes: '100vw' }

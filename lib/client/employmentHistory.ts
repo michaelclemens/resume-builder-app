@@ -1,11 +1,11 @@
 'use server'
 
-import prisma from '@/lib/prisma'
-import { EmploymentHistorySchema, EmploymentHistorySchemaType } from '@/types/form'
 import { EmploymentHistory } from '@prisma/client'
 import { sanitize } from 'isomorphic-dompurify'
-import { response, ResponseStatus } from '../response'
+import prisma from '@/lib/prisma'
+import { EmploymentHistorySchema, EmploymentHistorySchemaType } from '@/types/form'
 import { SectionEnums } from '@/types/section'
+import { response, ResponseStatus } from '../response'
 
 const createDataPayload = (parentId: string, formData: EmploymentHistorySchemaType) => {
   EmploymentHistorySchema.parse(formData)

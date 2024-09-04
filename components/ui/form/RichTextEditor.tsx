@@ -2,9 +2,9 @@
 
 import dynamic from 'next/dynamic'
 import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
-import ErrorMessage from './ErrorMessage'
 import { richTextEditorClassName } from '@/util/form'
 import Loading from '../Loading'
+import ErrorMessage from './ErrorMessage'
 
 const ReactQuill = dynamic(() => import('react-quill'), { loading: () => <Loading showSpinner={false} />, ssr: false })
 

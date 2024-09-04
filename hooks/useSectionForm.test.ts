@@ -1,12 +1,12 @@
-import { renderHookWithProviders } from '@/test/redux'
-import useSectionForm from './useSectionForm'
-import { SectionEnums, SectionItemType } from '@/types/section'
 import { createMockEmployment, createMultipleMockItems } from '@/test/mocks'
+import { renderHookWithProviders } from '@/test/redux'
+import { faker } from '@faker-js/faker'
 import { waitFor } from '@testing-library/react'
-import { getDefaultValues } from '@/util/form'
 import { addEmployment, updateEmployment } from '@/lib/client/employment'
 import { response, ResponseStatus } from '@/lib/response'
-import { faker } from '@faker-js/faker'
+import { getDefaultValues } from '@/util/form'
+import { SectionEnums, SectionItemType } from '@/types/section'
+import useSectionForm from './useSectionForm'
 
 jest.mock('@/lib/client/employment')
 

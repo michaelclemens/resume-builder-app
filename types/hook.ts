@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react'
 import { FieldValues, UseFormReturn } from 'react-hook-form'
-import { ListItemType } from './section'
 import { SectionSchemaType } from './form'
+import { ListItemType } from './section'
 
 export type BodyComponentProps<TFormValues extends SectionSchemaType & FieldValues> = {
   form: UseFormReturn<TFormValues, any, undefined>

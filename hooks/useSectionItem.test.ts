@@ -1,7 +1,7 @@
 import { createMockPersonal } from '@/test/mocks'
 import { renderHookWithProviders } from '@/test/redux'
-import useSectionItem from './useSectionItem'
 import { SectionEnums } from '@/types/section'
+import useSectionItem from './useSectionItem'
 
 const personal = createMockPersonal()
 

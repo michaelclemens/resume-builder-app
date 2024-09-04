@@ -1,8 +1,8 @@
+import { faker } from '@faker-js/faker'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import cuid from 'cuid'
-import ResumeDownloadButton from './ResumeDownloadButton'
-import { faker } from '@faker-js/faker'
 import { downloadPDF } from '@/util/print'
+import ResumeDownloadButton from './ResumeDownloadButton'
 
 jest.mock('@/util/print')
 const blob = new Blob([faker.lorem.sentence()], { type: 'application/pdf' })

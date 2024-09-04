@@ -1,10 +1,10 @@
-import { fireEvent, render, waitFor } from '@testing-library/react'
 import { createMockEducation, regexString } from '@/test/mocks'
+import { fireEvent, render, waitFor } from '@testing-library/react'
+import { getDisplayDate } from '@/util/date'
 import { ButtonType } from '@/types/list'
+import { SectionEnums } from '@/types/section'
 import { SectionForm } from '../ui/form'
 import ListItemEducation from './ListItemEducation'
-import { getDisplayDate } from '@/util/date'
-import { SectionEnums } from '@/types/section'
 
 jest.mock('@/components/ui/form/SectionForm')
 

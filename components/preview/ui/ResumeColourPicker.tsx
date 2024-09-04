@@ -1,10 +1,10 @@
 'use client'
 
-import useResume from '@/hooks/useResume'
-import { ColourElements, ColourElementType } from '@/types/template'
-import { TemplateConfigContext } from '@/util/template'
 import { RefObject, useContext, useState } from 'react'
 import { FaUndo } from 'react-icons/fa'
+import useResume from '@/hooks/useResume'
+import { TemplateConfigContext } from '@/util/template'
+import { ColourElements, ColourElementType } from '@/types/template'
 import { ColourPicker } from '../../ui'
 
 export default function ResumeColourPicker({ resumeId, colourElementRef }: { resumeId: string; colourElementRef: RefObject<HTMLDivElement> }) {

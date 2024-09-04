@@ -1,5 +1,5 @@
-import { render } from '@testing-library/react'
 import { faker } from '@faker-js/faker'
+import { render } from '@testing-library/react'
 import RenderHtml from './RenderHtml'
 
 describe('RenderHtmlComponent', () => {

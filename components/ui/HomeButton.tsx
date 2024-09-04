@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { Alexandria } from 'next/font/google'
+import Link from 'next/link'
 import { RxResume } from 'react-icons/rx'
 
 const alexandria = Alexandria({ subsets: ['latin'], display: 'swap' })

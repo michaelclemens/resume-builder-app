@@ -1,11 +1,11 @@
 'use server'
 
-import prisma from '@/lib/prisma'
-import { PersonalSchema, PersonalSchemaType } from '@/types/form'
 import { Personal } from '@prisma/client'
 import { sanitize } from 'isomorphic-dompurify'
-import { response, ResponseStatus } from '../response'
+import prisma from '@/lib/prisma'
+import { PersonalSchema, PersonalSchemaType } from '@/types/form'
 import { SectionEnums } from '@/types/section'
+import { response, ResponseStatus } from '../response'
 
 const createDataPayload = (parentId: string, formData: PersonalSchemaType) => {
   PersonalSchema.parse(formData)

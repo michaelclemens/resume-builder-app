@@ -1,9 +1,9 @@
-import { fireEvent, render, waitFor } from '@testing-library/react'
-import ListItemStrength from './ListItemStrength'
 import { createMockStrength, regexString } from '@/test/mocks'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { ButtonType } from '@/types/list'
-import { SectionForm } from '../ui/form'
 import { SectionEnums } from '@/types/section'
+import { SectionForm } from '../ui/form'
+import ListItemStrength from './ListItemStrength'
 
 jest.mock('@/components/ui/form/SectionForm')
 

@@ -1,9 +1,9 @@
 import { createMockHistory } from '@/test/mocks'
-import HistorySection from './HistorySection'
 import { fireEvent, render } from '@testing-library/react'
-import { List } from '@/components/ui/list'
 import { SectionForm } from '@/components/ui/form'
+import { List } from '@/components/ui/list'
 import { SectionEnums } from '@/types/section'
+import HistorySection from './HistorySection'
 
 jest.mock('@/components/ui/list')
 jest.mock('@/components/ui/form')

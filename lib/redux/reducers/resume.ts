@@ -1,8 +1,8 @@
 'use client'
 
+import { Resume } from '@prisma/client'
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store'
-import { Resume } from '@prisma/client'
 
 const initialState: Resume | null = null
 

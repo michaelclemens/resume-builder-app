@@ -1,9 +1,9 @@
 'use server'
 
-import puppeteer, { ScreenshotOptions } from 'puppeteer-core'
-import path from 'node:path'
-import * as fs from 'node:fs'
 import { headers } from 'next/headers'
+import * as fs from 'node:fs'
+import path from 'node:path'
+import puppeteer, { ScreenshotOptions } from 'puppeteer-core'
 import { resumePrintPreviewID } from '@/types/template'
 
 const A4Heightpx = 1122

@@ -3,9 +3,9 @@
 import { Ref, RefObject } from 'react'
 import { ResumeFull } from '@/lib/client/resume'
 import { getTemplateComponent, getTemplateConfig, TemplateConfigContext } from '@/util/template'
-import ResumeColourPicker from './ui/ResumeColourPicker'
-import Footer from '../templates/util/Footer'
 import { resumePrintPreviewID } from '@/types/template'
+import Footer from '../templates/util/Footer'
+import ResumeColourPicker from './ui/ResumeColourPicker'
 
 export const resumePrintFooterClass = 'resume-print-footer'
 

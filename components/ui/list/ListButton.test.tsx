@@ -1,8 +1,8 @@
+import { regexString } from '@/test/mocks'
 import { faker } from '@faker-js/faker'
 import { fireEvent, render, screen } from '@testing-library/react'
-import ListButton, { iconYPaddingClass, labelYPaddingClass } from './ListButton'
 import { AvailableButtonTypes, ButtonType } from '@/types/list'
-import { regexString } from '@/test/mocks'
+import ListButton, { iconYPaddingClass, labelYPaddingClass } from './ListButton'
 
 const label = faker.lorem.word()
 

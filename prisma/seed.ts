@@ -1,5 +1,5 @@
-import { createMockFullResume } from '../test/mocks'
 import { PrismaClient } from '@prisma/client'
+import { createMockFullResume } from '../test/mocks'
 import { customSeed } from './seed-private'
 
 const prisma = new PrismaClient()

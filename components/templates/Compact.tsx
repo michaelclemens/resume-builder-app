@@ -1,12 +1,12 @@
-import { ResumeFull } from '@/lib/client/resume'
 import { Lato, Oswald } from 'next/font/google'
 import { Ref } from 'react'
-import ColourElement from './util/ColourElement'
-import ItemContent from './util/ItemContent'
-import { RenderHtml } from '../ui'
-import ListContent from './util/ListContent'
-import { TemplateHeading } from './util/Heading'
+import { ResumeFull } from '@/lib/client/resume'
 import { getDisplayDate } from '@/util/date'
+import { RenderHtml } from '../ui'
+import ColourElement from './util/ColourElement'
+import { TemplateHeading } from './util/Heading'
+import ItemContent from './util/ItemContent'
+import ListContent from './util/ListContent'
 
 const oswald = Oswald({ subsets: ['latin'], display: 'swap', variable: '--font-oswald' })
 const lato = Lato({ weight: ['400', '700'], subsets: ['latin'], variable: '--font-lato' })

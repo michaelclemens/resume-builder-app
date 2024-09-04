@@ -1,10 +1,10 @@
 'use server'
 
+import { Skill } from '@prisma/client'
 import prisma from '@/lib/prisma'
 import { SkillSchema, SkillSchemaType } from '@/types/form'
-import { Skill } from '@prisma/client'
-import { response, ResponseStatus } from '../response'
 import { SectionEnums } from '@/types/section'
+import { response, ResponseStatus } from '../response'
 
 const createDataPayload = (parentId: string, formData: SkillSchemaType) => {
   SkillSchema.parse(formData)

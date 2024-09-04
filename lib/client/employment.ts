@@ -2,8 +2,8 @@
 
 import prisma from '@/lib/prisma'
 import { EmploymentSchema, EmploymentSchemaType } from '@/types/form'
-import { response, ResponseStatus } from '../response'
 import { EmploymentWithHistory, SectionEnums } from '@/types/section'
+import { response, ResponseStatus } from '../response'
 
 const createDataPayload = (parentId: string, formData: EmploymentSchemaType) => {
   EmploymentSchema.parse(formData)

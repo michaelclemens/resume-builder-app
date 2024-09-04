@@ -1,6 +1,6 @@
+import { fireEvent, render } from '@testing-library/react'
 import useTheme from '@/hooks/useTheme'
 import ThemeToggle, { darkModeTitle, lightModeTitle } from './ThemeToggle'
-import { fireEvent, render } from '@testing-library/react'
 
 jest.mock('@/hooks/useTheme')
 

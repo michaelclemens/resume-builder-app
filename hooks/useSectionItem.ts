@@ -1,9 +1,9 @@
 'use client'
 
-import { useAppDispatch, useAppSelector } from '@/lib/redux/store'
-import { SingleItemSectionType, SingleItemType } from '@/types/section'
-import { getSection } from '@/util/section'
 import { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from '@/lib/redux/store'
+import { getSection } from '@/util/section'
+import { SingleItemSectionType, SingleItemType } from '@/types/section'
 
 export default function useSectionItem(sectionType: SingleItemSectionType, { initialItem }: { initialItem?: SingleItemType | null } = {}) {
   const { state } = getSection(sectionType)

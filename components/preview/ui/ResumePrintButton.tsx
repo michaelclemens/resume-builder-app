@@ -1,9 +1,9 @@
-import { Loading } from '@/components/ui'
-import CtaButton from '@/components/ui/CtaButton'
-import { fixPDFHeight } from '@/util/print'
 import { RefObject, useState } from 'react'
 import { FaPrint } from 'react-icons/fa'
 import { useReactToPrint } from 'react-to-print'
+import { Loading } from '@/components/ui'
+import CtaButton from '@/components/ui/CtaButton'
+import { fixPDFHeight } from '@/util/print'
 
 export default function ResumePrintButton({
   resumePreviewRef,

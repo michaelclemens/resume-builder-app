@@ -1,5 +1,5 @@
-import { TemplateConfigContext } from '@/util/template'
 import { ReactNode, Ref, useContext } from 'react'
+import { TemplateConfigContext } from '@/util/template'
 
 export default function ColourElement({
   children,

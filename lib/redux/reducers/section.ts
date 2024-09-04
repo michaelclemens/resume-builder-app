@@ -1,8 +1,8 @@
 'use client'
 
-import { ListItemType, SectionEnums, SectionItemType, SectionType, SingleItemType } from '@/types/section'
 import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } from '@prisma/client'
 import { createSelector, createSlice, PayloadAction, SliceCaseReducers, SliceSelectors, ValidateSliceCaseReducers } from '@reduxjs/toolkit'
+import { ListItemType, SectionEnums, SectionItemType, SectionType, SingleItemType } from '@/types/section'
 
 type GenericState<T> = T | null
 

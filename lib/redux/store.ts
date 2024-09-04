@@ -1,8 +1,8 @@
 'use client'
 
 import { configureStore } from '@reduxjs/toolkit'
-import reducers from '@/lib/redux/reducers'
 import { useDispatch, useSelector } from 'react-redux'
+import reducers from '@/lib/redux/reducers'
 
 export const setupStore = (preloadedState?: Partial<RootState>) =>
   configureStore({

@@ -1,7 +1,7 @@
-import { resumePrintFooterClass } from '@/components/preview/ResumeTemplate'
-import { TemplateConfigContext } from '@/util/template'
 import { Template } from '@prisma/client'
 import { useContext } from 'react'
+import { resumePrintFooterClass } from '@/components/preview/ResumeTemplate'
+import { TemplateConfigContext } from '@/util/template'
 
 const templateClassNames = {
   [Template.COMPACT]: 'text-right pr-2',

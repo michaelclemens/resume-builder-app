@@ -1,7 +1,7 @@
 'use client'
 
-import useTheme from '@/hooks/useTheme'
 import { FaMoon, FaSun } from 'react-icons/fa'
+import useTheme from '@/hooks/useTheme'
 
 export const lightModeTitle = 'Light Mode'
 export const darkModeTitle = 'Dark Mode'

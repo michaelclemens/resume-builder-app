@@ -1,8 +1,8 @@
-import { fireEvent, render, waitFor } from '@testing-library/react'
-import ColourPicker from './ColourPicker'
-import { ColourElements, ColourElementType } from '@/types/template'
-import { createRef } from 'react'
 import { faker } from '@faker-js/faker'
+import { fireEvent, render, waitFor } from '@testing-library/react'
+import { createRef } from 'react'
+import { ColourElements, ColourElementType } from '@/types/template'
+import ColourPicker from './ColourPicker'
 
 const onChange = jest.fn()
 const onSave = jest.fn()

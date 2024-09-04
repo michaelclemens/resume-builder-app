@@ -1,11 +1,11 @@
 'use client'
 
-import useClickOutside from '@/hooks/useClickOutside'
-import { ColourElements, ColourElementType } from '@/types/template'
 import { RefObject, useRef, useState } from 'react'
 import { HexColorInput, HexColorPicker } from 'react-colorful'
 import { FaFillDrip } from 'react-icons/fa'
 import { MdFormatColorText } from 'react-icons/md'
+import useClickOutside from '@/hooks/useClickOutside'
+import { ColourElements, ColourElementType } from '@/types/template'
 
 const getIcon = (elementType: ColourElementType) => {
   switch (elementType) {

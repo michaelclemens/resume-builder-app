@@ -1,5 +1,5 @@
-import { SingleItemType } from '@/types/section'
 import { ReactNode } from 'react'
+import { SingleItemType } from '@/types/section'
 import Heading, { TemplateHeadingType } from './Heading'
 
 export default function ItemContent<ItemType extends SingleItemType | null>({

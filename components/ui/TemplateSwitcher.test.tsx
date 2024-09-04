@@ -1,9 +1,9 @@
-import useResume from '@/hooks/useResume'
-import TemplateSwitcher, { selectedClassName, unselectedClassName } from './TemplateSwitcher'
+import { regexString } from '@/test/mocks'
+import { Template } from '@prisma/client'
 import { fireEvent, render } from '@testing-library/react'
 import cuid from 'cuid'
-import { Template } from '@prisma/client'
-import { regexString } from '@/test/mocks'
+import useResume from '@/hooks/useResume'
+import TemplateSwitcher, { selectedClassName, unselectedClassName } from './TemplateSwitcher'
 
 jest.mock('@/hooks/useResume')
 

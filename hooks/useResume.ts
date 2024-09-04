@@ -1,10 +1,10 @@
 'use client'
 
-import { useAppDispatch, useAppSelector } from '@/lib/redux/store'
 import { Resume, Template } from '@prisma/client'
-import { selectResume, setResume, setTemplate, setTemplateOptions } from '@/lib/redux/reducers/resume'
 import { useEffect } from 'react'
 import { generateResumePreview, updateResume } from '@/lib/client/resume'
+import { selectResume, setResume, setTemplate, setTemplateOptions } from '@/lib/redux/reducers/resume'
+import { useAppDispatch, useAppSelector } from '@/lib/redux/store'
 import { TemplateOptions } from '@/types/template'
 
 export default function useResume({ initialResume }: { initialResume?: Resume | null } = {}) {

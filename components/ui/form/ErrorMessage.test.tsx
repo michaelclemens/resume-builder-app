@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
-import ErrorMessage from './ErrorMessage'
 import { render } from '@testing-library/react'
+import ErrorMessage from './ErrorMessage'
 
 describe('ErrorMessageComponent', () => {
   it('Should render the error message', () => {

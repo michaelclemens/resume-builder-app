@@ -1,7 +1,7 @@
 'use server'
 
-import { generatePDF } from '@/lib/puppeteer'
 import { NextRequest } from 'next/server'
+import { generatePDF } from '@/lib/puppeteer'
 
 export async function GET(request: NextRequest, { params: { id } }: { params: { id: string } }) {
   const searchParams = request.nextUrl.searchParams

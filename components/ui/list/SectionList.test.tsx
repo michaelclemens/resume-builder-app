@@ -1,9 +1,9 @@
-import { faker } from '@faker-js/faker'
 import { createMockHistory, createMockStrength, createMultipleMockItems } from '@/test/mocks'
+import { renderWithProviders } from '@/test/redux'
+import { faker } from '@faker-js/faker'
 import { ListItemType, ListSectionType, SectionEnums } from '@/types/section'
 import SectionList, { defaultEmptyMessage } from './SectionList'
 import SectionListItem from './SectionListItem'
-import { renderWithProviders } from '@/test/redux'
 
 jest.mock('@/components/ui/list/SectionListItem')
 

@@ -1,10 +1,10 @@
-import { renderHookWithProviders } from '@/test/redux'
-import useSectionList from './useSectionList'
-import { SectionEnums } from '@/types/section'
 import { createMockEmployment, createMultipleMockItems } from '@/test/mocks'
-import { deleteEmployment, setEmploymentSortOrders } from '@/lib/client/employment'
-import { waitFor } from '@testing-library/react'
+import { renderHookWithProviders } from '@/test/redux'
 import { faker } from '@faker-js/faker'
+import { waitFor } from '@testing-library/react'
+import { deleteEmployment, setEmploymentSortOrders } from '@/lib/client/employment'
+import { SectionEnums } from '@/types/section'
+import useSectionList from './useSectionList'
 
 jest.mock('@/lib/client/employment')
 const mockSetSortOrder = jest.mocked(setEmploymentSortOrders)

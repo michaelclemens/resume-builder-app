@@ -1,5 +1,5 @@
-import { AvailableButtonTypes, ButtonType } from '@/types/list'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
+import { AvailableButtonTypes, ButtonType } from '@/types/list'
 
 export const labelYPaddingClass = 'py-1'
 export const iconYPaddingClass = 'py-2'

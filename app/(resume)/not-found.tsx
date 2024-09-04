@@ -1,6 +1,6 @@
-import CtaButton from '@/components/ui/CtaButton'
 import { Metadata } from 'next'
 import Link from 'next/link'
+import CtaButton from '@/components/ui/CtaButton'
 
 export const metadata: Metadata = {
   title: '404 - Not Found',

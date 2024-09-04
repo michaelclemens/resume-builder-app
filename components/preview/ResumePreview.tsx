@@ -1,12 +1,12 @@
 'use client'
 
-import { ResumeFull } from '@/lib/client/resume'
 import { useEffect, useRef } from 'react'
+import { ResumeFull } from '@/lib/client/resume'
+import useResumePreview from '@/hooks/useResumePreview'
 import { TemplateSwitcher } from '@/components/ui'
 import ResumeTemplate from './ResumeTemplate'
-import useResumePreview from '@/hooks/useResumePreview'
-import ResumePrintButton from './ui/ResumePrintButton'
 import ResumeDownloadButton from './ui/ResumeDownloadButton'
+import ResumePrintButton from './ui/ResumePrintButton'
 
 export default function ResumePreview({ resume: initialResume }: { resume: ResumeFull }) {
   const { resume, resetAllState } = useResumePreview(initialResume)

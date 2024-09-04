@@ -1,6 +1,6 @@
 import { getEducations } from '@/lib/client/education'
-import { SectionList } from '@/components/ui/list'
 import { SectionForm } from '@/components/ui/form'
+import { SectionList } from '@/components/ui/list'
 import { SectionEnums } from '@/types/section'
 
 export default async function EducationSectionPage({ params: { id } }: { params: { id: string } }) {

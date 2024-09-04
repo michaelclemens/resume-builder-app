@@ -1,7 +1,7 @@
-import useResume from '@/hooks/useResume'
-import { getTemplateImage } from '@/util/template'
 import { Template } from '@prisma/client'
 import Image from 'next/image'
+import useResume from '@/hooks/useResume'
+import { getTemplateImage } from '@/util/template'
 
 export const selectedClassName = 'brightness-100'
 export const unselectedClassName = 'brightness-75'

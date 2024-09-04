@@ -1,11 +1,11 @@
 'use client'
 
-import HistorySection from './history/HistorySection'
-import { ListButton, ListDivider } from '@/components/ui/list'
 import { ExpandableWrapper } from '@/components/ui'
-import { SectionForm } from '../ui/form'
+import { ListButton, ListDivider } from '@/components/ui/list'
 import { ItemComponentProps } from '@/types/hook'
 import { EmploymentWithHistory, SectionEnums } from '@/types/section'
+import { SectionForm } from '../ui/form'
+import HistorySection from './history/HistorySection'
 
 export default function ListItemEmployment({
   item: employment,

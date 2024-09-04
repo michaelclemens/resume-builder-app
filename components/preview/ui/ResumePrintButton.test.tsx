@@ -1,8 +1,8 @@
+import { faker } from '@faker-js/faker'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import ResumePrintButton from './ResumePrintButton'
 import { createRef } from 'react'
 import { useReactToPrint } from 'react-to-print'
-import { faker } from '@faker-js/faker'
+import ResumePrintButton from './ResumePrintButton'
 
 jest.mock('react-to-print')
 jest.mock('@/util/print')

@@ -1,6 +1,6 @@
-import { SectionList } from '@/components/ui/list'
 import { getSkills } from '@/lib/client/skill'
 import { SectionForm } from '@/components/ui/form'
+import { SectionList } from '@/components/ui/list'
 import { SectionEnums } from '@/types/section'
 
 export default async function SkillSectionPage({ params: { id } }: { params: { id: string } }) {

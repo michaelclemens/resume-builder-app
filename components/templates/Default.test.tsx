@@ -1,9 +1,9 @@
 import { createMockFullResume, regexString } from '@/test/mocks'
-import { getDefaultColours } from '@/util/template'
-import { Template } from '@prisma/client'
-import { faker } from '@faker-js/faker'
 import { getTemplateComponent, renderTemplateComponent } from '@/test/template'
+import { faker } from '@faker-js/faker'
+import { Template } from '@prisma/client'
 import { getDisplayDate } from '@/util/date'
+import { getDefaultColours } from '@/util/template'
 
 const template = Template.DEFAULT
 const resume = createMockFullResume()

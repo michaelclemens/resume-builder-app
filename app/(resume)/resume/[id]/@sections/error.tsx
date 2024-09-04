@@ -1,7 +1,7 @@
 'use client'
 
-import CtaButton from '@/components/ui/CtaButton'
 import { useEffect } from 'react'
+import CtaButton from '@/components/ui/CtaButton'
 
 export default function Error(error: unknown, reset: () => void) {
   useEffect(() => {

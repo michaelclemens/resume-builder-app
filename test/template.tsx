@@ -1,8 +1,8 @@
-import { ResumeFull } from '@/lib/client/resume'
-import { getTemplateConfig, TemplateConfigContext } from '@/util/template'
 import { Template } from '@prisma/client'
 import { render } from '@testing-library/react'
 import { createRef, Ref } from 'react'
+import { ResumeFull } from '@/lib/client/resume'
+import { getTemplateConfig, TemplateConfigContext } from '@/util/template'
 import { getTemplateComponent as getResumeTemplateComponent } from '@/util/template'
 
 export const getTemplateComponent = (template: Template, resume: ResumeFull, colourElementRef?: Ref<HTMLDivElement>) => {

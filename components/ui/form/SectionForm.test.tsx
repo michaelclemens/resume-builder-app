@@ -1,14 +1,14 @@
-import { fireEvent, waitFor } from '@testing-library/react'
 import { createMockHistory, createMockStrength } from '@/test/mocks'
-import { updateStrength } from '@/lib/client/strength'
-import { ResponseStatus } from '@/lib/response'
 import { renderWithProviders } from '@/test/redux'
 import { faker } from '@faker-js/faker'
-import SectionForm from './SectionForm'
+import { fireEvent, waitFor } from '@testing-library/react'
+import { updateEmploymentHistory } from '@/lib/client/employmentHistory'
+import { updateStrength } from '@/lib/client/strength'
+import { RootState } from '@/lib/redux/store'
+import { ResponseStatus } from '@/lib/response'
 import { SectionEnums, SectionItemType, SectionType } from '@/types/section'
 import FormBodyStrength from '../../strength/FormBodyStrength'
-import { updateEmploymentHistory } from '@/lib/client/employmentHistory'
-import { RootState } from '@/lib/redux/store'
+import SectionForm from './SectionForm'
 
 jest.mock('../../strength/FormBodyStrength')
 jest.mock('../../employment/history/FormBodyHistory')

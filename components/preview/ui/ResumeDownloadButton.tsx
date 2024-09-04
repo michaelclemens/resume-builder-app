@@ -1,8 +1,8 @@
+import { useState } from 'react'
+import { FaDownload } from 'react-icons/fa'
 import { Loading } from '@/components/ui'
 import CtaButton from '@/components/ui/CtaButton'
 import { downloadPDF } from '@/util/print'
-import { useState } from 'react'
-import { FaDownload } from 'react-icons/fa'
 
 export default function ResumeDownloadButton({ resumeId, filename = 'My Resume' }: { resumeId: string; filename?: string }) {
   const [downloading, setDownloading] = useState(false)

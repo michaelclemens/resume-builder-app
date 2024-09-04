@@ -1,11 +1,11 @@
-import { ResumeFull } from '@/lib/client/resume'
 import { Lato } from 'next/font/google'
 import { Ref } from 'react'
+import { ResumeFull } from '@/lib/client/resume'
+import { getDisplayDate } from '@/util/date'
+import { RenderHtml } from '../ui'
 import ColourElement from './util/ColourElement'
 import ItemContent from './util/ItemContent'
-import { RenderHtml } from '../ui'
 import ListContent from './util/ListContent'
-import { getDisplayDate } from '@/util/date'
 
 const lato = Lato({ weight: ['400', '700'], subsets: ['latin'], variable: '--font-lato' })
 
