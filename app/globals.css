@@ -133,7 +133,7 @@ input:-webkit-autofill:focus {
     page-break-after: always;
   }
   div.resume-print-footer::before {
-    content: 'Created using github.com/michaelclemens/resume-builder-app';
+    content: 'Made with github.com/michaelclemens/resume-builder-app';
   }
 }
 div#resume-print-preview .ql-editor ul {

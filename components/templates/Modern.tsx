@@ -1,4 +1,4 @@
-import { Roboto } from 'next/font/google'
+import { Alexandria, Roboto } from 'next/font/google'
 import { Ref } from 'react'
 import { FaEnvelope, FaMapMarkerAlt, FaMobileAlt } from 'react-icons/fa'
 import { ResumeFull } from '@/lib/client/resume'
@@ -9,7 +9,8 @@ import { TemplateHeading } from './util/Heading'
 import ItemContent from './util/ItemContent'
 import ListContent from './util/ListContent'
 
-const roboto = Roboto({ weight: ['400', '700'], subsets: ['latin'], display: 'swap', variable: '--font-roboto' })
+const roboto = Roboto({ weight: ['100', '300', '400', '700'], subsets: ['latin'], display: 'swap', variable: '--font-roboto' })
+const alexandria = Alexandria({ subsets: ['latin'], display: 'swap', variable: '--font-alexandria' })
 
 export default function Modern({
   resume: { personal, employments, educations, skills, strengths, histories: initialHistories },
@@ -19,9 +20,9 @@ export default function Modern({
   colourElementRef?: Ref<HTMLDivElement>
 }) {
   return (
-    <div className={`${roboto.variable} flex h-full min-h-screen flex-col bg-white font-roboto text-[8pt] text-black`}>
-      <div className="flex h-full min-h-screen gap-x-5">
-        <ColourElement colourElementRef={colourElementRef} className="w-2/6 pb-2 pl-5 pr-2 pt-5 text-white">
+    <div className={`${roboto.variable} ${alexandria.variable} flex h-full min-h-screen flex-col bg-white font-roboto text-[9.5pt] text-black`}>
+      <div className="flex h-full min-h-screen gap-x-4">
+        <ColourElement colourElementRef={colourElementRef} className="z-10 w-2/6 pb-2 pl-5 pr-2 pt-5 text-white">
           <ItemContent item={personal} heading="Contact" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt]">
             {personal => (
               <>
@@ -49,17 +50,25 @@ export default function Modern({
               </>
             )}
           </ItemContent>
+
           <ListContent items={skills} heading="Expertise" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt]">
-            {skill => (
-              <div
-                key={skill.id}
-                className="mb-1 capitalize last-of-type:mb-0 [&>:first-of-type]:mr-1 [&>:first-of-type]:font-semibold [&>:first-of-type]:tracking-wide [&>:first-of-type]:text-orange-300 [&>:first-of-type]:after:content-[':']"
-              >
-                {skill.name.split(':').map(name => (
-                  <div key={name}>{name.trim()}</div>
-                ))}
-              </div>
-            )}
+            {skill => {
+              const skillName = skill.name.split(':')
+              return (
+                <fieldset className="-ml-3 mb-1 rounded-md border border-slate-300/20 px-2 py-2">
+                  <legend className="px-1 text-[10pt] font-semibold tracking-wider">{skillName[0]}</legend>
+                  <div className="-mt-2 tracking-wide">{skillName[1]}</div>
+                </fieldset>
+                // <div
+                //   key={skill.id}
+                //   className="mb-1 capitalize ring-1 ring-white last-of-type:mb-0 [&>:first-of-type]:inline-block [&>:first-of-type]:font-semibold [&>:first-of-type]:tracking-wider"
+                // >
+                //   {skill.name.split(':').map(name => (
+                //     <div key={name}>{name.trim()}</div>
+                //   ))}
+                // </div>
+              )
+            }}
           </ListContent>
           <ListContent items={strengths} heading="Strengths" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt]">
             {strength => (
@@ -75,7 +84,7 @@ export default function Modern({
                   {education.degree}, {education.school}
                   {education.city && `, ${education.city}`}
                 </p>
-                <p className="pt-1 text-[9pt] font-thin tracking-wide opacity-80">
+                <p className="text-[7.5pt] uppercase tracking-wider opacity-70">
                   {getDisplayDate(education.startDate)}
                   {education.endDate && ` - ${getDisplayDate(education.endDate)}`}
                 </p>
@@ -83,18 +92,18 @@ export default function Modern({
             )}
           </ListContent>
         </ColourElement>
-        <div className="w-4/6 bg-white pb-2 pr-3 pt-5">
-          <ItemContent item={personal} className="mb-3">
+        <div className="w-4/6 bg-white pb-2 pr-3">
+          <ItemContent item={personal} className="-ml-5 -mr-3 border-b border-slate-300/20 bg-blue-950/20 pb-3 pt-5 text-center">
             {personal => (
               <>
-                <div className="text-3xl font-semibold">
+                <div className="font-alexandria text-3xl font-semibold uppercase tracking-wide">
                   {personal?.firstName} {personal?.lastName}
                 </div>
-                <div className="text-[9pt] capitalize tracking-wide">{personal?.position}</div>
+                <div className="text-lg capitalize tracking-wide">{personal?.position}</div>
               </>
             )}
           </ItemContent>
-          <ItemContent item={personal} heading="About" className="mb-2 text-[9.5pt]">
+          <ItemContent item={personal} heading="About" className="pt-2 text-[9.5pt]">
             {personal => (
               <>
                 {personal?.summary && (
@@ -105,25 +114,28 @@ export default function Modern({
               </>
             )}
           </ItemContent>
-          <ListContent items={employments} heading="Experience" className="text-[9.5pt]">
+          <ListContent items={employments} heading="Experience" className="pt-2 text-[9.5pt]">
             {employment => {
               const histories = initialHistories
                 ? initialHistories.filter(history => history.employmentId === employment.id)
                 : (employment.history ?? [])
               return (
-                <section key={employment.id} className="mb-2 last-of-type:mb-0">
-                  <div className="flex font-semibold tracking-wide">
+                <section key={employment.id} className="pt-2 first-of-type:pt-0">
+                  <div className="flex pt-1 text-[10pt] font-semibold tracking-wide">
                     <div className="flex-grow">{employment.employer}</div>
                     {employment.city && <div>{employment.city}</div>}
                   </div>
                   <ListContent items={histories}>
                     {history => (
-                      <div key={history.id} className="mt-1">
-                        <p className="font-semibold tracking-wide">{history.title}</p>
-                        <p className="text-[9pt] font-thin tracking-wide opacity-70">
-                          {getDisplayDate(history.startDate)}
-                          {history.endDate && ` - ${getDisplayDate(history.endDate)}`}
-                        </p>
+                      <div key={history.id}>
+                        <div className="flex pt-1 tracking-wide">
+                          <div className="flex-grow font-semibold">{history.title}</div>
+                          <div className="text-[7.5pt] uppercase tracking-wider text-gray-400">
+                            {getDisplayDate(history.startDate)}
+                            {history.endDate && ` - ${getDisplayDate(history.endDate)}`}
+                          </div>
+                        </div>
+
                         {history.description && (
                           <div className="mt-1 [&_.ql-editor]:leading-[18px]">
                             <RenderHtml html={history.description} />

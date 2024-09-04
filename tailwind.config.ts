@@ -19,6 +19,7 @@ const config: Config = {
         lato: ['var(--font-lato)'],
         oswald: ['var(--font-oswald)'],
         roboto: ['var(--font-roboto)'],
+        alexandria: ['var(--font-alexandria)'],
       },
     },
   },
