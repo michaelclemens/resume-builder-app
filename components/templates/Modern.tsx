@@ -55,7 +55,7 @@ export default function Modern({
             {skill => {
               const skillName = skill.name.split(':')
               return (
-                <fieldset className="-ml-3 mb-1 rounded-md border border-slate-300/20 px-2 py-2">
+                <fieldset key={skill.id} className="-ml-3 mb-1 rounded-md border border-slate-300/20 px-2 py-2">
                   <legend className="px-1 text-[10pt] font-semibold tracking-wider">{skillName[0]}</legend>
                   <div className="-mt-2 tracking-wide">{skillName[1]}</div>
                 </fieldset>

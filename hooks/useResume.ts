@@ -13,7 +13,6 @@ export default function useResume({ initialResume }: { initialResume?: Resume | 
 
   useEffect(() => {
     if (initialResume && !resume) {
-      console.log('setting resume...')
       dispatch(setResume(initialResume))
     }
   }, [dispatch, initialResume, resume])

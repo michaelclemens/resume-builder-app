@@ -12,7 +12,6 @@ export default function useSectionItem(sectionType: SingleItemSectionType, { ini
 
   useEffect(() => {
     if (initialItem && !item) {
-      console.log(`setting ${sectionType}...`)
       dispatch(state.actions.setItem(initialItem))
     }
   }, [dispatch, initialItem, item, sectionType, state.actions])

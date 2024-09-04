@@ -15,7 +15,6 @@ export default function ResumePreview({ resume: initialResume }: { resume: Resum
 
   useEffect(() => {
     return () => {
-      console.log('unmounting...')
       resetAllState()
     }
   }, [resetAllState])

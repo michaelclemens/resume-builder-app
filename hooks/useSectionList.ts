@@ -18,7 +18,6 @@ export default function useSectionList<ItemType extends ListItemType>(
 
   useEffect(() => {
     if (initialItems && !items) {
-      console.log(`setting ${sectionType}...`)
       dispatch(state.actions.setItems({ items: initialItems, parentId, parentProperty }))
     }
   }, [dispatch, initialItems, items, parentId, parentProperty, sectionType, state.actions])
