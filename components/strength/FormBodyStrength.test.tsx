@@ -2,9 +2,9 @@ import { renderFormBody } from '@/test/form'
 import { createMockStrength } from '@/test/mocks'
 import { Strength } from '@prisma/client'
 import { fireEvent, waitFor } from '@testing-library/react'
-import { getDefaultValues } from '@/util/form'
 import { StrengthSchema } from '@/types/form'
 import { SectionEnums } from '@/types/section'
+import { getDefaultValues } from '@/util/form'
 import FormBodyStrength from './FormBodyStrength'
 
 const strength = createMockStrength()

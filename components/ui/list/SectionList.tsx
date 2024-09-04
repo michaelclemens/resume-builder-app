@@ -1,9 +1,9 @@
 'use client'
 
 import { useSectionList } from '@/hooks'
+import { ListSectionType, ListItemType } from '@/types/section'
 import { SortableVerticalList, SortableItem } from '@/components/ui/list'
 import { sortByOrder } from '@/util/sort'
-import { ListSectionType, ListItemType } from '@/types/section'
 import SectionListItem from './SectionListItem'
 
 export const defaultEmptyMessage = 'Empty'

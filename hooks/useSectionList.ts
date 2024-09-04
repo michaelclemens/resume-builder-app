@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { ListItemType, ListSectionType } from '@/types/section'
 import { useAppDispatch, useAppSelector } from '@/lib/redux/store'
 import { getSection } from '@/util/section'
-import { ListItemType, ListSectionType } from '@/types/section'
 
 export default function useSectionList<ItemType extends ListItemType>(
   sectionType: ListSectionType,

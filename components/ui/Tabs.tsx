@@ -8,7 +8,7 @@ interface Tab {
   href: string
 }
 
-export const activeStyleClass = 'bg-slate-500 text-white dark:bg-slate-700 pointer-events-none cursor-none'
+export const activeStyleClass = 'bg-slate-500 text-white dark:bg-slate-700 select-none'
 export const nonActiveStyleClass = 'text-slate-200 bg-slate-400 hover:bg-slate-500 dark:text-slate-400 dark:bg-slate-800 dark:hover:bg-slate-700'
 
 export default function Tabs({ tabs }: { tabs: Tab[] }) {

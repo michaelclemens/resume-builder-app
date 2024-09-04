@@ -1,9 +1,9 @@
 import { useSectionList } from '@/hooks'
 import { createMockEmployment } from '@/test/mocks'
 import { renderWithProviders } from '@/test/redux'
+import { SectionEnums } from '@/types/section'
 import ListItemEmployment from '@/components/employment/ListItemEmployment'
 import Loading from '@/components/ui/Loading'
-import { SectionEnums } from '@/types/section'
 import SectionListItem from './SectionListItem'
 
 jest.mock('@/hooks/useSectionList')

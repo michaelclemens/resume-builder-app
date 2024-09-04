@@ -16,6 +16,7 @@ enum Template {
 
 model Resume {
   id              String       @id @default(cuid())
+  title           String       @default("Untitled")
   template        Template     @default(DEFAULT)
   templateOptions Json?
   personal        Personal?

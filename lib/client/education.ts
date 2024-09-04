@@ -2,9 +2,9 @@
 
 import { Education } from '@prisma/client'
 import { sanitize } from 'isomorphic-dompurify'
-import prisma from '@/lib/prisma'
 import { EducationSchema, EducationSchemaType } from '@/types/form'
 import { SectionEnums } from '@/types/section'
+import prisma from '@/lib/prisma'
 import { response, ResponseStatus } from '../response'
 
 const createDataPayload = (parentId: string, formData: EducationSchemaType) => {

@@ -1,9 +1,9 @@
 'use client'
 
 import { Ref, RefObject } from 'react'
+import { resumePrintPreviewID } from '@/types/template'
 import { ResumeFull } from '@/lib/client/resume'
 import { getTemplateComponent, getTemplateConfig, TemplateConfigContext } from '@/util/template'
-import { resumePrintPreviewID } from '@/types/template'
 import Footer from '../templates/util/Footer'
 import ResumeColourPicker from './ui/ResumeColourPicker'
 

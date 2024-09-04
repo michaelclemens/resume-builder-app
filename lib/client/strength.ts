@@ -1,9 +1,9 @@
 'use server'
 
 import { Strength } from '@prisma/client'
-import prisma from '@/lib/prisma'
 import { StrengthSchema, StrengthSchemaType } from '@/types/form'
 import { SectionEnums } from '@/types/section'
+import prisma from '@/lib/prisma'
 import { response, ResponseStatus } from '../response'
 
 const createDataPayload = (parentId: string, formData: StrengthSchemaType) => {

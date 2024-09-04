@@ -2,9 +2,9 @@ import { renderFormBody } from '@/test/form'
 import { createMockSkill } from '@/test/mocks'
 import { Skill } from '@prisma/client'
 import { fireEvent, waitFor } from '@testing-library/react'
-import { getDefaultValues } from '@/util/form'
 import { SkillSchema } from '@/types/form'
 import { SectionEnums } from '@/types/section'
+import { getDefaultValues } from '@/util/form'
 import FormBodySkill from './FormBodySkill'
 
 const skill = createMockSkill()

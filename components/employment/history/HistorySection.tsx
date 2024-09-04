@@ -3,10 +3,10 @@
 import { EmploymentHistory } from '@prisma/client'
 import { useState } from 'react'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa6'
+import { SectionEnums } from '@/types/section'
 import { ExpandableWrapper } from '@/components/ui'
 import { SectionForm } from '@/components/ui/form'
 import { SectionList } from '@/components/ui/list'
-import { SectionEnums } from '@/types/section'
 
 export default function HistorySection({ employmentId, histories }: { employmentId: string; histories: EmploymentHistory[] }) {
   const [open, setOpen] = useState(false)

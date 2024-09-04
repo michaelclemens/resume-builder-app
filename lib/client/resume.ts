@@ -3,13 +3,9 @@
 import { EmploymentHistory, Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { notFound, redirect } from 'next/navigation'
-import prisma from '@/lib/prisma'
 import { TemplateOptions } from '@/types/template'
+import prisma from '@/lib/prisma'
 import { generateScreenshot } from '../puppeteer'
-
-export type ResumeWithPersonal = Prisma.ResumeGetPayload<{
-  include: { personal: true }
-}>
 
 export type ResumeFull = Prisma.ResumeGetPayload<{
   include: {
@@ -34,6 +30,15 @@ export async function createResumeAction() {
   }
 
   redirect(`/resume/${resume.id}`)
+}
+
+export async function editResumeTitleAction(id: string, formData: FormData) {
+  try {
+    await prisma.resume.update({ where: { id }, data: { title: formData.get('title') as string } })
+    revalidatePath('/')
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export async function getResume(id: string) {

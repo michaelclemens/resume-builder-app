@@ -1,10 +1,11 @@
 import { EmploymentHistory } from '@prisma/client'
+import { title } from 'process'
 import { useCallback } from 'react'
+import { SectionEnums } from '@/types/section'
 import { ResumeFull } from '@/lib/client/resume'
 import { reset } from '@/lib/redux/reducers/resume'
 import { useAppDispatch } from '@/lib/redux/store'
 import { getSection } from '@/util/section'
-import { SectionEnums } from '@/types/section'
 import useResume from './useResume'
 import useSectionItem from './useSectionItem'
 import useSectionList from './useSectionList'
@@ -12,6 +13,7 @@ import useSectionList from './useSectionList'
 export default function useResumePreview(initialFullResume: ResumeFull) {
   const initialResume = {
     id: initialFullResume.id,
+    title: initialFullResume.title,
     template: initialFullResume.template,
     templateOptions: initialFullResume.templateOptions,
     createdAt: initialFullResume.createdAt,

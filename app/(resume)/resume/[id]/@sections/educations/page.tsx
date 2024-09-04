@@ -1,7 +1,7 @@
+import { SectionEnums } from '@/types/section'
 import { getEducations } from '@/lib/client/education'
 import { SectionForm } from '@/components/ui/form'
 import { SectionList } from '@/components/ui/list'
-import { SectionEnums } from '@/types/section'
 
 export default async function EducationSectionPage({ params: { id } }: { params: { id: string } }) {
   const educations = await getEducations(id)

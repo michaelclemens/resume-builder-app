@@ -1,8 +1,8 @@
 'use client'
 
-import { InputText, InputTypeEnum, RichTextEditor, SubmitButton } from '@/components/ui/form'
 import { PersonalSchemaType } from '@/types/form'
 import { BodyComponentProps } from '@/types/hook'
+import { InputText, InputTypeEnum, RichTextEditor, SubmitButton } from '@/components/ui/form'
 
 export default function FormBodyPersonal({
   form: {

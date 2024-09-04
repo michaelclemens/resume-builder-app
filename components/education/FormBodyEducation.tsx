@@ -1,8 +1,8 @@
 'use client'
 
-import { InputText, SubmitButton, InputTypeEnum, RichTextEditor } from '@/components/ui/form'
 import { EducationSchemaType } from '@/types/form'
 import { BodyComponentProps } from '@/types/hook'
+import { InputText, SubmitButton, InputTypeEnum, RichTextEditor } from '@/components/ui/form'
 
 export default function FormBodyEducation({
   form: {

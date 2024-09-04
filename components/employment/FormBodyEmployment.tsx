@@ -1,8 +1,8 @@
 'use client'
 
-import { InputText, SubmitButton } from '@/components/ui/form'
 import { EmploymentSchemaType } from '@/types/form'
 import { BodyComponentProps } from '@/types/hook'
+import { InputText, SubmitButton } from '@/components/ui/form'
 
 export default function FormBodyEmployment({
   form: {

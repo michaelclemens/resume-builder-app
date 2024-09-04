@@ -1,7 +1,7 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { ReactNode } from 'react'
-import { sortByOrder } from '@/util/sort'
 import { ListItemType } from '@/types/section'
+import { sortByOrder } from '@/util/sort'
 import Heading, { TemplateHeadingType } from './Heading'
 
 export default function ListContent<ItemType extends ListItemType>({

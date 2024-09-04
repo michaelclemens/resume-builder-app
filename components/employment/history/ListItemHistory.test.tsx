@@ -1,8 +1,8 @@
 import { createMockHistory, regexString } from '@/test/mocks'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import { getDisplayDate } from '@/util/date'
 import { ButtonType } from '@/types/list'
 import { SectionEnums } from '@/types/section'
+import { getDisplayDate } from '@/util/date'
 import { SectionForm } from '../../ui/form'
 import ListItemHistory from './ListItemHistory'
 

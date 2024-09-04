@@ -1,10 +1,10 @@
 'use client'
 
 import { Skill } from '@prisma/client'
-import { ExpandableWrapper } from '@/components/ui'
-import { ListButton, ListDivider } from '@/components/ui/list'
 import { ItemComponentProps } from '@/types/hook'
 import { SectionEnums } from '@/types/section'
+import { ExpandableWrapper } from '@/components/ui'
+import { ListButton, ListDivider } from '@/components/ui/list'
 import { SectionForm } from '../ui/form'
 
 export default function ListItemSkill({ item: skill, remove, setEditing, onSave, editing, deleting }: ItemComponentProps<Skill>) {

@@ -1,8 +1,8 @@
 'use client'
 
 import { useSectionForm } from '@/hooks'
-import { getSectionFormBodyComponent } from '@/util/form'
 import { SectionItemType, SectionType } from '@/types/section'
+import { getSectionFormBodyComponent } from '@/util/form'
 import Loading from '../Loading'
 
 export default function SectionForm({

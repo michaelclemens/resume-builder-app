@@ -2,11 +2,11 @@ import { renderFormBody } from '@/test/form'
 import { createMockHistory } from '@/test/mocks'
 import { EmploymentHistory } from '@prisma/client'
 import { waitFor, fireEvent } from '@testing-library/react'
+import { EmploymentHistorySchema } from '@/types/form'
+import { SectionEnums } from '@/types/section'
 import { disabledClass } from '@/components/ui/form/RichTextEditor'
 import { getInputDate, getMockInputDate } from '@/util/date'
 import { getDefaultValues, richTextEditorClassName } from '@/util/form'
-import { EmploymentHistorySchema } from '@/types/form'
-import { SectionEnums } from '@/types/section'
 import FormBodyHistory from './FormBodyHistory'
 
 const history = createMockHistory()
