@@ -12,8 +12,8 @@ const templateClassNames = {
   [Template.COMPACT]: { [TemplateHeading.h2]: 'font-oswald text-xl font-medium', [TemplateHeading.h3]: 'font-oswald text-sm font-medium' },
   [Template.SIMPLE]: { [TemplateHeading.h2]: 'inline bg-black px-2 py-1 text-[8pt] font-semibold uppercase tracking-widest text-white' },
   [Template.MODERN]: {
-    [TemplateHeading.h2]: 'text-xl font-semibold tracking-wide',
-    [TemplateHeading.h3]: 'pb-1 text-lg font-semibold tracking-wide',
+    [TemplateHeading.h2]: 'font-alexandria text-xl font-semibold tracking-wide',
+    [TemplateHeading.h3]: 'font-alexandria pb-1 text-lg font-semibold tracking-wide',
   },
   [Template.DEFAULT]: { [TemplateHeading.h2]: 'mb-3 border-b border-black pb-1 font-bold uppercase tracking-[0.2em]' },
 }

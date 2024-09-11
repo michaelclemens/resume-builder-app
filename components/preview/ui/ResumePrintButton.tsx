@@ -19,6 +19,7 @@ export default function ResumePrintButton({
     onBeforeGetContent: () => fixPDFHeight(resumePreviewRef.current),
     content: () => resumePreviewRef.current,
     onAfterPrint: () => setPrinting(false),
+    removeAfterPrint: true,
   })
 
   return (

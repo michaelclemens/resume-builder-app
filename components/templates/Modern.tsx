@@ -21,8 +21,8 @@ export default function Modern({
 }) {
   return (
     <div className={`${roboto.variable} ${alexandria.variable} flex h-full min-h-screen flex-col bg-white font-roboto text-[9.5pt] text-black`}>
-      <div className="flex h-full min-h-screen gap-x-4">
-        <ColourElement colourElementRef={colourElementRef} className="z-10 w-2/6 pb-2 pl-5 pr-2 pt-5 text-white">
+      <div className="flex h-full min-h-screen gap-x-6">
+        <ColourElement colourElementRef={colourElementRef} className="z-10 w-2/6 pb-2 pl-5 pr-3 pt-5 text-white">
           <ItemContent item={personal} heading="Contact" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt]">
             {personal => (
               <>
@@ -50,23 +50,14 @@ export default function Modern({
               </>
             )}
           </ItemContent>
-
           <ListContent items={skills} heading="Expertise" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt]">
             {skill => {
               const skillName = skill.name.split(':')
               return (
-                <fieldset key={skill.id} className="-ml-3 mb-1 rounded-md border border-slate-300/20 px-2 py-2">
+                <fieldset key={skill.id} className="-ml-2 mb-1 rounded-md border border-slate-300/20 px-2 py-2">
                   <legend className="px-1 text-[10pt] font-semibold tracking-wider">{skillName[0]}</legend>
                   <div className="-mt-2 tracking-wide">{skillName[1]}</div>
                 </fieldset>
-                // <div
-                //   key={skill.id}
-                //   className="mb-1 capitalize ring-1 ring-white last-of-type:mb-0 [&>:first-of-type]:inline-block [&>:first-of-type]:font-semibold [&>:first-of-type]:tracking-wider"
-                // >
-                //   {skill.name.split(':').map(name => (
-                //     <div key={name}>{name.trim()}</div>
-                //   ))}
-                // </div>
               )
             }}
           </ListContent>
@@ -92,18 +83,18 @@ export default function Modern({
             )}
           </ListContent>
         </ColourElement>
-        <div className="w-4/6 bg-white pb-2 pr-3">
-          <ItemContent item={personal} className="-ml-5 -mr-3 border-b border-slate-300/20 bg-blue-950/20 pb-3 pt-5 text-center">
+        <div className="w-4/6 bg-white pb-2 pr-6">
+          <ItemContent item={personal} className="-ml-5 -mr-6 border-b border-slate-300/20 bg-blue-950/5 pb-3 pt-5 text-center">
             {personal => (
-              <>
-                <div className="font-alexandria text-3xl font-semibold uppercase tracking-wide">
+              <div className="font-alexandria tracking-wider text-[#082A4D]">
+                <div className="text-3xl font-semibold uppercase">
                   {personal?.firstName} {personal?.lastName}
                 </div>
-                <div className="text-lg capitalize tracking-wide">{personal?.position}</div>
-              </>
+                <div className="text-lg capitalize">{personal?.position}</div>
+              </div>
             )}
           </ItemContent>
-          <ItemContent item={personal} heading="About" className="pt-2 text-[9.5pt]">
+          <ItemContent item={personal} heading="About" className="pt-3 text-[9.5pt]">
             {personal => (
               <>
                 {personal?.summary && (
@@ -137,7 +128,7 @@ export default function Modern({
                         </div>
 
                         {history.description && (
-                          <div className="mt-1 [&_.ql-editor]:leading-[18px]">
+                          <div className="mt-1 [&_.ql-editor]:leading-[18px] [&_.ql-editor_li:before]:pr-1 [&_.ql-editor_li:last-of-type]:mb-0 [&_.ql-editor_li]:mb-[5px]">
                             <RenderHtml html={history.description} />
                           </div>
                         )}
