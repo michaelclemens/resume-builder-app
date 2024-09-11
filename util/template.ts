@@ -29,7 +29,7 @@ export const getDefaultColours = (template: Template): TemplateColours => {
       text = '#000'
       break
     case Template.MODERN:
-      background = '#0584a9'
+      background = '#082A4D'
       text = '#FFF'
       break
     case Template.DEFAULT:

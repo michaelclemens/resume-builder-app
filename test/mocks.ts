@@ -100,6 +100,7 @@ export const createMockPersonal = (resumeId?: string): Personal => {
 
 export const createMockResume = (): Resume => ({
   id: cuid(),
+  title: 'Untitled',
   template: faker.helpers.enumValue(Template),
   templateOptions: null,
   createdAt: faker.date.recent(),
