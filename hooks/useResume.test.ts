@@ -36,7 +36,7 @@ describe('useResumeHook', () => {
     const newTemplate = resume.template === Template.DEFAULT ? Template.COMPACT : Template.DEFAULT
     await waitFor(() => result.current.updateTemplate(resume.id, newTemplate))
 
-    expect(mockUpdateResume).toHaveBeenCalledWith(resume.id, { template: newTemplate })
+    expect(mockUpdateResume).toHaveBeenCalledWith(resume.id, { template: newTemplate }, true)
     expect(store.getState().resume).toEqual(expect.objectContaining({ template: newTemplate }))
   })
   it('Should update resume template options', async () => {
