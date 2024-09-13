@@ -77,9 +77,11 @@ export async function getAllResumes() {
   }
 }
 
-export async function updateResume(id: string, data: Prisma.ResumeUpdateInput) {
+export async function updateResume(id: string, data: Prisma.ResumeUpdateInput, revalidate: boolean = false) {
   try {
-    return await prisma.resume.update({ where: { id }, data })
+    const resume = await prisma.resume.update({ where: { id }, data })
+    if (revalidate) revalidatePath('/')
+    return resume
   } catch (error) {
     console.error(error)
     return null
@@ -100,6 +102,52 @@ export async function generateResumePreview(id: string) {
   try {
     await generateScreenshot(id, `previews/${id}`)
     revalidatePath(`/resume/${id}/`)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function cloneResume(id: string) {
+  try {
+    const sourceResume = await getResumeFull(id)
+
+    const { id: resumeId } = await prisma.resume.create({
+      data: {
+        title: 'Undefined',
+        template: sourceResume.template,
+        templateOptions: sourceResume.templateOptions ?? undefined,
+      },
+    })
+
+    if (sourceResume.personal) {
+      await prisma.personal.create({
+        data: { ...sourceResume.personal, resumeId, id: undefined, createdAt: undefined, updatedAt: undefined },
+      })
+    }
+
+    for (const education of sourceResume.educations) {
+      await prisma.education.create({ data: { ...education, resumeId, id: undefined, createdAt: undefined, updatedAt: undefined } })
+    }
+
+    for (const employment of sourceResume.employments) {
+      const { id: employmentId } = await prisma.employment.create({
+        data: { ...employment, resumeId, id: undefined, createdAt: undefined, updatedAt: undefined, history: undefined },
+      })
+
+      for (const history of employment.history) {
+        await prisma.employmentHistory.create({ data: { ...history, employmentId, id: undefined, createdAt: undefined, updatedAt: undefined } })
+      }
+    }
+
+    for (const skill of sourceResume.skills) {
+      await prisma.skill.create({ data: { ...skill, resumeId, id: undefined, createdAt: undefined, updatedAt: undefined } })
+    }
+
+    for (const strength of sourceResume.strengths) {
+      await prisma.strength.create({ data: { ...strength, resumeId, id: undefined, createdAt: undefined, updatedAt: undefined } })
+    }
+
+    revalidatePath('/')
   } catch (error) {
     console.error(error)
   }

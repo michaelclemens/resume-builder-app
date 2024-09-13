@@ -18,7 +18,7 @@ export default function useResume({ initialResume }: { initialResume?: Resume | 
   }, [dispatch, initialResume, resume])
 
   const updateTemplate = async (resumeId: string, template: Template) => {
-    await updateResume(resumeId, { template })
+    await updateResume(resumeId, { template }, true)
     dispatch(setTemplate(template))
     if (process.env.GENERATE_RESUME_SCREENSHOTS === 'true') generateResumePreview(resumeId)
   }

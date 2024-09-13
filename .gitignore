@@ -42,5 +42,4 @@ next-env.d.ts
 /public/previews/
 
 # prisma
-/prisma/seed-private*
-/prisma/private.json
+/prisma/private.ts
