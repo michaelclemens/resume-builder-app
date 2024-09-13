@@ -125,7 +125,7 @@ export function createMultipleMockItems<ItemType>(
   count: number = 1,
   resumeId?: string
 ): ItemType[] {
-  let items = []
+  const items = []
   for (let i = 0; i < count; i++) {
     items.push(creator({ index: i + 1, resumeId }))
   }

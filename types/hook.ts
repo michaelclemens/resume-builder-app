@@ -4,7 +4,7 @@ import { SectionSchemaType } from './form'
 import { ListItemType } from './section'
 
 export type BodyComponentProps<TFormValues extends SectionSchemaType & FieldValues> = {
-  form: UseFormReturn<TFormValues, any, undefined>
+  form: UseFormReturn<TFormValues, unknown, undefined>
   editing: boolean
 }
 

@@ -18,12 +18,12 @@ export default function SectionList({
   sectionType: ListSectionType
   initialItems: ListItemType[] | null
   parentId?: string
-  parentProperty?: string
+  parentProperty?: keyof ListItemType
   emptyText?: string
 }) {
   const { items, saveSortOrder } = useSectionList(sectionType, { initialItems, parentId, parentProperty })
 
-  if (!items || !items.length) return <p>{emptyText}</p>
+  if (!items || !items.length) return <p className="px-5 py-2 text-center">{emptyText}</p>
 
   return (
     <div className="mx-1 mb-1 mt-2 divide-y divide-slate-300/60 rounded-lg text-white shadow-md ring-1 ring-slate-300/60 backdrop-blur-sm dark:divide-slate-400/20 dark:ring-slate-400/20">

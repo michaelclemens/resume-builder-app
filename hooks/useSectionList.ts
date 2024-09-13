@@ -7,11 +7,10 @@ import { getSection } from '@/util/section'
 
 export default function useSectionList<ItemType extends ListItemType>(
   sectionType: ListSectionType,
-  { initialItems = null, parentId, parentProperty }: { initialItems?: ItemType[] | null; parentId?: string; parentProperty?: string } = {}
+  { initialItems = null, parentId, parentProperty }: { initialItems?: ItemType[] | null; parentId?: string; parentProperty?: keyof ListItemType } = {}
 ) {
   const { state, client } = getSection(sectionType)
-  // @ts-ignore
-  const items = useAppSelector(rootState => state.selectors.selectItems(rootState, { parentId, parentProperty }))
+  const items = useAppSelector(rootState => state.selectors.selectItems(rootState, { parentId, parentProperty })) as ItemType[] | null
   const dispatch = useAppDispatch()
   const [editing, setEditing] = useState(false)
   const [deleting, setDeleting] = useState(false)

@@ -16,7 +16,7 @@ const createErrorPayload = (error: Error | null | unknown) => {
   if (error instanceof ZodError) {
     formErrors = []
     const { errors } = error
-    for (var i = 0; i < errors.length; i++) {
+    for (let i = 0; i < errors.length; i++) {
       formErrors.push({ path: errors[i].path[0] as string, message: errors[i].message })
     }
   } else if (error instanceof Error) {

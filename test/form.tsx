@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { zodResolver } from '@hookform/resolvers/zod'
 import { render, renderHook } from '@testing-library/react'
 import { ReactNode } from 'react'

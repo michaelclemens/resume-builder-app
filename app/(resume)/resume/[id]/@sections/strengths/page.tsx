@@ -7,7 +7,7 @@ export default async function StrengthSectionPage({ params: { id } }: { params: 
   const strengths = await getStrengths(id)
   return (
     <>
-      <SectionList sectionType={SectionEnums.strength} initialItems={strengths} />
+      <SectionList sectionType={SectionEnums.strength} initialItems={strengths} emptyText="No Strengths" />
       <SectionForm sectionType={SectionEnums.strength} parentId={id} />
     </>
   )

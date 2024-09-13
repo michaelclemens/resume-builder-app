@@ -1,8 +1,8 @@
 'use client'
 
-import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } from '@prisma/client'
+import { Education, EmploymentHistory, Personal, Skill, Strength } from '@prisma/client'
 import { createSelector, createSlice, PayloadAction, SliceCaseReducers, SliceSelectors, ValidateSliceCaseReducers } from '@reduxjs/toolkit'
-import { ListItemType, SectionEnums, SectionItemType, SectionType, SingleItemType } from '@/types/section'
+import { EmploymentWithHistory, ListItemType, SectionEnums, SectionItemType, SectionType, SingleItemType } from '@/types/section'
 
 type GenericState<T> = T | null
 
@@ -21,11 +21,10 @@ const singleItemReducers = {
 const listItemReducers = {
   setItems: <ItemType extends ListItemType>(
     state: GenericState<ItemType[] | null>,
-    { payload }: PayloadAction<{ items: ItemType[]; parentId?: string; parentProperty?: string }>
+    { payload }: PayloadAction<{ items: ItemType[]; parentId?: string; parentProperty?: keyof ItemType }>
   ) => {
     if (state && payload.parentId && payload.parentProperty) {
-      // @ts-ignore
-      state = state.filter((item: ItemType) => item[payload.parentProperty] !== payload.parentId) ?? []
+      state = state.filter(item => payload.parentProperty && item[payload.parentProperty] !== payload.parentId) ?? []
       for (const item of payload.items) {
         state.push(item)
       }
@@ -41,14 +40,14 @@ const listItemReducers = {
   },
   updateItem: <ItemType extends SectionItemType>(state: GenericState<ItemType[] | null>, { payload }: PayloadAction<ItemType>) => {
     if (!state) return
-    const index = state.findIndex(({ id }: ItemType) => id === payload.id)
+    const index = state.findIndex(({ id }) => id === payload.id)
     if (index === -1) return
     state[index] = payload
     return state
   },
   removeItem: <ItemType extends ListItemType>(state: GenericState<ItemType[] | null>, { payload }: PayloadAction<ItemType>) => {
     if (!state) return
-    const index = state.findIndex(({ id }: ItemType) => id === payload.id)
+    const index = state.findIndex(({ id }) => id === payload.id)
     if (index === -1) return
     state.splice(index, 1)
     return state
@@ -60,8 +59,8 @@ const singleItemSelectors = {
 }
 
 const selectItemsById = createSelector(
-  [state => state, (state, parentProperty) => parentProperty, (state, parentProperty, parentId) => parentId],
-  (state, parentProperty, parentId) => state.filter((item: any) => item[parentProperty] === parentId)
+  [state => state, (_state, parentProperty) => parentProperty, (_state, _parentProperty, parentId) => parentId],
+  (state, parentProperty: keyof ListItemType, parentId) => state.filter((item: ListItemType) => item[parentProperty] === parentId)
 )
 
 const listItemSelectors = {
@@ -115,7 +114,7 @@ const educationSlice = createSectionSlice({
 
 const employmentSlice = createSectionSlice({
   name: SectionEnums.employment,
-  initialState: null as GenericState<Employment[] | null>,
+  initialState: null as GenericState<EmploymentWithHistory[] | null>,
   reducers: listItemReducers,
   selectors: listItemSelectors,
 })

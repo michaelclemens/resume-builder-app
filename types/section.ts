@@ -1,8 +1,6 @@
-import { Education, Employment, EmploymentHistory, Personal, Prisma, Skill, Strength } from '@prisma/client'
+import { Education, EmploymentHistory, Personal, Prisma, Skill, Strength } from '@prisma/client'
 
-export type EmploymentWithHistory = Prisma.EmploymentGetPayload<{
-  include: { history?: true }
-}>
+export type EmploymentWithHistory = Prisma.EmploymentGetPayload<{ include: { history: true } }>
 
 export enum SectionEnums {
   personal = 'personal',
@@ -28,5 +26,5 @@ export type ListSectionType = keyof typeof ListSectionEnums
 export type SectionType = SingleItemSectionType | ListSectionType
 
 export type SingleItemType = Personal
-export type ListItemType = Education | Employment | EmploymentWithHistory | EmploymentHistory | Skill | Strength
+export type ListItemType = Education | EmploymentHistory | Skill | Strength | EmploymentWithHistory
 export type SectionItemType = SingleItemType | ListItemType

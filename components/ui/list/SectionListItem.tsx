@@ -12,21 +12,13 @@ export default function SectionListItem({
   sectionType: ListSectionType
   item: ListItemType
   parentId?: string
-  parentProperty?: string
+  parentProperty?: keyof ListItemType
 }) {
   const { remove, setEditing, editing, deleting } = useSectionList(sectionType, { parentId, parentProperty })
   const ListItemComponent = getSectionListItemComponent(sectionType)
   return (
     <>
-      <ListItemComponent
-        // @ts-ignore
-        item={item}
-        remove={remove}
-        setEditing={setEditing}
-        onSave={() => setEditing(false)}
-        editing={editing}
-        deleting={deleting}
-      />
+      <ListItemComponent item={item} remove={remove} setEditing={setEditing} onSave={() => setEditing(false)} editing={editing} deleting={deleting} />
       {deleting && <Loading />}
     </>
   )

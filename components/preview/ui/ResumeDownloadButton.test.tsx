@@ -11,7 +11,7 @@ const fetch = jest.fn(() =>
     blob: () => Promise.resolve(blob),
   })
 )
-// @ts-ignore
+// @ts-expect-error: Missing properties error
 global.fetch = fetch
 const resumeId = cuid()
 const mockDownloadPDF = jest.mocked(downloadPDF)

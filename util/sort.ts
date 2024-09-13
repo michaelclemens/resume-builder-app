@@ -3,7 +3,7 @@ const compareTime = (a: { createdAt: string | number | Date }, b: { createdAt: s
 
 export const sortByLatestCreated = (a: { createdAt: string | number | Date }, b: { createdAt: string | number | Date }) => compareTime(a, b)
 
-export const sortByOrder = (a: { order?: any; createdAt: string | number | Date }, b: { order?: any; createdAt: string | number | Date }) => {
+export const sortByOrder = (a: { order?: number; createdAt: string | number | Date }, b: { order?: number; createdAt: string | number | Date }) => {
   if (a.order && b.order) {
     return a.order - b.order
   }

@@ -10,14 +10,14 @@ const toggleMode = jest.fn()
 describe('ThemeToggleComponent', () => {
   it('Should render light mode selected', () => {
     mockUseTheme.mockReturnValueOnce({ darkMode: false, toggleMode })
-    const { getByTitle, queryByTitle } = render(<ThemeToggle />)
+    const { getByTitle } = render(<ThemeToggle />)
 
     expect(getByTitle(lightModeTitle)).toBeInTheDocument()
     expect(getByTitle(lightModeTitle)).toHaveClass('opacity-100', 'dark:opacity-0')
   })
   it('Should render dark mode selected', () => {
     mockUseTheme.mockReturnValueOnce({ darkMode: true, toggleMode })
-    const { getByTitle, queryByTitle } = render(<ThemeToggle />)
+    const { getByTitle } = render(<ThemeToggle />)
 
     expect(getByTitle(darkModeTitle)).toBeInTheDocument()
     expect(getByTitle(darkModeTitle)).toHaveClass('opacity-0', 'dark:opacity-100')

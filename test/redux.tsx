@@ -12,7 +12,7 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
 const getWrapper =
   (store: Store<unknown, UnknownAction, unknown>) =>
   // eslint-disable-next-line react/display-name
-  ({ children }: PropsWithChildren<{}>): JSX.Element => <Provider store={store}>{children}</Provider>
+  ({ children }: PropsWithChildren<object>): JSX.Element => <Provider store={store}>{children}</Provider>
 
 export function renderWithProviders(
   ui: React.ReactElement,

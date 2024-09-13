@@ -14,13 +14,12 @@ export default function useSectionForm<TFormValues extends SectionSchemaType & F
   const dispatch = useAppDispatch()
   const form = useForm<TFormValues>({
     resolver: zodResolver(getSchema(sectionType)),
-    // @ts-ignore
     defaultValues: getDefaultValues(sectionType, item),
   })
 
   const editing = !!item
 
-  const save = async (parentId: string, formData: SectionSchemaType, onSave: () => void) => {
+  const save = async (parentId: string, formData: SectionSchemaType, onSave?: () => void) => {
     const response = editing ? await client.updateItem(item.id, parentId, formData) : await client.addItem(parentId, formData)
 
     if (response.status === ResponseStatus.success && response.payload) {
@@ -32,7 +31,7 @@ export default function useSectionForm<TFormValues extends SectionSchemaType & F
     if (response.status === ResponseStatus.error) {
       return handleErrorResponse(response, form.setError)
     }
-    onSave()
+    onSave && onSave()
     if (!editing) form.reset()
   }
 
