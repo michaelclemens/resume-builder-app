@@ -45,7 +45,8 @@ npm ci
 
 ### 2. Create and seed the database
 
-If you're using Docker on your computer, the following script will set up a PostgreSQL database using the `docker-compose.yml` file at the root of your project:
+If you're using Docker on your computer, the following script will set up a PostgreSQL database using the `docker-compose.yml` file at the root of
+your project:
 
 ```
 npm run db:up
@@ -57,7 +58,8 @@ Run the following command to create your PostgreSQL database:
 npx prisma migrate dev --name init
 ```
 
-When `npx prisma migrate dev` is executed against a newly created database, seeding is also triggered. The seed file in [`prisma/seed.ts`](./prisma/seed.ts) will be executed and your database will be populated with a sample resume.
+When `npx prisma migrate dev` is executed against a newly created database, seeding is also triggered. The seed file in
+[`prisma/seed.ts`](./prisma/seed.ts) will be executed and your database will be populated with a sample resume.
 
 ### 3. Configuring your environment
 
@@ -65,7 +67,8 @@ When `npx prisma migrate dev` is executed against a newly created database, seed
 cp .env.example .env
 ```
 
-Ensure these variables are correct. The `CHROME_EXECUTABLE_PATH` is used by Puppeteer when downloading a PDF of the resume. To find this locally go to [`chrome://version/`](chrome://version/) in a Chrome browser and copy the `Executable Path` value
+Ensure these variables are correct. The `CHROME_EXECUTABLE_PATH` is used by Puppeteer when downloading a PDF of the resume. To find this locally go to
+[`chrome://version/`](chrome://version/) in a Chrome browser and copy the `Executable Path` value
 
 ### 4. Start the app
 
