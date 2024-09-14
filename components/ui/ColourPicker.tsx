@@ -1,20 +1,14 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { RefObject, useRef, useState } from 'react'
 import { HexColorInput, HexColorPicker } from 'react-colorful'
-import { FaFillDrip } from 'react-icons/fa'
-import { MdFormatColorText } from 'react-icons/md'
 import { ColourElements, ColourElementType } from '@/types/template'
 import useClickOutside from '@/hooks/useClickOutside'
 
-const getIcon = (elementType: ColourElementType) => {
-  switch (elementType) {
-    case ColourElements.text:
-      return MdFormatColorText
-    case ColourElements.background:
-    default:
-      return FaFillDrip
-  }
+const iconElementMap = {
+  [ColourElements.text]: dynamic(() => import('react-icons/md').then(mod => mod.MdFormatColorText)),
+  [ColourElements.background]: dynamic(() => import('react-icons/fa').then(mod => mod.FaFillDrip)),
 }
 
 export default function ColourPicker({
@@ -48,7 +42,7 @@ export default function ColourPicker({
     setShowPicker(false)
   })
 
-  const Icon = getIcon(elementType)
+  const Icon = iconElementMap[elementType]
   return (
     <>
       <button style={{ color: colour }} title={`Change ${elementType} colour`} onClick={() => setShowPicker(!showPicker)}>

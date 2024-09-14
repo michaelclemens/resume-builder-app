@@ -20,13 +20,13 @@ describe('List/ListButtonComponent', () => {
     const { getByRole } = render(<ListButton label={label} type={type} />)
     expect(getByRole('button', { name: label })).toBeInTheDocument()
   })
-  it('Should render an edit icon button', () => {
-    const { getByTitle } = render(<ListButton type={ButtonType.edit} />)
-    expect(getByTitle(regexString(ButtonType.edit))).toBeInTheDocument()
+  it('Should render an edit icon button', async () => {
+    const { findByTitle } = render(<ListButton type={ButtonType.edit} />)
+    expect(await findByTitle(regexString(ButtonType.edit))).toBeInTheDocument()
   })
-  it('Should render a delete icon button', () => {
-    const { getByTitle } = render(<ListButton type={ButtonType.delete} />)
-    expect(getByTitle(regexString(ButtonType.delete))).toBeInTheDocument()
+  it('Should render a delete icon button', async () => {
+    const { findByTitle } = render(<ListButton type={ButtonType.delete} />)
+    expect(await findByTitle(regexString(ButtonType.delete))).toBeInTheDocument()
   })
   it('Should fire callback on click', () => {
     const onClick = jest.fn()

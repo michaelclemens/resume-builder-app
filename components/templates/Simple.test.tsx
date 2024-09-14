@@ -2,6 +2,7 @@ import { createMockFullResume, regexString } from '@/test/mocks'
 import { getTemplateComponent, renderTemplateComponent } from '@/test/template'
 import { faker } from '@faker-js/faker'
 import { Template } from '@prisma/client'
+import { waitFor } from '@testing-library/react'
 import { getDisplayDate } from '@/util/date'
 import { getDefaultColours } from '@/util/template'
 
@@ -10,12 +11,14 @@ const resume = createMockFullResume()
 const defaults = getDefaultColours(template)
 
 describe('TemplateSimpleComponent', () => {
-  it('Should render with default colours', () => {
+  it('Should render with default colours', async () => {
     const { colourElementRef } = renderTemplateComponent(template, resume)
-    expect(colourElementRef.current).toHaveStyle({
-      backgroundColor: defaults.background,
-      color: defaults.text,
-    })
+    await waitFor(() =>
+      expect(colourElementRef.current).toHaveStyle({
+        backgroundColor: defaults.background,
+        color: defaults.text,
+      })
+    )
   })
   it('Should render saved colours', () => {
     const resumeWithColours = {

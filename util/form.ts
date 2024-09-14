@@ -1,10 +1,28 @@
 import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } from '@prisma/client'
+import dynamic from 'next/dynamic'
 import { EducationSchema, EmploymentHistorySchema, EmploymentSchema, PersonalSchema, SkillSchema, StrengthSchema } from '@/types/form'
 import { SectionEnums, SectionItemType, SectionType } from '@/types/section'
-import { FormBodyEducation, FormBodyEmployment, FormBodyHistory, FormBodyPersonal, FormBodySkill, FormBodyStrength } from '../components'
 import { getInputDate } from './date'
 
 export const richTextEditorClassName = 'rte-editor'
+
+const formComponentMap = {
+  [SectionEnums.personal]: dynamic(() => import('@/components/personal/FormBodyPersonal')),
+  [SectionEnums.education]: dynamic(() => import('@/components/education/FormBodyEducation')),
+  [SectionEnums.employment]: dynamic(() => import('@/components/employment/FormBodyEmployment')),
+  [SectionEnums.employmentHistory]: dynamic(() => import('@/components/employment/history/FormBodyHistory')),
+  [SectionEnums.skill]: dynamic(() => import('@/components/skill/FormBodySkill')),
+  [SectionEnums.strength]: dynamic(() => import('@/components/strength/FormBodyStrength')),
+}
+
+const schemaMap = {
+  [SectionEnums.personal]: PersonalSchema,
+  [SectionEnums.education]: EducationSchema,
+  [SectionEnums.employment]: EmploymentSchema,
+  [SectionEnums.employmentHistory]: EmploymentHistorySchema,
+  [SectionEnums.skill]: SkillSchema,
+  [SectionEnums.strength]: StrengthSchema,
+}
 
 const getDefaultValuesPersonal = (personal?: Personal) => ({
   firstName: personal?.firstName ?? '',
@@ -40,63 +58,17 @@ const getDefaultValuesEducation = (education?: Education) => ({
 
 const getDefaultValuesSkill = (skill?: Skill) => ({ name: skill?.name ?? '' })
 
-const getDefaultValuesStrength = (strength?: Strength) => ({
-  name: strength?.name ?? '',
-})
+const getDefaultValuesStrength = (strength?: Strength) => ({ name: strength?.name ?? '' })
 
-export function getDefaultValues(sectionType: SectionType, item?: SectionItemType) {
-  switch (sectionType) {
-    case SectionEnums.personal:
-      return getDefaultValuesPersonal(item as Personal)
-    case SectionEnums.education:
-      return getDefaultValuesEducation(item as Education)
-    case SectionEnums.employment:
-      return getDefaultValuesEmployment(item as Employment)
-    case SectionEnums.employmentHistory:
-      return getDefaultValuesEmploymentHistory(item as EmploymentHistory)
-    case SectionEnums.skill:
-      return getDefaultValuesSkill(item as Skill)
-    case SectionEnums.strength:
-      return getDefaultValuesStrength(item as Strength)
-    default:
-      throw new Error(`Section ${sectionType} is not implemented`)
-  }
+const defaultValuesGetterMap = {
+  [SectionEnums.personal]: getDefaultValuesPersonal,
+  [SectionEnums.education]: getDefaultValuesEducation,
+  [SectionEnums.employment]: getDefaultValuesEmployment,
+  [SectionEnums.employmentHistory]: getDefaultValuesEmploymentHistory,
+  [SectionEnums.skill]: getDefaultValuesSkill,
+  [SectionEnums.strength]: getDefaultValuesStrength,
 }
 
-export function getSchema(sectionType: SectionType) {
-  switch (sectionType) {
-    case SectionEnums.personal:
-      return PersonalSchema
-    case SectionEnums.education:
-      return EducationSchema
-    case SectionEnums.employment:
-      return EmploymentSchema
-    case SectionEnums.employmentHistory:
-      return EmploymentHistorySchema
-    case SectionEnums.skill:
-      return SkillSchema
-    case SectionEnums.strength:
-      return StrengthSchema
-    default:
-      throw new Error(`Section ${sectionType} is not implemented`)
-  }
-}
-
-export function getSectionFormBodyComponent(sectionType: SectionType) {
-  switch (sectionType) {
-    case SectionEnums.personal:
-      return FormBodyPersonal
-    case SectionEnums.education:
-      return FormBodyEducation
-    case SectionEnums.employment:
-      return FormBodyEmployment
-    case SectionEnums.employmentHistory:
-      return FormBodyHistory
-    case SectionEnums.skill:
-      return FormBodySkill
-    case SectionEnums.strength:
-      return FormBodyStrength
-    default:
-      throw new Error(`Section ${sectionType} is not implemented`)
-  }
-}
+export const getDefaultValues = (sectionType: SectionType, item?: SectionItemType) => defaultValuesGetterMap[sectionType](item)
+export const getSchema = (sectionType: SectionType) => schemaMap[sectionType]
+export const getSectionFormBodyComponent = (sectionType: SectionType) => formComponentMap[sectionType]

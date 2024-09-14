@@ -1,19 +1,12 @@
-import { ListItemEducation, ListItemEmployment, ListItemHistory, ListItemSkill, ListItemStrength } from '@/components'
+import dynamic from 'next/dynamic'
 import { ListSectionType, SectionEnums } from '@/types/section'
 
-export function getSectionListItemComponent(sectionType: ListSectionType) {
-  switch (sectionType) {
-    case SectionEnums.education:
-      return ListItemEducation
-    case SectionEnums.employment:
-      return ListItemEmployment
-    case SectionEnums.employmentHistory:
-      return ListItemHistory
-    case SectionEnums.skill:
-      return ListItemSkill
-    case SectionEnums.strength:
-      return ListItemStrength
-    default:
-      throw new Error(`Section type ${sectionType} has no implementation`)
-  }
+const listItemComponentMap = {
+  [SectionEnums.education]: dynamic(() => import('@/components/education/ListItemEducation')),
+  [SectionEnums.employment]: dynamic(() => import('@/components/employment/ListItemEmployment')),
+  [SectionEnums.employmentHistory]: dynamic(() => import('@/components/employment/history/ListItemHistory')),
+  [SectionEnums.skill]: dynamic(() => import('@/components/skill/ListItemSkill')),
+  [SectionEnums.strength]: dynamic(() => import('@/components/strength/ListItemStrength')),
 }
+
+export const getSectionListItemComponent = (sectionType: ListSectionType) => listItemComponentMap[sectionType]

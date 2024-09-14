@@ -1,6 +1,7 @@
 import { useSectionList } from '@/hooks'
 import { createMockEmployment } from '@/test/mocks'
 import { renderWithProviders } from '@/test/redux'
+import { waitFor } from '@testing-library/react'
 import { SectionEnums } from '@/types/section'
 import ListItemEmployment from '@/components/employment/ListItemEmployment'
 import Loading from '@/components/ui/Loading'
@@ -18,17 +19,19 @@ const defaultHookReturn = { items: [], saveSortOrder: jest.fn(), remove: jest.fn
 const employment = createMockEmployment()
 
 describe('SectionListItemComponent', () => {
-  it('Should render correctly', () => {
+  it('Should render correctly', async () => {
     useSectionListHook.mockImplementationOnce(() => ({ ...defaultHookReturn, deleting: false }))
     renderWithProviders(<SectionListItem sectionType={SectionEnums.employment} item={employment} />)
 
-    expect(mockListItemComponent).toHaveBeenCalledWith(
-      expect.objectContaining({
-        item: employment,
-        editing: false,
-        deleting: false,
-      }),
-      expect.anything()
+    await waitFor(() =>
+      expect(mockListItemComponent).toHaveBeenCalledWith(
+        expect.objectContaining({
+          item: employment,
+          editing: false,
+          deleting: false,
+        }),
+        expect.anything()
+      )
     )
     expect(mockLoading).not.toHaveBeenCalled()
   })

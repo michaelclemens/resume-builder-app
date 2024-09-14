@@ -44,7 +44,7 @@ describe('FormComponent', () => {
     const resumeId = faker.string.alphanumeric({ length: 5 })
     renderComponent({ parentId: resumeId })
 
-    expect(FormBodyStrength).toHaveBeenCalledWith(expect.objectContaining({ editing: false }), expect.anything())
+    await waitFor(() => expect(FormBodyStrength).toHaveBeenCalledWith(expect.objectContaining({ editing: false }), expect.anything()))
   })
   it('Should render the body component for an update form', async () => {
     const strength = createMockStrength()
