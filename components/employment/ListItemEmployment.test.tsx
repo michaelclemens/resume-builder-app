@@ -23,10 +23,10 @@ const getListItemComponent = ({ editing = false, deleting = false } = {}) => (
 const renderComponent = (options = {}) => render(getListItemComponent(options))
 
 describe('ListItemEmploymentComponent', () => {
-  it('Should render a employment', () => {
+  it('Should render a employment', async () => {
     const { getByText } = renderComponent()
 
-    expect(getByText(employment.employer)).toBeInTheDocument()
+    await waitFor(() => expect(getByText(employment.employer)).toBeInTheDocument())
     expect(getByText(employment.city as string)).toBeInTheDocument()
     expect(mockHistorySection).toHaveBeenCalledWith(
       {

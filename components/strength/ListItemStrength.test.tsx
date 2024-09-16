@@ -20,10 +20,10 @@ const getListItemComponent = ({ editing = false, deleting = false } = {}) => (
 const renderComponent = (options = {}) => render(getListItemComponent(options))
 
 describe('ListItemStrengthComponent', () => {
-  it('Should render a strength', () => {
+  it('Should render a strength', async () => {
     const { getByText } = renderComponent()
 
-    expect(getByText(strength.name)).toBeInTheDocument()
+    await waitFor(() => expect(getByText(strength.name)).toBeInTheDocument())
   })
   it('Should render edit and delete buttons', () => {
     const { getByTitle } = renderComponent()

@@ -22,7 +22,7 @@ export default function Modern({
   return (
     <div className={`${roboto.variable} ${alexandria.variable} flex h-full min-h-screen gap-x-6 bg-white font-roboto text-[9.5pt] text-black`}>
       <ColourElement colourElementRef={colourElementRef} className="z-10 w-2/6 pb-2 pl-5 pr-3 pt-5 text-white">
-        <ItemContent item={personal} heading="Contact" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt]">
+        <ItemContent item={personal} heading="Contact" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt] leading-6">
           {personal => (
             <>
               {personal?.email && (
@@ -49,18 +49,18 @@ export default function Modern({
             </>
           )}
         </ItemContent>
-        <ListContent items={skills} heading="Expertise" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt]">
+        <ListContent items={skills} heading="Expertise" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt] leading-6">
           {skill => {
             const skillName = skill.name.split(':')
             return (
-              <fieldset key={skill.id} className="-ml-2 mb-1 rounded-md border border-slate-300/20 px-2 py-2">
+              <fieldset key={skill.id} className="-ml-2 mb-2 rounded-md border border-slate-300/20 px-2 py-2">
                 <legend className="px-1 text-[10pt] font-semibold tracking-wider">{skillName[0]}</legend>
                 <div className="-mt-2 tracking-wide">{skillName[1]}</div>
               </fieldset>
             )
           }}
         </ListContent>
-        <ListContent items={strengths} heading="Strengths" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt]">
+        <ListContent items={strengths} heading="Strengths" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt] leading-6">
           {strength => (
             <div key={strength.id} className="mb-1 capitalize last-of-type:mb-0">
               {strength.name}
@@ -97,7 +97,7 @@ export default function Modern({
           {personal => (
             <>
               {personal?.summary && (
-                <div>
+                <div className="[&_.ql-editor]:leading-[18px]">
                   <RenderHtml html={personal.summary} />
                 </div>
               )}
@@ -127,7 +127,7 @@ export default function Modern({
                       </div>
 
                       {history.description && (
-                        <div className="mt-1 [&_.ql-editor]:leading-[18px] [&_.ql-editor_li:before]:pr-1 [&_.ql-editor_li:last-of-type]:mb-0 [&_.ql-editor_li]:mb-[5px]">
+                        <div className="mt-1 [&_.ql-editor]:leading-[17px] [&_.ql-editor_li:before]:pr-1 [&_.ql-editor_li:last-of-type]:mb-0 [&_.ql-editor_li]:mb-2">
                           <RenderHtml html={history.description} />
                         </div>
                       )}

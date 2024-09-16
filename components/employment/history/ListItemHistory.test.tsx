@@ -21,10 +21,10 @@ const getListItemComponent = ({ editing = false, deleting = false } = {}) => (
 const renderComponent = (options = {}) => render(getListItemComponent(options))
 
 describe('ListItemHistoryComponent', () => {
-  it('Should render an employment history', () => {
+  it('Should render an employment history', async () => {
     const { getByText } = renderComponent()
 
-    expect(getByText(history.title)).toBeInTheDocument()
+    await waitFor(() => expect(getByText(history.title)).toBeInTheDocument())
     expect(getByText(regexString(`${getDisplayDate(history.startDate)} to ${getDisplayDate(history.endDate as Date)}`))).toBeInTheDocument()
   })
   it('Should render edit and delete buttons', () => {

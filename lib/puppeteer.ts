@@ -6,7 +6,7 @@ import path from 'node:path'
 import puppeteer, { ScreenshotOptions } from 'puppeteer-core'
 import { resumePrintPreviewID } from '@/types/template'
 
-const A4Heightpx = 1122
+const A4Heightpx = 1150
 
 const getPreviewUrl = (resumeId: string) => {
   const headersList = headers()
@@ -54,6 +54,7 @@ export async function generateScreenshot(
 export async function generatePDF(resumeId: string, elementId: string = resumePrintPreviewID) {
   const browser = await puppeteer.launch({
     executablePath: process.env.CHROME_EXECUTABLE_PATH,
+    defaultViewport: null,
   })
   const page = await browser.newPage()
 

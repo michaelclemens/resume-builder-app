@@ -20,34 +20,34 @@ const getColourPickerComponent = (elementType: ColourElementType, colour: string
 const renderComponent = (elementType: ColourElementType, colour: string) => render(getColourPickerComponent(elementType, colour))
 
 describe('ColourPickerComponent', () => {
-  it('Should render background colour picker button', () => {
+  it('Should render background colour picker button', async () => {
     const colour = faker.color.rgb({ format: 'hex' })
     const { getByRole, queryByTitle } = renderComponent(ColourElements.background, colour)
     const button = getByRole('button', { name: /change background colour/i })
-    expect(button).toBeInTheDocument()
+    await waitFor(() => expect(button).toBeInTheDocument())
     expect(button).toHaveStyle({ color: colour })
     expect(queryByTitle(/colour picker/i)).not.toBeInTheDocument()
   })
-  it('Should render text colour picker button', () => {
+  it('Should render text colour picker button', async () => {
     const colour = faker.color.rgb({ format: 'hex' })
     const { getByRole, queryByTitle } = renderComponent(ColourElements.text, colour)
     const button = getByRole('button', { name: /change text colour/i })
-    expect(button).toBeInTheDocument()
+    await waitFor(() => expect(button).toBeInTheDocument())
     expect(button).toHaveStyle({ color: colour })
     expect(queryByTitle(/colour picker/i)).not.toBeInTheDocument()
   })
-  it('Should show/hide colour picker when clicking button', () => {
+  it('Should show/hide colour picker when clicking button', async () => {
     const colour = faker.color.rgb({ format: 'hex' })
     const { getByRole, getByTitle, queryByTitle } = renderComponent(ColourElements.background, colour)
 
     const button = getByRole('button', { name: /change background colour/i })
     fireEvent.click(button)
-    expect(getByTitle(/colour picker/i)).toBeInTheDocument()
+    await waitFor(() => expect(getByTitle(/colour picker/i)).toBeInTheDocument())
 
     fireEvent.click(button)
     expect(queryByTitle(/colour picker/i)).not.toBeInTheDocument()
   })
-  it('Should update colour visually without saving', () => {
+  it('Should update colour visually without saving', async () => {
     const colour = faker.color.rgb({ format: 'hex' })
     const newColourBG = faker.color.rgb({ format: 'hex' })
     const newColourText = faker.color.rgb({ format: 'hex' })
@@ -56,14 +56,14 @@ describe('ColourPickerComponent', () => {
     fireEvent.click(getByRole('button', { name: /change background colour/i }))
     fireEvent.change(getByRole('textbox'), { target: { value: newColourBG } })
 
-    expect(getByTestId(colourElementId)).toHaveStyle({ backgroundColor: newColourBG })
+    await waitFor(() => expect(getByTestId(colourElementId)).toHaveStyle({ backgroundColor: newColourBG }))
     expect(onSave).not.toHaveBeenCalled()
 
     rerender(getColourPickerComponent(ColourElements.text, colour))
 
     fireEvent.change(getByRole('textbox'), { target: { value: newColourText } })
 
-    expect(getByTestId(colourElementId)).toHaveStyle({ color: newColourText })
+    await waitFor(() => expect(getByTestId(colourElementId)).toHaveStyle({ color: newColourText }))
     expect(onSave).not.toHaveBeenCalled()
   })
   it('Should save the colour when the picker is closed', async () => {

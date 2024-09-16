@@ -22,9 +22,9 @@ const getListItemComponent = ({ editing = false, deleting = false } = {}) => (
 const renderComponent = (options = {}) => render(getListItemComponent(options))
 
 describe('ListItemEducationComponent', () => {
-  it('Should render a education', () => {
+  it('Should render a education', async () => {
     const { getByText } = renderComponent()
-    expect(getByText(regexString(`${education.degree} - ${education.school}`))).toBeInTheDocument()
+    await waitFor(() => expect(getByText(regexString(`${education.degree} - ${education.school}`))).toBeInTheDocument())
     expect(getByText(regexString(`${getDisplayDate(education.startDate)} to ${getDisplayDate(education.endDate as Date)}`))).toBeInTheDocument()
   })
   it('Should render edit and delete buttons', () => {

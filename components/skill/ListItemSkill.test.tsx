@@ -20,10 +20,10 @@ const getListItemComponent = ({ editing = false, deleting = false } = {}) => (
 const renderComponent = (options = {}) => render(getListItemComponent(options))
 
 describe('ListItemSkillComponent', () => {
-  it('Should render a skill', () => {
+  it('Should render a skill', async () => {
     const { getByText } = renderComponent()
 
-    expect(getByText(skill.name)).toBeInTheDocument()
+    await waitFor(() => expect(getByText(skill.name)).toBeInTheDocument())
   })
   it('Should render edit and delete buttons', () => {
     const { getByTitle } = renderComponent()
