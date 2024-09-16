@@ -1,5 +1,7 @@
 # Resume Builder App 📝 ![GitHub CI](https://github.com/michaelclemens/resume-builder-app/actions/workflows/ci.yml/badge.svg)
 
+![example](https://github.com/user-attachments/assets/214dd70d-c5a3-4564-9277-7f35562a4095)
+
 ## Overview
 
 ### Stack
