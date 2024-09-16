@@ -22,7 +22,7 @@ export const createMockSkill = ({ index, resumeId }: { index?: number; resumeId?
 })
 
 export const createMockEducation = ({ index, resumeId }: { index?: number; resumeId?: string } = {}): Education => {
-  const endDate = faker.date.past()
+  const endDate = faker.date.past({ years: 30 })
   const startDate = faker.date.past({ refDate: endDate })
   return {
     id: cuid(),
@@ -40,7 +40,7 @@ export const createMockEducation = ({ index, resumeId }: { index?: number; resum
 }
 
 export const createMockHistory = ({ index, employmentId }: { index?: number; employmentId?: string } = {}): EmploymentHistory => {
-  const endDate = faker.date.past()
+  const endDate = faker.date.past({ years: index ?? 1 * 5 })
   const startDate = faker.date.past({ refDate: endDate })
   return {
     id: cuid(),
