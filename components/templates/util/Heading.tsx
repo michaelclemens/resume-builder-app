@@ -8,7 +8,13 @@ export enum TemplateHeading {
 }
 export type TemplateHeadingType = keyof typeof TemplateHeading
 
-const templateClassNames = {
+type TemplateClassNamesType = {
+  [key in Template]?: {
+    [key in TemplateHeading]?: string
+  }
+}
+
+const templateClassNames: TemplateClassNamesType = {
   [Template.COMPACT]: { [TemplateHeading.h2]: 'font-oswald text-xl font-medium', [TemplateHeading.h3]: 'font-oswald text-sm font-medium' },
   [Template.SIMPLE]: { [TemplateHeading.h2]: 'inline bg-black px-2 py-1 text-[8pt] font-semibold uppercase tracking-widest text-white' },
   [Template.MODERN]: {
@@ -21,5 +27,5 @@ const templateClassNames = {
 export default function Heading({ heading, headingType = TemplateHeading.h2 }: { heading: string; headingType?: TemplateHeadingType }) {
   const { template } = useContext(TemplateConfigContext)
   const Element = headingType
-  return <Element className={templateClassNames[template][headingType] ?? ''}>{heading}</Element>
+  return <Element className={templateClassNames[template]?.[headingType] ?? ''}>{heading}</Element>
 }

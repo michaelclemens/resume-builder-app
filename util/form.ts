@@ -1,5 +1,5 @@
 import { Education, Employment, EmploymentHistory, Personal, Skill, Strength } from '@prisma/client'
-import dynamic from 'next/dynamic'
+import { lazy } from 'react'
 import { EducationSchema, EmploymentHistorySchema, EmploymentSchema, PersonalSchema, SkillSchema, StrengthSchema } from '@/types/form'
 import { SectionEnums, SectionItemType, SectionType } from '@/types/section'
 import { getInputDate } from './date'
@@ -7,12 +7,12 @@ import { getInputDate } from './date'
 export const richTextEditorClassName = 'rte-editor'
 
 const formComponentMap = {
-  [SectionEnums.personal]: dynamic(() => import('@/components/personal/FormBodyPersonal')),
-  [SectionEnums.education]: dynamic(() => import('@/components/education/FormBodyEducation')),
-  [SectionEnums.employment]: dynamic(() => import('@/components/employment/FormBodyEmployment')),
-  [SectionEnums.employmentHistory]: dynamic(() => import('@/components/employment/history/FormBodyHistory')),
-  [SectionEnums.skill]: dynamic(() => import('@/components/skill/FormBodySkill')),
-  [SectionEnums.strength]: dynamic(() => import('@/components/strength/FormBodyStrength')),
+  [SectionEnums.personal]: lazy(() => import('@/components/personal/FormBodyPersonal')),
+  [SectionEnums.education]: lazy(() => import('@/components/education/FormBodyEducation')),
+  [SectionEnums.employment]: lazy(() => import('@/components/employment/FormBodyEmployment')),
+  [SectionEnums.employmentHistory]: lazy(() => import('@/components/employment/history/FormBodyHistory')),
+  [SectionEnums.skill]: lazy(() => import('@/components/skill/FormBodySkill')),
+  [SectionEnums.strength]: lazy(() => import('@/components/strength/FormBodyStrength')),
 }
 
 const schemaMap = {

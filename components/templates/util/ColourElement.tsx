@@ -16,8 +16,8 @@ export default function ColourElement({
       ref={colourElementRef}
       className={className}
       style={{
-        backgroundColor: selectedColours.background ?? defaultColours.background,
-        color: selectedColours.text ?? defaultColours.text,
+        backgroundColor: selectedColours?.background ?? defaultColours.background,
+        color: selectedColours?.text ?? defaultColours.text,
       }}
     >
       {children}

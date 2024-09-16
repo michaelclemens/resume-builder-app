@@ -5,7 +5,7 @@ export const PersonalSchema = z.object({
   lastName: z.string().min(1, { message: 'Last Name is required' }),
   position: z.string().optional(),
   summary: z.string().optional(),
-  email: z.string().email().optional(),
+  email: z.string().email().optional().or(z.literal('')),
   phone: z.string().optional(),
   city: z.string().optional(),
   country: z.string().optional(),

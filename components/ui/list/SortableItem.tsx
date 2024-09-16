@@ -13,7 +13,7 @@ export default function SortableItem({ id, children }: { id: string; children: R
   }
 
   return (
-    <div ref={setNodeRef} style={style} className="relative flex flex-wrap items-center p-3">
+    <div ref={setNodeRef} style={style} className="relative flex min-h-12 flex-wrap items-center p-3">
       <div
         {...listeners}
         {...attributes}

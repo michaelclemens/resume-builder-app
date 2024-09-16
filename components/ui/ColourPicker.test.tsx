@@ -4,7 +4,6 @@ import { createRef } from 'react'
 import { ColourElements, ColourElementType } from '@/types/template'
 import ColourPicker from './ColourPicker'
 
-const onChange = jest.fn()
 const onSave = jest.fn()
 
 const colourElementId = 'test-colour-element'
@@ -14,7 +13,7 @@ const getColourPickerComponent = (elementType: ColourElementType, colour: string
   return (
     <>
       <div data-testid={colourElementId} ref={colourElementRef} />
-      <ColourPicker elementType={elementType} colour={colour} colourElementRef={colourElementRef} onChange={onChange} onSave={onSave} />
+      <ColourPicker elementType={elementType} colour={colour} colourElementRef={colourElementRef} onSave={onSave} />
     </>
   )
 }
@@ -58,7 +57,6 @@ describe('ColourPickerComponent', () => {
     fireEvent.change(getByRole('textbox'), { target: { value: newColourBG } })
 
     expect(getByTestId(colourElementId)).toHaveStyle({ backgroundColor: newColourBG })
-    expect(onChange).toHaveBeenLastCalledWith(newColourBG)
     expect(onSave).not.toHaveBeenCalled()
 
     rerender(getColourPickerComponent(ColourElements.text, colour))
@@ -66,7 +64,6 @@ describe('ColourPickerComponent', () => {
     fireEvent.change(getByRole('textbox'), { target: { value: newColourText } })
 
     expect(getByTestId(colourElementId)).toHaveStyle({ color: newColourText })
-    expect(onChange).toHaveBeenLastCalledWith(newColourText)
     expect(onSave).not.toHaveBeenCalled()
   })
   it('Should save the colour when the picker is closed', async () => {

@@ -11,41 +11,59 @@ const iconElementMap = {
   [ColourElements.background]: dynamic(() => import('react-icons/fa').then(mod => mod.FaFillDrip)),
 }
 
+const colourAttribute = 'data-colour'
+
 export default function ColourPicker({
   elementType,
   colour,
   colourElementRef,
-  onChange,
   onSave,
 }: {
   elementType: ColourElementType
   colour?: string
   colourElementRef: RefObject<HTMLDivElement>
-  onChange: (colour: string) => void
   onSave: (elementType: ColourElementType, colour: string) => Promise<void>
 }) {
+  const buttonRef = useRef<HTMLButtonElement | null>(null)
   const [showPicker, setShowPicker] = useState(false)
-  const pickerRef = useRef(null)
+  const pickerRef = useRef<HTMLDivElement | null>(null)
 
   const setElementStyle = (newColour: string) => {
+    if (!colourElementRef.current) return
     const property = elementType === ColourElements.background ? 'backgroundColor' : 'color'
-    if (colourElementRef.current) colourElementRef.current.style[property] = newColour
+    colourElementRef.current.style[property] = newColour
+  }
+
+  const setNewColour = (newColour: string) => {
+    if (!buttonRef.current) return
+    buttonRef.current.setAttribute(colourAttribute, newColour)
+  }
+
+  const getNewColour = () => {
+    if (!buttonRef.current) return
+    return buttonRef.current.getAttribute(colourAttribute)
   }
 
   const onColourSelect = (newColour: string) => {
     setElementStyle(newColour)
-    onChange(newColour)
+    setNewColour(newColour)
   }
 
   useClickOutside(pickerRef, async () => {
-    await onSave(elementType, colour ?? '')
+    await onSave(elementType, getNewColour() ?? '')
     setShowPicker(false)
   })
 
   const Icon = iconElementMap[elementType]
   return (
     <>
-      <button style={{ color: colour }} title={`Change ${elementType} colour`} onClick={() => setShowPicker(!showPicker)}>
+      <button
+        ref={buttonRef}
+        {...{ [colourAttribute]: colour }}
+        style={{ color: colour }}
+        title={`Change ${elementType} colour`}
+        onClick={() => setShowPicker(!showPicker)}
+      >
         <Icon size="2.5em" />
       </button>
       {showPicker && (

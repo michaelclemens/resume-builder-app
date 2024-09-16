@@ -1,10 +1,11 @@
 'use client'
 
-import { Ref, RefObject } from 'react'
+import { Ref, RefObject, Suspense } from 'react'
 import { resumePrintPreviewID } from '@/types/template'
 import { ResumeFull } from '@/lib/client/resume'
 import { getTemplateComponent, getTemplateConfig, TemplateConfigContext } from '@/util/template'
 import Footer from '../templates/util/Footer'
+import { Loading } from '../ui'
 import ResumeColourPicker from './ui/ResumeColourPicker'
 
 export const resumePrintFooterClass = 'resume-print-footer'
@@ -18,12 +19,14 @@ export default function ResumeTemplate({
   resumePreviewRef?: Ref<HTMLDivElement>
   colourElementRef?: RefObject<HTMLDivElement>
 }) {
-  const ResumeTemplateComponent = getTemplateComponent(resume.template)
   const templateConfig = getTemplateConfig(resume.template, resume.templateOptions)
+  const ResumeTemplateComponent = getTemplateComponent(resume.template)
   return (
     <TemplateConfigContext.Provider value={templateConfig}>
-      <div ref={resumePreviewRef} id={resumePrintPreviewID} className="relative w-[210mm]">
-        <ResumeTemplateComponent resume={resume} colourElementRef={colourElementRef} />
+      <div ref={resumePreviewRef} id={resumePrintPreviewID} className="relative min-h-screen w-[210mm]">
+        <Suspense fallback={<Loading />}>
+          <ResumeTemplateComponent resume={resume} colourElementRef={colourElementRef} />
+        </Suspense>
         <Footer />
       </div>
       {colourElementRef && <ResumeColourPicker resumeId={resume.id} colourElementRef={colourElementRef} />}

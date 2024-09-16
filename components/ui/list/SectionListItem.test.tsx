@@ -33,7 +33,6 @@ describe('SectionListItemComponent', () => {
         expect.anything()
       )
     )
-    expect(mockLoading).not.toHaveBeenCalled()
   })
   it('Should display loading when deleting', () => {
     useSectionListHook.mockImplementationOnce(() => ({ ...defaultHookReturn, deleting: true }))

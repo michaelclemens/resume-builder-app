@@ -1,19 +1,18 @@
 'use client'
 
 import { Template } from '@prisma/client'
-import dynamic from 'next/dynamic'
-import { createContext } from 'react'
+import { createContext, lazy } from 'react'
 import { ColourElements, TemplateOptions } from '@/types/template'
 
 type TemplateColours = {
-  [ColourElements.background]: string
-  [ColourElements.text]: string
+  [ColourElements.background]?: string
+  [ColourElements.text]?: string
 }
 
 type TemplateConfig = {
   template: Template
   defaultColours: TemplateColours
-  selectedColours: TemplateColours | object
+  selectedColours?: TemplateColours
 }
 
 const defaultColoursMap = {
@@ -24,10 +23,10 @@ const defaultColoursMap = {
 }
 
 const templateComponentMap = {
-  [Template.COMPACT]: dynamic(() => import('@/components/templates/Compact')),
-  [Template.SIMPLE]: dynamic(() => import('@/components/templates/Simple')),
-  [Template.MODERN]: dynamic(() => import('@/components/templates/Modern')),
-  [Template.DEFAULT]: dynamic(() => import('@/components/templates/Default')),
+  [Template.COMPACT]: lazy(() => import('@/components/templates/Compact')),
+  [Template.SIMPLE]: lazy(() => import('@/components/templates/Simple')),
+  [Template.MODERN]: lazy(() => import('@/components/templates/Modern')),
+  [Template.DEFAULT]: lazy(() => import('@/components/templates/Default')),
 }
 
 export const getDefaultColours = (template: Template): TemplateColours => ({
@@ -38,7 +37,7 @@ export const getDefaultColours = (template: Template): TemplateColours => ({
 export const getTemplateConfig = (template: Template, templateOptions?: TemplateOptions): TemplateConfig => ({
   template,
   defaultColours: getDefaultColours(template),
-  selectedColours: templateOptions?.colours ?? {},
+  selectedColours: templateOptions?.colours ?? undefined,
 })
 
 export const getTemplateComponent = (template: Template) => templateComponentMap[template]

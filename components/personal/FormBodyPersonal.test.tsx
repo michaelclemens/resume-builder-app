@@ -67,12 +67,11 @@ describe('FormBodyPersonalComponent', () => {
     await waitFor(() => {
       rerenderHook()
       expect(onSave).not.toHaveBeenCalled()
-      expect(getAllByRole('alert')).toHaveLength(3)
+      expect(getAllByRole('alert')).toHaveLength(2)
     })
 
     expect(getByText(/first name is required/i)).toBeInTheDocument()
     expect(getByText(/last name is required/i)).toBeInTheDocument()
-    expect(getByText(/invalid email/i)).toBeInTheDocument()
   })
   it('Should disable form elements when submitting', async () => {
     const { getByRole, getByLabelText, rerenderHook } = renderComponent()
