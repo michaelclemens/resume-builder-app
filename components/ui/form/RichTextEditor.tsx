@@ -5,6 +5,7 @@ import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
 import { richTextEditorClassName } from '@/util/form'
 import Loading from '../Loading'
 import ErrorMessage from './ErrorMessage'
+import styles from './RichTextEditor.module.css'
 
 const ReactQuill = dynamic(() => import('react-quill'), { loading: () => <Loading showSpinner={false} />, ssr: false })
 
@@ -27,7 +28,7 @@ export default function RichTextEditor<T extends FieldValues>({ name, control, p
   return (
     <div aria-label={name} className={`relative mb-3 min-h-24 ${isSubmitting ? disabledClass : ''}`}>
       <ReactQuill
-        className={`${richTextEditorClassName} text-gray-700 dark:text-white`}
+        className={`${richTextEditorClassName} ${styles.quill} text-gray-700 dark:text-white`}
         placeholder={placeholder}
         value={value}
         onChange={value => onChange(value)}

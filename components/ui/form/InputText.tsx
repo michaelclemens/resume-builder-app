@@ -2,6 +2,7 @@ import { ForwardedRef, forwardRef } from 'react'
 import { ChangeHandler, FieldError } from 'react-hook-form'
 import { getInputDate } from '@/util/date'
 import ErrorMessage from './ErrorMessage'
+import styles from './InputText.module.css'
 
 export enum InputTypeEnum {
   text = 'text',
@@ -46,7 +47,7 @@ export default forwardRef(function InputText(
           ref={inputRef}
           aria-label={name}
           aria-required={required}
-          className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 disabled:select-none disabled:opacity-50 dark:bg-slate-700 dark:text-white sm:text-sm"
+          className={`${styles.input} peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 disabled:select-none disabled:opacity-50 dark:bg-slate-700 dark:text-white sm:text-sm`}
           placeholder={label}
           disabled={disabled}
           onChange={onChange}

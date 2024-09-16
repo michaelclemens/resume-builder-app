@@ -1,7 +1,7 @@
 import { Template } from '@prisma/client'
 import { useContext } from 'react'
-import { resumePrintFooterClass } from '@/components/preview/ResumeTemplate'
 import { TemplateConfigContext } from '@/util/template'
+import styles from './Footer.module.css'
 
 type TemplateClassNamesType = {
   [key in Template]?: string
@@ -17,7 +17,7 @@ export default function Footer() {
   return (
     <div
       title="Resume Print Footer"
-      className={`${resumePrintFooterClass} pl-2 ${templateClassNames[template] ?? ''}`}
+      className={`${styles.footer} pl-2 ${templateClassNames[template] ?? ''}`}
       style={{
         color: selectedColours?.text ?? defaultColours.text,
       }}

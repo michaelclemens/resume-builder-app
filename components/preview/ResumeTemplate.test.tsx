@@ -2,7 +2,7 @@ import { createMockFullResume } from '@/test/mocks'
 import { render, waitFor } from '@testing-library/react'
 import { createRef } from 'react'
 import { resumePrintPreviewID } from '@/types/template'
-import ResumeTemplate, { resumePrintFooterClass } from './ResumeTemplate'
+import ResumeTemplate from './ResumeTemplate'
 
 jest.mock('@/components/templates')
 
@@ -18,6 +18,5 @@ describe('ResumeTemplateComponent', () => {
     expect(resumePreviewRef.current).toHaveClass('w-[210mm]')
     const footer = getByTitle(/resume print footer/i)
     expect(footer).toBeInTheDocument()
-    expect(footer).toHaveClass(resumePrintFooterClass)
   })
 })

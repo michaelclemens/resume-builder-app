@@ -1,0 +1,39 @@
+.print :global(.ql-editor) ul {
+  padding-left: 0;
+}
+
+@media print and (color) {
+  .print * {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  .print h1,
+  .print h2,
+  .print h3,
+  .print h4,
+  .print h5,
+  .print h6 {
+    break-after: avoid;
+    break-inside: avoid;
+  }
+  .print ul,
+  .print ol,
+  .print dl {
+    break-inside: auto;
+  }
+  .print section {
+    break-before: auto;
+    break-inside: avoid;
+    break-after: auto;
+  }
+  .print {
+    height: var(--print-height, 'auto');
+  }
+}

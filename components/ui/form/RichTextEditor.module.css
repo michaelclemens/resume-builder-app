@@ -1,0 +1,64 @@
+.quill :global(.ql-editor) {
+  @apply max-h-40 min-h-20 overflow-y-auto;
+}
+.quill :global(.ql-toolbar) {
+  @apply rounded-tl-md rounded-tr-md;
+}
+.quill :global(.ql-container) {
+  @apply rounded-bl-md rounded-br-md;
+}
+.quill :global(.ql-toolbar),
+.quill :global(.ql-container) {
+  background-color: #fff;
+}
+.quill :global(.ql-editor) ul {
+  padding-left: 0;
+}
+.quill :global(.ql-editor) ul li:before {
+  padding-right: 5px;
+}
+
+:global(.dark) .quill :global(.ql-toolbar),
+:global(.dark) .quill :global(.ql-container) {
+  @apply bg-slate-700;
+}
+:global(.dark) .quill :global(.ql-snow .ql-picker) {
+  color: #fff;
+}
+:global(.dark) .quill :global(.ql-toolbar),
+:global(.dark) .quill :global(.ql-container),
+:global(.dark) .quill :global(.ql-toolbar .ql-picker.ql-expanded .ql-picker-label),
+:global(.dark) .quill :global(.ql-toolbar .ql-picker.ql-expanded .ql-picker-options) {
+  @apply border-slate-600;
+}
+:global(.dark) .quill :global(.ql-toolbar .ql-stroke),
+:global(.dark) .quill :global(.ql-snow .ql-stroke) {
+  stroke: #fff;
+}
+:global(.dark) .quill :global(.ql-toolbar .ql-fill),
+:global(.dark) .quill :global(.ql-snow .ql-fill) {
+  fill: #fff;
+}
+:global(.dark) .quill :global(.ql-toolbar .ql-picker) {
+  color: #fff;
+}
+:global(.dark) .quill :global(.ql-toolbar .ql-picker-options),
+:global(.dark) .quill :global(.ql-snow .ql-picker-options) {
+  color: #fff;
+  @apply bg-slate-700;
+}
+:global(.dark) .quill :global(.ql-snow.ql-toolbar button:hover),
+:global(.dark) .quill :global(.ql-snow.ql-toolbar .ql-picker-label:hover),
+:global(.dark) .quill :global(.ql-snow.ql-toolbar .ql-picker-item:hover) {
+  color: rgb(5, 26, 77);
+}
+:global(.dark) .quill :global(.ql-snow.ql-toolbar button:hover .ql-stroke),
+:global(.dark) .quill :global(.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke),
+:global(.dark) .quill :global(.ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke) {
+  stroke: rgb(5, 26, 77);
+}
+:global(.dark) .quill :global(.ql-snow.ql-toolbar button:hover .ql-fill),
+:global(.dark) .quill :global(.ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill),
+:global(.dark) .quill :global(.ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill) {
+  fill: rgb(5, 26, 77);
+}

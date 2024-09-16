@@ -1,0 +1,4 @@
+.noTailwind,
+.noTailwind * {
+  all: revert;
+}

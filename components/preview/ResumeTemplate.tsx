@@ -6,9 +6,8 @@ import { ResumeFull } from '@/lib/client/resume'
 import { getTemplateComponent, getTemplateConfig, TemplateConfigContext } from '@/util/template'
 import Footer from '../templates/util/Footer'
 import { Loading } from '../ui'
+import styles from './ResumeTemplate.module.css'
 import ResumeColourPicker from './ui/ResumeColourPicker'
-
-export const resumePrintFooterClass = 'resume-print-footer'
 
 export default function ResumeTemplate({
   resume,
@@ -23,7 +22,7 @@ export default function ResumeTemplate({
   const ResumeTemplateComponent = getTemplateComponent(resume.template)
   return (
     <TemplateConfigContext.Provider value={templateConfig}>
-      <div ref={resumePreviewRef} id={resumePrintPreviewID} className="relative min-h-screen w-[210mm]">
+      <div ref={resumePreviewRef} id={resumePrintPreviewID} className={`${styles.print} relative min-h-screen w-[210mm]`}>
         <Suspense fallback={<Loading />}>
           <ResumeTemplateComponent resume={resume} colourElementRef={colourElementRef} />
         </Suspense>
