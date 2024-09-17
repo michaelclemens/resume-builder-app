@@ -14,7 +14,7 @@
 - 🌈 [Prisma ORM](https://www.prisma.io/docs/orm)
 - 🐘 [PostgreSQL 16](https://www.postgresql.org/docs/16/index.html)
 - 🎭 [Puppeteer](https://pptr.dev/)
-- 🃏 [Jest](https://jestjs.io/docs)
+- 🃏 [Jest](https://jestjs.io/docs) + [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 - 📏 [ESLint](https://eslint.org/docs)
 - 💖 [Prettier](https://prettier.io/docs/en/)
 - 👷 [GitHub Actions](https://docs.github.com/en/actions)
