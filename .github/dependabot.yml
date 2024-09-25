@@ -19,6 +19,7 @@ updates:
       npm-development:
         dependency-type: development
         update-types:
+          - "major"
           - "minor"
           - "patch"
       npm-production:
@@ -26,7 +27,4 @@ updates:
         update-types:
           - "minor"
           - "patch"
-        ignore:
-          - dependency-name: '*'
-            update-types: ["version-update:semver-major"]
     open-pull-requests-limit: 10
