@@ -15,11 +15,12 @@ export default function ResumePrintButton({
   const [printing, setPrinting] = useState(false)
   const handlePrint = useReactToPrint({
     documentTitle,
-    onBeforePrint: () => setPrinting(true),
-    onBeforeGetContent: () => fixPDFHeight(resumePreviewRef.current),
-    content: () => resumePreviewRef.current,
+    onBeforePrint: async () => {
+       setPrinting(true)
+       fixPDFHeight(resumePreviewRef.current)
+    },
+    contentRef: resumePreviewRef,
     onAfterPrint: () => setPrinting(false),
-    removeAfterPrint: true,
   })
 
   return (
