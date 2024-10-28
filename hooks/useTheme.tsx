@@ -21,7 +21,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [darkMode, setDarkMode] = useState(() => getDefaultDarkMode(darkThemeValue, localStorageKey))
 
   const applyTheme = (isDarkMode: boolean, darkThemeValue: string) => {
-    isDarkMode ? document.documentElement.classList.add(darkThemeValue) : document.documentElement.classList.remove(darkThemeValue)
+    if (isDarkMode) {
+      document.documentElement.classList.add(darkThemeValue)
+    } else {
+      document.documentElement.classList.remove(darkThemeValue)
+    }
   }
 
   useEffect(() => {

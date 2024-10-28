@@ -31,7 +31,7 @@ export default function useSectionForm<TFormValues extends SectionSchemaType & F
     if (response.status === ResponseStatus.error) {
       return handleErrorResponse(response, form.setError)
     }
-    onSave && onSave()
+    if (onSave) onSave()
     if (!editing) form.reset()
   }
 
