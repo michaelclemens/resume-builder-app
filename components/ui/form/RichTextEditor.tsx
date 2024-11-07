@@ -7,7 +7,7 @@ import Loading from '../Loading'
 import ErrorMessage from './ErrorMessage'
 import styles from './RichTextEditor.module.css'
 
-const ReactQuill = dynamic(() => import('react-quill'), { loading: () => <Loading showSpinner={false} />, ssr: false })
+const ReactQuill = dynamic(() => import('react-quill-new'), { loading: () => <Loading showSpinner={false} />, ssr: false })
 
 const toolbarOptions = [
   [{ header: [1, 2, 3, false] }],

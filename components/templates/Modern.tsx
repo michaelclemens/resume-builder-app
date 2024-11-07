@@ -1,6 +1,6 @@
 import { Alexandria, Roboto } from 'next/font/google'
 import { Ref } from 'react'
-import { FaEnvelope, FaGithub, FaMapMarkerAlt, FaMobileAlt } from 'react-icons/fa'
+import { FaEnvelope, FaMapMarkerAlt, FaMobileAlt } from 'react-icons/fa'
 import { ResumeFull } from '@/lib/client/resume'
 import { getDisplayDate } from '@/util/date'
 import { RenderHtml } from '../ui'
@@ -46,7 +46,6 @@ export default function Modern({
                   {personal?.country && `, ${personal.country}`}
                 </div>
               )}
-              
             </>
           )}
         </ItemContent>
