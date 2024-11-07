@@ -6,7 +6,7 @@
 
 ### Stack
 
-- ⚡️ [Next.js 14 with App Router](https://nextjs.org/docs)
+- ⚡️ [Next.js 15 with App Router](https://nextjs.org/docs)
 - ⚛️ [React 18](https://18.react.dev/)
 - ✨ [TypeScript](https://www.typescriptlang.org/docs/)
 - 💨 [Tailwind CSS 3](https://tailwindcss.com/docs)
