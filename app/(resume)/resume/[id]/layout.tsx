@@ -4,15 +4,13 @@ import { Tabs } from '@/components/ui'
 
 const tabs = ['personal', 'employments', 'educations', 'skills', 'strengths']
 
-export default async function ResumeSectionLayout({
-  params: { id },
-  children,
-  sections,
-}: {
-  params: { id: string }
-  children: React.ReactNode
-  sections: React.ReactNode
-}) {
+export default async function ResumeSectionLayout(props: { params: Promise<{ id: string }>; children: React.ReactNode; sections: React.ReactNode }) {
+  const params = await props.params
+
+  const { id } = params
+
+  const { children, sections } = props
+
   const resume = await getResume(id)
   return (
     <>

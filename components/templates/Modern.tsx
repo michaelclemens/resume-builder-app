@@ -1,6 +1,6 @@
 import { Alexandria, Roboto } from 'next/font/google'
 import { Ref } from 'react'
-import { FaEnvelope, FaMapMarkerAlt, FaMobileAlt } from 'react-icons/fa'
+import { FaEnvelope, FaGithub, FaMapMarkerAlt, FaMobileAlt } from 'react-icons/fa'
 import { ResumeFull } from '@/lib/client/resume'
 import { getDisplayDate } from '@/util/date'
 import { RenderHtml } from '../ui'
@@ -22,7 +22,7 @@ export default function Modern({
   return (
     <div className={`${roboto.variable} ${alexandria.variable} flex h-full min-h-screen gap-x-6 bg-white font-roboto text-[9.5pt] text-black`}>
       <ColourElement colourElementRef={colourElementRef} className="z-10 w-2/6 pb-2 pl-5 pr-3 pt-5 text-white">
-        <ItemContent item={personal} heading="Contact" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt] leading-6">
+        <ItemContent item={personal} className="mb-3 text-[9.5pt] leading-6">
           {personal => (
             <>
               {personal?.email && (
@@ -46,6 +46,7 @@ export default function Modern({
                   {personal?.country && `, ${personal.country}`}
                 </div>
               )}
+              
             </>
           )}
         </ItemContent>
@@ -93,7 +94,7 @@ export default function Modern({
             </div>
           )}
         </ItemContent>
-        <ItemContent item={personal} heading="About" className="pt-3 text-[9.5pt]">
+        <ItemContent item={personal} heading="Profile" className="pt-3 text-[9.5pt]">
           {personal => (
             <>
               {personal?.summary && (

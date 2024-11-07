@@ -3,7 +3,11 @@ import { getStrengths } from '@/lib/client/strength'
 import { SectionForm } from '@/components/ui/form'
 import { SectionList } from '@/components/ui/list'
 
-export default async function StrengthSectionPage({ params: { id } }: { params: { id: string } }) {
+export default async function StrengthSectionPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params
+
+  const { id } = params
+
   const strengths = await getStrengths(id)
   return (
     <>

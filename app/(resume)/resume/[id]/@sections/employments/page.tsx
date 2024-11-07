@@ -3,7 +3,11 @@ import { getEmployments } from '@/lib/client/employment'
 import { SectionForm } from '@/components/ui/form'
 import { SectionList } from '@/components/ui/list'
 
-export default async function EmploymentSectionPage({ params: { id } }: { params: { id: string } }) {
+export default async function EmploymentSectionPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params
+
+  const { id } = params
+
   const employments = await getEmployments(id)
   return (
     <>

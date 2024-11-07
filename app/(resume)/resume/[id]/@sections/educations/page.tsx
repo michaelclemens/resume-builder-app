@@ -3,7 +3,11 @@ import { getEducations } from '@/lib/client/education'
 import { SectionForm } from '@/components/ui/form'
 import { SectionList } from '@/components/ui/list'
 
-export default async function EducationSectionPage({ params: { id } }: { params: { id: string } }) {
+export default async function EducationSectionPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params
+
+  const { id } = params
+
   const educations = await getEducations(id)
   return (
     <>

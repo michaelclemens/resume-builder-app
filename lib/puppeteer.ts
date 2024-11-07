@@ -1,6 +1,6 @@
 'use server'
 
-import { headers } from 'next/headers'
+import { headers, type UnsafeUnwrappedHeaders } from 'next/headers'
 import * as fs from 'node:fs'
 import path from 'node:path'
 import puppeteer, { ScreenshotOptions } from 'puppeteer-core'
@@ -9,7 +9,7 @@ import { resumePrintPreviewID } from '@/types/template'
 const A4Heightpx = 1150
 
 const getPreviewUrl = (resumeId: string) => {
-  const headersList = headers()
+  const headersList = headers() as unknown as UnsafeUnwrappedHeaders
   const host = headersList.get('x-forwarded-host')
   const url = `http://${host}/resume/${resumeId}/preview`
   return url
