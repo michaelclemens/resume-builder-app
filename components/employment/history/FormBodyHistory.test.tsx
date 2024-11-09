@@ -4,7 +4,6 @@ import { EmploymentHistory } from '@prisma/client'
 import { waitFor, fireEvent } from '@testing-library/react'
 import { EmploymentHistorySchema } from '@/types/form'
 import { SectionEnums } from '@/types/section'
-import { disabledClass } from '@/components/ui/form/RichTextEditor'
 import { getInputDate, getMockInputDate } from '@/util/date'
 import { getDefaultValues, richTextEditorClassName } from '@/util/form'
 import FormBodyHistory from './FormBodyHistory'
@@ -78,7 +77,6 @@ describe('FormBodyHistoryComponent', () => {
     expect(getByRole('textbox', { name: /title/i })).toBeDisabled()
     expect(getByLabelText(/startdate/i)).toBeDisabled()
     expect(getByLabelText(/enddate/i)).toBeDisabled()
-    expect(getByLabelText(/description/i)).toHaveClass(disabledClass)
     expect(getByRole('button', { name: /add employment history/i })).toBeDisabled()
   })
   it('Should successfully submit form with new values', async () => {

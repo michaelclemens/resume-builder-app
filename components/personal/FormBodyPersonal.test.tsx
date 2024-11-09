@@ -5,7 +5,6 @@ import { waitFor, fireEvent } from '@testing-library/react'
 import { PersonalSchema } from '@/types/form'
 import { SectionEnums } from '@/types/section'
 import { getDefaultValues, richTextEditorClassName } from '@/util/form'
-import { disabledClass } from '../ui/form/RichTextEditor'
 import FormBodyPersonal from './FormBodyPersonal'
 
 const personal = createMockPersonal()
@@ -74,7 +73,7 @@ describe('FormBodyPersonalComponent', () => {
     expect(getByText(/last name is required/i)).toBeInTheDocument()
   })
   it('Should disable form elements when submitting', async () => {
-    const { getByRole, getByLabelText, rerenderHook } = renderComponent()
+    const { getByRole, rerenderHook } = renderComponent()
 
     fireEvent.click(getByRole('button', { name: /save/i }))
 
@@ -89,7 +88,6 @@ describe('FormBodyPersonalComponent', () => {
     expect(getByRole('textbox', { name: /phone/i })).toBeDisabled()
     expect(getByRole('textbox', { name: /city/i })).toBeDisabled()
     expect(getByRole('textbox', { name: /country/i })).toBeDisabled()
-    expect(getByLabelText(/summary/i)).toHaveClass(disabledClass)
     expect(getByRole('button', { name: /save/i })).toBeDisabled()
   })
   it('Should successfully submit form with new values', async () => {

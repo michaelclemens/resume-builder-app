@@ -2,7 +2,7 @@ import { Lato } from 'next/font/google'
 import { Ref } from 'react'
 import { ResumeFull } from '@/lib/client/resume'
 import { getDisplayDate } from '@/util/date'
-import { RenderHtml } from '../ui'
+import { RichTextViewer } from '../ui'
 import ColourElement from './util/ColourElement'
 import ItemContent from './util/ItemContent'
 import ListContent from './util/ListContent'
@@ -45,15 +45,7 @@ export default function Simple({
       </ColourElement>
       <div className="px-20 py-8">
         <ItemContent item={personal} heading="Profile" className="text-[9.5pt]">
-          {personal => (
-            <>
-              {personal?.summary && (
-                <div className="mt-3">
-                  <RenderHtml html={personal.summary} />
-                </div>
-              )}
-            </>
-          )}
+          {personal => personal?.summary && <RichTextViewer value={personal.summary} />}
         </ItemContent>
         <ListContent items={employments} heading="Employment History" className="pt-5 text-[9.5pt]">
           {employment => {
@@ -74,11 +66,7 @@ export default function Simple({
                         {getDisplayDate(history.startDate)}
                         {history.endDate && ` - ${getDisplayDate(history.endDate)}`}
                       </p>
-                      {history.description && (
-                        <div className="mt-2">
-                          <RenderHtml html={history.description} />
-                        </div>
-                      )}
+                      {history.description && <RichTextViewer value={history.description} />}
                     </div>
                   )}
                 </ListContent>
@@ -97,11 +85,7 @@ export default function Simple({
                 {getDisplayDate(education.startDate)}
                 {education.endDate && ` - ${getDisplayDate(education.endDate)}`}
               </p>
-              {education.description && (
-                <div className="mt-2">
-                  <RenderHtml html={education.description} />
-                </div>
-              )}
+              {education.description && <RichTextViewer value={education.description} />}
             </section>
           )}
         </ListContent>

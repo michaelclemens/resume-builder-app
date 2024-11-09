@@ -6,7 +6,6 @@ import { EducationSchema } from '@/types/form'
 import { SectionEnums } from '@/types/section'
 import { getInputDate, getMockInputDate } from '@/util/date'
 import { getDefaultValues, richTextEditorClassName } from '@/util/form'
-import { disabledClass } from '../ui/form/RichTextEditor'
 import FormBodyEducation from './FormBodyEducation'
 
 const education = createMockEducation()
@@ -87,7 +86,6 @@ describe('FormBodyEducationComponent', () => {
     expect(getByRole('textbox', { name: /degree/i })).toBeDisabled()
     expect(getByLabelText(/startdate/i)).toBeDisabled()
     expect(getByLabelText(/enddate/i)).toBeDisabled()
-    expect(getByLabelText(/description/i)).toHaveClass(disabledClass)
     expect(getByRole('button', { name: /add education/i })).toBeDisabled()
   })
   it('Should successfully submit form with new values', async () => {
@@ -101,7 +99,8 @@ describe('FormBodyEducationComponent', () => {
     fireEvent.change(getByLabelText(/enddate/i), { target: { value: getInputDate(newEducation.endDate ?? undefined) } })
 
     await waitFor(async () => {
-      fireEvent.change(getByLabelText(/description/i).querySelector(`.${richTextEditorClassName} p`), {
+      const description = getByLabelText(/description/i).querySelector(`.${richTextEditorClassName} p`)
+      fireEvent.change(description, {
         target: { textContent: newEducation.description },
       })
     })

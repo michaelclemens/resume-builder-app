@@ -3,14 +3,14 @@ import { Ref } from 'react'
 import { FaEnvelope, FaMapMarkerAlt, FaMobileAlt } from 'react-icons/fa'
 import { ResumeFull } from '@/lib/client/resume'
 import { getDisplayDate } from '@/util/date'
-import { RenderHtml } from '../ui'
+import RichTextViewer from '../ui/RichTextViewer'
 import ColourElement from './util/ColourElement'
 import { TemplateHeading } from './util/Heading'
 import ItemContent from './util/ItemContent'
 import ListContent from './util/ListContent'
 
-const roboto = Roboto({ weight: ['100', '300', '400', '700'], subsets: ['latin'], display: 'swap', variable: '--font-roboto' })
-const alexandria = Alexandria({ subsets: ['latin'], display: 'swap', variable: '--font-alexandria' })
+const roboto = Roboto({ weight: ['100', '300', '400', '500', '700'], subsets: ['latin'], display: 'swap', variable: '--font-roboto' })
+const alexandria = Alexandria({ weight: ['400', '600'], subsets: ['latin'], display: 'swap', variable: '--font-alexandria' })
 
 export default function Modern({
   resume: { personal, employments, educations, skills, strengths, histories: initialHistories },
@@ -20,18 +20,18 @@ export default function Modern({
   colourElementRef?: Ref<HTMLDivElement>
 }) {
   return (
-    <div className={`${roboto.variable} ${alexandria.variable} flex h-full min-h-screen gap-x-6 bg-white font-roboto text-[9.5pt] text-black`}>
+    <div
+      className={`${roboto.variable} ${alexandria.variable} prose prose-sm flex h-full min-h-screen w-full max-w-none gap-x-6 overflow-hidden text-pretty bg-white text-[9.5pt] text-black prose-h2:mb-1 prose-h2:mt-2 prose-h3:mt-2 prose-h3:text-[12.5pt] prose-h4:mt-1 prose-h4:text-[10.5pt] prose-a:font-normal prose-a:text-inherit prose-a:no-underline`}
+    >
       <ColourElement colourElementRef={colourElementRef} className="z-10 w-2/6 pb-2 pl-5 pr-3 pt-5 text-white">
-        <ItemContent item={personal} className="mb-3 text-[9.5pt] leading-6">
+        <ItemContent item={personal} className="mb-3 leading-6">
           {personal => (
             <>
               {personal?.email && (
-                <div>
-                  <a href={`mailto:${personal.email}`}>
-                    <FaEnvelope className="mb-1 mr-2 inline" />
-                    {personal.email}
-                  </a>
-                </div>
+                <a href={`mailto:${personal.email}`}>
+                  <FaEnvelope className="mb-1 mr-2 inline" />
+                  {personal.email}
+                </a>
               )}
               {personal?.phone && (
                 <div>
@@ -41,7 +41,7 @@ export default function Modern({
               )}
               {(personal?.city || personal?.country) && (
                 <div>
-                  <FaMapMarkerAlt className="mr-2 inline" />
+                  <FaMapMarkerAlt className="mb-1 mr-2 inline" />
                   {personal?.city}
                   {personal?.country && `, ${personal.country}`}
                 </div>
@@ -49,41 +49,41 @@ export default function Modern({
             </>
           )}
         </ItemContent>
-        <ListContent items={skills} heading="Expertise" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt] leading-6">
+        <ListContent items={skills} heading="Technical Expertise" headingType={TemplateHeading.h3} className="mb-3 leading-7">
           {skill => {
             const skillName = skill.name.split(':')
             return (
-              <fieldset key={skill.id} className="-ml-2 mb-2 rounded-md border border-slate-300/20 px-2 py-2">
-                <legend className="px-1 text-[10pt] font-semibold tracking-wider">{skillName[0]}</legend>
-                <div className="-mt-2 tracking-wide">{skillName[1]}</div>
+              <fieldset key={skill.id} className="-ml-3 -mr-1 mb-1 rounded-md border border-slate-300/20 px-2 py-1.5">
+                <legend className="px-1.5 text-[11pt] font-semibold tracking-wider">{skillName[0]}</legend>
+                <div className="-mt-2 font-medium tracking-wide">{skillName[1]}</div>
               </fieldset>
             )
           }}
         </ListContent>
-        <ListContent items={strengths} heading="Strengths" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt] leading-6">
+        <ListContent items={strengths} heading="Strengths" headingType={TemplateHeading.h3} className="mb-3 leading-6">
           {strength => (
-            <div key={strength.id} className="mb-1 capitalize last-of-type:mb-0">
+            <li key={strength.id} className="-ml-2 last-of-type:mb-0">
               {strength.name}
-            </div>
+            </li>
           )}
         </ListContent>
-        <ListContent items={educations} heading="Education" headingType={TemplateHeading.h3} className="mb-3 text-[9.5pt]">
+        <ListContent items={educations} heading="Education" headingType={TemplateHeading.h3} className="print:pt-10">
           {education => (
             <section key={education.id} className="mb-1 last-of-type:mb-0">
               <p className="capitalize">
                 {education.degree}, {education.school}
                 {education.city && `, ${education.city}`}
-              </p>
-              <p className="text-[7.5pt] uppercase tracking-wider opacity-70">
-                {getDisplayDate(education.startDate)}
-                {education.endDate && ` - ${getDisplayDate(education.endDate)}`}
+                <span className="mt-1 block text-[8pt] uppercase tracking-wider opacity-70">
+                  {getDisplayDate(education.startDate)}
+                  {education.endDate && ` - ${getDisplayDate(education.endDate)}`}
+                </span>
               </p>
             </section>
           )}
         </ListContent>
       </ColourElement>
-      <div className="w-4/6 bg-white pb-2 pr-6">
-        <ItemContent item={personal} className="-ml-5 -mr-6 border-b border-slate-300/20 bg-blue-950/5 pb-3 pt-5 text-center">
+      <div className="w-4/6 text-pretty bg-white pb-2 pr-6 prose-ul:-ml-2">
+        <ItemContent item={personal} className="-ml-8 -mr-8 border-b border-b-slate-200/80 bg-slate-50/90 pb-2 pt-3 text-center">
           {personal => (
             <div className="font-alexandria tracking-wider text-[#082A4D]">
               <div className="text-3xl font-semibold uppercase">
@@ -93,48 +93,36 @@ export default function Modern({
             </div>
           )}
         </ItemContent>
-        <ItemContent item={personal} heading="Profile" className="pt-3 text-[9.5pt]">
-          {personal => (
-            <>
-              {personal?.summary && (
-                <div className="[&_.ql-editor]:leading-[18px]">
-                  <RenderHtml html={personal.summary} />
-                </div>
-              )}
-            </>
-          )}
+        <ItemContent item={personal} heading="Profile">
+          {personal => personal?.summary && <RichTextViewer value={personal.summary} />}
         </ItemContent>
-        <ListContent items={employments} heading="Experience" className="pt-2 text-[9.5pt]">
+        <ListContent items={employments} heading="Professional Experience">
           {employment => {
             const histories = initialHistories
               ? initialHistories.filter(history => history.employmentId === employment.id)
               : (employment.history ?? [])
             return (
-              <section key={employment.id} className="pt-2 first-of-type:pt-0">
-                <div className="flex pt-1 text-[10pt] font-semibold tracking-wide">
+              <div key={employment.id}>
+                <h3 className="flex items-center font-semibold tracking-wide">
                   <div className="flex-grow">{employment.employer}</div>
                   {employment.city && <div>{employment.city}</div>}
-                </div>
+                </h3>
                 <ListContent items={histories}>
                   {history => (
-                    <div key={history.id}>
-                      <div className="flex pt-1 tracking-wide">
-                        <div className="flex-grow font-semibold">{history.title}</div>
-                        <div className="text-[7.5pt] uppercase tracking-wider text-gray-400">
+                    <section key={history.id}>
+                      <h4 className="mb-0 flex items-center tracking-wide">
+                        <div className="flex-grow">{history.title}</div>
+                        <div className="text-[8.5pt] uppercase text-gray-500">
                           {getDisplayDate(history.startDate)}
                           {history.endDate && ` - ${getDisplayDate(history.endDate)}`}
                         </div>
-                      </div>
+                      </h4>
 
-                      {history.description && (
-                        <div className="mt-1 [&_.ql-editor]:leading-[17px] [&_.ql-editor_li:before]:pr-1 [&_.ql-editor_li:last-of-type]:mb-0 [&_.ql-editor_li]:mb-2">
-                          <RenderHtml html={history.description} />
-                        </div>
-                      )}
-                    </div>
+                      {history.description && <RichTextViewer value={history.description} />}
+                    </section>
                   )}
                 </ListContent>
-              </section>
+              </div>
             )
           }}
         </ListContent>

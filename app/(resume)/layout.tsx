@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import React from 'react'
-import 'react-quill/dist/quill.snow.css'
 import { ThemeProvider } from '@/hooks/useTheme'
 import BackgroundImage from '@/components/ui/BackgroundImage'
 import Header from '@/components/ui/Header'

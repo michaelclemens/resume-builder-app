@@ -16,8 +16,20 @@ const config: Config = {
         roboto: ['var(--font-roboto)'],
         alexandria: ['var(--font-alexandria)'],
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            ul: {
+              '> li > p': {
+                marginTop: '0.3rem',
+                marginBottom: '0.3rem',
+              },
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [require('@tailwindcss/forms'), require('tailwind-scrollbar')],
+  plugins: [require('@tailwindcss/forms'), require('tailwind-scrollbar'), require('@tailwindcss/typography')],
 }
 export default config

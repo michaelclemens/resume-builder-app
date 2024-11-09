@@ -1,6 +1,6 @@
 'use server'
 
-import { headers, type UnsafeUnwrappedHeaders } from 'next/headers'
+import { headers } from 'next/headers'
 import * as fs from 'node:fs'
 import path from 'node:path'
 import puppeteer, { ScreenshotOptions } from 'puppeteer-core'
@@ -8,8 +8,8 @@ import { resumePrintPreviewID } from '@/types/template'
 
 const A4Heightpx = 1150
 
-const getPreviewUrl = (resumeId: string) => {
-  const headersList = headers() as unknown as UnsafeUnwrappedHeaders
+const getPreviewUrl = async (resumeId: string) => {
+  const headersList = await headers()
   const host = headersList.get('x-forwarded-host')
   const url = `http://${host}/resume/${resumeId}/preview`
   return url
@@ -27,7 +27,7 @@ export async function generateScreenshot(
   const page = await browser.newPage()
 
   try {
-    await page.goto(getPreviewUrl(resumeId))
+    await page.goto(await getPreviewUrl(resumeId))
 
     const fullPath = path.resolve('./public', basePath)
 
@@ -59,7 +59,7 @@ export async function generatePDF(resumeId: string, elementId: string = resumePr
   const page = await browser.newPage()
 
   try {
-    await page.goto(getPreviewUrl(resumeId))
+    await page.goto(await getPreviewUrl(resumeId), { waitUntil: 'networkidle2' })
     await page.evaluate(
       (elementId, A4Heightpx) => {
         const element = document.getElementById(elementId)

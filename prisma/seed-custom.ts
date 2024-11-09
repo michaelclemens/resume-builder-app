@@ -44,7 +44,7 @@ export const customSeed = async () => {
           title: history.title,
           startDate: new Date(history.startDate),
           endDate: new Date(history.endDate),
-          description: `<ul>${history.description.map(desc => `<li>${desc}</li>`).join('')}</ul>`,
+          description: `<ul>${history.description.map(desc => `<li><p>${desc}</p></li>`).join('')}</ul>`,
         })),
       })
     }

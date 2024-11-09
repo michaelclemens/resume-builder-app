@@ -4,6 +4,9 @@ const nextConfig = {
   eslint: {
     dirs: ['app', 'components', 'hooks', 'lib', 'test', 'types', 'util'],
   },
+  devIndicators: {
+    appIsrStatus: false,
+  },
 }
 
 export default nextConfig
