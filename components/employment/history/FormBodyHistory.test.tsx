@@ -89,7 +89,7 @@ describe('FormBodyHistoryComponent', () => {
 
     await waitFor(async () => {
       const descriptionContent = getByLabelText(/description/i).querySelector(`.${richTextEditorClassName} p`)
-      fireEvent.change(descriptionContent, { target: { textContent: newHistory.description } })
+      fireEvent.change(descriptionContent, { target: { innerHTML: newHistory.description } })
     })
 
     fireEvent.click(getByRole('button', { name: /save/i }))
@@ -101,7 +101,7 @@ describe('FormBodyHistoryComponent', () => {
           title: newHistory.title,
           startDate: getMockInputDate(newHistory.startDate),
           endDate: newHistory.endDate && getMockInputDate(newHistory.endDate),
-          description: expect.stringContaining(newHistory.description ?? ''),
+          description: expect.stringContaining(newHistory.description?.replace(/\s/g, ' ') ?? ''),
         }),
         expect.anything()
       )
