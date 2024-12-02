@@ -21,7 +21,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@formkit/auto-animate": "^0.8.2",
     "@hookform/resolvers": "^3.9.1",
-    "@prisma/client": "^5.22.0",
+    "@prisma/client": "^6.0.0",
     "@reduxjs/toolkit": "^2.3.0",
     "@tiptap/extension-placeholder": "^2.10.2",
     "@tiptap/extension-text-align": "^2.10.2",
