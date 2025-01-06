@@ -7,6 +7,7 @@ const nextConfig = {
   devIndicators: {
     appIsrStatus: false,
   },
+  serverExternalPackages: ['@whatwg-node'],
 }
 
 export default nextConfig

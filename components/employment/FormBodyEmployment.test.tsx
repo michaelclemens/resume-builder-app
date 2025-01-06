@@ -77,7 +77,7 @@ describe('FormBodyEmploymentComponent', () => {
           employer: newEmployment.employer,
           city: newEmployment.city,
         }),
-        expect.anything()
+        undefined
       )
     })
   })

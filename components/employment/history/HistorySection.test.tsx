@@ -37,14 +37,14 @@ describe('HistorySectionComponent', () => {
         parentProperty: 'employmentId',
         initialItems: [history],
       },
-      expect.anything()
+      undefined
     )
     expect(mockFormComponent).toHaveBeenCalledWith(
       {
         sectionType: SectionEnums.employmentHistory,
         parentId: history.employmentId,
       },
-      expect.anything()
+      undefined
     )
   })
 })

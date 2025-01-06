@@ -33,7 +33,7 @@ describe('ListItemEmploymentComponent', () => {
         employmentId: employment.id,
         histories: employment.history,
       },
-      expect.anything()
+      undefined
     )
   })
   it('Should render edit and delete buttons', () => {
@@ -63,7 +63,7 @@ describe('ListItemEmploymentComponent', () => {
         item: employment,
         onSave,
       }),
-      expect.anything()
+      undefined
     )
   })
   it('Should hide form when deleting', () => {

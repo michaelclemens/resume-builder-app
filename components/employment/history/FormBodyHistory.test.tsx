@@ -103,7 +103,7 @@ describe('FormBodyHistoryComponent', () => {
           endDate: newHistory.endDate && getMockInputDate(newHistory.endDate),
           description: expect.stringContaining(newHistory.description?.replace(/\s/g, ' ') ?? ''),
         }),
-        expect.anything()
+        undefined
       )
     })
   })

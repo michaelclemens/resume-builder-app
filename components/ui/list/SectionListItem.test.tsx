@@ -30,7 +30,7 @@ describe('SectionListItemComponent', () => {
           editing: false,
           deleting: false,
         }),
-        expect.anything()
+        undefined
       )
     )
   })

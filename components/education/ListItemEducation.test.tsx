@@ -54,7 +54,7 @@ describe('ListItemEducationComponent', () => {
         item: education,
         onSave,
       },
-      expect.anything()
+      undefined
     )
   })
   it('Should hide form when deleting', () => {

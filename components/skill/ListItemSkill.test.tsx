@@ -54,7 +54,7 @@ describe('ListItemSkillComponent', () => {
         item: skill,
         onSave,
       },
-      expect.anything()
+      undefined
     )
   })
   it('Should hide form when deleting', () => {

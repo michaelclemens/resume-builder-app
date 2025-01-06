@@ -55,7 +55,7 @@ describe('ListItemHistoryComponent', () => {
         item: history,
         onSave,
       },
-      expect.anything()
+      undefined
     )
   })
   it('Should hide form when deleting', () => {

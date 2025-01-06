@@ -72,7 +72,7 @@ describe('FormBodyStrengthComponent', () => {
         expect.objectContaining({
           name: newStrength.name,
         }),
-        expect.anything()
+        undefined
       )
     })
   })

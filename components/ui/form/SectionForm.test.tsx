@@ -44,7 +44,7 @@ describe('FormComponent', () => {
     const resumeId = faker.string.alphanumeric({ length: 5 })
     renderComponent({ parentId: resumeId })
 
-    await waitFor(() => expect(FormBodyStrength).toHaveBeenCalledWith(expect.objectContaining({ editing: false }), expect.anything()))
+    await waitFor(() => expect(FormBodyStrength).toHaveBeenCalledWith(expect.objectContaining({ editing: false }), undefined))
   })
   it('Should render the body component for an update form', async () => {
     const strength = createMockStrength()
@@ -53,7 +53,7 @@ describe('FormComponent', () => {
       item: strength,
     })
 
-    expect(FormBodyStrength).toHaveBeenCalledWith(expect.objectContaining({ editing: true }), expect.anything())
+    expect(FormBodyStrength).toHaveBeenCalledWith(expect.objectContaining({ editing: true }), undefined)
   })
   it('Should call onSave on successful update form submission', async () => {
     const strength = createMockStrength()

@@ -118,7 +118,7 @@ describe('FormBodyEducationComponent', () => {
           endDate: newEducation.endDate && getMockInputDate(newEducation.endDate),
           description: expect.stringContaining(newEducation.description ?? ''),
         }),
-        expect.anything()
+        undefined
       )
     })
   })

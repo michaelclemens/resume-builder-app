@@ -54,7 +54,7 @@ describe('ListItemStrengthComponent', () => {
         item: strength,
         onSave,
       },
-      expect.anything()
+      undefined
     )
   })
   it('Should hide form when deleting', () => {

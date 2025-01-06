@@ -72,7 +72,7 @@ describe('FormBodySkillComponent', () => {
         expect.objectContaining({
           name: newSkill.name,
         }),
-        expect.anything()
+        undefined
       )
     })
   })

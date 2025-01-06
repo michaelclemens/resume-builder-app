@@ -121,7 +121,7 @@ describe('FormBodyPersonalComponent', () => {
           city: newPersonal.city,
           country: newPersonal.country,
         }),
-        expect.anything()
+        undefined
       )
     })
   })

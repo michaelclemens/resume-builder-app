@@ -46,7 +46,7 @@ describe('SectionListComponent', () => {
           item: strength,
           parentId: undefined,
         },
-        expect.anything()
+        undefined
       )
     )
   })
@@ -63,7 +63,7 @@ describe('SectionListComponent', () => {
           item: history,
           parentId: employmentId,
         },
-        expect.anything()
+        undefined
       )
     )
   })
