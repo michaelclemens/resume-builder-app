@@ -23,8 +23,6 @@ export default function ResumePrintButton({
     onAfterPrint: () => setPrinting(false),
   })
 
-  console.log(handlePrint)
-
   return (
     <>
       <CtaButton title="Print Resume" onClick={() => handlePrint()}>

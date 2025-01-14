@@ -109,17 +109,18 @@ describe('FormBodyEducationComponent', () => {
 
     await waitFor(() => {
       rerenderHook()
-      expect(onSave).toHaveBeenCalledWith(
-        expect.objectContaining({
-          school: newEducation.school,
-          city: newEducation.city,
-          degree: newEducation.degree,
-          startDate: getMockInputDate(newEducation.startDate),
-          endDate: newEducation.endDate && getMockInputDate(newEducation.endDate),
-          description: expect.stringContaining(newEducation.description ?? ''),
-        }),
-        undefined
-      )
     })
+
+    expect(onSave).toHaveBeenCalledWith(
+      expect.objectContaining({
+        school: newEducation.school,
+        city: newEducation.city,
+        degree: newEducation.degree,
+        startDate: getMockInputDate(newEducation.startDate),
+        endDate: newEducation.endDate && getMockInputDate(newEducation.endDate),
+        description: expect.stringContaining(newEducation.description ?? ''),
+      }),
+      expect.anything()
+    )
   })
 })

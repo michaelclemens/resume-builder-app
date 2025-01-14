@@ -96,15 +96,16 @@ describe('FormBodyHistoryComponent', () => {
 
     await waitFor(() => {
       rerenderHook()
-      expect(onSave).toHaveBeenCalledWith(
-        expect.objectContaining({
-          title: newHistory.title,
-          startDate: getMockInputDate(newHistory.startDate),
-          endDate: newHistory.endDate && getMockInputDate(newHistory.endDate),
-          description: expect.stringContaining(newHistory.description?.replace(/\s/g, ' ') ?? ''),
-        }),
-        undefined
-      )
     })
+
+    expect(onSave).toHaveBeenCalledWith(
+      expect.objectContaining({
+        title: newHistory.title,
+        startDate: getMockInputDate(newHistory.startDate),
+        endDate: newHistory.endDate && getMockInputDate(newHistory.endDate),
+        description: expect.stringContaining(newHistory.description?.replace(/\s/g, ' ') ?? ''),
+      }),
+      expect.anything()
+    )
   })
 })

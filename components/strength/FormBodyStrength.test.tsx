@@ -68,12 +68,13 @@ describe('FormBodyStrengthComponent', () => {
 
     await waitFor(() => {
       rerenderHook()
-      expect(onSave).toHaveBeenCalledWith(
-        expect.objectContaining({
-          name: newStrength.name,
-        }),
-        undefined
-      )
     })
+
+    expect(onSave).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: newStrength.name,
+      }),
+      expect.anything()
+    )
   })
 })

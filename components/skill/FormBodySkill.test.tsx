@@ -68,12 +68,13 @@ describe('FormBodySkillComponent', () => {
 
     await waitFor(() => {
       rerenderHook()
-      expect(onSave).toHaveBeenCalledWith(
-        expect.objectContaining({
-          name: newSkill.name,
-        }),
-        undefined
-      )
     })
+
+    expect(onSave).toHaveBeenCalledWith(
+      expect.objectContaining({
+        name: newSkill.name,
+      }),
+      expect.anything()
+    )
   })
 })

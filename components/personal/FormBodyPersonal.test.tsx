@@ -110,19 +110,20 @@ describe('FormBodyPersonalComponent', () => {
 
     await waitFor(() => {
       rerenderHook()
-      expect(onSave).toHaveBeenCalledWith(
-        expect.objectContaining({
-          firstName: newPersonal.firstName,
-          lastName: newPersonal.lastName,
-          position: newPersonal.position,
-          summary: expect.stringContaining(newPersonal.summary ?? ''),
-          email: newPersonal.email,
-          phone: newPersonal.phone,
-          city: newPersonal.city,
-          country: newPersonal.country,
-        }),
-        undefined
-      )
     })
+
+    expect(onSave).toHaveBeenCalledWith(
+      expect.objectContaining({
+        firstName: newPersonal.firstName,
+        lastName: newPersonal.lastName,
+        position: newPersonal.position,
+        summary: expect.stringContaining(newPersonal.summary ?? ''),
+        email: newPersonal.email,
+        phone: newPersonal.phone,
+        city: newPersonal.city,
+        country: newPersonal.country,
+      }),
+      expect.anything()
+    )
   })
 })

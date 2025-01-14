@@ -72,13 +72,14 @@ describe('FormBodyEmploymentComponent', () => {
 
     await waitFor(() => {
       rerenderHook()
-      expect(onSave).toHaveBeenCalledWith(
-        expect.objectContaining({
-          employer: newEmployment.employer,
-          city: newEmployment.city,
-        }),
-        undefined
-      )
     })
+
+    expect(onSave).toHaveBeenCalledWith(
+      expect.objectContaining({
+        employer: newEmployment.employer,
+        city: newEmployment.city,
+      }),
+      expect.anything()
+    )
   })
 })
