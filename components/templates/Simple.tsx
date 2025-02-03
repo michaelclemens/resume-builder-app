@@ -17,12 +17,12 @@ export default function Simple({
   colourElementRef?: Ref<HTMLDivElement>
 }) {
   return (
-    <div className={`${lato.variable} flex h-full min-h-screen flex-col bg-white font-lato text-[8pt] text-black`}>
+    <div className={`${lato.variable} font-lato flex h-full min-h-screen flex-col bg-white text-[8pt] text-black`}>
       <ColourElement colourElementRef={colourElementRef}>
         <ItemContent item={personal} className="flex flex-row px-20 py-10">
           {personal => (
             <>
-              <div className="w-3/5 text-4xl font-extrabold uppercase leading-9">
+              <div className="w-3/5 text-4xl leading-9 font-extrabold uppercase">
                 <div>{personal?.firstName}</div>
                 <div>{personal?.lastName}</div>
               </div>
@@ -62,7 +62,7 @@ export default function Simple({
                   {history => (
                     <div key={history.id} className="pt-4 last-of-type:mb-0">
                       <p className="text-[10pt] font-bold">{history.title}</p>
-                      <p className="text-[7.5pt] font-thin uppercase tracking-widest text-gray-400">
+                      <p className="text-[7.5pt] font-thin tracking-widest text-gray-400 uppercase">
                         {getDisplayDate(history.startDate)}
                         {history.endDate && ` - ${getDisplayDate(history.endDate)}`}
                       </p>
@@ -81,7 +81,7 @@ export default function Simple({
                 {education.degree}, {education.school}
                 {education.city && `, ${education.city}`}
               </p>
-              <p className="text-[7.5pt] font-thin uppercase tracking-widest text-gray-400">
+              <p className="text-[7.5pt] font-thin tracking-widest text-gray-400 uppercase">
                 {getDisplayDate(education.startDate)}
                 {education.endDate && ` - ${getDisplayDate(education.endDate)}`}
               </p>

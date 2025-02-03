@@ -21,27 +21,27 @@ export default function Modern({
 }) {
   return (
     <div
-      className={`${roboto.variable} ${alexandria.variable} prose prose-sm flex h-full min-h-screen w-full max-w-none gap-x-6 overflow-hidden text-pretty bg-white text-[9.5pt] text-black prose-h2:mb-1 prose-h2:mt-2 prose-h3:mt-2 prose-h3:text-[12.5pt] prose-h4:mt-1 prose-h4:text-[10.5pt] prose-a:font-normal prose-a:text-inherit prose-a:no-underline`}
+      className={`${roboto.variable} ${alexandria.variable} prose prose-sm prose-h2:mb-1 prose-h2:mt-2 prose-h3:mt-2 prose-h3:text-[12.5pt] prose-h4:mt-1 prose-h4:text-[10.5pt] prose-a:font-normal prose-a:text-inherit prose-a:no-underline flex h-full min-h-screen w-full max-w-none gap-x-6 overflow-hidden bg-white text-[9.5pt] text-pretty text-black`}
     >
-      <ColourElement colourElementRef={colourElementRef} className="z-10 w-2/6 pb-2 pl-5 pr-3 pt-5 text-white">
+      <ColourElement colourElementRef={colourElementRef} className="z-10 w-2/6 pt-5 pr-3 pb-2 pl-5 text-white">
         <ItemContent item={personal} className="mb-3 leading-6">
           {personal => (
             <>
               {personal?.email && (
                 <a href={`mailto:${personal.email}`}>
-                  <FaEnvelope className="mb-1 mr-2 inline" />
+                  <FaEnvelope className="mr-2 mb-1 inline" />
                   {personal.email}
                 </a>
               )}
               {personal?.phone && (
                 <div>
-                  <FaMobileAlt className="mb-1 mr-2 inline" />
+                  <FaMobileAlt className="mr-2 mb-1 inline" />
                   {personal.phone}
                 </div>
               )}
               {(personal?.city || personal?.country) && (
                 <div>
-                  <FaMapMarkerAlt className="mb-1 mr-2 inline" />
+                  <FaMapMarkerAlt className="mr-2 mb-1 inline" />
                   {personal?.city}
                   {personal?.country && `, ${personal.country}`}
                 </div>
@@ -53,7 +53,7 @@ export default function Modern({
           {skill => {
             const skillName = skill.name.split(':')
             return (
-              <fieldset key={skill.id} className="-ml-3 -mr-1 mb-1 rounded-md border border-slate-300/20 px-2 py-1.5">
+              <fieldset key={skill.id} className="-mr-1 mb-1 -ml-3 rounded-md border border-slate-300/20 px-2 py-1.5">
                 <legend className="px-1.5 text-[11pt] font-semibold tracking-wider">{skillName[0]}</legend>
                 <div className="-mt-2 font-medium tracking-wide">{skillName[1]}</div>
               </fieldset>
@@ -73,7 +73,7 @@ export default function Modern({
               <p className="capitalize">
                 {education.degree}, {education.school}
                 {education.city && `, ${education.city}`}
-                <span className="mt-1 block text-[8pt] uppercase tracking-wider opacity-70">
+                <span className="mt-1 block text-[8pt] tracking-wider uppercase opacity-70">
                   {getDisplayDate(education.startDate)}
                   {education.endDate && ` - ${getDisplayDate(education.endDate)}`}
                 </span>
@@ -82,8 +82,8 @@ export default function Modern({
           )}
         </ListContent>
       </ColourElement>
-      <div className="w-4/6 text-pretty bg-white pb-2 pr-6 prose-ul:-ml-2">
-        <ItemContent item={personal} className="-ml-8 -mr-8 border-b border-b-slate-200/80 bg-slate-50/90 pb-2 pt-3 text-center">
+      <div className="prose-ul:-ml-2 w-4/6 bg-white pr-6 pb-2 text-pretty">
+        <ItemContent item={personal} className="-mr-8 -ml-8 border-b border-b-slate-200/80 bg-slate-50/90 pt-3 pb-2 text-center">
           {personal => (
             <div className="font-alexandria tracking-wider text-[#082A4D]">
               <div className="text-3xl font-semibold uppercase">
@@ -112,7 +112,7 @@ export default function Modern({
                     <section key={history.id}>
                       <h4 className="mb-0 flex items-center tracking-wide">
                         <div className="flex-grow">{history.title}</div>
-                        <div className="text-[8.5pt] uppercase text-gray-500">
+                        <div className="text-[8.5pt] text-gray-500 uppercase">
                           {getDisplayDate(history.startDate)}
                           {history.endDate && ` - ${getDisplayDate(history.endDate)}`}
                         </div>

@@ -17,7 +17,7 @@ export default function Default({
   colourElementRef?: Ref<HTMLDivElement>
 }) {
   return (
-    <div className={`${montserrat.variable} flex h-full min-h-screen flex-col bg-white font-montserrat text-[6.5pt] text-black`}>
+    <div className={`${montserrat.variable} font-montserrat flex h-full min-h-screen flex-col bg-white text-[6.5pt] text-black`}>
       <ItemContent item={personal} className="flex justify-center">
         {personal => (
           <div className="absolute mt-10 flex flex-col bg-white px-16 py-10 text-center uppercase ring-1 ring-black">
@@ -29,7 +29,7 @@ export default function Default({
         )}
       </ItemContent>
       <div className="flex h-full min-h-screen gap-x-7">
-        <ColourElement colourElementRef={colourElementRef} className="w-2/6 pl-14 pr-7 pt-52">
+        <ColourElement colourElementRef={colourElementRef} className="w-2/6 pt-52 pr-7 pl-14">
           <ItemContent item={personal} heading="Details" className="mb-7 text-[8pt]">
             {personal => (
               <>
@@ -72,7 +72,7 @@ export default function Default({
             )}
           </ListContent>
         </ColourElement>
-        <div className="w-4/6 bg-white pb-5 pr-14 pt-52">
+        <div className="w-4/6 bg-white pt-52 pr-14 pb-5">
           <ItemContent item={personal} heading="Profile" className="text-[8pt]">
             {personal => personal?.summary && <RichTextViewer value={personal.summary} />}
           </ItemContent>

@@ -35,7 +35,7 @@ export default function ListButton({
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`${className} ${Icon && iconClassNameMap[type]} ${paddingY} flex justify-center rounded-md px-2 font-medium text-white shadow-sm ring-1 ring-slate-300/60 transition-colors duration-500 hover:bg-slate-200/70 disabled:select-none disabled:opacity-50 dark:ring-slate-400/20 dark:hover:bg-slate-600/70`}
+      className={`${className} ${Icon && iconClassNameMap[type]} ${paddingY} flex justify-center rounded-md px-2 font-medium text-white ring-1 shadow-sm ring-slate-300/60 transition-colors duration-500 hover:bg-slate-200/70 disabled:opacity-50 disabled:select-none dark:ring-slate-400/20 dark:hover:bg-slate-600/70`}
     >
       {Icon ? <Icon title={type} /> : label}
     </button>

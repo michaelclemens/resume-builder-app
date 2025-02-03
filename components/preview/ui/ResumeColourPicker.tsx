@@ -28,7 +28,7 @@ export default function ResumeColourPicker({ resumeId, colourElementRef }: { res
   }
 
   return (
-    <div className={`absolute right-3 top-10 z-50 text-[6.5pt] print:hidden`}>
+    <div className={`absolute top-10 right-3 z-50 text-[6.5pt] print:hidden`}>
       <div className="mb-2">
         <ColourPicker elementType={ColourElements.background} colour={backgroundColour} colourElementRef={colourElementRef} onSave={onSave} />
       </div>

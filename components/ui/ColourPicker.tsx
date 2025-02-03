@@ -70,7 +70,7 @@ export default function ColourPicker({
         <div
           title="Colour Picker"
           ref={pickerRef}
-          className={`absolute z-50 flex -translate-y-10 translate-x-9 flex-col items-center rounded-lg bg-black/50 p-3 shadow-md ring-1 ring-slate-300/60 backdrop-blur-sm dark:ring-slate-400/20`}
+          className={`absolute z-50 flex -translate-y-10 translate-x-9 flex-col items-center rounded-lg bg-black/50 p-3 ring-1 shadow-md ring-slate-300/60 backdrop-blur-sm dark:ring-slate-400/20`}
         >
           <HexColorPicker color={colour} onChange={onColourSelect} />
           <div className="mt-2 [&>input]:rounded-md [&>input]:border [&>input]:border-gray-200 [&>input]:bg-white [&>input]:text-gray-700 [&>input]:shadow-sm [&>input]:focus-within:border-gray-400 [&>input]:focus-within:ring-1 [&>input]:focus-within:ring-gray-400 [&>input]:dark:border-slate-600 [&>input]:dark:bg-slate-700 [&>input]:dark:text-white">
