@@ -7,9 +7,9 @@ import Image from 'next/image'
 export default function BackgroundImage() {
   const common = { quality: 100, priority: true, fill: true, sizes: '100vw' }
   return (
-    <div className="fixed left-0 top-0 -z-10 h-screen w-screen">
+    <div className="fixed top-0 left-0 -z-10 h-screen w-screen">
       <Image
-        className="visible select-none brightness-75 dark:invisible"
+        className="visible brightness-75 select-none dark:invisible"
         src={backgroundLight}
         {...common}
         style={{ objectFit: 'cover' }}

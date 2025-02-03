@@ -19,16 +19,16 @@ export default function Compact({
   colourElementRef?: Ref<HTMLDivElement>
 }) {
   return (
-    <div className={`${lato.variable} ${oswald.variable} flex h-full min-h-screen flex-col bg-white font-lato text-[8pt] text-black`}>
+    <div className={`${lato.variable} ${oswald.variable} font-lato flex h-full min-h-screen flex-col bg-white text-[8pt] text-black`}>
       <div className="flex h-full min-h-screen gap-x-10">
-        <div className="w-4/6 bg-white pb-5 pl-14 pt-16">
+        <div className="w-4/6 bg-white pt-16 pb-5 pl-14">
           <ItemContent item={personal} className="mb-7">
             {personal => (
               <>
-                <div className="mb-2 font-oswald text-3xl font-medium">
+                <div className="font-oswald mb-2 text-3xl font-medium">
                   {personal?.firstName} {personal?.lastName}
                 </div>
-                <div className="text-[6.5pt] uppercase tracking-widest">{personal?.position}</div>
+                <div className="text-[6.5pt] tracking-widest uppercase">{personal?.position}</div>
               </>
             )}
           </ItemContent>
@@ -50,7 +50,7 @@ export default function Compact({
                     {history => (
                       <div key={history.id} className="pt-4 last-of-type:mb-0">
                         <p className="text-[10pt] font-bold">{history.title}</p>
-                        <p className="pt-1 text-[7.5pt] font-thin uppercase tracking-wider text-gray-400">
+                        <p className="pt-1 text-[7.5pt] font-thin tracking-wider text-gray-400 uppercase">
                           {getDisplayDate(history.startDate)}
                           {history.endDate && ` - ${getDisplayDate(history.endDate)}`}
                         </p>
@@ -69,7 +69,7 @@ export default function Compact({
                   {education.degree}, {education.school}
                   {education.city && `, ${education.city}`}
                 </p>
-                <p className="pt-1 text-[7.5pt] font-thin uppercase tracking-wider text-gray-400">
+                <p className="pt-1 text-[7.5pt] font-thin tracking-wider text-gray-400 uppercase">
                   {getDisplayDate(education.startDate)}
                   {education.endDate && ` - ${getDisplayDate(education.endDate)}`}
                 </p>
@@ -78,11 +78,11 @@ export default function Compact({
             )}
           </ListContent>
         </div>
-        <ColourElement colourElementRef={colourElementRef} className="w-2/6 px-10 pb-5 pt-36 text-white">
+        <ColourElement colourElementRef={colourElementRef} className="w-2/6 px-10 pt-36 pb-5 text-white">
           <ItemContent item={personal} heading="Details" headingType={TemplateHeading.h3} className="mb-7 text-[8pt]">
             {personal => (
               <>
-                {personal?.city && <div className="mb-1 mt-2">{personal.city}</div>}
+                {personal?.city && <div className="mt-2 mb-1">{personal.city}</div>}
                 {personal?.country && <div className="mb-1">{personal.country}</div>}
                 {personal?.phone && <div className="mb-1">{personal.phone}</div>}
                 {personal?.email && (

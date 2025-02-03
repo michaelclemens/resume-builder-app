@@ -23,14 +23,14 @@ export default function ResumePreview({ resume: initialResume }: { resume: Resum
 
   return (
     <div className="relative my-3 ml-1 flex">
-      <div className="relative z-40 rounded-lg px-12 py-10 shadow-md ring-1 ring-slate-300/60 backdrop-blur-sm dark:ring-slate-400/20">
+      <div className="relative z-40 rounded-lg px-12 py-10 ring-1 shadow-md ring-slate-300/60 backdrop-blur-sm dark:ring-slate-400/20">
         <ResumeTemplate resume={resume} resumePreviewRef={resumePreviewRef} colourElementRef={colourElementRef} />
       </div>
       <div className="flex w-full justify-center text-center">
         <div className="fixed -mt-3 h-screen px-5">
           <ResumePrintButton resumePreviewRef={resumePreviewRef} documentTitle={title} />
           <ResumeDownloadButton resumeId={resume.id} filename={title} />
-          <div className="mt-5 h-4/6 overflow-y-auto px-2 pt-1 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300/70 dark:scrollbar-thumb-slate-900/70">
+          <div className="scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-300/70 dark:scrollbar-thumb-slate-900/70 mt-5 h-4/6 overflow-y-auto px-2 pt-1">
             <TemplateSwitcher resumeId={resume.id} template={resume.template} />
           </div>
         </div>

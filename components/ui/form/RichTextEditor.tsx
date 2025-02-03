@@ -29,7 +29,7 @@ const activeBtnClass = 'text-gray-300 dark:text-gray-500'
 const Menu = ({ editor }: { editor: Editor | null }) => {
   if (!editor) return
   return (
-    <div className="mx-5 mb-0 mt-5 flex gap-x-5 border-b border-b-gray-200 pb-4 text-gray-700 dark:border-b-slate-600 dark:text-white">
+    <div className="mx-5 mt-5 mb-0 flex gap-x-5 border-b border-b-gray-200 pb-4 text-gray-700 dark:border-b-slate-600 dark:text-white">
       <div className="flex gap-x-2">
         <button type="button" onClick={() => editor.chain().focus().toggleBold().run()} className={editor.isActive('bold') ? activeBtnClass : ''}>
           <FaBold />
@@ -143,7 +143,7 @@ export default function RichTextEditor<T extends FieldValues>({ name, control, p
     <div
       aria-label={name}
       aria-disabled={!editable}
-      className={`relative mb-3 min-h-24 rounded-md border border-gray-200 bg-white text-gray-700 shadow-sm focus-within:border-gray-400 focus-within:ring-1 focus-within:ring-gray-400 aria-disabled:select-none aria-disabled:opacity-50 dark:border-slate-600 dark:bg-slate-700 dark:text-white`}
+      className={`relative mb-3 min-h-24 rounded-md border border-gray-200 bg-white text-gray-700 shadow-sm focus-within:border-gray-400 focus-within:ring-1 focus-within:ring-gray-400 aria-disabled:opacity-50 aria-disabled:select-none dark:border-slate-600 dark:bg-slate-700 dark:text-white`}
     >
       <Menu editor={editor} />
       <EditorContent editor={editor} />

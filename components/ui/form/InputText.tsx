@@ -47,7 +47,7 @@ export default forwardRef(function InputText(
           ref={inputRef}
           aria-label={name}
           aria-required={required}
-          className={`${styles.input} peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 disabled:select-none disabled:opacity-50 dark:bg-slate-700 dark:text-white sm:text-sm`}
+          className={`${styles.input} peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:ring-0 focus:outline-none disabled:opacity-50 disabled:select-none sm:text-sm dark:bg-slate-700 dark:text-white`}
           placeholder={label}
           disabled={disabled}
           onChange={onChange}

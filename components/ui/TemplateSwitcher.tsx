@@ -21,7 +21,7 @@ export default function TemplateSwitcher({ resumeId, template: currentTemplate }
         <div
           key={template}
           onClick={async () => onSelect(template)}
-          className={`mb-3 w-40 rounded-lg p-3 shadow-md ring-1 ring-slate-300/60 backdrop-blur-sm dark:ring-slate-400/20 ${isSelectedTemplate(template) ? 'select-none' : 'cursor-pointer'}`}
+          className={`mb-3 w-40 rounded-lg p-3 ring-1 shadow-md ring-slate-300/60 backdrop-blur-sm dark:ring-slate-400/20 ${isSelectedTemplate(template) ? 'select-none' : 'cursor-pointer'}`}
         >
           <Image
             className={`transition-all duration-500 ${isSelectedTemplate(template) ? selectedClassName : unselectedClassName} hover:brightness-100`}
