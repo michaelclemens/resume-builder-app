@@ -26,7 +26,7 @@ export default function SectionList({
   if (!items || !items.length) return <p className="px-5 py-2 text-center">{emptyText}</p>
 
   return (
-    <div className="mx-1 mt-2 mb-1 divide-y divide-slate-300/60 rounded-lg text-white ring-1 shadow-md ring-slate-300/60 backdrop-blur-sm dark:divide-slate-400/20 dark:ring-slate-400/20">
+    <div className="mx-1 mt-2 mb-1 divide-y divide-slate-300/60 rounded-lg text-white shadow-md ring-1 ring-slate-300/60 backdrop-blur-sm dark:divide-slate-400/20 dark:ring-slate-400/20">
       <SortableVerticalList items={items} onNewSortOrder={saveSortOrder}>
         {items.sort(sortByOrder).map(item => (
           <SortableItem key={item.id} id={item.id}>

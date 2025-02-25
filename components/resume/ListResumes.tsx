@@ -41,7 +41,7 @@ export default function ListResumes({ resumes }: { resumes: Resume[] | null }) {
 
   return (
     <div className="mx-auto flex w-1/2 justify-center">
-      <div className="relative flex max-w-full min-w-52 rounded-lg px-5 py-2 text-white ring-1 shadow-md ring-slate-300/60 backdrop-blur-sm dark:ring-slate-400/20">
+      <div className="relative flex max-w-full min-w-52 rounded-lg px-5 py-2 text-white shadow-md ring-1 ring-slate-300/60 backdrop-blur-sm dark:ring-slate-400/20">
         <div className="scrollbar scrollbar-track-transparent scrollbar-thumb-slate-300/70 dark:scrollbar-thumb-slate-900/70 flex snap-x gap-6 overflow-x-auto overflow-y-hidden px-1 pb-2">
           {resumes.sort(sortByLatestCreated).map(resume => (
             <div key={resume.id} className="snap-start scroll-ml-6">
