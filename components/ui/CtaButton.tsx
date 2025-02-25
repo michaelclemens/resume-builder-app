@@ -12,7 +12,7 @@ export default function CtaButton({
   onClick?: () => Promise<void> | void
 }) {
   return (
-    <div className="mx-1 my-3 rounded-lg p-3 ring-1 shadow-md ring-slate-300/60 backdrop-blur-sm dark:text-black dark:ring-slate-400/20">
+    <div className="mx-1 my-3 rounded-lg p-3 shadow-md ring-1 ring-slate-300/60 backdrop-blur-sm dark:text-black dark:ring-slate-400/20">
       <button
         aria-label={title}
         title={title}

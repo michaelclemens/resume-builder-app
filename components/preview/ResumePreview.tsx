@@ -23,7 +23,7 @@ export default function ResumePreview({ resume: initialResume }: { resume: Resum
 
   return (
     <div className="relative my-3 ml-1 flex">
-      <div className="relative z-40 rounded-lg px-12 py-10 ring-1 shadow-md ring-slate-300/60 backdrop-blur-sm dark:ring-slate-400/20">
+      <div className="relative z-40 rounded-lg px-12 py-10 shadow-md ring-1 ring-slate-300/60 backdrop-blur-sm dark:ring-slate-400/20">
         <ResumeTemplate resume={resume} resumePreviewRef={resumePreviewRef} colourElementRef={colourElementRef} />
       </div>
       <div className="flex w-full justify-center text-center">
