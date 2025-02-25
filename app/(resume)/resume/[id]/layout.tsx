@@ -1,3 +1,4 @@
+import { auth } from '@/auth'
 import { getResume } from '@/lib/client/resume'
 import ResumeTitle from '@/components/resume/ResumeTitle'
 import { Tabs } from '@/components/ui'
@@ -5,13 +6,14 @@ import { Tabs } from '@/components/ui'
 const tabs = ['personal', 'employments', 'educations', 'skills', 'strengths']
 
 export default async function ResumeSectionLayout(props: { params: Promise<{ id: string }>; children: React.ReactNode; sections: React.ReactNode }) {
+  const session = await auth()
+  console.log(session)
+
   const params = await props.params
-
   const { id } = params
-
   const { children, sections } = props
-
   const resume = await getResume(id)
+
   return (
     <>
       <ResumeTitle resume={resume} />
